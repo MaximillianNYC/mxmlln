@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors');
-const { createProxyMiddleware } = require('http-proxy-middleware')
+//const { createProxyMiddleware } = require('http-proxy-middleware')
 const { generateMeta } = require('./controllers/openaiController')
 
 const app = express()
@@ -14,6 +14,11 @@ app.post('/openai/meta', generateMeta)
 // Serve HTML file
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: __dirname });
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 //app.use(express.json())
