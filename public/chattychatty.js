@@ -55,7 +55,7 @@ chatSubmit.addEventListener('submit', async (e) => {
         loader.style.opacity = 1
     }, 100); // Adding a 100ms delay before displaying loader
 
-    const res = await fetch('http://localhost:8080/openai/meta', {
+    const res = await fetch('/openai/meta', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ defineProblem: userInput })
