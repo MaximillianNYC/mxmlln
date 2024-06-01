@@ -42,7 +42,7 @@ function openFullscreenModal() {
             document.getElementById('fullscreenModal').style.left = '38px';
             document.getElementById('fullscreenModal').style.maxHeight = '100dvh';
             document.getElementById('fullscreenModal').style.width = '100vw';
-            document.getElementById('fullscreenModal').style.left = '50%';
+            document.getElementById('fullscreenModal').style.left = '0';
         } else {
         }
     document.getElementById('modal-content').style.transition = 'visibility 1s, opacity 1s';
