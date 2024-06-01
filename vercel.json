@@ -1,6 +1,6 @@
 {
     "version": 2,
     "rewrites": [
-      { "source": "/api/openai/(.*)", "destination": "/api/openaiController.js" }
+      { "source": "/api/(.*)", "destination": "/api/" }
     ]
   }
