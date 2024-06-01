@@ -41,6 +41,15 @@ function openFullscreenModal() {
         document.getElementById('fullscreenModal').style.maxHeight = '800px';
         document.getElementById('fullscreenModal').style.left = 'calc(50% - 400px)';
         if (window.matchMedia("(max-width: 768px)").matches) {
+            document.getElementById('chatinput').addEventListener('focus', function() {
+                // Shrink the modal to fit the available space
+                document.getElementById('fullscreenModal').style.height = '50%';
+            });
+            // Listen for blur event on input fields
+            document.getElementById('chatinput').addEventListener('blur', function() {
+                // Resize the modal to its original size
+                document.getElementById('fullscreenModal').style.height = '100%';
+            });
             document.getElementById('fullscreenModal').style.borderRadius = '0px';
             document.getElementById('fullscreenModal').style.height = '100%';
             document.getElementById('fullscreenModal').style.maxHeight = '100dvh';
