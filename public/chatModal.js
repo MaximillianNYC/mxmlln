@@ -43,8 +43,9 @@ function openFullscreenModal() {
         if (window.matchMedia("(max-width: 768px)").matches) {
             document.getElementById('chatinput').addEventListener('focus', function() {
                 // Shrink the modal to fit the available space
-                document.getElementById('fullscreenModal').style.height = '50%';
+                document.getElementById('fullscreenModal').style.height = '50dvh';
                 document.getElementById('fullscreenModal').style.bottom = '0px';
+                document.body.style.overflow = 'hidden';
             });
             // Listen for blur event on input fields
             document.getElementById('chatinput').addEventListener('blur', function() {
