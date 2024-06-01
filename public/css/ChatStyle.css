@@ -283,6 +283,7 @@ button:disabled {
     padding: 0px;
     text-overflow: ellipsis;
     text-align: left;
+    width: 100%;
 }
 
 a {
