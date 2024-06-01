@@ -39,6 +39,7 @@ function openFullscreenModal() {
         document.getElementById('fullscreenModal').style.maxHeight = '800px';
         document.getElementById('fullscreenModal').style.left = 'calc(50% - 400px)';
         if (window.matchMedia("(max-width: 768px)").matches) {
+            document.getElementById('fullscreenModal').style.borderRadius = '0px';
             document.getElementById('fullscreenModal').style.height = '100%';
             document.getElementById('fullscreenModal').style.maxHeight = '100dvh';
             document.getElementById('fullscreenModal').style.width = '100vw';
