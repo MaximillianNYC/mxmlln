@@ -60,7 +60,9 @@ function openFullscreenModal() {
             document.getElementById('chatinput').addEventListener('blur', function() {
                 // Resize the modal to its original size
                 document.getElementById('fullscreenModal').style.height = '100%';
-                document.getElementById('fullscreenModal').style.bottom = '-2px';
+                setTimeout(function() {
+                    document.getElementById('fullscreenModal').style.bottom = '-2px';
+                }, 500);
             });
             document.getElementById('fullscreenModal').style.borderRadius = '0px';
             document.getElementById('fullscreenModal').style.height = '100%';
