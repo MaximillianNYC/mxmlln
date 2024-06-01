@@ -40,9 +40,12 @@ function openFullscreenModal() {
         document.getElementById('fullscreenModal').style.left = 'calc(50% - 400px)';
         if (window.matchMedia("(max-width: 768px)").matches) {
             document.getElementById('fullscreenModal').style.left = '38px';
+            document.getElementById('fullscreenModal').style.height = '100dvh';
             document.getElementById('fullscreenModal').style.maxHeight = '100dvh';
             document.getElementById('fullscreenModal').style.width = '100vw';
-            document.getElementById('fullscreenModal').style.left = '0';
+            document.getElementById('fullscreenModal').style.maxWidth = '100vw';
+            document.getElementById('fullscreenModal').style.left = '-2px';
+            document.getElementById('fullscreenModal').style.top = '-2px';
         } else {
         }
     document.getElementById('modal-content').style.transition = 'visibility 1s, opacity 1s';
