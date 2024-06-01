@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(express.static('public'));
 //app.listen(8080, () => console.log('listening for requests on port 8080'))
 
-app.post('/openai/meta', generateMeta)
+app.post('/api/index.js', generateMeta)
 
 // Serve HTML file
 app.get('/', (req, res) => {
