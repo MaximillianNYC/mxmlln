@@ -65,8 +65,9 @@ function closeFullscreenModal() {
         document.getElementById('modal-content').style.visibility = 'hidden';
         document.getElementById('modal-content').style.opacity = 0;
 
-    document.getElementById('fullscreenModal').style.transition = 'left 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('fullscreenModal').style.left = 'calc(50% - 152px)';    
+    document.getElementById('fullscreenModal').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
+        document.getElementById('fullscreenModal').style.left = 'calc(50% - 152px)'; 
+        document.getElementById('fullscreenModal').style.bottom = '38px';   
         document.getElementById('fullscreenModal').style.width = '300px';
         document.getElementById('fullscreenModal').style.height = '55px';
 
