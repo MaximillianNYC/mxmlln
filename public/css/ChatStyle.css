@@ -279,13 +279,12 @@ button:disabled {
 }
 
 .cardDescription {
-    overflow: hidden;
+    position: relative;
     width: 100%;
     background-color: #06AEEF;
 }
 
 .cardDescriptionText {
-    text-overflow: ellipsis;
     text-align: left;
     width: 100%;
 }
