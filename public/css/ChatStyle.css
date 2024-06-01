@@ -275,6 +275,7 @@ button:disabled {
 .cardDescription {
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
 }
 
 .cardDescriptionText {
