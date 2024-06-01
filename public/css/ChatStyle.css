@@ -192,7 +192,8 @@ button:disabled {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 600px;
+    max-width: 600px;
+    width: 90%;
     gap: 16px;
     padding-bottom: 80px;
     opacity: 0;
