@@ -69,9 +69,11 @@ function openFullscreenModal() {
     document.getElementById('responseLog').style.transition = 'opacity 1s';
         document.getElementById('responseLog').style.opacity = 1;
 
-    setTimeout(function() {
-        document.getElementById('chatinput').focus();
-    }, 500);
+    if (!window.matchMedia("(max-width: 768px)").matches) {
+        setTimeout(function() {
+            document.getElementById('chatinput').focus();
+        }, 500);
+    }
 }
 
 function closeFullscreenModal() {
