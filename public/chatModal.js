@@ -39,13 +39,11 @@ function openFullscreenModal() {
         document.getElementById('fullscreenModal').style.maxHeight = '800px';
         document.getElementById('fullscreenModal').style.left = 'calc(50% - 400px)';
         if (window.matchMedia("(max-width: 768px)").matches) {
-            // Code to execute when the screen width is 768px or less
             document.getElementById('fullscreenModal').style.left = '38px';
-            document.getElementById('fullscreenModal').style.maxHeight = 'calc(100dvh - 40px)';
-            document.getElementById('fullscreenModal').style.width = 'calc(100vw - 40px)';
+            document.getElementById('fullscreenModal').style.maxHeight = '100dvh';
+            document.getElementById('fullscreenModal').style.width = '100vw';
+            document.getElementById('fullscreenModal').style.left = '50%';
         } else {
-            // Code to execute when the screen width is greater than 768px
-            // You can add different styling or logic here
         }
     document.getElementById('modal-content').style.transition = 'visibility 1s, opacity 1s';
         document.getElementById('modal-content').style.visibility = 'visible';
