@@ -28,6 +28,7 @@ chatSubmit.addEventListener('input', () => {
 
 chatSubmit.addEventListener('submit', async (e) => {
     e.preventDefault()
+    inputField.blur()
     chatSubmitButtonIMG.style.opacity = 0.25;
     chatSubmitButton.disabled = true;
 
