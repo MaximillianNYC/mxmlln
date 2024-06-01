@@ -228,6 +228,10 @@ button:disabled {
     padding: 16px 24px;
 }
 
+.cardURL {
+    width: 100%;
+}
+
 .suggestionCard {
     display: flex;
     flex-direction: column;
