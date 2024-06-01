@@ -41,7 +41,8 @@ function openFullscreenModal() {
         if (window.matchMedia("(max-width: 768px)").matches) {
             // Code to execute when the screen width is 768px or less
             document.getElementById('fullscreenModal').style.left = '38px';
-            document.getElementById('fullscreenModal').style.maxHeight = 'calc(100vh - 80px)';
+            document.getElementById('fullscreenModal').style.maxHeight = 'calc(100dvh - 40px)';
+            document.getElementById('fullscreenModal').style.width = 'calc(100vw - 40px)';
         } else {
             // Code to execute when the screen width is greater than 768px
             // You can add different styling or logic here
