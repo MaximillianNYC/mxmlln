@@ -206,7 +206,7 @@ button:disabled {
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     gap: 16px;
     opacity: 0;
     transform: translateY(100%);
@@ -237,7 +237,7 @@ button:disabled {
     flex-direction: column;
     gap: 8px; 
     max-width: 515px;
-    width: 90%;
+    width: 100%;
     background-color: #F5F5F5;
     border-radius: 40px;
     padding: 0px;
