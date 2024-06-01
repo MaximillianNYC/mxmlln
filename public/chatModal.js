@@ -23,7 +23,9 @@ function hideAI() {
         document.getElementById('fullscreenModal').style.bottom = '-70px';
 }
 
-function openFullscreenModal() {
+function openFullscreenModal() {    
+    document.body.style.overflow = 'hidden';
+
     document.getElementById('AskMaxButton').style.transition = 'opacity 0.25s';
         document.getElementById('AskMaxButton').style.opacity = 0;
         document.getElementById('AskMaxButton').style.visibility = 'hidden';
@@ -61,6 +63,8 @@ function openFullscreenModal() {
 }
 
 function closeFullscreenModal() {
+    document.body.style.overflow = 'scroll';
+    
     document.getElementById('modal-content').style.transition = 'visibility 0.25s, opacity 0.25s';
         document.getElementById('modal-content').style.visibility = 'hidden';
         document.getElementById('modal-content').style.opacity = 0;
@@ -70,6 +74,7 @@ function closeFullscreenModal() {
         document.getElementById('fullscreenModal').style.bottom = '38px';   
         document.getElementById('fullscreenModal').style.width = '300px';
         document.getElementById('fullscreenModal').style.height = '55px';
+        document.getElementById('fullscreenModal').style.borderRadius = '40px';
 
     document.getElementById('responseLog').style.transition = 'opacity 0.25s';
         document.getElementById('responseLog').style.opacity = 0;
