@@ -56,13 +56,15 @@ function openFullscreenModal() {
                     document.getElementById('fullscreenModal').style.bottom = '-2px';
                 }, 500);
             });
-            document.getElementById('fullscreenModal').style.borderRadius = '0px';
-            document.getElementById('fullscreenModal').style.height = '100%';
-            document.getElementById('fullscreenModal').style.maxHeight = '100dvh';
-            document.getElementById('fullscreenModal').style.width = '100vw';
-            document.getElementById('fullscreenModal').style.maxWidth = '100vw';
-            document.getElementById('fullscreenModal').style.left = '-4px';
-            document.getElementById('fullscreenModal').style.bottom = '-2px';
+            setTimeout(function() {
+                document.getElementById('fullscreenModal').style.borderRadius = '0px';
+                document.getElementById('fullscreenModal').style.height = '100%';
+                document.getElementById('fullscreenModal').style.maxHeight = '100dvh';
+                document.getElementById('fullscreenModal').style.width = '100vw';
+                document.getElementById('fullscreenModal').style.maxWidth = '100vw';
+                document.getElementById('fullscreenModal').style.left = '-4px';
+                document.getElementById('fullscreenModal').style.bottom = '-2px';
+            }, 500);
         } else {
         }
     document.getElementById('modal-content').style.transition = 'visibility 1s, opacity 1s';
