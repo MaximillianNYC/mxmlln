@@ -424,7 +424,7 @@ const generateMeta = async (req, res) => {
                     - cardHeader: Visit my LinkedIn page
                     - cardDescription: My work history & credentials can be found here.
                     - cardURL: https://www.linkedin.com/in/maximilliannyc/
-                    - Content: The best place to learn about my work history is my LinkedIn page.
+                    - Content: The best place to learn about my work history is my LinkedIn page. My work skills. Where I went to school.
 
                     Case Study Option 12: 
                     - cardHeader: My illustration work
@@ -443,6 +443,40 @@ const generateMeta = async (req, res) => {
                     - cardDescription: A classic NYC pizza joint founded by Italian immigrant Giovanni "John" Sasso at the turn of the 20th century.
                     - cardURL: https://johnsofbleecker.com/
                     - Content: My favorite food, pizza, in case anyone asks about what I like to eat.
+                    
+                    Case Study Option 15: 
+                    - cardHeader: A music video for Ryuichi Sakamoto
+                    - cardDescription: Watch Ryuichi Sakamoto's "Andata (Electric Youth Remix)" official music video, directed by Maximillian Piras and produced by Roast 'n Post.
+                    - cardURL: https://www.youtube.com/watch?v=i1JVN3BSmeM 
+                    - Content: I created a music video for Ryuichi Sakamoto for a song called Andata that was remixed by Eletric Youth. This song and video was produced by Milan Records and Roast 'n Post.
+
+                    Case Study Option 16: 
+                    - cardHeader: A music video for Ryuichi Sakamoto
+                    - cardDescription: A classic NYC pizza joint founded by Italian immigrant Giovanni "John" Sasso at the turn of the 20th century.
+                    - cardURL: https://www.youtube.com/watch?v=i1JVN3BSmeM 
+                    - Content: I created a music video for Ryuichi Sakamoto for a song called Andata that was remixed by Eletric Youth. This song and video was produced by Milan Records.
+
+                    Case Study Option 17: 
+                    - cardHeader: Penny Janes Cookies by Julie May
+                    - cardDescription: We make custom decorated cookies in NYC to order for all your events and occasions.
+                    - cardURL: https://www.instagram.com/pennyjanescookies/
+                    - Content: My mother, Julie May, is a renowned cookie maker. She creates her cookies under the name Penny Jane's Cookies.
+
+                    Case Study Option 18: 
+                    - cardHeader: Penny Janes Cookies by Julie May
+                    - cardDescription: We make custom decorated cookies in NYC to order for all your events and occasions.
+                    - cardURL: https://crumrinecoder.github.io/portfoliotypescript/ 
+                    - Content: My mother, Julie May, is a renowned cookie maker. She creates her cookies under the name Penny Jane's Cookies.
+
+                    Case Study Option 19: 
+                    - cardHeader: Madisen Holbrook
+                    - cardDescription: Learn about Maximillian's girlfriend, the lovely Madisen Holbrook, who is currently doing her postdoctoral research at Columbia.
+                    - cardURL: https://hone.me.columbia.edu/people/madisen-holbrook
+                    - Content: My girlfriend, Madisen Holbrook, is very beautiful and is currently working as in the Physics lab at Columbia. Madisen began her postdoctoral research in July of 2021.
+                    She is currently working on the synthesis and defect control of flux grown TMDs. She is using scanning tunneling microscopy and spectroscopy (STM/S) to characterize the defect species and their electronic properties.
+                    Madisen received her Ph.D. in condensed matter physics from the University of Texas at Austin. Madisen’s research focus was the synthesis of two-dimensional materials and the characterization of their electronic properties using STM/S with Prof. Ken Shih. Her dissertation titled “Engineering Two-Dimensional Materials: Discovery, Defects, and Environment” won the Outstanding Dissertation Award from the UT Physics Department.
+                    Madisen completed her bachelor’s studies in physics at Lewis &amp; Clark College in Portland, Oregon where she studied gecko adhesion with Prof. Kellar Autumn. Madisen’s hobbies include cooking, art, and spending time with her dog Bijou.
+
                     
 
                 `

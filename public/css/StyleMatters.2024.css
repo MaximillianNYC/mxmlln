@@ -90,7 +90,7 @@ h1 {
 	top: 45%;
 	left: 6px;
 	transform: translateY(-55%);
-	z-index: 1000;
+	z-index: 500;
 	color: black;
 	transition: opacity 0.5s ease-in-out;
   	opacity: 0;
@@ -113,7 +113,7 @@ h1 {
 	top: 45%;
 	right: 6px; 
 	transform: translateY(-55%);
-	z-index: 1000;
+	z-index: 500;
 	color: black;
 	transition: opacity 0.5s ease-in-out;
 	opacity: 1;
