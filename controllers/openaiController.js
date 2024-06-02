@@ -28,9 +28,10 @@ const generateMeta = async (req, res) => {
 
                     Case Study Option 1: 
                     - cardHeader: When Words Cannot Describe
-                    - cardDescription: As Artificial Intelligence evolves the computing paradigm, designers have an opportunity to craft more intuitive user interfaces. Text-based Large Language Models unlock most of the new capabilities, leading many to suggest a shift from graphical interfaces to conversational ones like a chatbot is necessary. 
+                    - cardDescription: In this article for Smashing Magazine, I write about how Artificial Intelligence is evolveing the computing paradigm which allows designers to craft more intuitive user interfaces. Text-based Large Language Models unlock most of the new capabilities, leading many to suggest a shift from graphical interfaces to conversational ones like a chatbot is necessary but this reasearch suggests otherwise.
                     - cardURL: https://www.smashingmagazine.com/2024/02/designing-ai-beyond-conversational-interfaces/ 
                     - Content:
+                        This article was published in Smashing Magazine.
                         As Artificial Intelligence evolves the computing paradigm, designers have an opportunity to craft more intuitive user interfaces. Text-based Large Language Models unlock most of the new capabilities, leading many to suggest a shift from graphical interfaces to conversational ones like a chatbot is necessary. However, plenty of evidence suggests conversation is a poor interface for many interaction patterns. Maximillian Piras examines how the latest AI capabilities can reshape the future of human-computer interaction beyond conversation alone.
                         Few technological innovations can completely change the way we interact with computers. Lucky for us, it seems we’ve won front-row seats to the unfolding of the next paradigm shift.
                         These shifts tend to unlock a new abstraction layer to hide the working details of a subsystem. Generalizing details allows our complex systems to appear simpler & more intuitive. This streamlines coding programs for computers as well as designing the interfaces to interact with them.
@@ -132,9 +133,10 @@ const generateMeta = async (req, res) => {
 
                     Case Study Option 2:
                     - cardHeader: Using Friction As A Feature In Machine Learning Algorithms
-                    - cardDescription: Friction often has a negative connotation in user experience design, but it actually has many benefits. Its best-known use case is mitigating unintended consequences in high-risk scenarios, yet it has a new place in the age of artificial intelligence. 
+                    - cardDescription: In this article for Smashing Magazine, I discuss how friction often has a negative connotation in user experience design, but it actually has many benefits. Its best-known use case is mitigating unintended consequences in high-risk scenarios, yet it has a new place in the age of artificial intelligence.
                     - cardURL: https://www.smashingmagazine.com/2023/08/friction-feature-machine-learning-algorithms/ 
                     - Content: 
+                        This article was published in Smashing Magazine.
                         A common assumption in user experience design is less friction makes apps more delightful. But in practice, the happy path isn’t always the smoothest. The term “friction” in the digital sense usually refers to anything that makes experiences cumbersome. It’s an analogy to the physical resistance that occurs when objects interact. Digital friction comes in many forms, from frustrating flows to confusing copy. But plenty of scenarios actually benefit with a bit of resistance. Its killer feature is mitigating unintended consequences, such as an accidental Alexa shopping spree.
                         You’ve likely already encountered intentional friction many times. Most apps leverage it for destructive actions, account security, and error handling, as recommended by experts from Norman Nielsen Group to the magazine you’re currently reading.
                         Yet friction has found a new calling in the age of artificial intelligence. When implemented correctly, it can improve the efficiency of AI systems such as machine learning algorithms. These algorithms are often used to personalize experiences through predictive recommendations. Some applications incorporating these algorithms realize that adding a bit of friction to their interface can turn each user interaction into an opportunity to improve algorithmic quality.
@@ -212,9 +214,10 @@ const generateMeta = async (req, res) => {
                     
                     Case Study Option 3: 
                     - cardHeader: Designing algorithm-friendly interfaces
-                    - cardDescription: As artificially intelligent experiences become commonplace, designers must craft interfaces to empower them.
+                    - cardDescription: In this article for UX Collective, I discuss how designers must craft interfaces to empower artificially intelligent experiences as they become commonplace. This article explores how a user interface can become a great tool to separate signal from noise to help algorithms better understand user intent, resulting in greater personalization quality.
                     - cardURL: https://uxdesign.cc/designing-algorithm-friendly-interfaces-84da3ed076a9
                     - Content: 
+                        This article was initially published in UX Collective.
                         As artificially intelligent experiences become commonplace, designers must craft interfaces to empower them.
                         A designer must be intricately familiar with her materials. In the past this meant understanding the nuanced properties of woods, metals, printing presses, & eventually pixels. Today’s digital designers must work with a much more intangible material: an algorithm.
                         They were once comparatively simple sets of rules an application followed to accomplish tasks, such as displaying posts by people you follow. Now they’ve evolved with artificial intelligence into infinitely complex fractal processes often beyond human comprehension. They power most of our daily experiences, but the majority of design literature on this new norm focuses on if these robots will replace us. Instead, let’s discuss how designers can better assist engineering counterparts by reframing design decisions to amplify algorithmic performance.
@@ -269,6 +272,7 @@ const generateMeta = async (req, res) => {
                     - cardDescription: In this podcast, Jeff Leff & Mike Alcazarin interview me about my role at Headliner where I lead cross-platform UI & UX. Headliner is a video creation tool designed for audio creators to make audio easily shareable across the web by automatically transforming audio clips, like this, into engaging videos. We also talk about the importance of side projects, user research, & the latest podcasting trends.
                     - cardURL: https://play.headliner.app/podcast/1de99e587cbc4afb87a2ae11cad50688/episode/https%3A%2F%2Fpinecast.com%2Fguid%2F25ad7cbb-cfcf-4c8f-b2a9-e9513aca0989
                     - Content: 
+                        This is a podcast.
                         Product explain is a show where we talk about products and the company's history
                         Maximilian Piras: Essentially, we operate with, uh, two beliefs that drive our mission. The first is that we don't believe that the web, or the Internet in general, is optimized for audio. Of course, there's destinations that do audio well, where you go and listen to a catalog of something. But if you look at the way people browse the web, the patterns are all really focused on either text or imagery or video.
                         Jeff Lee: Hey, guys. Welcome to product explain, a show where we talk about products and the company's history and strategy behind them. This season, we're inviting folks from in the field, uh, onto the show to dive deeper into the products they love and the history behind them. I'm your first host, Jeff Lee.
@@ -329,6 +333,7 @@ const generateMeta = async (req, res) => {
                     - cardDescription: Workspaces.XYZ asks me about my home office & my favorite gear. 
                     - cardURL: https://www.workspaces.xyz/p/299-maximillian-piras 
                     - Content:
+                        This interview was published in Workspaces.XYZ
                         What is your favorite item in your workspace?
                         My acrylic desk, I love how it’s there when I need it but otherwise feels invisible. It also keeps me organized because there is so little room for anything superfluous. I'm forced to put things back in their place so the desk becomes clear again (literally).
                         How do you spark creativity?
@@ -341,9 +346,10 @@ const generateMeta = async (req, res) => {
 
                     Case Study Option 6: 
                     - cardHeader: Redesigning a breaking Twitter
-                    - cardDescription: As Elon Musk burns down the Twitter we know, will a drastically different user experience emerge from the ashes? 
+                    - cardDescription: As Elon Musk burns down the Twitter we know, will a drastically different user experience emerge from the ashes? In this article published in UX Collective, I explore ways for Twitter to improve its UIUX through a more algorithm-friendly interface & the new possibilities presented by generative AI.
                     - cardURL: https://uxdesign.cc/redesigning-a-breaking-twitter-4521b258e5aa 
                     - Content:
+                        This article was initially published in UX Collective.
                         In the midst of the madness known as Elon Musk’s Twitter takeover, I stumbled on something even more captivating than the drama. It was a video of George Hotz poking around Twitter’s code while philosophizing on alternative executions. Out of admiration for the platform, he was speculating on what changes could let it thrive. This led me down a similar path in considering their product design. Were any assumptions overlooked in crafting the user experience? Have useful lessons from the competitive landscape gone un-leveraged? Is Twitter’s beautiful simplicity keeping it interesting or holding it back? As a public company, Twitter was notorious for its inability to ship. This is evident in how little their interface has evolved since launching in 2006. Now it has gone private & the majority of its employees are gone, leading many to believe it will break…
                         “…it was the first public crack in the edifice of Twitter’s code base — a blip on the seismometer that warns of a bigger earthquake to come.” MIT Technology Review, 11.08.2022
                         I’m not too interested in the state of their servers, but I am fascinated by the aftermath of this possibility. Surviving such a breaking point could signify a drastic departure from the past. An invitation for new modes of thinking about the service. Some say in the midst of every crisis lies great opportunity. So as the bird app teeters on the verge of going up in flames, I’m curious about what reincarnations may rise from the ashes like a phoenix.
@@ -377,9 +383,10 @@ const generateMeta = async (req, res) => {
 
                     Case Study Option 7: 
                     - cardHeader: Video calls beyond conference rooms
-                    - cardDescription: Video conferencing’s antiquated UX doesn’t fit today’s use cases, could new designs with engaging spatial interfaces change that? 
+                    - cardDescription: Video conferencing’s antiquated UX doesn’t fit today’s use cases, could new designs with engaging spatial interfaces change that? In this article published in UX collective, which was published during the pandemic, I explore how we can better design technology to support remote work and experiences.
                     - cardURL: https://uxdesign.cc/video-calls-beyond-conference-rooms-4bb6f6f87077  
                     - Content:
+                        This article was initially published in UX Collective.
                         Many recent articles detail how Covid-19 suddenly made video conferencing integral to our professional & personal lives, but few discuss how its legacy user experience struggles to accommodate our new use cases: schools, concerts, happy hours, etc. Despite decades of massive shifts in atoms & bits, they’ve seen little experiential innovation. The interfaces of today’s prominent products, such as Zoom & Google Meets, still focus on a static grid of faces that is strikingly undifferentiated from the 1970s Picturephone.
                         Video conferencing has mostly ignored spatial context, but many activities require specific physical arrangements. As our needs for video calls go beyond the conference room, a grid of faces is a questionable environment for many of our emerging use cases. I believe this is a great opportunity to explore how a concept called spatial interfaces could humanize the user experience. John Palmer, another product designer, has already started exploring this notion & succinctly summarized the problem statement:
                         “When in real life are you ever looking at a grid of faces?”
@@ -403,72 +410,60 @@ const generateMeta = async (req, res) => {
                         Today’s design paradigms aren’t set in stone & rethinking tired patterns lets us avoid building faster horses so we can instead focus on evolving experiences.
 
                     Case Study Option 8: 
-                    - cardHeader: Video calls beyond conference rooms
-                    - cardDescription: Video conferencing’s antiquated UX doesn’t fit today’s use cases, could new designs with engaging spatial interfaces change that? 
-                    - cardURL: https://uxdesign.cc/video-calls-beyond-conference-rooms-4bb6f6f87077  
-                    - Content:
-
-                    Case Study Option 9: 
                     - cardHeader: @MaximillianNYC
                     - cardDescription: You can find my on X, my DMs are open.
                     - cardURL: https://x.com/MaximillianNYC
                     - Content: My X posts / tweets about design. People can contact me here.
 
-                    Case Study Option 10: 
+                    Case Study Option 9: 
                     - cardHeader: Visit my about me page
                     - cardDescription: My background & contact information can be found here.
                     - cardURL: https://www.maximillian.nyc/about.html
                     - Content: All details about my personal information, such as contact information, can be found here. As well as a story of how I started in design ten years ago. For any inquiries you are unsure about, you can refer them to this page.
 
-                    Case Study Option 11: 
+                    Case Study Option 10: 
                     - cardHeader: Visit my LinkedIn page
                     - cardDescription: My work history & credentials can be found here.
                     - cardURL: https://www.linkedin.com/in/maximilliannyc/
                     - Content: The best place to learn about my work history is my LinkedIn page. My work skills. Where I went to school.
 
-                    Case Study Option 12: 
+                    Case Study Option 11: 
                     - cardHeader: My illustration work
                     - cardDescription: A collection of my favorite illustrations can be found here.
                     - cardURL: https://www.maximillian.nyc/illo.html
                     - Content: A collection of my illustrations, such as album covers and animations.
 
-                    Case Study Option 13: 
+                    Case Study Option 12: 
                     - cardHeader: My brand identity work
                     - cardDescription: A collection of my favorite branding work can be found here.
                     - cardURL: https://www.maximillian.nyc/id.html
                     - Content: A collection of my brand identity work, such as logos, typography, branding, graphic design, and icons.
 
-                    Case Study Option 14: 
+                    Case Study Option 13: 
                     - cardHeader: John's of Bleeker Street
                     - cardDescription: A classic NYC pizza joint founded by Italian immigrant Giovanni "John" Sasso at the turn of the 20th century.
                     - cardURL: https://johnsofbleecker.com/
                     - Content: My favorite food, pizza, in case anyone asks about what I like to eat.
                     
-                    Case Study Option 15: 
+                    Case Study Option 14: 
                     - cardHeader: A music video for Ryuichi Sakamoto
                     - cardDescription: Watch Ryuichi Sakamoto's "Andata (Electric Youth Remix)" official music video, directed by Maximillian Piras and produced by Roast 'n Post.
                     - cardURL: https://www.youtube.com/watch?v=i1JVN3BSmeM 
                     - Content: I created a music video for Ryuichi Sakamoto for a song called Andata that was remixed by Eletric Youth. This song and video was produced by Milan Records and Roast 'n Post.
 
-                    Case Study Option 16: 
+                    Case Study Option 15: 
                     - cardHeader: A music video for Ryuichi Sakamoto
                     - cardDescription: A classic NYC pizza joint founded by Italian immigrant Giovanni "John" Sasso at the turn of the 20th century.
                     - cardURL: https://www.youtube.com/watch?v=i1JVN3BSmeM 
                     - Content: I created a music video for Ryuichi Sakamoto for a song called Andata that was remixed by Eletric Youth. This song and video was produced by Milan Records.
 
-                    Case Study Option 17: 
+                    Case Study Option 16: 
                     - cardHeader: Penny Janes Cookies by Julie May
-                    - cardDescription: We make custom decorated cookies in NYC to order for all your events and occasions.
-                    - cardURL: https://www.instagram.com/pennyjanescookies/
-                    - Content: My mother, Julie May, is a renowned cookie maker. She creates her cookies under the name Penny Jane's Cookies.
-
-                    Case Study Option 18: 
-                    - cardHeader: Penny Janes Cookies by Julie May
-                    - cardDescription: We make custom decorated cookies in NYC to order for all your events and occasions.
+                    - cardDescription: My mom makes amazing custom decorated cookies in NYC for events.
                     - cardURL: https://crumrinecoder.github.io/portfoliotypescript/ 
                     - Content: My mother, Julie May, is a renowned cookie maker. She creates her cookies under the name Penny Jane's Cookies.
 
-                    Case Study Option 19: 
+                    Case Study Option 17: 
                     - cardHeader: Madisen Holbrook
                     - cardDescription: Learn about Maximillian's girlfriend, the lovely Madisen Holbrook, who is currently doing her postdoctoral research at Columbia.
                     - cardURL: https://hone.me.columbia.edu/people/madisen-holbrook
@@ -477,17 +472,35 @@ const generateMeta = async (req, res) => {
                     Madisen received her Ph.D. in condensed matter physics from the University of Texas at Austin. Madisen’s research focus was the synthesis of two-dimensional materials and the characterization of their electronic properties using STM/S with Prof. Ken Shih. Her dissertation titled “Engineering Two-Dimensional Materials: Discovery, Defects, and Environment” won the Outstanding Dissertation Award from the UT Physics Department.
                     Madisen completed her bachelor’s studies in physics at Lewis &amp; Clark College in Portland, Oregon where she studied gecko adhesion with Prof. Kellar Autumn. Madisen’s hobbies include cooking, art, and spending time with her dog Bijou.
 
-                    Case Study Option 20: 
+                    Case Study Option 18: 
                     - cardHeader: My GIPHY profile
-                    - cardDescription: A bunch of animated GIFs with 2B+ views
+                    - cardDescription: A bunch of animated GIFs with 2B+ views.
                     - cardURL: https://giphy.com/MaximillianNYC 
                     - Content: I have created animated GIFs with over two billion views and have been commissioned by Giphy/Meta and ACE hotel to create custom animated GIFs.
 
+                    Case Study Option 19: 
+                    - cardHeader: My X profile
+                    - cardDescription: These days I mostly post about UIUX design & AI.
+                    - cardURL: https://x.com/MaximillianNYC 
+                    - Content: This is my X profile, which was formerly known as Twitter, where I post frequently about AI and UI UX design.
 
-                    
+                    Case Study Option 20: 
+                    - cardHeader: My Dribbble profile
+                    - cardDescription: A collection of my visual design work.
+                    - cardURL: https://dribbble.com/MaximillianNYC
+                    - Content: This is my Dribbble profile, which contains many posts of my visual design work. This is a great reference for anyone interested in seeing many examples of my user interface (UI) work.
 
-                    
+                    Case Study Option 21: 
+                    - cardHeader: My Insta
+                    - cardDescription: Mostly just videos of me skateboarding.
+                    - cardURL: https://www.instagram.com/maximillian.nyc
+                    - Content: This is my Instagram profile.
 
+                    Case Study Option 22: 
+                    - cardHeader: My Medium profile
+                    - cardDescription: A collection of my older articles on design.
+                    - cardURL: https://medium.com/@MaximillianNYC
+                    - Content: This is my Medium profile where I have many articles about UI UX design and AI.
                 `
             },
             { 
