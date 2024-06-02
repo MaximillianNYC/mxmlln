@@ -21,9 +21,9 @@ const AiResponseCardURL = document.querySelector('.cardURL a')
 let data
 
 function handleInput() {
-    inputField.value = inputField.value.trim();
-    chatSubmitButton.disabled = inputField.value === '';
-    chatSubmitButtonIMG.style.opacity = inputField.value === '' ? 0.25 : 1;
+    const trimmedValue = inputField.value.trim();
+    chatSubmitButton.disabled = trimmedValue === '';
+    chatSubmitButtonIMG.style.opacity = trimmedValue === '' ? 0.25 : 1;
 }
 chatSubmit.addEventListener('input', handleInput);
 
@@ -56,6 +56,12 @@ chatSubmit.addEventListener('submit', async (e) => {
         loader.style.transition = 'opacity 0.5s'
         loader.style.opacity = 1
     }, 100); // Adding a 100ms delay before displaying loader
+
+    await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input: userInput })
+    })
 
     const res = await fetch('/api/openai/meta', {
         method: 'POST',
