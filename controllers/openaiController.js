@@ -515,7 +515,6 @@ const generateMeta = async (req, res) => {
     res.status(200).json({
         AiResponse: completion.choices[0].message.content
     })
-
 }
 
 const folioKnowledge = async (req, res) => {
@@ -1011,7 +1010,6 @@ const folioKnowledge = async (req, res) => {
     res.status(200).json({
         AiResponse: completion.choices[0].message.content
     })
-
 }
 
 module.exports = { generateMeta, folioKnowledge }
