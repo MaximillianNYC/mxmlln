@@ -93,6 +93,6 @@ chatSubmit.addEventListener('submit', async (e) => {
         responseContainer.style.transition = 'transform 0.5s ease-in-out, opacity 2s'
         responseContainer.style.transform = 'translateY(0)'
         responseContainer.style.opacity = 1
-    }, 200);
+    }, 500);
 
 })
