@@ -21,9 +21,9 @@ const AiResponseCardURL = document.querySelector('.cardURL a')
 let data
 
 function handleInput() {
-    inputField.value = inputField.value.trim();
-    chatSubmitButton.disabled = inputField.value === '';
-    chatSubmitButtonIMG.style.opacity = inputField.value === '' ? 0.25 : 1;
+    const trimmedValue = inputField.value.trim();
+    chatSubmitButton.disabled = trimmedValue === '';
+    chatSubmitButtonIMG.style.opacity = trimmedValue === '' ? 0.25 : 1;
 }
 chatSubmit.addEventListener('input', handleInput);
 
