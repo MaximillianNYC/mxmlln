@@ -64,7 +64,7 @@ function openFullscreenModal() {
                 document.getElementById('fullscreenModal').style.maxWidth = '100vw';
                 document.getElementById('fullscreenModal').style.left = '-4px';
                 document.getElementById('fullscreenModal').style.bottom = '-2px';
-            }, 500);
+            }, 200);
         } else {
         }
     document.getElementById('modal-content').style.transition = 'visibility 1s, opacity 1s';
