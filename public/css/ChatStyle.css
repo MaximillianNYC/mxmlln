@@ -237,7 +237,7 @@ button:disabled {
 .suggestionCard {
     display: flex;
     flex-direction: column;
-    max-width: 515px;
+    max-width: 600px;
     width: 100%;
     background-color: #F5F5F5;
     border-radius: 40px;
