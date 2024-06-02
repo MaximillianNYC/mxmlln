@@ -87,6 +87,7 @@ chatSubmit.addEventListener('submit', async (e) => {
     loader.style.opacity = 0
     loader.style.height = '0px'
     responseLog.style.transform = 'translateY(0)'
+    responseContainer.style.opacity = 0
     responseContainer.style.visibility = 'visible'
     responseContainer.style.transition = 'transform 0.5s ease-in-out, opacity 2s'
     responseContainer.style.transform = 'translateY(0)'
