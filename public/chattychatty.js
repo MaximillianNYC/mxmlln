@@ -94,5 +94,5 @@ chatSubmit.addEventListener('submit', async (e) => {
     setTimeout(() => {
         responseContainer.style.transition = 'opacity 2s'
         responseContainer.style.opacity = 1
-    }, 500);
+    }, 250);
 })
