@@ -78,7 +78,7 @@
 
 .fullscreenModal {
     position: fixed;
-    overflow: hidden;
+    align-items: center;
     bottom: -70px;
     left: calc(50% - 152px);
     z-index: 900;
