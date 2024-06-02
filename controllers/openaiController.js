@@ -477,6 +477,15 @@ const generateMeta = async (req, res) => {
                     Madisen received her Ph.D. in condensed matter physics from the University of Texas at Austin. Madisen’s research focus was the synthesis of two-dimensional materials and the characterization of their electronic properties using STM/S with Prof. Ken Shih. Her dissertation titled “Engineering Two-Dimensional Materials: Discovery, Defects, and Environment” won the Outstanding Dissertation Award from the UT Physics Department.
                     Madisen completed her bachelor’s studies in physics at Lewis &amp; Clark College in Portland, Oregon where she studied gecko adhesion with Prof. Kellar Autumn. Madisen’s hobbies include cooking, art, and spending time with her dog Bijou.
 
+                    Case Study Option 20: 
+                    - cardHeader: My GIPHY profile
+                    - cardDescription: A bunch of animated GIFs with 2B+ views
+                    - cardURL: https://giphy.com/MaximillianNYC 
+                    - Content: I have created animated GIFs with over two billion views and have been commissioned by Giphy/Meta and ACE hotel to create custom animated GIFs.
+
+
+                    
+
                     
 
                 `
