@@ -55,7 +55,13 @@ chatSubmit.addEventListener('submit', async (e) => {
     setTimeout(() => {
         loader.style.transition = 'opacity 0.5s'
         loader.style.opacity = 1
-    }, 100); // Adding a 100ms delay before displaying loader
+    }, 100);
+
+    await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input: userInput })
+    });
 
     const res = await fetch('/api/openai/folio', {
         method: 'POST',
