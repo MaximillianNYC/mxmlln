@@ -726,7 +726,7 @@ input:focus {
 	flex-direction: row;	
 	min-height: 280px;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: 32px;
 }
 
 .ModalIconContainer {
