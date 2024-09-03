@@ -249,6 +249,7 @@ window.onclick = function(event) {
 
 </script>
 	
+<!-- 
 <div class="ModalContainerWrap" id="ContactModalContainerWrap">
 <div class="ModalContainer" id="ContactModalContainer">
 <div class="Modal">
@@ -266,6 +267,7 @@ url(!assets/MaximillianPiras.jpg);">
 </div>	
 </div></div></div></div>
 	
+
 <script>
 
 var ContactModalContainerWrap = document.getElementById("ContactModalContainerWrap");
@@ -297,7 +299,9 @@ window.onclick = function(event) {
 }
 
 </script>
-	
+
+
+
 <div class="ModalContainerWrap" id="ContactModalContainerWrapMob">
 <div class="ModalContainer" id="ContactModalContainerMob">
 <div class="Modal">
@@ -347,6 +351,8 @@ window.onclick = function(event) {
 
 </script>		
 	
+-->
+
 <div class="ModalContainerWrap" id="CasesModalContainerWrap">
 <div class="ModalContainer" id="CasesModalContainer">
 <div class="Modal">
@@ -467,8 +473,23 @@ window.onclick = function(event) {
     setTimeout(function(){ NewsletterModalContainerWrap.style.display = "none"; }, 250);
   }
 }
-
 </script>	
+
+<script src="./components/ContactModal.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing modals');
+    const contactModal = new ContactModal(false, 'Contact');
+    const contactModalMobile = new ContactModal(true, 'ContactMob');
+    
+    contactModal.render();
+    contactModalMobile.render();
+    
+    contactModal.bindEvents();
+    contactModalMobile.bindEvents();
+    console.log('Modals rendered and events bound');
+  });
+</script>
 	
 </body>
 </html>
