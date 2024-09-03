@@ -22,8 +22,8 @@
   <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration."/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta property="fb:admins" content="577048085831970"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
-  <link rel="icon" href="/MXMLLN.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no" />
+  <link rel="icon" href="/Icon.png">
 	
   <link rel="stylesheet" href="css/StyleMatters.2021.css">
   <!-- <link rel="stylesheet" href="css/StyleMatters.2024.css"> -->
@@ -345,7 +345,7 @@
 </div>
 
 <br><br><br><br><br>
-<div class="footer" style="align-items: center;">
+<div class="footer" style="align-items:center;padding-bottom:200px;">
   <img src="!assets/SigLogo.2024.png" width="350px" style="padding-bottom:8px;">
   <div class="footerIconRow">
     <a href="https://dribbble.com/MaximillianNYC" target="_blank"><button class="iconButton">
@@ -367,7 +367,6 @@
   <button id="NewsletterOpen" style="width:380px;text-align:center;">GET UPDATES ON MY PROJECTS</button>
   <p style="padding-top:16px;font-size: 12px;">🧑🏻‍💻 Design & code ©Maximillian Piras 2024 ☕</p>
 </div>
-<br><br><br><br><br><br><br><br><br><br>
 	
 <div class="ModalContainerWrap" id="NavModalContainerWrap">
   <div class="ModalContainer" id="NavModalContainer">
@@ -427,211 +426,7 @@
     }
   }
 </script>
-	
-<div class="ModalContainerWrap" id="ContactModalContainerWrap">
-  <div class="ModalContainer" id="ContactModalContainer">
-    <div class="Modal">
-      <div class="ModalContent">
-        <div class="ModalImage" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75)),
-          url(!assets/MaximillianPiras.jpg);">	
-          <div class="ModalImageContent">
-            <img src="!assets/Close.png" class="Close" id="ContactClose">	
-            <div class="CardBadge">
-              <div class="BadgeText">
-                CONTACT
-              </div>
-            </div>
-            <div class="CardTitle">
-              Let's talk about <br>tech & design
-            </div>	
-          </div>
-        </div>
-        <div class="ModalBody">
-          <div class="ModalIconContainer" width="50px">
-            <div class="ToolTip" id="ToolTip">
-              <div class="ToolTipBadge">
-                <div class="BadgeText">
-                  MAX@MXMLLN.COM
-                </div>
-              </div>
-            </div>
-            <a href="mailto:max@mxmlln.com" onclick="gtag('event', 'Click Email Button', { 'event_category' : 'Contact', 'event_label' : 'MAX@MXMLLN.COM'});">
-              <img src="!assets/contact/EmailButton.svg" class="CircleButton" alt="Email" />
-            </a>
-          </div>
-          <div class="ModalIconContainer">
-            <div class="ToolTip" id="ToolTip">
-              <div class="ToolTipBadge">
-                <div class="BadgeText">
-                  @MAXIMILLIANNYC
-                </div>
-              </div>
-            </div>
-            <a href="https://x.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Twitter Button', { 'event_category' : 'Contact', 'event_label' : 'TWITTER'});">
-              <img src="!assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" />
-            </a>
-          </div>
-          <div class="ModalIconContainer">
-            <div class="ToolTip" id="ToolTip">
-              <div class="ToolTipBadge">
-                <div class="BadgeText">
-                  @MAXIMILLIANNYC
-                </div>
-              </div>
-            </div>
-            <a href="https://www.linkedin.com/in/maximilliannyc/" target="_blank" onclick="gtag('event', 'Click LinkedIn Button', { 'event_category' : 'Contact', 'event_label' : 'LinkedIn'});">
-              <img src="!assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" />
-            </a>
-          </div>
-        </div>	
-      </div>
-    </div>
-  </div>
-</div>
-	
-<script id="ContactModalLogic2">
-  var ContactModalContainerWrap = document.getElementById("ContactModalContainerWrap");
-  var ContactModalContainer = document.getElementById("ContactModalContainer");	
-  var ContactOpen = document.getElementById("Contact");
-  var ContactClose = document.getElementById("ContactClose");	
-    
-  ContactOpen.onclick = function() {
-    ContactModalContainerWrap.style.display = "block";
-    ContactModalContainer.className = "ModalContainer";
-    ContactModalContainer.style.opacity = "1";
-  }
 
-  ContactClose.onclick = function() {
-    ContactModalContainer.className = "ModalContainerfadeOut";
-    ContactModalContainerWrap.style.display = "block";
-    setTimeout(function(){ ContactModalContainerWrap.style.display = "none"; }, 250);
-  }
-
-  window.onclick = function(event) {
-    if (event.target == ContactModalContainer) {
-      ContactModalContainer.className = "ModalContainerfadeOut";
-      ContactModalContainerWrap.style.display = "block";
-      setTimeout(function(){ ContactModalContainerWrap.style.display = "none"; }, 250);
-    }
-  }
-
-</script>
-	
-<div class="ModalContainerWrap" id="ContactModalContainerWrapMob">
-  <div class="ModalContainer" id="ContactModalContainerMob">
-    <div class="Modal">
-      <div class="ModalContent">
-        <div class="ModalImage" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75)),
-        url(../../!assets/MaximillianPiras.jpg);">	
-          <div class="ModalImageContent">
-            <img src="!assets/Close.png" class="Close" id="ContactCloseMob">	
-            <br><br>
-            <div class="CardBadge">
-              <div class="BadgeText">
-                CONTACT
-              </div>
-            </div>
-            <div class="CardTitle">
-              Let's talk design
-            </div>	
-          </div>
-        </div>
-        <div class="ModalBody">
-          <div class="ModalIconContainer" width="50px">
-            <div class="ToolTip" id="ToolTip">
-              <div class="ToolTipBadge">
-                <div class="BadgeText">
-                  MAX@MXMLLN.COM
-                </div>
-              </div>
-            </div>
-            <a href="mailto:max@mxmlln.com" onclick="gtag('event', 'Click Email Button', { 'event_category' : 'Contact', 'event_label' : 'MAX@MXMLLN.COM'});">
-              <img src="!assets/contact/EmailButton.svg" class="CircleButton" alt="Email" />
-            </a>
-          </div>
-          <div class="ModalIconContainer">
-            <div class="ToolTip" id="ToolTip">
-              <div class="ToolTipBadge">
-                <div class="BadgeText">
-                  @MAXIMILLIANNYC
-                </div>
-              </div>
-            </div>
-            <a href="https://twitter.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Twitter Button', { 'event_category' : 'Contact', 'event_label' : 'TWITTER'});"><img src="!assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" />
-            </a>
-          </div>
-          <div class="ModalIconContainer">
-            <div class="ToolTip" id="ToolTip">
-              <div class="ToolTipBadge">
-                <div class="BadgeText">
-                  @MAXIMILLIANNYC
-                </div>
-              </div>
-            </div>
-            <a href="https://www.linkedin.com/in/maximilliannyc/" target="_blank" onclick="gtag('event', 'Click LinkedIn Button', { 'event_category' : 'Contact', 'event_label' : 'LinkedIn'});">
-              <img src="!assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-	
-<script id="ContactModalMobLogic">
-  var ContactModalContainerWrap = document.getElementById("ContactModalContainerWrapMob");
-  var ContactModalContainer = document.getElementById("ContactModalContainerMob");	
-  var ContactOpen = document.getElementById("ContactMob");
-  var ContactClose = document.getElementById("ContactCloseMob");	
-    
-  ContactOpen.onclick = function() {
-    ContactModalContainerWrap.style.display = "block";
-    ContactModalContainer.className = "ModalContainer";
-    ContactModalContainer.style.opacity = "1";
-  }
-
-  ContactClose.onclick = function() {
-    ContactModalContainer.className = "ModalContainerfadeOut";
-    ContactModalContainerWrap.style.display = "block";
-    setTimeout(function(){ ContactModalContainerWrap.style.display = "none"; }, 250);
-  }
-
-  window.onclick = function(event) {
-    if (event.target == ContactModalContainer) {
-      ContactModalContainer.className = "ModalContainerfadeOut";
-      ContactModalContainerWrap.style.display = "block";
-      setTimeout(function(){ ContactModalContainerWrap.style.display = "none"; }, 250);
-    }
-  }
-</script>		
-	
-<script id="CasesModalLogic">
-  var CasesModalContainerWrap = document.getElementById("CasesModalContainerWrap");
-  var CasesModalContainer = document.getElementById("CasesModalContainer");	
-  var CasesOpen = document.getElementById("CasesOpen");
-  var CasesClose = document.getElementById("CasesClose");	
-    
-  CasesOpen.onclick = function() {
-    CasesModalContainerWrap.style.display = "block";
-    CasesModalContainer.className = "ModalContainer";
-    CasesModalContainer.style.opacity = "1";	
-  }
-
-  CasesClose.onclick = function() {
-    CasesModalContainer.className = "ModalContainerfadeOut";
-    CasesModalContainerWrap.style.display = "block";
-    setTimeout(function(){ CasesModalContainerWrap.style.display = "none"; }, 250);
-  }
-
-  window.onclick = function(event) {
-    if (event.target == CasesModalContainer) {
-      CasesModalContainer.className = "ModalContainerfadeOut";
-      CasesModalContainerWrap.style.display = "block";
-      setTimeout(function(){ CasesModalContainerWrap.style.display = "none"; }, 250);
-    }
-  }
-</script>		
-	
 <div class="ModalContainerWrap" id="NewsletterModalContainerWrap">
   <div class="ModalContainer" id="NewsletterModalContainer">
     <div class="Modal">
@@ -675,7 +470,7 @@
                 </div>
             </form>
           </div>
-          <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+          <script type='text/javascript' src='https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
         </div>
       </div>
     </div>
@@ -717,6 +512,21 @@
 
 <script src="chattychatty.js"></script>
 <script src="chatModal.js"></script>
+<script src="./components/ContactModal.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing modals');
+    const contactModal = new ContactModal(false, 'Contact');
+    const contactModalMobile = new ContactModal(true, 'ContactMob');
+    
+    contactModal.render();
+    contactModalMobile.render();
+    
+    contactModal.bindEvents();
+    contactModalMobile.bindEvents();
+    console.log('Modals rendered and events bound');
+  });
+</script>
 	
 </body>
 </html>
