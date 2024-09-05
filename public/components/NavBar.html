@@ -9,7 +9,7 @@
 </head>
 <body>
    
-    <div class="Nav" style="z-index:700;">
+    <div class="Nav" style="z-index:1000;">
         <div class="navSegController">
             <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
                 <font class="navItem_OnState">📐 WORK</font>
@@ -17,15 +17,9 @@
             <a href="about.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
               <font class="navItem">👋 ABOUT</font>
             </a>
-            <a href="id.html" onclick="gtag('event', 'Branding', {'event_category' : 'Nav Item', 'event_label' : 'View Brand Identity Portfolio'});">
-                <font class="navItem">🏷️ CHAT</font>
-            </a>
+            <font class="navItem" onclick="openFullscreenModal()" id="AskMaxButton" class="AskMaxButton">🏷️ CHAT</font>
         </div>
-      </div>
-
-    <button onclick="openFullscreenModal()" id="AskMaxButton" class="AskMaxButton">
-        CHAT
-    </button>
+    </div>
 
     <div id="fullscreenModal" class="fullscreenModal">
         <div class="modal-content" id="modal-content">
