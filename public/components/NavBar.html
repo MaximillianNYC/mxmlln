@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+    <!--<link rel="stylesheet" href="../css/StyleMatters.2021.css">-->
+    <link rel="stylesheet" href="NavBar.css">
+</head>
+<body>
+   
+    <div class="Nav" style="z-index:700;">
+        <div class="navSegController">
+            <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
+                <font class="navItem_OnState">📐 WORK</font>
+            </a>
+            <a href="about.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
+              <font class="navItem">👋 ABOUT</font>
+            </a>
+            <a href="id.html" onclick="gtag('event', 'Branding', {'event_category' : 'Nav Item', 'event_label' : 'View Brand Identity Portfolio'});">
+                <font class="navItem">🏷️ CHAT</font>
+            </a>
+        </div>
+      </div>
+
+    <button onclick="openFullscreenModal()" id="AskMaxButton" class="AskMaxButton">
+        CHAT
+    </button>
+
+    <div id="fullscreenModal" class="fullscreenModal">
+        <div class="modal-content" id="modal-content">
+        <!--close button-->
+        <div class="closer">
+            <img src="../!assets/Close.png" width="32px" height="32px" onclick="closeFullscreenModal()">
+        </div>
+        <!--input field-->
+        <form class="inputContainer" id="inputContainer">
+            <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
+            <img src="../!assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
+            </button>
+            <input type="text" class="inputChat" name="defineProblem" id="chatinput" placeholder="Tell me what you're looking for..." autocomplete="off">
+        </form>
+        <!--empty state-->
+        <div class="emptyState" id="emptyState">
+            <div class="logo">
+            <img src="../!assets/LogoHover.gif" height="150px">
+            </div>
+            <div class="emptyStateText">
+            <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
+            <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
+            </div>
+            <div class="CardBadge" style="background-color:rgba(6, 174, 239, 0.55);align-self:center;">
+            <div class="BadgeText">
+                BETA v1.0
+            </div>
+            </div>
+        </div>
+        <!--populated state-->
+        <div class="responseLog" id="responseLog">
+            <div class="queryContainer">
+            <div class="query">
+                <p style="margin:0px;padding:0px;"></p>
+            </div>
+            </div>
+            <!--loading-->
+            <div class="loadingIndicator">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!--response-->
+            <div class="responseContainer">
+            <div class="blurb">
+                <div class="logo" style="width:40px;height:40px;min-width:40px;min-height:40px;margin:0px;">
+                <img src="!assets/LogoHover.gif" height="30px">
+                </div>
+                <p style="margin:0px;padding:0px;text-align:left;"></p>
+            </div>
+            <div class="cardURL">
+                <a href="https://www.maximillian.nyc" target="_blank">
+                <div class="suggestionCard">
+                    <div class="cardHeader">
+                    <p class="cardHeaderTitle"></p>
+                    </div>
+                    <div class="cardDescription">
+                    <p class="cardDescriptionText"></p>
+                    </div>
+                </div>
+                </a>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modalBGOverlay" id="modalBGOverlay" onclick="closeFullscreenModal()"></div>
+
+    <script src="NavBar.js"></script>
+
+</body>
+</html>
