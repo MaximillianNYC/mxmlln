@@ -1,6 +1,6 @@
 .navBar {
 	position: fixed;
-	z-index: 1000;
+	z-index: 950;
 	bottom: 0px;
 	left: 0px;
 	display: flex;
@@ -129,7 +129,7 @@
     backdrop-filter: blur(30px);
 }
 
-.fullscreenModal {
+.navDynamicContainer {
     position: fixed;
     align-items: center;
     bottom: 42px;
@@ -156,7 +156,8 @@
     transition: display 0.5s, visibility 0.5s;
 }
 
-.modal-content {
+.chatModalContent {
+    z-index: 999;
     position: relative;
     display: flex; 
     flex-direction: column;
@@ -167,7 +168,7 @@
     opacity: 0;
 }
 
-.inputContainer {
+.chatInputContainer {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -180,7 +181,7 @@
     height: 60px;
 }
 
-.inputChat {
+.chatInputField {
     width: 100%;
     height: 60px;
     border-radius: 16px;
@@ -219,7 +220,7 @@ button:disabled {
     opacity: 0.25;
 }
 
-.emptyState {
+.chatEmptyState {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -227,7 +228,7 @@ button:disabled {
     margin-bottom: 80px;
 }
 
-.logo {
+.chatEmptyStateLogo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -240,7 +241,7 @@ button:disabled {
     background-color: #F5F5F5;
 }
 
-.emptyStateText {
+.chatEmptyStateText {
     display: flex;
     flex-direction: column;
     text-align: center;
