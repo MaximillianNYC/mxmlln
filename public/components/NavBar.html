@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Title</title>
+    <title>Nav Bar Redesign</title>
     <link rel="stylesheet" href="../css/StyleMatters.2021.css">
     <link rel="stylesheet" href="NavBar.css">
 </head>
 <body>
    
-    <div class="navBar" style="z-index:1000;">
+    <div class="navBar">
         <div class="navBarSegController" id="navBarSegController">
             <div><img src="../!assets/Logo.png" height="36px"></div>
             <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
@@ -18,30 +18,30 @@
             <a href="about.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
               <font class="navBarItem">👋 ABOUT</font>
             </a>
-            <font class="navBarItem" onclick="openFullscreenModal()" id="AskMaxButton" class="AskMaxButton">🏷️ CHAT</font>
+            <font class="navBarItem" onclick="opennavDynamicContainer()" id="AskMaxButton" class="AskMaxButton">💬 CHAT</font>
             <img src="../!assets/Contact.png" height="40px">
         </div>
     </div>
 
-    <div id="fullscreenModal" class="fullscreenModal">
-        <div class="modal-content" id="modal-content">
+    <div id="navDynamicContainer" class="navDynamicContainer">
+        <div class="chatModalContent" id="chatModalContent">
         <!--close button-->
         <div class="closer">
-            <img src="../!assets/Close.png" width="32px" height="32px" onclick="closeFullscreenModal()">
+            <img src="../!assets/Close.png" width="32px" height="32px" onclick="closenavDynamicContainer()">
         </div>
         <!--input field-->
-        <form class="inputContainer" id="inputContainer">
+        <form class="chatInputContainer" id="chatInputContainer">
             <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
             <img src="../!assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
             </button>
-            <input type="text" class="inputChat" name="defineProblem" id="chatinput" placeholder="Tell me what you're looking for..." autocomplete="off">
+            <input type="text" class="chatInputField" name="defineProblem" id="chatinput" placeholder="Tell me what you're looking for..." autocomplete="off">
         </form>
         <!--empty state-->
-        <div class="emptyState" id="emptyState">
-            <div class="logo">
+        <div class="chatEmptyState" id="chatEmptyState">
+            <div class="chatEmptyStateLogo">
             <img src="../!assets/LogoHover.gif" height="150px">
             </div>
-            <div class="emptyStateText">
+            <div class="chatEmptyStateText">
             <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
             <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
             </div>
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <div class="modalBGOverlay" id="modalBGOverlay" onclick="closeFullscreenModal()"></div>
+    <div class="modalBGOverlay" id="modalBGOverlay" onclick="closenavDynamicContainer()"></div>
 
     <script src="NavBar.js"></script>
 
