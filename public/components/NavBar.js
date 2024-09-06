@@ -3,9 +3,9 @@
 function openFullscreenModal() {    
     document.body.style.overflow = 'hidden';
 
-    document.getElementById('AskMaxButton').style.transition = 'opacity 0.25s';
-        document.getElementById('AskMaxButton').style.opacity = 0;
-        document.getElementById('AskMaxButton').style.visibility = 'hidden';
+    document.getElementById('navBarSegController').style.transition = 'opacity 0.25s';
+        document.getElementById('navBarSegController').style.opacity = 0;
+        document.getElementById('navBarSegController').style.visibility = 'hidden';
 
     document.getElementById('modalBGOverlay').style.transition = 'opacity 0.5s';
         document.getElementById('modalBGOverlay').style.visibility = 'visible';
@@ -66,10 +66,10 @@ function closeFullscreenModal() {
         document.getElementById('modal-content').style.opacity = 0;
 
     document.getElementById('fullscreenModal').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('fullscreenModal').style.left = 'calc(50% - 152px)'; 
-        document.getElementById('fullscreenModal').style.bottom = '32px';   
-        document.getElementById('fullscreenModal').style.width = '300px';
-        document.getElementById('fullscreenModal').style.height = '55px';
+        document.getElementById('fullscreenModal').style.left = 'calc(50% - 232px)'; 
+        document.getElementById('fullscreenModal').style.bottom = '42px';   
+        document.getElementById('fullscreenModal').style.width = '456px';
+        document.getElementById('fullscreenModal').style.height = '64px';
         document.getElementById('fullscreenModal').style.borderRadius = '40px';
 
     document.getElementById('responseLog').style.transition = 'opacity 0.25s';
@@ -81,7 +81,7 @@ function closeFullscreenModal() {
             document.getElementById('modalBGOverlay').style.visibility = 'hidden';
         }, 1000);
 
-    document.getElementById('AskMaxButton').style.visibility = 'visible';
-    document.getElementById('AskMaxButton').style.transition = 'opacity 1.5s';
-        document.getElementById('AskMaxButton').style.opacity = 1;
+    document.getElementById('navBarSegController').style.visibility = 'visible';
+    document.getElementById('navBarSegController').style.transition = 'opacity 1.5s';
+        document.getElementById('navBarSegController').style.opacity = 1;
 }
