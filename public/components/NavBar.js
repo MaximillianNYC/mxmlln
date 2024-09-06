@@ -15,6 +15,10 @@ function opennavDynamicContainer() {
         document.getElementById('navDynamicContainer').style.height = 'calc(100vh - 80px)';
         document.getElementById('navDynamicContainer').style.maxHeight = '800px';
         document.getElementById('navDynamicContainer').style.left = 'calc(50% - 400px)';
+        document.getElementById('navDynamicContainer').style.background = 'linear-gradient(45deg, rgba(221, 249, 255, 0.85), rgba(229, 221, 255, 0.85), rgba(254, 231, 224, 0.85))';
+        document.getElementById('navDynamicContainer').style.animation = 'gradient 5s ease infinite';
+        document.getElementById('navDynamicContainer').style.backgroundSize = '400% 400%';
+
         if (window.matchMedia("(max-width: 768px)").matches) {
             document.getElementById('chatinput').addEventListener('focus', function() {
                 setTimeout(function() {
@@ -46,8 +50,8 @@ function opennavDynamicContainer() {
         document.getElementById('chatModalContent').style.visibility = 'visible';
         document.getElementById('chatModalContent').style.opacity = 1;
 
-    document.getElementById('responseLog').style.transition = 'opacity 1s';
-        document.getElementById('responseLog').style.opacity = 1;
+    document.getElementById('chatResponseLog').style.transition = 'opacity 1s';
+        document.getElementById('chatResponseLog').style.opacity = 1;
 
     if (!window.matchMedia("(max-width: 768px)").matches) {
         setTimeout(function() {
@@ -59,7 +63,7 @@ function opennavDynamicContainer() {
 function closenavDynamicContainer() {
     document.body.style.overflow = 'scroll';
     
-    document.getElementById('chatModalContent').style.transition = 'visibility 0.25s, opacity 0.25s';
+    document.getElementById('chatModalContent').style.transition = 'visibility 0.15s, opacity 0.15s';
         document.getElementById('chatModalContent').style.visibility = 'hidden';
         document.getElementById('chatModalContent').style.opacity = 0;
 
@@ -69,9 +73,10 @@ function closenavDynamicContainer() {
         document.getElementById('navDynamicContainer').style.width = '456px';
         document.getElementById('navDynamicContainer').style.height = '64px';
         document.getElementById('navDynamicContainer').style.borderRadius = '40px';
+        document.getElementById('navDynamicContainer').style.background = 'rgba(240, 240, 240, 0.75)';
 
-    document.getElementById('responseLog').style.transition = 'opacity 0.25s';
-        document.getElementById('responseLog').style.opacity = 0;
+    document.getElementById('chatResponseLog').style.transition = 'opacity 0.25s';
+        document.getElementById('chatResponseLog').style.opacity = 0;
 
     document.getElementById('modalBGOverlay').style.transition = 'opacity 1s';
         document.getElementById('modalBGOverlay').style.opacity = 0;
