@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Title</title>
-    <!--<link rel="stylesheet" href="../css/StyleMatters.2021.css">-->
+    <link rel="stylesheet" href="../css/StyleMatters.2021.css">
     <link rel="stylesheet" href="NavBar.css">
 </head>
 <body>
    
     <div class="navBar" style="z-index:1000;">
-        <div class="navBarSegController">
-            <img src="../!assets/Logo.png" height="36px">
+        <div class="navBarSegController" id="navBarSegController">
+            <div><img src="../!assets/Logo.png" height="36px"></div>
             <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
-                <font class="navItem_OnState">📐 WORK</font>
+                <font class="navBarItem_OnState">📐 WORK</font>
             </a>
             <a href="about.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
-              <font class="navItem">👋 ABOUT</font>
+              <font class="navBarItem">👋 ABOUT</font>
             </a>
-            <font class="navItem" onclick="openFullscreenModal()" id="AskMaxButton" class="AskMaxButton">🏷️ CHAT</font>
+            <font class="navBarItem" onclick="openFullscreenModal()" id="AskMaxButton" class="AskMaxButton">🏷️ CHAT</font>
             <img src="../!assets/Contact.png" height="40px">
         </div>
     </div>

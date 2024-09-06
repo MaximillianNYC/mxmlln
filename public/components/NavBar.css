@@ -15,6 +15,7 @@
     display: flex;
 	flex-direction: row;
     align-items: center;
+    gap: 8px;
 	/*border-radius: 40px;
 	backdrop-filter: blur(80px);
 	-webkit-backdrop-filter: blur(35px);
@@ -23,7 +24,7 @@
 	border: solid rgba(0, 0, 0, .03);*/
 }
 
-.navItem {
+.navBarItem {
 	cursor: pointer;
     font-family: 'Sora', sans-serif;
 	font-weight: 700;
@@ -35,11 +36,11 @@
 	transition: opacity 0.3s;
 }
 
-.navItem:hover {
+.navBarItem:hover {
 	opacity: 0.5;
 }
 	
-.navItem_OnState {
+.navBarItem_OnState {
 	font-family: 'Sora', sans-serif;
 	font-weight: 700;
 	letter-spacing: 1.5px;
@@ -100,9 +101,8 @@
 }
 
 .AskMaxButton:hover {
-    height: 59px;
+    /*height: 59px;*/
     opacity: 0.5;
-    font-size: 16px;
 }
 
 .bottomFade {
@@ -132,10 +132,10 @@
 .fullscreenModal {
     position: fixed;
     align-items: center;
-    bottom: 34px;
-    left: calc(50% - 182px);
+    bottom: 42px;
+    left: calc(50% - 232px);
     z-index: 900;
-    width: 360px;
+    width: 456px;
     height: 64px;
     
     /*backdrop-filter: blur(30px);
