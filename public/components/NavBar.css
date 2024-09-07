@@ -265,6 +265,15 @@ button:disabled {
     border: 2px solid #06AEEF;
 }
 
+.chatResponseLogo {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    margin: 0px;
+    border-radius: 100%;
+}
+
 .blurb {
     display: flex;
     flex-direction: row;
