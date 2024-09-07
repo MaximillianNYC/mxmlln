@@ -9,7 +9,7 @@
 </head>
 <body>
    
-    <div class="navBar">
+    <div class="navBar" id="navBar">
         <div class="navBarSegController" id="navBarSegController">
             <div><img src="../!assets/Logo2024.png" height="36px"></div>
             <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
@@ -18,7 +18,7 @@
             <a href="about.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
               <font class="navBarItem">👋 ABOUT</font>
             </a>
-            <font class="navBarItem" onclick="opennavDynamicContainer()" id="AskMaxButton" class="AskMaxButton">💬 CHAT</font>
+            <font class="navBarItem" onclick="openNavDynamicContainer()" id="openChatView" class="openChatView">💬 CHAT</font>
             <div><img src="../!assets/Contact.png" height="40px"></div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="chatModalContent" id="chatModalContent">
         <!--close button-->
         <div class="closer">
-            <img src="../!assets/Close.png" width="32px" height="32px" onclick="closenavDynamicContainer()">
+            <img src="../!assets/Close.png" width="32px" height="32px" onclick="closeNavDynamicContainer()">
         </div>
         <!--input field-->
         <form class="chatInputContainer" id="chatInputContainer">
@@ -39,7 +39,7 @@
         <!--empty state-->
         <div class="chatEmptyState" id="chatEmptyState">
             <div class="chatEmptyStateLogo">
-                <img src="../!assets/LogoHover.gif" height="151px">
+                <img src="../!assets/LogoHover.gif" height="150px">
             </div>
             <div class="chatEmptyStateText">
             <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
