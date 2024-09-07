@@ -1,22 +1,22 @@
 // forms
-const chatSubmit = document.getElementById('inputContainer')
-const emptyState = document.querySelector('#emptyState')
-const inputField = document.getElementById('chatinput')
+const chatSubmit = document.getElementById('chatInputContainer')
+const emptyState = document.querySelector('#chatEmptyState')
+const inputField = document.getElementById('chatInputField')
 const userInput = inputField.value
 const chatSubmitButton = document.getElementById('chatSubmit')
 const chatSubmitButtonIMG = document.getElementById('chatSubmitIMG')
 
 // output
-const responseLog = document.querySelector('.responseLog')
-const responseContainer = document.querySelector('.responseContainer')
+const chatResponseLog = document.querySelector('.chatResponseLog')
+const responseContainer = document.querySelector('.chatResponseContainer')
 const loader = document.querySelector('.loadingIndicator')
-const query = document.querySelector('.query p')
-const AiResponse = document.querySelector('.responseLog p')
+const query = document.querySelector('.chatQuery p')
+const AiResponse = document.querySelector('.chatResponseLog p')
 const AiResponseBlurb = document.querySelector('.blurb p')
 const AiResponseCardHeader = document.querySelector('.cardHeader p')
 const AiResponseCardDescription = document.querySelector('.cardDescription p')
-const URL = document.querySelector('.cardURL')
-const AiResponseCardURL = document.querySelector('.cardURL a')
+const URL = document.querySelector('.chatCardURL')
+const AiResponseCardURL = document.querySelector('.chatCardURL a')
 // store data from responses below
 let data
 
@@ -33,18 +33,18 @@ chatSubmit.addEventListener('submit', async (e) => {
     chatSubmitButtonIMG.style.opacity = 0.25;
     chatSubmitButton.disabled = true;
 
-    // display the responseLog
+    // display the chatResponseLog
     emptyState.style.display = 'none'
-    responseLog.style.transition = 'opacity 2s'
-    responseLog.style.opacity = 0
-    responseLog.style.visibility = 'visible'
-    responseLog.style.transition = 'transform 0.5s ease-in-out, opacity 2s'
-    responseLog.style.transform = 'translateY(0)'
-    responseLog.style.opacity = 1
+    chatResponseLog.style.transition = 'opacity 2s'
+    chatResponseLog.style.opacity = 0
+    chatResponseLog.style.visibility = 'visible'
+    chatResponseLog.style.transition = 'transform 0.5s ease-in-out, opacity 2s'
+    chatResponseLog.style.transform = 'translateY(0)'
+    chatResponseLog.style.opacity = 1
     responseContainer.style.opacity = 0
     responseContainer.style.visibility = 'hidden'
     responseContainer.style.transition = 'opacity 2s'
-    responseLog.style.transform = 'translateY(33%)'
+    chatResponseLog.style.transform = 'translateY(33%)'
 
     // Grab user input
     const userInput = inputField.value  
@@ -86,7 +86,7 @@ chatSubmit.addEventListener('submit', async (e) => {
     loader.style.visibility = 'hidden'
     loader.style.opacity = 0
     loader.style.height = '0px'
-    responseLog.style.transform = 'translateY(0)'
+    chatResponseLog.style.transform = 'translateY(0)'
     responseContainer.style.opacity = 0
     responseContainer.style.visibility = 'visible'
     responseContainer.style.transition = 'transform 0.5s ease-in-out'

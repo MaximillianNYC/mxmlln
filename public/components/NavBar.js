@@ -21,7 +21,7 @@ function openNavDynamicContainer() {
         document.getElementById('navDynamicContainer').style.backgroundSize = '400% 400%';
 
         if (window.matchMedia("(max-width: 768px)").matches) {
-            document.getElementById('chatinput').addEventListener('focus', function() {
+            document.getElementById('chatInputField').addEventListener('focus', function() {
                 setTimeout(function() {
                     document.getElementById('navDynamicContainer').style.transition = 'height 0.5s, bottom 0.5s';
                     document.getElementById('navDynamicContainer').style.height = '50vh';
@@ -29,7 +29,7 @@ function openNavDynamicContainer() {
                     document.body.style.overflow = 'hidden';
                 }, 500);
             });
-            document.getElementById('chatinput').addEventListener('blur', function() {
+            document.getElementById('chatInputField').addEventListener('blur', function() {
                 setTimeout(function() {
                     document.getElementById('navDynamicContainer').style.transition = 'height 0.5s, bottom 0.5s';
                     document.getElementById('navDynamicContainer').style.height = '100%';
@@ -56,7 +56,7 @@ function openNavDynamicContainer() {
 
     if (!window.matchMedia("(max-width: 768px)").matches) {
         setTimeout(function() {
-            document.getElementById('chatinput').focus();
+            document.getElementById('chatInputField').focus();
         }, 500);
     }
 }
