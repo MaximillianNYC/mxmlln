@@ -274,7 +274,7 @@ button:disabled {
     min-width: 40px;
     min-height: 40px;
     margin: 0px;
-    border: 2px solid rgba(0, 0, 0, 1);
+    border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 100%;
     background-color: #F5F5F5;
 }
