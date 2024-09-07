@@ -34,7 +34,7 @@
             <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
             <img src="../!assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
             </button>
-            <input type="text" class="chatInputField" name="defineProblem" id="chatinput" placeholder="Tell me what you're looking for..." autocomplete="off">
+            <input type="text" class="chatInputField" name="defineProblem" id="chatInputField" placeholder="Tell me what you're looking for..." autocomplete="off">
         </form>
         <!--empty state-->
         <div class="chatEmptyState" id="chatEmptyState">
@@ -54,9 +54,9 @@
         <!--populated state-->
         <div class="chatResponseLog" id="chatResponseLog">
             <div class="chatQueryContainer">
-            <div class="chatQuery">
-                <p style="margin:0px;padding:0px;"></p>
-            </div>
+                <div class="chatQuery">
+                    <p style="margin:0px;padding:0px;"></p>
+                </div>
             </div>
             <!--loading-->
             <div class="loadingIndicator">
@@ -69,24 +69,24 @@
             </div>
             <!--response-->
             <div class="chatResponseContainer">
-            <div class="blurb">
-                <div class="logo" style="width:40px;height:40px;min-width:40px;min-height:40px;margin:0px;">
-                <img src="!assets/LogoHover.gif" height="30px">
-                </div>
-                <p style="margin:0px;padding:0px;text-align:left;"></p>
-            </div>
-            <div class="chatCardURL">
-                <a href="https://www.maximillian.nyc" target="_blank">
-                <div class="chatSuggestionCard">
-                    <div class="cardHeader">
-                    <p class="cardHeaderTitle"></p>
+                <div class="blurb">
+                    <div class="logo" style="width:40px;height:40px;min-width:40px;min-height:40px;margin:0px;">
+                        <img src="!assets/LogoHover.gif" height="30px">
                     </div>
-                    <div class="cardDescription">
-                    <p class="cardDescriptionText"></p>
-                    </div>
+                    <p style="margin:0px;padding:0px;text-align:left;"></p>
                 </div>
-                </a>
-            </div>
+                <div class="chatCardURL">
+                    <a href="https://www.maximillian.nyc" target="_blank">
+                        <div class="chatSuggestionCard">
+                            <div class="cardHeader">
+                                <p class="cardHeaderTitle"></p>
+                            </div>
+                            <div class="cardDescription">
+                                <p class="cardDescriptionText"></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
         </div>
@@ -95,6 +95,7 @@
     <div class="modalBGOverlay" id="modalBGOverlay" onclick="closenavDynamicContainer()"></div>
 
     <script src="NavBar.js"></script>
+    <script src="ChatIntelligence.js"></script>
 
 </body>
 </html>
