@@ -265,12 +265,16 @@ button:disabled {
     border: 2px solid #06AEEF;
 }
 
-.chatResponseLogo {
+.chatResponseLogoContainer {
     width: 40px;
     height: 40px;
     min-width: 40px;
     min-height: 40px;
     margin: 0px;
+}
+
+.chatResponseLogo {
+    height: 30px;
     border-radius: 100px;
 }
 
