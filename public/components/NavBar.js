@@ -1,9 +1,10 @@
-function opennavDynamicContainer() {    
+function openNavDynamicContainer() {    
     document.body.style.overflow = 'hidden';
 
     document.getElementById('navBarSegController').style.transition = 'opacity 0.25s';
         document.getElementById('navBarSegController').style.opacity = 0;
         document.getElementById('navBarSegController').style.visibility = 'hidden';
+        document.getElementById('navBar').style.bottom = '-40px';
 
     document.getElementById('modalBGOverlay').style.transition = 'opacity 0.5s';
         document.getElementById('modalBGOverlay').style.visibility = 'visible';
@@ -60,7 +61,7 @@ function opennavDynamicContainer() {
     }
 }
 
-function closenavDynamicContainer() {
+function closeNavDynamicContainer() {
     document.body.style.overflow = 'scroll';
     
     document.getElementById('chatModalContent').style.transition = 'visibility 0.15s, opacity 0.15s';
@@ -84,6 +85,7 @@ function closenavDynamicContainer() {
             document.getElementById('modalBGOverlay').style.visibility = 'hidden';
         }, 1000);
 
+    document.getElementById('navBar').style.bottom = '0px';
     document.getElementById('navBarSegController').style.visibility = 'visible';
     document.getElementById('navBarSegController').style.transition = 'opacity 1.5s';
     document.getElementById('navBarSegController').style.opacity = 1;
