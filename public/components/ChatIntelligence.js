@@ -13,8 +13,8 @@ const loader = document.querySelector('.loadingIndicator')
 const query = document.querySelector('.chatQuery p')
 const AiResponse = document.querySelector('.chatResponseLog p')
 const AiResponseBlurb = document.querySelector('.blurb p')
-const AiResponseCardHeader = document.querySelector('.cardHeader p')
-const AiResponseCardDescription = document.querySelector('.cardDescription p')
+const AiResponseCardHeader = document.querySelector('.chatCardHeader p')
+const AiResponseCardDescription = document.querySelector('.chatCardDescription p')
 const URL = document.querySelector('.chatCardURL')
 const AiResponseCardURL = document.querySelector('.chatCardURL a')
 // store data from responses below
@@ -75,7 +75,7 @@ chatSubmit.addEventListener('submit', async (e) => {
 
     // inject LLM output into UI AiResponse.textContent = userInput
     const contentObject = JSON.parse(data.AiResponse)
-    const blurb = contentObject.blurb
+    const blurb = contentObject.chatBlurb
     const cardHeader = contentObject.cardHeader
     const cardDescription = contentObject.cardDescription
     const cardURL = contentObject.cardURL
