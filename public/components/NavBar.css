@@ -266,6 +266,9 @@ button:disabled {
 }
 
 .chatResponseLogoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
     min-width: 40px;
@@ -273,7 +276,6 @@ button:disabled {
     margin: 0px;
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 100%;
-    overflow: hidden;
     margin-bottom: 24px;
     background-color: #F5F5F5;
 }
