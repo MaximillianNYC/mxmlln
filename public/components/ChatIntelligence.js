@@ -75,7 +75,7 @@ chatSubmit.addEventListener('submit', async (e) => {
 
     // inject LLM output into UI AiResponse.textContent = userInput
     const contentObject = JSON.parse(data.AiResponse)
-    const blurb = contentObject.chatBlurb
+    const blurb = contentObject.blurb
     const cardHeader = contentObject.cardHeader
     const cardDescription = contentObject.cardDescription
     const cardURL = contentObject.cardURL
