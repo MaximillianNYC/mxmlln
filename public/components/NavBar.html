@@ -30,7 +30,7 @@
         </div>
         <div class="chatViewContent" id="chatViewContent">
             <!--close button-->
-            <div class="closer" style="justify-content:flex-end;">
+            <div class="viewHeader" style="justify-content:flex-end;">
                 <img src="../!assets/Close.png" onclick="closeNavChatView()" class="closeButton">
             </div>
             <!--input field-->
@@ -93,8 +93,8 @@
             </div>
         </div>
         <div class="contactViewContent" id="contactViewContent">
-            <div class="closer">CONTACT
-                <img src="../!assets/Close.png" onclick="closeNavChatView()" class="closeButton">
+            <div class="viewHeader">CONTACT
+                <img src="../!assets/Close.png" onclick="closeNavContactView()" class="closeButton">
             </div>
             <div class="contactViewIconContainer" id="Email">
               <div class="ToolTip" id="ToolTip">
@@ -135,7 +135,8 @@
         </div>
     </div>
 
-    <div class="modalBGOverlay" id="modalBGOverlay" onclick="closeNavChatView()"></div>
+    <div class="modalBGOverlay" id="modalBGOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : null)"></div>
+
 
     <script src="NavBar.js"></script>
     <script src="ChatIntelligence.js"></script>

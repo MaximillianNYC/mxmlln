@@ -63,7 +63,7 @@ a {
 	line-height: 0%;
 }
 
-.closer {
+.viewHeader {
     z-index: 1000;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
