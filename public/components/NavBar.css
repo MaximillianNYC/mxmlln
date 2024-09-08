@@ -128,8 +128,7 @@ a {
     justify-content: center; 
     align-items: flex-end; 
     gap: 0px;
-    margin-bottom: 24px;
-    height: 100%;
+    height: calc(100% - 44px);    
     width: 100%;
     visibility: hidden;
     opacity: 0;
@@ -141,6 +140,40 @@ a {
 	align-content: center;
 	justify-content: center;
 	width: 136px;
+}	
+
+
+.ToolTip {
+	position: absolute;
+	z-index: 900;
+	opacity: 0;
+	margin-top: 10px;
+	transition: opacity 0.5s, margin 0.5s;
+}
+
+.ToolTipBadge {
+	align-self: flex-start;
+	display: flex;
+	height: 15px;
+	padding: 10px 10px 10px 12px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, .75);
+}
+
+.IconContainer:hover > #ToolTip{
+	opacity: 1;	
+	margin-top: 0px;
+	transition: opacity 0.25s, margin 0.25s;
+	transition-delay: 0.3s;
+}
+
+.contactViewIconContainer:hover > #ToolTip{
+	opacity: 1;	
+	margin-top: -15px;
+	transition: opacity 0.25s, margin 0.25s;
+	transition-delay: 0.3s;
 }	
 
 .chatViewContent {

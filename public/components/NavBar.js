@@ -79,7 +79,7 @@ function openNavContactView() {
 
     //EXPAND CONTAINER
     document.getElementById('navDynamicContainer').style.transition = 'width 0.5s, height 0.5s, left 0.15s';
-        document.getElementById('navDynamicContainer').style.height = '250px';
+        document.getElementById('navDynamicContainer').style.height = '220px';
 
         if (window.matchMedia("(max-width: 768px)").matches) {
             document.getElementById('chatInputField').addEventListener('focus', function() {
