@@ -8,9 +8,9 @@
             document.getElementById('navBarSegController').style.visibility = 'hidden';
             document.getElementById('navBar').style.bottom = '-40px';
 
-        document.getElementById('modalBGOverlay').style.transition = 'opacity 0.5s';
-            document.getElementById('modalBGOverlay').style.visibility = 'visible';
-            document.getElementById('modalBGOverlay').style.opacity = 1;
+        document.getElementById('navBarOverlay').style.transition = 'opacity 0.5s';
+            document.getElementById('navBarOverlay').style.visibility = 'visible';
+            document.getElementById('navBarOverlay').style.opacity = 1;
 
         document.getElementById('navDynamicContainer').style.transition = 'width 0.5s, height 0.5s, left 0.15s';
             document.getElementById('navDynamicContainer').style.width = 'calc(100vw - 80px)';
@@ -82,10 +82,10 @@
         document.getElementById('chatResponseLog').style.transition = 'opacity 0.25s';
             document.getElementById('chatResponseLog').style.opacity = 0;
 
-        document.getElementById('modalBGOverlay').style.transition = 'opacity 1s';
-            document.getElementById('modalBGOverlay').style.opacity = 0;
+        document.getElementById('navBarOverlay').style.transition = 'opacity 1s';
+            document.getElementById('navBarOverlay').style.opacity = 0;
             setTimeout(function() {
-                document.getElementById('modalBGOverlay').style.visibility = 'hidden';
+                document.getElementById('navBarOverlay').style.visibility = 'hidden';
             }, 1000);
 
         document.getElementById('navBar').style.bottom = '0px';
@@ -106,9 +106,9 @@
             document.getElementById('navBar').style.bottom = '-40px';
 
         //DISPLAY OVERLAY
-        document.getElementById('modalBGOverlay').style.transition = 'opacity 0.5s';
-            document.getElementById('modalBGOverlay').style.visibility = 'visible';
-            document.getElementById('modalBGOverlay').style.opacity = 1;
+        document.getElementById('navBarOverlay').style.transition = 'opacity 0.5s';
+            document.getElementById('navBarOverlay').style.visibility = 'visible';
+            document.getElementById('navBarOverlay').style.opacity = 1;
 
         //EXPAND CONTAINER
         document.getElementById('navDynamicContainer').style.transition = 'width 0.5s, height 0.5s, left 0.15s';
@@ -165,10 +165,10 @@
             document.getElementById('navDynamicContainer').style.borderRadius = '40px';
             document.getElementById('navDynamicContainer').style.background = 'rgba(240, 240, 240, 0.75)';
 
-        document.getElementById('modalBGOverlay').style.transition = 'opacity 1s';
-            document.getElementById('modalBGOverlay').style.opacity = 0;
+        document.getElementById('navBarOverlay').style.transition = 'opacity 1s';
+            document.getElementById('navBarOverlay').style.opacity = 0;
             setTimeout(function() {
-                document.getElementById('modalBGOverlay').style.visibility = 'hidden';
+                document.getElementById('navBarOverlay').style.visibility = 'hidden';
             }, 1000);
 
         document.getElementById('navBar').style.bottom = '0px';
