@@ -1,4 +1,5 @@
-function openNavDynamicContainer() {    
+//CHAT VIEW
+function openNavChatView() {    
     document.body.style.overflow = 'hidden';
 
     document.getElementById('navBarSegController').style.transition = 'opacity 0.25s';
@@ -47,9 +48,9 @@ function openNavDynamicContainer() {
             }, 200);
         } else {
         }
-    document.getElementById('chatModalContent').style.transition = 'visibility 1s, opacity 1s';
-        document.getElementById('chatModalContent').style.visibility = 'visible';
-        document.getElementById('chatModalContent').style.opacity = 1;
+    document.getElementById('chatViewContent').style.transition = 'visibility 1s, opacity 1s';
+        document.getElementById('chatViewContent').style.visibility = 'visible';
+        document.getElementById('chatViewContent').style.opacity = 1;
 
     document.getElementById('chatResponseLog').style.transition = 'opacity 1s';
         document.getElementById('chatResponseLog').style.opacity = 1;
@@ -61,12 +62,63 @@ function openNavDynamicContainer() {
     }
 }
 
-function closeNavDynamicContainer() {
+//CONTACT VIEW
+function openNavContactView() {    
+    document.body.style.overflow = 'hidden';
+
+    //HIDE CONTROLS
+    document.getElementById('navBarSegController').style.transition = 'opacity 0.25s';
+        document.getElementById('navBarSegController').style.opacity = 0;
+        document.getElementById('navBarSegController').style.visibility = 'hidden';
+        document.getElementById('navBar').style.bottom = '-40px';
+
+    //DISPLAY OVERLAY
+    document.getElementById('modalBGOverlay').style.transition = 'opacity 0.5s';
+        document.getElementById('modalBGOverlay').style.visibility = 'visible';
+        document.getElementById('modalBGOverlay').style.opacity = 1;
+
+    //EXPAND CONTAINER
+    document.getElementById('navDynamicContainer').style.transition = 'width 0.5s, height 0.5s, left 0.15s';
+        document.getElementById('navDynamicContainer').style.height = '250px';
+
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            document.getElementById('chatInputField').addEventListener('focus', function() {
+                setTimeout(function() {
+                    document.getElementById('navDynamicContainer').style.transition = 'height 0.5s, bottom 0.5s';
+                    document.getElementById('navDynamicContainer').style.height = '50vh';
+                    document.getElementById('navDynamicContainer').style.bottom = '-2px';
+                    document.body.style.overflow = 'hidden';
+                }, 500);
+            });
+            document.getElementById('chatInputField').addEventListener('blur', function() {
+                setTimeout(function() {
+                    document.getElementById('navDynamicContainer').style.transition = 'height 0.5s, bottom 0.5s';
+                    document.getElementById('navDynamicContainer').style.height = '100%';
+                    document.getElementById('navDynamicContainer').style.bottom = '-2px';
+                }, 500);
+            });
+            setTimeout(function() {
+                document.getElementById('navDynamicContainer').style.borderRadius = '0px';
+                document.getElementById('navDynamicContainer').style.height = '100%';
+                document.getElementById('navDynamicContainer').style.maxHeight = '100dvh';
+                document.getElementById('navDynamicContainer').style.width = '100vw';
+                document.getElementById('navDynamicContainer').style.maxWidth = '100vw';
+                document.getElementById('navDynamicContainer').style.left = '-4px';
+                document.getElementById('navDynamicContainer').style.bottom = '-2px';
+            }, 200);
+        } else {
+        }
+    document.getElementById('contactViewContent').style.transition = 'visibility 1s, opacity 1s';
+        document.getElementById('contactViewContent').style.visibility = 'visible';
+        document.getElementById('contactViewContent').style.opacity = 1;
+}
+
+function closeNavChatView() {
     document.body.style.overflow = 'scroll';
     
-    document.getElementById('chatModalContent').style.transition = 'visibility 0.15s, opacity 0.15s';
-        document.getElementById('chatModalContent').style.visibility = 'hidden';
-        document.getElementById('chatModalContent').style.opacity = 0;
+    document.getElementById('chatViewContent').style.transition = 'visibility 0.15s, opacity 0.15s';
+        document.getElementById('chatViewContent').style.visibility = 'hidden';
+        document.getElementById('chatViewContent').style.opacity = 0;
 
     document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
         document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 

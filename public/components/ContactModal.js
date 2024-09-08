@@ -5,7 +5,6 @@ class ContactModal {
     this.containerId = isMobile ? 'ContactModalContainerMob' : 'ContactModalContainer';
     this.closerId = isMobile ? 'ContactCloseMob' : 'ContactClose';
     this.triggerElementId = triggerElementId || (isMobile ? 'ContactMob' : 'Contact');
-    
     this.modalWrap = null;
     this.modalContainer = null;
     this.closer = null;
