@@ -108,9 +108,11 @@ function openNavContactView() {
             }, 200);
         } else {
         }
-    document.getElementById('contactViewContent').style.transition = 'visibility 1s, opacity 1s';
-        document.getElementById('contactViewContent').style.visibility = 'visible';
-        document.getElementById('contactViewContent').style.opacity = 1;
+    document.getElementById('contactViewContent').style.transition = 'visibility 1s, opacity 1.5s';
+    document.getElementById('contactViewContent').style.visibility = 'visible';
+    setTimeout(() => {
+        document.getElementById('contactViewContent').style.opacity = '1';
+    }, 50);
 }
 
 function closeNavChatView() {

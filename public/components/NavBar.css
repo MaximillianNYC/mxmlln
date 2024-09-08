@@ -35,7 +35,7 @@ a {
 	color: #000000;
 	padding: 16px;
 	opacity: 1;
-	transition: opacity 0.3s;
+	transition: opacity 0.3s ease;
 }
 
 .navBarItem:hover {
@@ -79,6 +79,16 @@ a {
     justify-content: space-between;
 }
 
+.closeButton {
+    width: 32px; 
+    height: 32px;
+    transition: opacity 0.3s ease;
+}
+
+.closeButton:hover {
+    opacity: 0.3;
+}
+
 .bottomFade {
     position: fixed;
     z-index: 898;
@@ -118,6 +128,15 @@ a {
 	box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, .025);
 	border: solid 2px rgba(0, 0, 0, .03);
     transition: display 0.5s, visibility 0.5s;
+}
+
+.openNavContactView {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.openNavContactView:hover {
+    opacity: 0.5;
 }
 
 .contactViewContent {
