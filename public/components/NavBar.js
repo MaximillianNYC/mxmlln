@@ -121,6 +121,7 @@ function closeNavChatView() {
     document.getElementById('chatViewContent').style.transition = 'visibility 0.15s, opacity 0.15s';
         document.getElementById('chatViewContent').style.visibility = 'hidden';
         document.getElementById('chatViewContent').style.opacity = 0;
+        document.getElementById('chatViewContent').style.zIndex = '-1';
 
     document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
         document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 
