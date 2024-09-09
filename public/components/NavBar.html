@@ -15,7 +15,9 @@
     <div id="navDynamicContainer" class="navDynamicContainer">
         <div class="navBar" id="navBar">
             <div class="navBarSegController" id="navBarSegController">
-                <div><img src="../!assets/Logo2024.png" height="36px"></div>
+                <div onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" >
+                    <img src="../!assets/Logo2024.png" height="36px" onmouseover="this.src='../!assets/LogoHover.gif'" onmouseout="this.src='../!assets/Logo2024.png'" style="cursor: pointer;">
+                </div>
                 <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
                     <font class="navBarItem_OnState">📐 WORK</font>
                 </a>
@@ -27,6 +29,23 @@
                     <img src="../!assets/Contact.png" height="40px">
                 </div>
             </div>
+        </div>
+        <div class="infoViewContent" id="infoViewContent">
+            <div class="viewHeader">
+                <font class="viewHeaderText">PORTFOLIO v2.0</font>
+                <img src="../!assets/Close.png" onclick="closeNavInfoView()" class="closeButton">
+            </div>
+            <div>
+                <img src="../!assets/Logo.gif" height="200px">
+            </div>
+            <div>
+                <p>🧑🏻‍💻 Design <font class="ampersand" style="font-size:18px;">&</font> code by Maximillian Piras ☕
+                <br>Updated ⌛09.09.2024 from 📍Austin, TX</p>
+            </div>
+            <div>
+                <button style="width:412px;">VIEW ON GITHUB</button>
+            </div>
+            
         </div>
         <div class="chatViewContent" id="chatViewContent">
             <!--close button-->
@@ -93,7 +112,8 @@
             </div>
         </div>
         <div class="contactViewContent" id="contactViewContent">
-            <div class="viewHeader">CONTACT
+            <div class="viewHeader">
+                <font class="viewHeaderText">CONTACT</font>
                 <img src="../!assets/Close.png" onclick="closeNavContactView()" class="closeButton">
             </div>
             <div class="contactViewIconContainer" id="Email">
@@ -135,7 +155,9 @@
         </div>
     </div>
 
-    <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : null)"></div>
+
+
+    <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)"></div>
 
     <script src="NavBar.js"></script>
     <script src="ChatIntelligence.js"></script>

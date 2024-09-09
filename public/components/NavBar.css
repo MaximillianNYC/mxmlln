@@ -68,7 +68,7 @@ a {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: 900;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     cursor: pointer;
     position: absolute;
     top: 20px;
@@ -77,6 +77,15 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.viewHeaderText {
+    font-family: 'Sora', sans-serif;
+	font-weight: 700;
+    padding: 8px;
+	font-size: 14px;
+    letter-spacing: 1.5px;
+	color: #000000;
 }
 
 .closeButton {
@@ -139,6 +148,20 @@ a {
     opacity: 0.5;
 }
 
+.infoViewContent {
+    position: absolute;
+    z-index: 999;
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-end; 
+    align-items: center; 
+    gap: 16px;
+    height: calc(100% - 12px);    
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+}
+
 .contactViewContent {
     position: absolute;
     z-index: 999;
@@ -160,7 +183,6 @@ a {
 	justify-content: center;
 	width: 136px;
 }	
-
 
 .ToolTip {
 	position: absolute;
