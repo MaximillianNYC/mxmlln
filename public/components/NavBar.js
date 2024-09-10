@@ -17,7 +17,6 @@
         //EXPAND CONTAINER
         document.getElementById('navDynamicContainer').style.transition = 'width 0.5s, height 0.5s, left 0.15s';
         document.getElementById('navDynamicContainer').style.height = '450px';
-        document.getElementById('navDynamicContainer').style.background = 'rgba(240, 240, 240, 0.95)';
 
         if (window.matchMedia("(max-width: 768px)").matches) {
             setTimeout(function() {
@@ -183,20 +182,20 @@
 
         //EXPAND CONTAINER
         document.getElementById('navDynamicContainer').style.transition = 'width 0.5s, height 0.5s, left 0.15s';
-        document.getElementById('navDynamicContainer').style.height = '220px';
-        document.getElementById('navDynamicContainer').style.background = 'rgba(240, 240, 240, 0.95)';
-        if (window.matchMedia("(max-width: 768px)").matches) {
-            setTimeout(function() {
-                document.getElementById('navDynamicContainer').style.borderRadius = '0px';
-                document.getElementById('navDynamicContainer').style.height = '100%';
-                document.getElementById('navDynamicContainer').style.maxHeight = '100dvh';
-                document.getElementById('navDynamicContainer').style.width = '100vw';
-                document.getElementById('navDynamicContainer').style.maxWidth = '100vw';
-                document.getElementById('navDynamicContainer').style.left = '-4px';
-                document.getElementById('navDynamicContainer').style.bottom = '-2px';
-            }, 200);
-        } else {
-        }
+            document.getElementById('navDynamicContainer').style.height = '220px';
+
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                setTimeout(function() {
+                    document.getElementById('navDynamicContainer').style.borderRadius = '0px';
+                    document.getElementById('navDynamicContainer').style.height = '100%';
+                    document.getElementById('navDynamicContainer').style.maxHeight = '100dvh';
+                    document.getElementById('navDynamicContainer').style.width = '100vw';
+                    document.getElementById('navDynamicContainer').style.maxWidth = '100vw';
+                    document.getElementById('navDynamicContainer').style.left = '-4px';
+                    document.getElementById('navDynamicContainer').style.bottom = '-2px';
+                }, 200);
+            } else {
+            }
         document.getElementById('contactViewContent').style.transition = 'visibility 1s, opacity 1.5s';
         document.getElementById('contactViewContent').style.visibility = 'visible';
         setTimeout(() => {
