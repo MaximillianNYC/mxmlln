@@ -15,7 +15,8 @@ a {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 56px;
+    justify-content: center;
+	height: 64px;
 	width: 100%;
 }
 
@@ -23,6 +24,7 @@ a {
     display: flex;
 	flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
@@ -128,8 +130,8 @@ a {
     z-index: 900;
     align-items: center;
     bottom: 42px;
-    left: calc(50% - 232px);
-    width: 456px;
+    left: calc(50% - 234px);
+    width: 468px;
     height: 64px;
     border-radius: 40px;
 	backdrop-filter: blur(80px);

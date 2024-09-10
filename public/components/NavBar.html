@@ -15,9 +15,7 @@
     <div id="navDynamicContainer" class="navDynamicContainer">
         <div class="navBar" id="navBar">
             <div class="navBarSegController" id="navBarSegController">
-                <div onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" >
-                    <img src="../!assets/Logo2024.png" height="36px" onmouseover="this.src='../!assets/LogoHover.gif'" onmouseout="this.src='../!assets/Logo2024.png'" style="cursor: pointer;">
-                </div>
+                <img src="../!assets/Logo2024.png" height="36px" onmouseover="this.src='../!assets/LogoHover.gif'" onmouseout="this.src='../!assets/Logo2024.png'" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
                 <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
                     <font class="navBarItem_OnState">📐 WORK</font>
                 </a>
@@ -25,9 +23,7 @@
                   <font class="navBarItem">👋 ABOUT</font>
                 </a>
                 <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 CHAT</font>
-                <div onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
-                    <img src="../!assets/Contact.png" height="40px">
-                </div>
+                <img src="../!assets/Contact.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
             </div>
         </div>
         <div class="infoViewContent" id="infoViewContent">
