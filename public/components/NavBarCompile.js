@@ -1,5 +1,3 @@
-
-
 //INFO VIEW
     //OPEN INFO VIEW
     function openNavInfoView() {    
