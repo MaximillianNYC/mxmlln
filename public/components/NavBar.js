@@ -182,7 +182,7 @@
 
         //EXPAND CONTAINER
         document.getElementById('navDynamicContainer').style.transition = 'width 0.5s, height 0.5s, left 0.15s';
-        document.getElementById('navDynamicContainer').style.height = '220px';
+        document.getElementById('navDynamicContainer').style.height = '360px';
 
         if (window.matchMedia("(max-width: 768px)").matches) {
             setTimeout(function() {
@@ -201,11 +201,54 @@
         setTimeout(() => {
             document.getElementById('contactViewContent').style.opacity = '1';
         }, 50);
+        document.querySelectorAll('.CircleButton').forEach((button, index) => {
+            //button.style.position = 'absolute';
+            //button.style.top = '50%';
+            //button.style.left = '50%';
+            //button.style.transform = 'translate(-50%, -50%)';
+            button.style.width = '0px';
+            button.style.height = '0px';
+            setTimeout(() => {
+                button.style.transition = 'width 0.5s ease-out, height 0.5s ease-out, transform 0.5s ease-out';
+                button.style.width = '115px';
+                button.style.height = '115px';
+                button.style.transform = 'translate(-50%, calc(-50% - 10px))';
+                setTimeout(() => {
+                    button.style.transition = 'width 0.5s, height 0.5s, transform 0.5s';
+                    button.style.width = '100px';
+                    button.style.height = '100px';
+                    button.style.transform = 'translate(-50%, -50%)';
+                    button.addEventListener('mouseenter', enlargeButton);
+                    button.addEventListener('mouseleave', shrinkButton);
+                }, 500);
+            }, (index + 1) * 75);
+        });
+    }
+
+    function enlargeButton(event) {
+        const button = event.currentTarget;
+        button.style.width = '110px';
+        button.style.height = '110px';
+        button.style.boxShadow = '0px 3px 20px 0px rgba(0, 0, 0, .15)';
+    }
+    
+    function shrinkButton(event) {
+        const button = event.currentTarget;
+        button.style.width = '100px';
+        button.style.height = '100px';
+        button.style.boxShadow = '0px 3px 10px 0px rgba(0, 0, 0, .15)';
     }
 
     //CLOSE CONTACT VIEW
     function closeNavContactView() {
         document.body.style.overflow = 'scroll';
+
+        document.querySelectorAll('.CircleButton').forEach((button) => {
+            button.style.transition = 'width 0.25s, height 0.25s, transform 0.25s';
+            button.style.width = '0px';
+            button.style.height = '0px';
+            button.style.transform = 'translateY(-10)';
+        });
         
         document.getElementById('contactViewContent').style.transition = 'visibility 0.15s, opacity 0.15s';
         document.getElementById('contactViewContent').style.visibility = 'hidden';
