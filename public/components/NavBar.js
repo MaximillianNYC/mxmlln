@@ -202,10 +202,6 @@
             document.getElementById('contactViewContent').style.opacity = '1';
         }, 50);
         document.querySelectorAll('.CircleButton').forEach((button, index) => {
-            //button.style.position = 'absolute';
-            //button.style.top = '50%';
-            //button.style.left = '50%';
-            //button.style.transform = 'translate(-50%, -50%)';
             button.style.width = '0px';
             button.style.height = '0px';
             setTimeout(() => {
@@ -244,7 +240,7 @@
         document.body.style.overflow = 'scroll';
 
         document.querySelectorAll('.CircleButton').forEach((button) => {
-            button.style.transition = 'width 0.25s, height 0.25s, transform 0.25s';
+            button.style.transition = 'width 0.15s, height 0.15s, transform 0.15s';
             button.style.width = '0px';
             button.style.height = '0px';
             button.style.transform = 'translateY(-10)';
