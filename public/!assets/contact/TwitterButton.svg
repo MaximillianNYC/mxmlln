@@ -1,9 +1,9 @@
 <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_460_85)">
 <path d="M54.9569 109.476C85.3088 109.476 109.914 84.9688 109.914 54.7379C109.914 24.507 85.3088 0 54.9569 0C24.605 0 0 24.507 0 54.7379C0 84.9688 24.605 109.476 54.9569 109.476Z" fill="white"/>
-<rect x="36.5" y="36.6" width="36" height="36.8" fill="url(#pattern0_460_85)"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M39.71 38.1896H41.51L65.2309 72.4103H62.8309L39.71 38.1896Z" fill="black"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M44.42 38.1896H46.52L70.2408 72.4103H67.8408L44.42 38.1896Z" fill="black"/>
+<rect x="34.5" y="34.5555" width="40" height="40.8889" fill="url(#pattern0_460_85)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M38.0667 36.3217H40.0667L66.4232 74.3447H63.7565L38.0667 36.3217Z" fill="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M43.3 36.3217H45.6333L71.9898 74.3447H69.3232L43.3 36.3217Z" fill="black"/>
 </g>
 <defs>
 <pattern id="pattern0_460_85" patternContentUnits="objectBoundingBox" width="1" height="1">
