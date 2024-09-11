@@ -205,12 +205,12 @@
             button.style.width = '0px';
             button.style.height = '0px';
             setTimeout(() => {
-                button.style.transition = 'width 0.5s ease-out, height 0.5s ease-out, transform 0.5s ease-out';
+                button.style.transition = 'width 0.5s ease-out, height 0.5s ease-out, transform 0.5s ease-out, box-shadow 1s ease';
                 button.style.width = '115px';
                 button.style.height = '115px';
                 button.style.transform = 'translate(-50%, calc(-50% - 10px))';
                 setTimeout(() => {
-                    button.style.transition = 'width 0.5s, height 0.5s, transform 0.5s';
+                    button.style.transition = 'width 0.5s, height 0.5s, transform 0.5s, box-shadow 1s ease';
                     button.style.width = '100px';
                     button.style.height = '100px';
                     button.style.transform = 'translate(-50%, -50%)';
