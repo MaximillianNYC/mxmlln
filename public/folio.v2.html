@@ -220,28 +220,16 @@
   <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
   </div>
 
-  <div class="gradient-blur" id="bottomFade">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-
   <div class="ContentContainer"> 
-    <div class="TitleBlock" style="display: none;">
-      <div class="IconContainer">
-        <img src="./!assets/Logo.gif" class="Logo">
-      </div>	
-      <div class="Text">
-        <div class="Name" id="Siggy">Design Portfolio by Maximillian Piras</div>		
-        <div class="Title" style="max-width: 700px;">
-          Amplifying human capabilities through delightful, helpful,<br>
-            <div class="ampersand">
+    <div class="TitleBlock2" style="display: none;">
+      <div class="Text" style="text-align:center;">
+        <div class="Name" id="Siggy" style="padding:0px;">Design Portfolio by Maximillian Piras</div>		
+        <div class="Title" style="padding:0px;">
+          Amplifying human capabilities with delightful
+            <div class="ampersand" style="font-size:40px;">
               &
             </div>
-          natural technology.
+          instinctual technology.
         </div>
       </div>
     </div>
@@ -458,7 +446,7 @@
 <script>
   jQuery(document).ready(function() {
       setTimeout(function() {
-          $('.TitleBlock').fadeIn(1000);
+          $('.TitleBlock2').fadeIn(1000);
       }, 100);
       setTimeout(function() {
           $('.folioBlock').fadeIn(1000);
