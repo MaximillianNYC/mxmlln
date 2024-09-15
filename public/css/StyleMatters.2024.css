@@ -463,8 +463,8 @@ body {
 	
 @media (min-width: 1000px) {	
 body {
-	background-color: #f5f5f5;
-	max-width: 990px;
+	/* background-color: #f5f5f5;
+	max-width: 990px; */
 	margin: auto;
 	margin-top: 0px;
 }
@@ -621,8 +621,8 @@ hr {
 	
 @media (min-width: 1400px) {	
 body {
-	background-color: #f5f5f5;
-	max-width: 1420px;
+	/* background-color: #f5f5f5;
+	max-width: 1420px; */
 	margin: auto;
 	margin-top: 0px;
 }
