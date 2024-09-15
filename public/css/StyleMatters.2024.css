@@ -10,9 +10,9 @@ html, body {
 }
 
 body {
-	background: linear-gradient(45deg, #E0F5FA, #F1F5FA, #F9F0ED, #FBEAFB);
+	background: linear-gradient(45deg, #aeebfa, #ccc4fb, #fde1d8, #fdcad9);
 	background-size: 400% 400%;
-	animation: gradient 10s ease infinite;
+	animation: gradient 5s ease infinite;
 }
 
 button:disabled {
@@ -408,7 +408,7 @@ body {
 	font-weight: 800;
 	letter-spacing: 0px;
 	font-size: 40px;
-	line-height: 1.2;
+	line-height: 1.1;
 	width: 100%;
 }
 	
@@ -571,7 +571,7 @@ hr {
 	font-weight: 800;
 	letter-spacing: 0px;
 	font-size: 40px;
-	line-height: 1.2;
+	line-height: 1.1;
 }
 	
 .Desc {
@@ -698,7 +698,7 @@ hr {
 	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: center;
-	width: 900px;
+	width: 700px;
 	height: 450px;
 }
 	
@@ -726,8 +726,8 @@ hr {
 	font-family: Archivo;
 	font-weight: 800;
 	letter-spacing: 0px;
-	font-size: 44px;
-	line-height: 1.2;
+	font-size: 40px;
+	line-height: 1.1;
 }
 	
 .Desc {
