@@ -234,7 +234,7 @@
         const button = event.currentTarget;
         button.style.width = '100px';
         button.style.height = '100px';
-        button.style.boxShadow = '0px 3px 10px 0px rgba(0, 0, 0, .15)';
+        button.style.boxShadow = '0px 3px 10px 0px rgba(0, 0, 0, 0)';
     }
 
     //CLOSE CONTACT VIEW
