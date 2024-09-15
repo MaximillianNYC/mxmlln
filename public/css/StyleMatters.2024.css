@@ -5,11 +5,9 @@ html, body {
 	scroll-behavior: smooth;
 	top: 0px;
 	left: 0px;
-	width: 100%;
+	width: 100vw;
+	height: 100dvh;
 	overflow-x: hidden;
-}
-
-body {
 	background: linear-gradient(45deg, #aeebfa, #ccc4fb, #fde1d8, #fdcad9);
 	background-size: 400% 400%;
 	animation: gradient 5s ease infinite;
@@ -31,6 +29,14 @@ button:disabled {
 	}
 }
 
+.IntroLoader {
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
 .gradient-blur {
 	position: fixed;
@@ -232,10 +238,12 @@ h1 {
 }
 
 .ContentContainer {
+	position: absolute;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width:100%;
+	padding-bottom: 56px;
 }
 
 .ampersand {
@@ -374,6 +382,7 @@ body {
 }
 
 .TitleBlock2 {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -858,7 +867,7 @@ input:focus {
 	width: 100px;
 	height: 100px;
 	border-radius: 100%;
-	border: 2px solid rgba(0, 0, 0, 0.05);
+	border: 2px solid rgba(0, 0, 0, 0.025);
 	box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0);
 	transition: width 0.25s, height 0.25s, box-shadow 0.25s;
 }

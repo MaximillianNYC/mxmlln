@@ -42,7 +42,7 @@
 
 <body>
   
-  <div id="navDynamicContainer" class="navDynamicContainer">
+  <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
     <div class="navBar" id="navBar">
         <div class="navBarSegController" id="navBarSegController">
             <img src="./!assets/Logo2024.png" height="36px" onmouseover="this.src='./!assets/LogoHover.gif'" onmouseout="this.src='./!assets/Logo2024.png'" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
@@ -221,10 +221,13 @@
   <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
   </div>
 
-  <div class="ContentContainer"> 
-    <div class="TitleBlock2" style="display: none;">
+  <img src="!assets/LogoHover.gif" class="IntroLoader">
+
+  <div class="ContentContainer" style="display:none;"> 
+    <div class="TitleBlock2">
       <div class="Text" style="text-align:center;">
-        <div class="Name" id="Siggy" style="padding:0px;">Design Portfolio by Maximillian Piras</div>		
+        <div class="Name" id="Siggy" style="padding:0px;">
+          Design Portfolio by Maximillian Piras</div>		
         <div class="Title" style="padding:0px;">
           Amplifying human capabilities with delightful
             <div class="ampersand" style="font-size:40px;">
@@ -235,9 +238,7 @@
       </div>
     </div>
 
-
-    <div class="folioBlock" style="display: none;">
-
+    <div class="folioBlock" >
       <div style="display:flex;flex-direction:row;color:dimgrey;">
           <div class="Name" style="width:400px;">
             <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:14px;">💼</div> Case studies
@@ -442,21 +443,27 @@
     </div>
   </div>  
 
-  <br><br><br>
-
 <script src="./components/NavBar.js"></script>
 <script src="./components/ChatIntelligence.js"></script>
 
 <!-- Intro Animation -->
 <script>
   jQuery(document).ready(function() {
-      setTimeout(function() {
-          $('.TitleBlock2').fadeIn(1000);
-      }, 100);
-      setTimeout(function() {
-          $('.folioBlock').fadeIn(1000);
-          $('.footer').fadeIn(1000);
-      }, 600);
+    $('.IntroLoader').animate({width:'300px',height:'300px'}, 500, function() {
+      $('.IntroLoader')
+      .delay(1000)
+      .animate({top:'-100%'}, 250);
+    });
+    setTimeout(function() {
+      $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
+        $('.ContentContainer').animate({top: '0px'}, 1000);
+      });
+    }, 1000);
+    setTimeout(function() {
+      $('.navDynamicContainer').css('bottom', '-100px').fadeIn(250, function() {
+        $('.navDynamicContainer').animate({bottom: '24px'}, 250);
+      });
+    }, 1250);
   });
 </script>
 

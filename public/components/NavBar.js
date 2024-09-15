@@ -37,7 +37,7 @@
         document.getElementById('infoViewContent').style.zIndex = '-1';
 
         document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 
+        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 225px)'; 
         document.getElementById('navDynamicContainer').style.bottom = '24px';   
         document.getElementById('navDynamicContainer').style.width = '464px';
         document.getElementById('navDynamicContainer').style.height = '64px';
@@ -132,7 +132,7 @@
         document.getElementById('chatViewContent').style.zIndex = '-1';
 
         document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 
+        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 225px)'; 
         document.getElementById('navDynamicContainer').style.bottom = '24px';   
         document.getElementById('navDynamicContainer').style.width = '464px';
         document.getElementById('navDynamicContainer').style.height = '64px';
@@ -230,7 +230,7 @@
         document.getElementById('contactViewContent').style.zIndex = '-1';
 
         document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 
+        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 225px)'; 
         document.getElementById('navDynamicContainer').style.bottom = '24px';   
         document.getElementById('navDynamicContainer').style.width = '464px';
         document.getElementById('navDynamicContainer').style.height = '64px';
