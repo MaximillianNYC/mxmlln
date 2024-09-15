@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="css/StyleMatters.2024.css">
   <link rel="stylesheet" href="css/ChatStyle.css">
   <link rel="stylesheet" href="./components/NavBar.css">
+  <link rel="stylesheet" href="css/ProgressiveBlur.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +66,7 @@
         </div>
         <div>
             <a href="https://github.com/MaximillianNYC/mxmlln" target="_blank">
-                <button style="width:412px;">VIEW SOURCE ON GITHUB</button>
+                <button style="width:424px;">VIEW SOURCE ON GITHUB</button>
             </a>
         </div>
     </div>
@@ -216,7 +217,7 @@
         </div>    
     </div>
   </div>
-
+  <div class="bottomFade" id="bottomFade"></div>
   <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
   </div>
 
@@ -233,7 +234,10 @@
         </div>
       </div>
     </div>
+
+
     <div class="folioBlock" style="display: none;">
+
       <div style="display:flex;flex-direction:row;color:dimgrey;">
           <div class="Name" style="width:400px;">
             <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:14px;">💼</div> Case studies
@@ -438,11 +442,12 @@
     </div>
   </div>  
 
-  <br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br>
 
 <script src="./components/NavBar.js"></script>
 <script src="./components/ChatIntelligence.js"></script>
 
+<!-- Intro Animation -->
 <script>
   jQuery(document).ready(function() {
       setTimeout(function() {
@@ -455,6 +460,7 @@
   });
 </script>
 
+<!-- Carousel Controls -->
 <script>
   const prevButton = document.getElementById('prev');
   const nextButton = document.getElementById('next');
@@ -511,7 +517,6 @@
       updateSlidePosition();
   });
 </script>
-
 <script>
   const prevButton2 = document.getElementById('prev2');
   const nextButton2 = document.getElementById('next2');
@@ -568,7 +573,6 @@
       updateSlidePosition2();
   });
 </script>
-
 <script>
   const prevButton3 = document.getElementById('prev3');
   const nextButton3 = document.getElementById('next3');

@@ -49,9 +49,9 @@
         document.getElementById('infoViewContent').style.zIndex = '-1';
 
         document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 234px)'; 
-        document.getElementById('navDynamicContainer').style.bottom = '42px';   
-        document.getElementById('navDynamicContainer').style.width = '468px';
+        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 
+        document.getElementById('navDynamicContainer').style.bottom = '24px';   
+        document.getElementById('navDynamicContainer').style.width = '464px';
         document.getElementById('navDynamicContainer').style.height = '64px';
         document.getElementById('navDynamicContainer').style.borderRadius = '40px';
         document.getElementById('navDynamicContainer').style.background = 'rgba(240, 240, 240, 0.75)';
@@ -144,9 +144,9 @@
         document.getElementById('chatViewContent').style.zIndex = '-1';
 
         document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 234px)'; 
-        document.getElementById('navDynamicContainer').style.bottom = '42px';   
-        document.getElementById('navDynamicContainer').style.width = '468px';
+        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 
+        document.getElementById('navDynamicContainer').style.bottom = '24px';   
+        document.getElementById('navDynamicContainer').style.width = '464px';
         document.getElementById('navDynamicContainer').style.height = '64px';
         document.getElementById('navDynamicContainer').style.borderRadius = '40px';
         document.getElementById('navDynamicContainer').style.background = 'rgba(240, 240, 240, 0.75)';
@@ -254,9 +254,9 @@
         document.getElementById('contactViewContent').style.zIndex = '-1';
 
         document.getElementById('navDynamicContainer').style.transition = 'left 0.2s, bottom 0.2s, width 0.15s, height 0.15s';
-        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 234px)'; 
-        document.getElementById('navDynamicContainer').style.bottom = '42px';   
-        document.getElementById('navDynamicContainer').style.width = '468px';
+        document.getElementById('navDynamicContainer').style.left = 'calc(50% - 232px)'; 
+        document.getElementById('navDynamicContainer').style.bottom = '24px';   
+        document.getElementById('navDynamicContainer').style.width = '464px';
         document.getElementById('navDynamicContainer').style.height = '64px';
         document.getElementById('navDynamicContainer').style.borderRadius = '40px';
         document.getElementById('navDynamicContainer').style.background = 'rgba(240, 240, 240, 0.75)';

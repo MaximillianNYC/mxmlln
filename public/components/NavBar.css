@@ -106,9 +106,9 @@ a {
     z-index: 898;
     bottom: 0;
     left: 0;
-    height: 150px;
+    height: 100px;
     width: 100vw;
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.25));
 }
 
 .navBarOverlay {
@@ -129,16 +129,16 @@ a {
     position: fixed;
     z-index: 900;
     align-items: center;
-    bottom: 42px;
-    left: calc(50% - 234px);
-    width: 468px;
+    bottom: 24px;
+    left: calc(50% - 232px);
+    width: 464px;
     height: 64px;
     border-radius: 40px;
 	backdrop-filter: blur(80px);
-	-webkit-backdrop-filter: blur(35px);
+	-webkit-backdrop-filter: blur(80px);
 	background-color: rgba(240, 240, 240, 0.75);
-	box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, .025);
-	border: solid 2px rgba(0, 0, 0, .03);
+	box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, .15);
+	border: solid 2px rgba(0, 0, 0, .1);
     transition: display 0.5s, visibility 0.5s;
 }
 
