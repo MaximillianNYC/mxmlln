@@ -464,6 +464,11 @@
         $('.navDynamicContainer').animate({bottom: '24px'}, 250);
       });
     }, 1250);
+    // Disable vertical scrolling for 1500ms
+    $('body').css('overflow-y', 'hidden');
+    setTimeout(function() {
+      $('body').css('overflow-y', 'auto');
+    }, 2500);
   });
 </script>
 
