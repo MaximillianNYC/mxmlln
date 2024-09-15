@@ -55,16 +55,6 @@ a {
 	border-radius: 40px;
 }
 
-.ampersand {
-	display: inline-block;
-	font-family: "Playfair Display SC", serif;
-	font-weight: 700;
-	font-style: italic;
-	font-size: 50px;
-	padding-right: 2px;
-	line-height: 0%;
-}
-
 .viewHeader {
     z-index: 1000;
     font-family: Arial, Helvetica, sans-serif;
