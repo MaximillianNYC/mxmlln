@@ -8,13 +8,26 @@ html, body {
 	width: 100vw;
 	height: 110dvh;
 	overflow-x: hidden;
-	background: linear-gradient(45deg, #aeebfa, #ccc4fb, #fde1d8, #fdcad9);
+	/* background: linear-gradient(45deg, #aeebfa, #ccc4fb, #fde1d8, #fdcad9);
 	background-size: 400% 400%;
-	animation: gradient 5s ease infinite;
+	animation: gradient 5s ease infinite; */
 }
 
 button:disabled {
     cursor: not-allowed;
+}
+
+.gradeBG {
+	position: fixed;
+	z-index: 1;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100dvh;
+	overflow: hidden;
+	background: linear-gradient(45deg, #aeebfa, #ccc4fb, #fde1d8, #fdcad9);
+	background-size: 400% 400%;
+	animation: gradient 5s ease infinite;
 }
 
 @keyframes gradient {
@@ -31,6 +44,7 @@ button:disabled {
 
 .IntroLoader {
 	position: absolute;
+	z-index: 9999;
 	width: 0px;
 	height: 0px;
 	top: 50%;
@@ -147,6 +161,14 @@ h1 {
 	line-height: 1.2;
 }
 
+h2 {
+	font-family: Archivo;
+	font-weight: 700;
+	letter-spacing: 0px;
+	font-size: 32px;
+	line-height: 1.2;
+}
+
 .folioBlock {
 	background-color: rgba(255, 255, 255, 0.5);
 	border-radius: 70px;
@@ -165,6 +187,87 @@ h1 {
 .blockRowInner {
 	width: 1360px;
 	height: 450px;
+}
+
+.timeline {
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 80px;
+	padding: 40px;
+	max-width: 800px;
+	width: 90%;
+}
+
+.timelineBlock {
+	display: flex;
+	flex-direction: row;
+	gap: 24px;
+	overflow-x: hidden;
+}
+
+.timelineRuler {
+	display: flex;
+	flex-direction: column;
+}
+
+.timelineIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	width: 80px;
+	height: 80px;
+	min-width: 80px;
+	min-height: 80px;
+	background-color: #ffffff;
+	border-radius: 100%;
+	border: 2px solid rgba(0, 0, 0, 0.025);
+	overflow: hidden;
+}
+
+.timelineContent {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	width: calc(100% - 140px);
+}
+
+.timelineCopy {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: left;
+	width: 100%;
+	gap: 0px;
+	margin-top: 4px;
+	margin-bottom: 24px;
+}
+
+.timelineCopy h2 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.timelineCopy p {
+	margin: 0px;
+	text-align: left;
+}
+
+.timelinePhotoAlbum {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 400px;
+}
+
+.timelinePhoto {
+	position: absolute;
+	border-radius: 24px;
+	border: #ffffff 8px solid;
+	box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, .025);
+	width: 35%;
+	cursor: url('../js/IntenseImages/plus_cursor.png') 25 25, auto;
 }
 
 .carousel-container {
@@ -239,6 +342,7 @@ h1 {
 
 .ContentContainer {
 	position: absolute;
+	z-index: 500;
 	top: 0px;
 	left: 0px;
 	display: flex;
@@ -424,6 +528,12 @@ body {
 	font-size: 28px;
 	line-height: 1.1;
 	width: 450px;
+	background: linear-gradient(45deg, #2ad4ff, #6246ff, #ff6b3a, #fd457c);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
 }
 	
 .Desc {
@@ -558,7 +668,7 @@ hr {
 	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: center;
-	width: 700px;
+	width: 900px;
 	height: 450px;
 }
 	
@@ -580,7 +690,7 @@ hr {
 }
 
 .ampersand {
-	font-size: 40px;
+	font-size: 44px;
 }		
 	
 .Title {
@@ -588,8 +698,14 @@ hr {
 	font-family: Archivo;
 	font-weight: 800;
 	letter-spacing: 0px;
-	font-size: 40px;
+	font-size: 44px;
 	line-height: 1.1;
+	background: linear-gradient(45deg, #2ad4ff, #6246ff, #ff6b3a, #fd457c);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
 }
 	
 .Desc {
@@ -716,7 +832,7 @@ hr {
 	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: center;
-	width: 700px;
+	width: 900px;
 	height: 450px;
 }
 	
@@ -738,7 +854,7 @@ hr {
 }
 
 .ampersand {
-	font-size: 40px;
+	font-size: 44px;
 }	
 	
 .Title {
@@ -746,8 +862,14 @@ hr {
 	font-family: Archivo;
 	font-weight: 800;
 	letter-spacing: 0px;
-	font-size: 40px;
+	font-size: 44px;
 	line-height: 1.1;
+	background: linear-gradient(45deg, #2ad4ff, #6246ff, #ff6b3a, #fd457c);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
 }
 	
 .Desc {
@@ -845,15 +967,6 @@ legal {
 	opacity: 50%;
 }
 
-.intense {
-	border-radius: 30px;
-	cursor: url('../js/IntenseImages/plus_cursor.png') 25 25, auto;
-	background-color: #f5f5f5;
-	width: 100%;
-	height: auto;
-	overflow: hidden;
-}
-
 input         {
   font-size: 18px;
   padding: 23px 0px 22px 30px;
@@ -873,7 +986,6 @@ input:focus {
 	align-items: center;
 	text-decoration: none;
 	outline: none;
-	border: none;
 	cursor: pointer;
 	width: 100px;
 	height: 100px;

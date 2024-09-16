@@ -2,6 +2,7 @@
 <html>
 <head>
 
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36917341-6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,8 +11,8 @@
     gtag('config', 'UA-36917341-6');
   </script>
 	
+  <!-- Metadata -->
   <meta charset="UTF-8">
-	
   <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration.">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Maximillian Piras, Product Designer</title>
@@ -26,10 +27,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
   <link rel="icon" href="/MXMLLN.ico" />
 	
+  <!-- Style Sheets -->
   <link rel="stylesheet" href="css/StyleMatters.2024.css">
-  <link rel="stylesheet" href="css/ChatStyle.css">
+  <link rel="stylesheet" href="./components/NavBar.css">
+  <link rel="stylesheet" href="css/ProgressiveBlur.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -39,427 +43,442 @@
 </head>
 
 <body>
+  
+  <!-- Intro Graphic -->
+  <img src="!assets/LogoHover.gif" class="IntroLoader">
 
-  <button onclick="openFullscreenModal()" id="AskMaxButton" class="AskMaxButton">
-    CHAT WITH MAXIMILLIAN AI
-  </button>
-  
-  <div class="bottomFade" id="bottomFade"></div>
-  
-<div id="fullscreenModal" class="fullscreenModal">
-  <div class="modal-content" id="modal-content">
-    <!--close button-->
-    <div class="closer">
-      <img src="!assets/Close.png" width="32px" height="32px" onclick="closeFullscreenModal()">
+  <!-- Nav Bar -->
+  <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
+    <div class="navBar" id="navBar">
+        <div class="navBarSegController" id="navBarSegController">
+            <img src="./!assets/Logo2024.png" height="36px" onmouseover="this.src='./!assets/LogoHover.gif'" onmouseout="this.src='./!assets/Logo2024.png'" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <a href="folio.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
+                <font class="navBarItem_OnState">📐 WORK</font>
+            </a>
+            <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
+              <font class="navBarItem">👋 ABOUT</font>
+            </a>
+            <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 CHAT</font>
+            <img src="./!assets/Contact.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
+        </div>
     </div>
-    <!--input field-->
-    <form class="inputContainer" id="inputContainer">
-      <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
-        <img src="!assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
-      </button>
-      <input type="text" class="inputChat" name="defineProblem" id="chatinput" placeholder="Tell me what you're looking for..." autocomplete="off">
-    </form>
-    <!--empty state-->
-    <div class="emptyState" id="emptyState">
-      <div class="logo">
-        <img src="!assets/LogoHover.gif" height="150px">
-      </div>
-      <div class="emptyStateText">
-        <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
-        <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
-      </div>
-      <div class="CardBadge" style="background-color:rgba(6, 174, 239, 0.55);align-self:center;">
-        <div class="BadgeText">
-          BETA v1.0
+    <div class="infoViewContent" id="infoViewContent">
+        <div class="viewHeader">
+            <font class="viewHeaderText">MXMLLN FOLIO v2.0</font>
+            <img src="./!assets/Close.png" onclick="closeNavInfoView()" class="closeButton">
         </div>
-      </div>
+        <div style="padding-bottom:32px;">
+            <img src="./!assets/Logo.gif" height="200px">
+        </div>
+        <div>
+            <a href="https://github.com/MaximillianNYC/mxmlln" target="_blank">
+                <button style="width:424px;">VIEW SOURCE ON GITHUB</button>
+            </a>
+        </div>
     </div>
-    <!--populated state-->
-    <div class="responseLog" id="responseLog">
-      <div class="queryContainer">
-        <div class="query">
-          <p style="margin:0px;padding:0px;"></p>
+    <div class="chatViewContent" id="chatViewContent">
+        <!--close button-->
+        <div class="viewHeader" style="justify-content:flex-end;">
+            <img src="./!assets/Close.png" onclick="closeNavChatView()" class="closeButton">
         </div>
-      </div>
-      <!--loading-->
-      <div class="loadingIndicator">
-          <div class="lds-ellipsis">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-          </div>
-      </div>
-      <!--response-->
-      <div class="responseContainer">
-        <div class="blurb">
-          <div class="logo" style="width:40px;height:40px;min-width:40px;min-height:40px;margin:0px;">
-            <img src="!assets/LogoHover.gif" height="30px">
-          </div>
-          <p style="margin:0px;padding:0px;text-align:left;"></p>
-        </div>
-        <div class="cardURL">
-          <a href="https://www.maximillian.nyc" target="_blank">
-            <div class="suggestionCard">
-              <div class="cardHeader">
-                <p class="cardHeaderTitle"></p>
-              </div>
-              <div class="cardDescription">
-                <p class="cardDescriptionText"></p>
-              </div>
+        <!--input field-->
+        <form class="chatInputContainer" id="chatInputContainer">
+            <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
+            <img src="./!assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
+            </button>
+            <input type="text" class="chatInputField" name="defineProblem" id="chatInputField" placeholder="Tell me what you're looking for..." autocomplete="off">
+        </form>
+        <!--empty state-->
+        <div class="chatEmptyState" id="chatEmptyState">
+            <div class="chatEmptyStateLogo">
+                <img src="./!assets/LogoHover.gif" height="150px">
             </div>
-          </a>
+            <div class="chatEmptyStateText">
+            <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
+            <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
+            </div>
+            <div class="CardBadge" style="background-color:rgba(6, 174, 239, 0.55);align-self:center;">
+                <div class="BadgeText">
+                    BETA v1.0
+                </div>
+            </div>
+        </div>
+        <!--populated state-->
+        <div class="chatResponseLog" id="chatResponseLog">
+            <div class="chatQueryContainer">
+                <div class="chatQuery">
+                    <p style="margin:0px;padding:0px;"></p>
+                </div>
+            </div>
+            <div class="loadingIndicator">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="chatResponseContainer">
+                <div class="chatBlurb">
+                    <div class="chatResponseLogoContainer">
+                        <img src="./!assets/LogoHover.gif" class="chatResponseLogo">
+                    </div>
+                    <p style="margin:0px;padding:0px;text-align:left;"></p>
+                </div>
+                <div class="chatCardURL">
+                    <a href="https://www.maximillian.nyc" target="_blank">
+                        <div class="chatSuggestionCard">
+                            <div class="chatCardHeader">
+                                <p class="chatCardHeaderTitle"></p>
+                            </div>
+                            <div class="chatCardDescription">
+                                <p class="chatCardDescriptionText"></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contactViewContent" id="contactViewContent">
+        <div class="viewHeader">
+            <font class="viewHeaderText">CONTACT</font>
+            <img src="./!assets/Close.png" onclick="closeNavContactView()" class="closeButton">
+        </div>            
+        <div style="display:flex;flex-direction:row;height:100px;">
+            <div class="contactViewIconContainer" id="Email">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            MAX@MXMLLN.COM
+                        </div>
+                    </div>
+                </div>
+                <a href="mailto:max@mxmlln.com" onclick="gtag('event', 'Click Email Button', { 'event_category' : 'Contact', 'event_label' : 'MAX@MXMLLN.COM'});">
+                    <img src="./!assets/contact/EmailButton.svg" class="CircleButton" alt="Email" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="X">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            X / TWITTER
+                        </div>
+                    </div>
+                </div>
+                <a href="https://twitter.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Twitter Button', { 'event_category' : 'Contact', 'event_label' : 'TWITTER'});">
+                    <img src="./!assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="LinkedIn">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            LINKEDIN
+                        </div>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/maximilliannyc/" target="_blank" onclick="gtag('event', 'Click LinkedIn Button', { 'event_category' : 'Contact', 'event_label' : 'LinkedIn'});">
+                    <img src="./!assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+        </div>  
+        <div style="display:flex;flex-direction:row;height:100px;">
+            <div class="contactViewIconContainer" id="Email">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            MEDIUM
+                        </div>
+                    </div>
+                </div>
+                <a href="https://medium.com/@MaximillianNYC"  target="_blank" onclick="gtag('event', 'Click Medium Button', { 'event_category' : 'Contact', 'event_label' : 'Medium'});">
+                    <img src="./!assets/contact/MediumButton.svg" class="CircleButton" alt="Medium" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="X">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            INSTAGRAM
+                        </div>
+                    </div>
+                </div>
+                <a href="https://www.instagram.com/maximillian.nyc" target="_blank" onclick="gtag('event', 'Click Instagram Button', { 'event_category' : 'Contact', 'event_label' : 'Insta'});">
+                    <img src="./!assets/contact/InstaButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="LinkedIn">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            DRIBBBLE
+                        </div>
+                    </div>
+                </div>
+                <a href="https://dribbble.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Dribbble Button', { 'event_category' : 'Contact', 'event_label' : 'Dribbble'});">
+                    <img src="./!assets/contact/DribbbleButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+        </div>    
+    </div>
+  </div>
+  <div class="bottomFade" id="bottomFade"></div>
+  <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
+  </div>
+  <div class="gradeBG"></div>
+
+  <!-- Main Content -->
+  <div class="ContentContainer" style="display:none;"> 
+    <div class="TitleBlock2">
+      <div class="Text" style="text-align:center;">
+        <div class="Name" id="Siggy" style="padding:0px;font-size:20px;">
+          Design Portfolio by Maximillian Piras</div>		
+        <div class="Title" style="padding:0px;">
+          Amplifying human capabilities with delightful
+            <div class="ampersand">&</div>
+          instinctual technology.
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-  <div class="modalBGOverlay" id="modalBGOverlay" onclick="closeFullscreenModal()"></div>
+    <div class="folioBlock">
 
-<div class="ContentContainer"> 
-  <div class="TitleBlock" style="display: none;">
-    <div class="IconContainer">
-      <img src="./!assets/Logo.gif" class="Logo">
-    </div>	
-    <div class="Text">
-      <div class="Name" id="Siggy">Design Portfolio by Maximillian Piras</div>		
-      <div class="Title" style="max-width: 700px;">
-        Amplifying human capabilities through delightful, helpful,<br>
-          <div class="ampersand">
-            &
-          </div>
-        natural technology.
-      </div>
-    </div>
-  </div>
-  <div class="folioBlock" style="display: none;">
-    <div style="display:flex;flex-direction:row;color:dimgrey;">
+      <div style="display:flex;flex-direction:row;color:rgba(0, 0, 0, 0.65);">
         <div class="Name" style="width:400px;">
           <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:14px;">💼</div> Case studies
         </div>
-    </div>
-    <div class="carousel-container">
-      <div class="carousel-slider">
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://www.figma.com/proto/uEzQoQzs0lLZJvkYkHYFBJ/CS1%3A-AWW-v1?type=design&node-id=114-532&t=hxx58FRNhf97vNdV-8&scaling=contain&page-id=112%3A531&starting-point-node-id=114%3A532&show-proto-sidebar=1&hide-ui=1" target="_blank" onclick="gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Headliner'});">
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AWW.v1.png);">
-                    <div class="CardContent">
-                      <div class="CardBadge">
-                        <div class="BadgeText">
-                          ACTIVATION
+      </div>
+      <div class="carousel-container">
+        <div class="carousel-slider">
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://www.figma.com/proto/uEzQoQzs0lLZJvkYkHYFBJ/CS1%3A-AWW-v1?type=design&node-id=114-532&t=hxx58FRNhf97vNdV-8&scaling=contain&page-id=112%3A531&starting-point-node-id=114%3A532&show-proto-sidebar=1&hide-ui=1" target="_blank" gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Headliner'});">
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AWW.v1.png);">
+                      <div class="CardContent">
+                        <div class="CardBadge">
+                          <div class="BadgeText">
+                            ACTIVATION
+                          </div>
                         </div>
+                        <div class="CardTitle">
+                          Warmer welcomes in new user onboarding
+                        </div>	
                       </div>
-                      <div class="CardTitle">
-                        Warmer welcomes in new user onboarding
-                      </div>	
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://www.figma.com/proto/TaR3OtQUcpMaYG52tQucyA/CS2%3A-BACP-v1?type=design&node-id=20-196&t=odVaPZG9GpjJLaDO-8&scaling=contain&page-id=112%3A531&starting-point-node-id=20%3A196&hide-ui=1" target="_blank" onclick="gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Headliner'});">
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AutomationCoverImageTrim.gif);">
-                    <div class="CardContent">
-                      <div class="CardBadge">
-                        <div class="BadgeText">
-                          RETENTION
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://www.figma.com/proto/TaR3OtQUcpMaYG52tQucyA/CS2%3A-BACP-v1?type=design&node-id=20-196&t=odVaPZG9GpjJLaDO-8&scaling=contain&page-id=112%3A531&starting-point-node-id=20%3A196&hide-ui=1" target="_blank" gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Headliner'});">
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AutomationCoverImageTrim.gif);">
+                      <div class="CardContent">
+                        <div class="CardBadge">
+                          <div class="BadgeText">
+                            RETENTION
+                          </div>
                         </div>
+                        <div class="CardTitle">
+                          Boring automations for creative people
+                        </div>	
                       </div>
-                      <div class="CardTitle">
-                        Boring automations for creative people
-                      </div>	
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                  <div class="CardInnerContainer" style="cursor:not-allowed;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/ComingSoon.png);">
-                    <div class="CardContent">
-                      <div class="CardBadge">
-                        <div class="BadgeText">
-                          REVENUE
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                    <div class="CardInnerContainer" style="cursor:not-allowed;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/ComingSoon.png);">
+                      <div class="CardContent">
+                        <div class="CardBadge">
+                          <div class="BadgeText">
+                            REVENUE
+                          </div>
                         </div>
+                        <div class="CardTitle">
+                          Aligning user value with purchase price 
+                        </div>	
                       </div>
-                      <div class="CardTitle">
-                        Aligning user value with purchase price 
-                      </div>	
                     </div>
-                  </div>
+                </div>
               </div>
             </div>
-          </div>
+        </div>
+        <button id="prev" class="carouselButtonPrev">
+          <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
+        </button>
+        <button id="next" class="carouselButtonNext">
+          <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
+        </button>
       </div>
-      <button id="prev" class="carouselButtonPrev">
-        <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
-      </button>
-      <button id="next" class="carouselButtonNext">
-        <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
-      </button>
-    </div>
-    <div style="display:flex;flex-direction:row;color:dimgrey;">
-      <div class="Name" style="width:400px;">
-        <div style="display:inline-block;padding-right:8px;font-size:14px;padding-bottom:6px;padding-left:24px;">📄</div> 
-        Published articles
-      </div>
-    </div>			
-    <div class="carousel-container">
-      <div class="carousel-slider2">
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://www.smashingmagazine.com/2024/02/designing-ai-beyond-conversational-interfaces/" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Smashing Abstraction'});">
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5)), url(!assets/Abstraction.gif);">
-                    <div class="CardContent">
-                      <div class="CardBadge"><div class="BadgeText">SMASHING MAGAZINE</div></div>
-                      <div class="CardTitle">When words cannot describe: AI beyond conversational UI</div>	
+      <div style="display:flex;flex-direction:row;color:rgba(0, 0, 0, 0.65);">
+        <div class="Name" style="width:400px;">
+          <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:14px;">📄</div> 
+          Published articles
+        </div>
+      </div>			
+      <div class="carousel-container">
+        <div class="carousel-slider2">
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://www.smashingmagazine.com/2024/02/designing-ai-beyond-conversational-interfaces/" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Smashing Abstraction'});">
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5)), url(!assets/Abstraction.gif);">
+                      <div class="CardContent">
+                        <div class="CardBadge"><div class="BadgeText">SMASHING MAGAZINE</div></div>
+                        <div class="CardTitle">When words cannot describe: AI beyond conversational UI</div>	
+                      </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://www.smashingmagazine.com/2023/08/friction-feature-machine-learning-algorithms/" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Smashing Frcition'});">
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5)), url(!assets/Friction3.png);">
-                    <div class="CardContent">
-                      <div class="CardBadge"><div class="BadgeText">SMASHING MAGAZINE</div></div>
-                      <div class="CardTitle">Using friction as a feature in machine learning algorithms</div>	
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://www.smashingmagazine.com/2023/08/friction-feature-machine-learning-algorithms/" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Smashing Frcition'});">
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5)), url(!assets/Friction3.png);">
+                      <div class="CardContent">
+                        <div class="CardBadge"><div class="BadgeText">SMASHING MAGAZINE</div></div>
+                        <div class="CardTitle">Using friction as a feature in machine learning algorithms</div>	
+                      </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://uxdesign.cc/designing-algorithm-friendly-interfaces-84da3ed076a9" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Algorithms'});">
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/Algo.png);">
-                    <div class="CardContent">
-                      <div class="CardBadge"><div class="BadgeText">UX COLLECTIVE</div></div>
-                      <div class="CardTitle">Designing algorithm-friendly interfaces</div>	
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://uxdesign.cc/designing-algorithm-friendly-interfaces-84da3ed076a9" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Algorithms'});">
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/Algo.png);">
+                      <div class="CardContent">
+                        <div class="CardBadge"><div class="BadgeText">UX COLLECTIVE</div></div>
+                        <div class="CardTitle">Designing algorithm-friendly interfaces</div>	
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </div>
-            </div>	
-          </div>
+                  </a>
+                </div>
+              </div>	
+            </div>
+        </div>
+        <button id="prev2" class="carouselButtonPrev">
+          <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
+        </button>
+        <button id="next2" class="carouselButtonNext">
+          <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
+        </button>
       </div>
-      <button id="prev2" class="carouselButtonPrev">
-        <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
-      </button>
-      <button id="next2" class="carouselButtonNext">
-        <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
-      </button>
-    </div>
-    <div style="display:flex;flex-direction:row;color:dimgrey;">
-      <div class="Name" style="width:400px;">
-        <div style="display:inline-block;padding-right:8px;font-size:14px;padding-bottom:6px;padding-left:24px;">🕹️</div> 
-        Fun stuff
-      </div>
-    </div>		
-    <div class="carousel-container">
-      <div class="carousel-slider3">
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://www.youtube.com/watch?v=i1JVN3BSmeM" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : 'Andata'});">
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AndataTrans.gif);">
-                    <div class="CardContent">
-                      <div class="CardBadge">
-                        <div class="BadgeText">
-                          MILAN RECORDS
+      <div style="display:flex;flex-direction:row;color:rgba(0, 0, 0, 0.65);">
+        <div class="Name" style="width:400px;">
+          <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:14px;">🕹️</div> 
+          Fun stuff
+        </div>
+      </div>		
+      <div class="carousel-container">
+        <div class="carousel-slider3">
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://www.youtube.com/watch?v=i1JVN3BSmeM" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : 'Andata'});">
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AndataTrans.gif);">
+                      <div class="CardContent">
+                        <div class="CardBadge">
+                          <div class="BadgeText">
+                            MILAN RECORDS
+                          </div>
                         </div>
+                        <div class="CardTitle">
+                          A music video for Ryuichi Sakamoto
+                        </div>	
                       </div>
-                      <div class="CardTitle">
-                        A music video for Ryuichi Sakamoto
-                      </div>	
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://giphy.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : '8tracks'});">	
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/img/Bangkok.gif);">
-                    <div class="CardContent">
-                      <div class="CardBadge">
-                        <div class="BadgeText">
-                          GIPHY
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://giphy.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : '8tracks'});">	
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/img/Bangkok.gif);">
+                      <div class="CardContent">
+                        <div class="CardBadge">
+                          <div class="BadgeText">
+                            GIPHY
+                          </div>
                         </div>
+                        <div class="CardTitle">
+                          A bunch of animated GIFs with 2B+ views
+                        </div>	
                       </div>
-                      <div class="CardTitle">
-                        A bunch of animated GIFs with 2B+ views
-                      </div>	
                     </div>
-                  </div>
-                </a>
-              </div>
-            </div>	
-          </div>
-          <div class="carousel-item">
-            <div class="Wrap">
-              <div class="Card">
-                <a href="https://www.workspaces.xyz/p/299-maximillian-piras" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Workspaces'});">
-                  <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/Workspace.jpeg);">
-                    <div class="CardContent">
-                      <div class="CardBadge"><div class="BadgeText">WORKSPACES.XYZ</div></div>
-                      <div class="CardTitle">A brief interview <br>on my favorite gear</div>	
+                  </a>
+                </div>
+              </div>	
+            </div>
+            <div class="carousel-item">
+              <div class="Wrap">
+                <div class="Card">
+                  <a href="https://www.workspaces.xyz/p/299-maximillian-piras" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Workspaces'});">
+                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/Workspace.jpeg);">
+                      <div class="CardContent">
+                        <div class="CardBadge"><div class="BadgeText">WORKSPACES.XYZ</div></div>
+                        <div class="CardTitle">A brief interview <br>on my favorite gear</div>	
+                      </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+        </div>
+        <button id="prev3" class="carouselButtonPrev">
+          <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
+        </button>
+        <button id="next3" class="carouselButtonNext">
+          <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
+        </button>
       </div>
-      <button id="prev3" class="carouselButtonPrev">
-        <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
-      </button>
-      <button id="next3" class="carouselButtonNext">
-        <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
-      </button>
     </div>
-  </div>
-</div>  
+  </div>  
 
-<div class="footer" style="align-items: center;display: none;padding-top: 100px;padding-bottom: 100px;">
-  <img src="!assets/SigLogo.2024.png" width="350px" style="padding-bottom:8px;">
-  <div class="footerIconRow">
-    <a href="https://dribbble.com/MaximillianNYC" target="_blank">
-      <button class="iconButton">
-        <img src="!assets/social/DBo.png" height="32px" width="32px">
-      </button>
-    </a>
-    <a href="https://instagram.com/maximillian.nyc" target="_blank">
-      <button class="iconButton">
-        <img src="!assets/social/INo.png" height="32px" width="32px">
-      </button>
-    </a>
-    <a href="https://twitter.com/MaximillianNYC" target="_blank">
-      <button class="iconButton">
-        <img src="!assets/social/X.png" width="22px">
-      </button>
-    </a>
-    <a href="https://medium.com/@MaximillianNYC" target="_blank">
-      <button class="iconButton">
-        <img src="!assets/social/MDo.png" width="32px">
-      </button>
-    </a>
-    <a href="https://www.linkedin.com/in/maximilliannyc" target="_blank">
-      <button class="iconButton">
-        <img src="!assets/social/LIo.png" width="28px">
-      </button>
-    </a>
-  </div>
-  <button id="NewsletterOpen" style="width:380px;text-align:center;">
-    GET UPDATES ON MY PROJECTS
-  </button>
-  <p style="padding-top:16px;font-size: 12px;">
-    🧑🏻‍💻 Design & code ©Maximillian Piras 2024 ☕
-  </p>
-</div>
-<br><br><br><br><br>
+<!-- Component Imports -->
+<script src="./components/NavBar.js"></script>
+<script src="./components/ChatIntelligence.js"></script>
+<script src="./components/CardStack.js"></script>
 
-
-<div class="ModalContainerWrap" id="NewsletterModalContainerWrap">
-  <div class="ModalContainer" id="NewsletterModalContainer">
-  <div class="Modal">
-  <div class="ModalContent">
-  <div class="ModalImage" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75)),
-  url(!assets/Sketch.png);">	
-  <div class="ModalImageContent">
-  <img src="!assets/Close.png" class="Close" id="NewsletterClose">	
-  <div class="CardBadge"><div class="BadgeText">MAILING LIST</div></div>
-  <div class="CardTitle">Get monthly updates on my new projects</div>	
-  </div></div>
-  <div class="ModalBody" align="center">
-  <div id="mc_embed_signup">
-  <form action="https://nyc.us11.list-manage.com/subscribe/post?u=1341ce34ba5f389b85bcb97fc&amp;id=79afe8a215&amp;f_id=00c59fe0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-      <div id="mc_embed_signup_scroll">
-    <div class="mc-field-group">
-      <input type="email" placeholder="Email address" value="" name="EMAIL" class="" id="mce-EMAIL">
-      <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
-    </div>
-    <div class="mc-field-group">
-      <input type="text" placeholder="Name (optional)" value="" name="FNAME" class="" id="mce-FNAME">
-      <span id="mce-FNAME-HELPERTEXT" class="helper_text"></span>
-    </div>
-    <div id="mce-responses" class="clear foot">
-      <div class="response" id="mce-error-response" style="display:none"></div>
-      <div class="response" id="mce-success-response" style="display:none"></div>
-    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_1341ce34ba5f389b85bcb97fc_79afe8a215" tabindex="-1" value=""></div>
-          <div class="optionalParent">
-          <div class="clear foot"><input type="submit" value="SUBSCRIBE" name="subscribe" id="mc-embedded-subscribe" class="ModalButton"></div>
-          </div>
-      </div>
-  </form>
-  </div>
-  <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));</script>
-  </div></div></div></div></div>	
-	
-<script>
-  var NewsletterModalContainerWrap = document.getElementById("NewsletterModalContainerWrap");	
-  var NewsletterModalContainer = document.getElementById("NewsletterModalContainer");	
-  var NewsletterOpen = document.getElementById("NewsletterOpen");
-  var NewsletterClose = document.getElementById("NewsletterClose");	
-    
-  NewsletterOpen.onclick = function() {
-    NewsletterModalContainerWrap.style.display = "block";
-    NewsletterModalContainer.className = "ModalContainer";
-    NewsletterModalContainer.style.opacity = "1";	
-  }
-
-  NewsletterClose.onclick = function() {
-    NewsletterModalContainer.className = "ModalContainerfadeOut";
-    NewsletterModalContainerWrap.style.display = "block";
-    setTimeout(function(){ NewsletterModalContainerWrap.style.display = "none"; }, 250);
-  }
-
-  member_submit.onclick = function() {
-    NewsletterModalContainer.className = "ModalContainerfadeOut";
-    NewsletterModalContainerWrap.style.display = "block";
-    setTimeout(function(){ NewsletterModalContainerWrap.style.display = "none"; }, 250);
-  }
-
-  window.onclick = function(event) {
-    if (event.target == NewsletterModalContainer) {
-    NewsletterModalContainer.className = "ModalContainerfadeOut";
-      NewsletterModalContainerWrap.style.display = "block";
-      setTimeout(function(){ NewsletterModalContainerWrap.style.display = "none"; }, 250);
-    }
-  }
-
-</script>	
-
+<!-- Intro Animation -->
 <script>
   jQuery(document).ready(function() {
-      setTimeout(function() {
-          $('.TitleBlock').fadeIn(1000);
-      }, 100);
-      setTimeout(function() {
-          $('.folioBlock').fadeIn(1000);
-          $('.footer').fadeIn(1000);
-      }, 600);
+    $('.IntroLoader').animate({width:'300px',height:'300px'}, 500, function() {
+      $('.IntroLoader')
+      .delay(1000)
+      .animate({top:'-100%'}, 250);
+    });
+    setTimeout(function() {
+      $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
+        $('.ContentContainer').animate({top: '0px'}, 1000);
+      });
+    }, 1000);
+    setTimeout(function() {
+      $('.navDynamicContainer').css('bottom', '-100px').fadeIn(250, function() {
+        $('.navDynamicContainer').animate({bottom: '24px'}, 250);
+      });
+    }, 1250);
+    $('body').css('overflow-y', 'hidden');
+    setTimeout(function() {
+      $('body').css('overflow-y', 'auto');
+    }, 2500);
   });
 </script>
 
+<!-- Carousel Controls -->
 <script>
   const prevButton = document.getElementById('prev');
   const nextButton = document.getElementById('next');
@@ -516,7 +535,6 @@
       updateSlidePosition();
   });
 </script>
-
 <script>
   const prevButton2 = document.getElementById('prev2');
   const nextButton2 = document.getElementById('next2');
@@ -573,7 +591,6 @@
       updateSlidePosition2();
   });
 </script>
-
 <script>
   const prevButton3 = document.getElementById('prev3');
   const nextButton3 = document.getElementById('next3');
@@ -631,8 +648,5 @@
   });
 </script>
 
-<script src="chattychattyFolio.js"></script>
-<script src="chatModal.js"></script>
-	
 </body>
 </html>
