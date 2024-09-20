@@ -33,8 +33,10 @@ button:disabled {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: calc( 100vw - 8px );
-	height: calc( 100dvh - 8px );
+	width: 525px;
+	height: 525px;
+	/* width: calc( 100vw - 8px ); */
+	/* height: calc( 100dvh - 8px ); */
 	background-color: rgba(255, 255, 255, 0.75);
 	overflow: hidden;
 	filter: blur(150px);
