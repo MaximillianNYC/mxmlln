@@ -15,16 +15,19 @@
         background-color:aliceblue;
     }
     .StacksOnStacks {
-        position: absolute;
+        position: relative;
         display: flex;
         flex-direction: row;
-        gap: 40px;
+        gap: 80px;
+        margin: 40px;
+        transition: opacity 0.3s ease;
     }
     .StackLabel {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        transition: opacity 0.3s ease;
     }
     .CardStack {
         position: relative;
@@ -32,9 +35,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: all 0.5s ease;
+        transition: all 0.5s ease, opacity 0.3s ease;
         width: 400px;
         height: 400px;
+        transition: opacity 0.3s ease;
     }
     .Card {
         position: absolute;
@@ -46,73 +50,192 @@
         width: 300px;
         top: 0px;
         left: 0px;
-        transform: rotate(-10deg);
         transform-origin: bottom left;
         border: 10px solid white;
         transition: transform 0.5s ease, margin 0.5s ease;
     }
     .CardStack > .Card:first-child {
-        z-index: 1000;
+        z-index: 500;
         margin-top: -6px;
         margin-left: 5px;
         transform: rotate(15deg);
     }
     .CardStack > .Card:nth-child(2) {
-        z-index: 950;
+        z-index: 450;
         transform: rotate(-10deg);
         margin-top: 68px;
         margin-left: 72px;
     }
     .CardStack > .Card:nth-child(3) {
-        z-index: 900;
+        z-index: 300;
         transform: rotate(3deg);
         margin-top: 30px;
         margin-left: 34px;
     }
-    .CardStack:hover {
+    /* Hover animation for the first stack */
+    .StackLabel.stack-one .CardStack:hover {
         cursor: pointer;
         flex-direction: row;
         justify-content: space-around;
+        z-index: 1000;
     }
-    .CardStack:hover .Card {
-        position: relative;
+    .StackLabel.stack-one .CardStack:hover .Card {
         margin: 0 20px;
         transform: rotate(0deg);
         transition: transform 0.5s ease, margin 0.5s ease;
     }
-    .CardStack:hover .Card:first-child {
+    .StackLabel.stack-one .CardStack:hover .Card:first-child {
+        margin-left: 370px;
+    }
+    .StackLabel.stack-one .CardStack:hover .Card:nth-child(2) {
+        margin-top: 0;
+    }
+    .StackLabel.stack-one .CardStack:hover .Card:last-child {
+        margin-top: 350px;
+    }
+    /* Hover animation for the second stack */
+    .StackLabel.stack-two .CardStack:hover {
+        cursor: pointer;
+        flex-direction: row;
+        justify-content: space-around;
+        z-index: 1000;
+    }
+    .StackLabel.stack-two .CardStack:hover .Card {
+        margin: 0 20px;
+        transform: rotate(0deg);
+        transition: transform 0.5s ease, margin 0.5s ease;
+    }
+    .StackLabel.stack-two .CardStack:hover .Card:first-child {
+        margin-top: -150px;
+    }
+    .StackLabel.stack-two .CardStack:hover .Card:nth-child(2) {
+        margin-top: 200px;
+    }
+    .StackLabel.stack-two .CardStack:hover .Card:last-child {
+        margin-top: 550px;
+    }
+    /* Hover animation for the third stack */
+    .StackLabel.stack-three .CardStack:hover {
+        cursor: pointer;
+        flex-direction: row;
+        justify-content: space-around;
+        z-index: 1000;
+    }
+    .StackLabel.stack-three .CardStack:hover .Card {
+        margin: 0 20px;
+        transform: rotate(0deg);
+        transition: transform 0.5s ease, margin 0.5s ease;
+    }
+    .StackLabel.stack-three .CardStack:hover .Card:first-child {
         margin-left: -100px;
-        margin-top: 0;
+        margin-top: -30px;
+        transform: rotate(-10deg);
     }
-    .CardStack:hover .Card:nth-child(2) {
-        margin-top: 0;
+    .StackLabel.stack-three .CardStack:hover .Card:nth-child(2) {
+        margin-top: 200px;
+        margin-left: 50px;
     }
-    .CardStack:hover .Card:last-child {
-        margin-right: -700px;
-        margin-top: 0;
+    .StackLabel.stack-three .CardStack:hover .Card:last-child {
+        margin-left: 200px;
+        margin-top: -100px;
+        transform: rotate(10deg);
     }
+    /* Hover animation for the fourth stack */
+    .StackLabel.stack-four .CardStack:hover {
+        cursor: pointer;
+        flex-direction: row;
+        justify-content: space-around;
+        z-index: 1000;
+    }
+    .StackLabel.stack-four .CardStack:hover .Card {
+        margin: 0 20px;
+        transform: rotate(0deg);
+        transition: transform 0.5s ease, margin 0.5s ease;
+    }
+    .StackLabel.stack-four .CardStack:hover .Card:first-child {
+        margin-top: -200px;
+        margin-left: 200px;
+        transform: rotate(10deg);
+    }
+    .StackLabel.stack-four .CardStack:hover .Card:nth-child(2) {
+        margin-top: 0;
+        margin-left: -100px;
+    }
+    .StackLabel.stack-four .CardStack:hover .Card:last-child {
+        margin-top: 200px;
+        margin-left: 200px;
+        transform: rotate(-10deg);
+    }
+
+    /* Modify the hover rules for each CardStack */
+    .AllStacks {
+        transition: opacity 0.3s ease;
+    }
+
+    .AllStacks:hover .StacksOnStacks {
+        opacity: 0.3;
+    }
+
+    .AllStacks:hover .StacksOnStacks:hover {
+        opacity: 1;
+    }
+
+    .AllStacks:hover .StacksOnStacks:hover .CardStack {
+        opacity: 0.3;
+    }
+
+    .AllStacks:hover .StacksOnStacks:hover .CardStack:hover {
+        opacity: 1;
+    }
+
+    /* Remove any potentially conflicting hover styles */
+    .StacksOnStacks .CardStack:hover,
+    .StacksOnStacks:hover .CardStack {
+        opacity: 1;
+    }
+
 </style>
 
 </head>
 <body>
-    <div class="StacksOnStacks">
-        
-        <div class="StackLabel">
-            <div class="CardStack">
-                <div class="Card" style="background-image: url('../!assets/Abstraction.gif'); background-size: cover; background-position: center; overflow: hidden;"></div>
-                <div class="Card" style="background-image: url('../!assets/Algo.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
-                <div class="Card" style="background-image: url('../!assets/NFTNYCTalkSq.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
-            </div>
-            <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK ONE</b></p>
-        </div>
+    <div class="AllStacks">
 
-        <div class="StackLabel">
-            <div class="CardStack">
-                <div class="Card" style="background-image: url('../!assets/Eddy.webp'); background-size: cover; background-position: center; overflow: hidden;"></div>
-                <div class="Card" style="background-image: url('../!assets/VideoFiles.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
-                <div class="Card" style="background-image: url('../!assets/Workspace.jpeg'); background-size: cover; background-position: center; overflow: hidden;"></div>
+        <div class="StacksOnStacks">
+            <div class="StackLabel stack-one">
+                <div class="CardStack">
+                    <div class="Card" style="background-image: url('../!assets/Abstraction.gif'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/Algo.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/NFTNYCTalkSq.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                </div>
+                <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK ONE</b></p>
             </div>
-            <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK TWO</b></p>
+            <div class="StackLabel stack-two">
+                <div class="CardStack">
+                    <div class="Card" style="background-image: url('../!assets/Eddy.webp'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/VideoFiles.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/Workspace.jpeg'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                </div>
+                <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK TWO</b></p>
+            </div>
+        </div>
+    
+        <div class="StacksOnStacks">
+            <div class="StackLabel stack-three">
+                <div class="CardStack">
+                    <div class="Card" style="background-image: url('../!assets/id/8tracksSketchbooks.jpeg'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/img/Acid.jpg'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/img/101.jpeg'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                </div>
+                <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK THREE</b></p>
+            </div>
+            <div class="StackLabel stack-four">
+                <div class="CardStack">
+                    <div class="Card" style="background-image: url('../!assets/Headliner.gif'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/AWW.v1.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                    <div class="Card" style="background-image: url('../!assets/CC1.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
+                </div>
+                <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK FOUR</b></p>
+            </div>
         </div>
 
     </div>
