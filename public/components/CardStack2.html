@@ -10,22 +10,38 @@
         align-items: center;
         justify-content: center;
         background-color:aliceblue;
+        justify-content: center;
+        align-items: center;
+       height: 100dvh; /* Ensure it's at least full viewport height */
     }
 
-    .StacksOnStacks {
-        position: relative;
+    .AllStacks {
         display: flex;
         flex-direction: row;
+        width: 1000px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
         gap: 80px;
-        height: 500px;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+
+    .AllStacks:hover .StackLabel {
+        opacity: 0.8;
+        filter: blur(20px);
+    }
+
+    .AllStacks:hover .StackLabel:hover {
+        opacity: 1;
+        filter: none;
     }
     .StackLabel {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: opacity 0.3s ease;
+        height: auto;
+        transition: opacity 0.3s ease, filter 0.3s ease;
     }
     .CardStack {
         position: relative;
@@ -33,10 +49,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: all 0.5s ease, opacity 0.3s ease;
         width: 400px;
         height: 400px;
-        transition: opacity 0.3s ease;
+        transition: all 0.5s ease, opacity 0.3s ease;
     }
     .Card {
         position: absolute;
@@ -70,126 +85,24 @@
         margin-top: 30px;
         margin-left: 34px;
     }
-    /* Hover animation for the first stack */
-    .StackLabel.stack-one .CardStack:hover {
-        cursor: pointer;
-        flex-direction: row;
-        justify-content: space-around;
-        z-index: 1000;
-    }
-    .StackLabel.stack-one .CardStack:hover .Card {
+    .StackLabel .CardStack:hover .Card {
         margin: 0 20px;
         transform: rotate(0deg);
         transition: transform 0.5s ease, margin 0.5s ease;
     }
-    .StackLabel.stack-one .CardStack:hover .Card:first-child {
-        margin-left: 370px;
-    }
-    .StackLabel.stack-one .CardStack:hover .Card:nth-child(2) {
-        margin-top: 0;
-    }
-    .StackLabel.stack-one .CardStack:hover .Card:last-child {
-        margin-top: 350px;
-    }
-    /* Hover animation for the second stack */
-    .StackLabel.stack-two .CardStack:hover {
-        cursor: pointer;
-        flex-direction: row;
-        justify-content: space-around;
-        z-index: 1000;
-    }
-    .StackLabel.stack-two .CardStack:hover .Card {
-        margin: 0 20px;
-        transform: rotate(0deg);
-        transition: transform 0.5s ease, margin 0.5s ease;
-    }
-    .StackLabel.stack-two .CardStack:hover .Card:first-child {
-        margin-top: -150px;
-    }
-    .StackLabel.stack-two .CardStack:hover .Card:nth-child(2) {
-        margin-top: 200px;
-    }
-    .StackLabel.stack-two .CardStack:hover .Card:last-child {
-        margin-top: 550px;
-    }
-    /* Hover animation for the third stack */
-    .StackLabel.stack-three .CardStack:hover {
-        cursor: pointer;
-        flex-direction: row;
-        justify-content: space-around;
-        z-index: 1000;
-    }
-    .StackLabel.stack-three .CardStack:hover .Card {
-        margin: 0 20px;
-        transform: rotate(0deg);
-        transition: transform 0.5s ease, margin 0.5s ease;
-    }
-    .StackLabel.stack-three .CardStack:hover .Card:first-child {
-        margin-left: -100px;
-        margin-top: -30px;
+    .CardStack:hover .Card:first-child {
+        margin-left: -150px;
+        margin-top: 70px;
         transform: rotate(-10deg);
     }
-    .StackLabel.stack-three .CardStack:hover .Card:nth-child(2) {
-        margin-top: 200px;
+    .CardStack:hover .Card:nth-child(2) {
+        margin-top: 70px;
         margin-left: 50px;
     }
-    .StackLabel.stack-three .CardStack:hover .Card:last-child {
-        margin-left: 200px;
-        margin-top: -100px;
+    .CardStack:hover .Card:last-child {
+        margin-left: 250px;
+        margin-top: 0px;
         transform: rotate(10deg);
-    }
-    /* Hover animation for the fourth stack */
-    .StackLabel.stack-four .CardStack:hover {
-        cursor: pointer;
-        flex-direction: row;
-        justify-content: space-around;
-        z-index: 1000;
-    }
-    .StackLabel.stack-four .CardStack:hover .Card {
-        margin: 0 20px;
-        transform: rotate(0deg);
-        transition: transform 0.5s ease, margin 0.5s ease;
-    }
-    .StackLabel.stack-four .CardStack:hover .Card:first-child {
-        margin-top: -200px;
-        margin-left: 200px;
-        transform: rotate(10deg);
-    }
-    .StackLabel.stack-four .CardStack:hover .Card:nth-child(2) {
-        margin-top: 0;
-        margin-left: -100px;
-    }
-    .StackLabel.stack-four .CardStack:hover .Card:last-child {
-        margin-top: 200px;
-        margin-left: 200px;
-        transform: rotate(-10deg);
-    }
-
-    /* Modify the hover rules for each CardStack */
-    .AllStacks {
-        transition: opacity 0.3s ease;
-    }
-
-    .AllStacks:hover .StacksOnStacks {
-        opacity: 0.3;
-    }
-
-    .AllStacks:hover .StacksOnStacks:hover {
-        opacity: 1;
-    }
-
-    .AllStacks:hover .StacksOnStacks:hover .CardStack {
-        opacity: 0.3;
-    }
-
-    .AllStacks:hover .StacksOnStacks:hover .CardStack:hover {
-        opacity: 1;
-    }
-
-    /* Remove any potentially conflicting hover styles */
-    .StacksOnStacks .CardStack:hover,
-    .StacksOnStacks:hover .CardStack {
-        opacity: 1;
     }
 
 </style>
@@ -198,8 +111,7 @@
 <body>
     <div class="AllStacks">
 
-        <div class="StacksOnStacks">
-            <div class="StackLabel stack-one">
+            <div class="StackLabel">
                 <div class="CardStack">
                     <div class="Card" style="background-image: url('../!assets/Abstraction.gif'); background-size: cover; background-position: center; overflow: hidden;"></div>
                     <div class="Card" style="background-image: url('../!assets/Algo.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -207,7 +119,7 @@
                 </div>
                 <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK ONE</b></p>
             </div>
-            <div class="StackLabel stack-two">
+            <div class="StackLabel">
                 <div class="CardStack">
                     <div class="Card" style="background-image: url('../!assets/Eddy.webp'); background-size: cover; background-position: center; overflow: hidden;"></div>
                     <div class="Card" style="background-image: url('../!assets/VideoFiles.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -215,10 +127,8 @@
                 </div>
                 <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK TWO</b></p>
             </div>
-        </div>
     
-        <div class="StacksOnStacks">
-            <div class="StackLabel stack-three">
+            <div class="StackLabel">
                 <div class="CardStack">
                     <div class="Card" style="background-image: url('../!assets/id/8tracksSketchbooks.jpeg'); background-size: cover; background-position: center; overflow: hidden;"></div>
                     <div class="Card" style="background-image: url('../!assets/img/Acid.jpg'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -226,7 +136,7 @@
                 </div>
                 <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK THREE</b></p>
             </div>
-            <div class="StackLabel stack-four">
+            <div class="StackLabel">
                 <div class="CardStack">
                     <div class="Card" style="background-image: url('../!assets/Headliner.gif'); background-size: cover; background-position: center; overflow: hidden;"></div>
                     <div class="Card" style="background-image: url('../!assets/AWW.v1.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -234,7 +144,6 @@
                 </div>
                 <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK FOUR</b></p>
             </div>
-        </div>
 
     </div>
 </body>
