@@ -106,41 +106,13 @@
         margin-top: 0px;
         transform: rotate(10deg);
     } */
-    .StackLabel.expanded {
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.5s ease;
-    }
-    .StackLabel.expanded .CardStack {
-        margin: auto;
-        display: flex;
-        flex-direction: row;
-        gap: 24px;
-    }
-    .StackLabel.expanded .Card {
-        margin: 0;
-        transform: rotate(0deg);
-        width: 300px;
-        height: 300px;
-        border-radius: 24px;
-        border: 10px solid white;
-        transition: all 0.5s ease;
-    }
+ 
 </style>
 
 </head>
 <body>
     <div class="AllStacks">
-        <div class="StackLabel" onclick="expandStackLabel(this)">
+        <div class="StackLabel">
             <div class="CardStack">
                 <div class="Card" style="background-image: url('../!assets/Abstraction.gif'); background-size: cover; background-position: center; overflow: hidden;"></div>
                 <div class="Card" style="background-image: url('../!assets/Algo.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -148,7 +120,7 @@
             </div>
             <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK ONE</b></p>
         </div>
-        <div class="StackLabel" onclick="expandStackLabel(this)">
+        <div class="StackLabel">
             <div class="CardStack">
                 <div class="Card" style="background-image: url('../!assets/Eddy.webp'); background-size: cover; background-position: center; overflow: hidden;"></div>
                 <div class="Card" style="background-image: url('../!assets/VideoFiles.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -156,7 +128,7 @@
             </div>
             <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK TWO</b></p>
         </div>
-        <div class="StackLabel" onclick="expandStackLabel(this)">
+        <div class="StackLabel">
             <div class="CardStack">
                 <div class="Card" style="background-image: url('../!assets/id/8tracksSketchbooks.jpeg'); background-size: cover; background-position: center; overflow: hidden;"></div>
                 <div class="Card" style="background-image: url('../!assets/img/Acid.jpg'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -164,7 +136,7 @@
             </div>
             <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK THREE</b></p>
         </div>
-        <div class="StackLabel" onclick="expandStackLabel(this)">
+        <div class="StackLabel">
             <div class="CardStack">
                 <div class="Card" style="background-image: url('../!assets/Headliner.gif'); background-size: cover; background-position: center; overflow: hidden;"></div>
                 <div class="Card" style="background-image: url('../!assets/AWW.v1.png'); background-size: cover; background-position: center; overflow: hidden;"></div>
@@ -173,19 +145,7 @@
             <p style="font-family: Arial, Helvetica, sans-serif;"><b>STACK FOUR</b></p>
         </div>
     </div>
-    <script>
-        function expandStackLabel(stackLabel) {
-            stackLabel.style.transition = 'all 0.5s ease';
-            stackLabel.classList.toggle('expanded');
-            if (stackLabel.classList.contains('expanded')) {
-                document.body.style.overflow = 'hidden';
-                document.body.style.transition = 'overflow 0.5s ease';
-            } else {
-                document.body.style.overflow = 'auto';
-                document.body.style.transition = 'overflow 0.5s ease';
-            }
-        }
-    </script>
+
     <script src="./CardStack2.js"></script>
 </body>
 </html>
