@@ -42,14 +42,14 @@ function setDefaultCardStackStyles() {
         card.style.aspectRatio = '1 / 1';
         card.style.overflow = 'hidden';
         card.style.height = '300px';
-        card.style.width = '300px'; // Ensure this is set to 300px
+        card.style.width = '300px';
         card.style.top = '0px';
         card.style.left = '0px';
         card.style.transformOrigin = 'bottom left';
         card.style.border = '10px solid white';
         card.style.transition = 'transform 0.5s ease, margin 0.5s ease';
 
-        // Adding child styles
+        // child styles
         const cardStack = card.parentNode;
         const cardsInStack = cardStack.children;
         const cardIndexInStack = Array.prototype.indexOf.call(cardsInStack, card);
@@ -75,7 +75,7 @@ function setDefaultCardStackStyles() {
                 break;
         }
 
-        // Adding hover styles
+        // hover styles
         cardStack.addEventListener('mouseover', function() {
             const parentStackLabel = cardStack.closest('.StackLabel');
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
@@ -135,14 +135,7 @@ function setDefaultCardStackStyles() {
                 });
             }
         });
-
-        // Remove the duplicate mouseout event listener
-        // cardStack.addEventListener('mouseout', function() { ... });
-
     });
-
-    
-
 }
 
 const stackLabels = document.querySelectorAll('.StackLabel');
@@ -160,13 +153,13 @@ function expandStackLabel(stackLabel) {
     if (isExpanded) {
         document.body.style.transition = 'overflow 0.5s ease';
         stackLabel.style.width = '100vw';
-        stackLabel.style.height = '100vh';
-        stackLabel.style.position = 'fixed';
+        //stackLabel.style.height = '100vh';
+        //stackLabel.style.position = 'fixed';
         stackLabel.style.top = '0';
         stackLabel.style.left = '0';
         stackLabel.style.zIndex = '9999';
-        stackLabel.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
-        stackLabel.style.backdropFilter = 'blur(30px)';
+        //stackLabel.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
+        //stackLabel.style.backdropFilter = 'blur(30px)';
         stackLabel.style.display = 'flex';
         stackLabel.style.flexDirection = 'column';
         stackLabel.style.alignItems = 'center';
@@ -174,7 +167,7 @@ function expandStackLabel(stackLabel) {
 
         const expandedCardStack = stackLabel.querySelector('.CardStack');
         expandedCardStack.style.margin = 'auto';
-        expandedCardStack.style.width = '1000px';
+        expandedCardStack.style.width = '100%';
         expandedCardStack.style.display = 'flex';
         expandedCardStack.style.flexDirection = 'row';
         expandedCardStack.style.gap = '24px';
@@ -182,6 +175,12 @@ function expandStackLabel(stackLabel) {
         const expandedCards = expandedCardStack.querySelectorAll('.Card');
         expandedCards.forEach(expandedCard => {
             setExpandedCardStyle(expandedCard);
+        });
+
+        // Scroll to the top of the expanded container
+        window.scrollTo({
+            top: stackLabel.offsetTop,
+            behavior: 'smooth'
         });
     } else {
         document.body.style.overflow = 'auto';
@@ -202,8 +201,6 @@ function setExpandedCardStyle(card) {
     card.style.position = 'static';
     card.style.margin = '0';
     card.style.transform = 'none';
-    card.style.width = '300px';  // Ensure this is set to 300px
-    card.style.height = '300px'; // Ensure this is set to 300px
     card.style.borderRadius = '24px';
     card.style.border = '10px solid white';
     card.style.transition = 'all 0.5s ease';
@@ -242,8 +239,6 @@ function setDefaultCardStackStyle(cardStack) {
     cardStack.style.flexDirection = 'column';
     cardStack.style.alignItems = 'center';
     cardStack.style.justifyContent = 'center';
-    cardStack.style.width = '400px';
-    cardStack.style.height = '400px';
     cardStack.style.transition = 'all 0.5s ease, opacity 0.3s ease';
     cardStack.style.margin = '';
     cardStack.style.gap = '';
