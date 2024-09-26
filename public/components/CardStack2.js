@@ -153,23 +153,21 @@ function expandStackLabel(stackLabel) {
     if (isExpanded) {
         document.body.style.transition = 'overflow 0.5s ease';
         stackLabel.style.width = '100vw';
-        //stackLabel.style.height = '100vh';
-        //stackLabel.style.position = 'fixed';
         stackLabel.style.top = '0';
         stackLabel.style.left = '0';
         stackLabel.style.zIndex = '9999';
-        //stackLabel.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
-        //stackLabel.style.backdropFilter = 'blur(30px)';
         stackLabel.style.display = 'flex';
         stackLabel.style.flexDirection = 'column';
         stackLabel.style.alignItems = 'center';
         stackLabel.style.justifyContent = 'center';
 
         const expandedCardStack = stackLabel.querySelector('.CardStack');
-        expandedCardStack.style.margin = 'auto';
-        expandedCardStack.style.width = '100%';
+        expandedCardStack.style.width = '100vw';
+        expandedCardStack.style.height = '100dvh';
         expandedCardStack.style.display = 'flex';
         expandedCardStack.style.flexDirection = 'row';
+        expandedCardStack.style.alignItems = 'center';
+        expandedCardStack.style.justifyContent = 'center';
         expandedCardStack.style.gap = '24px';
 
         const expandedCards = expandedCardStack.querySelectorAll('.Card');
@@ -177,9 +175,8 @@ function expandStackLabel(stackLabel) {
             setExpandedCardStyle(expandedCard);
         });
 
-        // Scroll to the top of the expanded container
         window.scrollTo({
-            top: stackLabel.offsetTop,
+            top: expandedCardStack.offsetTop,
             behavior: 'smooth'
         });
     } else {
@@ -191,24 +188,24 @@ function expandStackLabel(stackLabel) {
             setCollapsedCardStyle(card, index);
         });
 
-        // Reset CardStack styles
         const cardStack = stackLabel.querySelector('.CardStack');
         setDefaultCardStackStyle(cardStack);
     }
 }
 
 function setExpandedCardStyle(card) {
-    card.style.position = 'static';
-    card.style.margin = '0';
+    card.style.position = 'relative';
+    card.style.margin = '0px';
     card.style.transform = 'none';
-    card.style.borderRadius = '24px';
-    card.style.border = '10px solid white';
     card.style.transition = 'all 0.5s ease';
     card.style.zIndex = 'auto';
+    card.style.width = '500px';
+    card.style.height = '500px';
+    card.style.flexShrink = '0';
 }
 
 function setCollapsedCardStyle(card, index) {
-    card.style.position = 'absolute';
+    //card.style.position = 'absolute';
     card.style.transition = 'all 0.5s ease';
     
     switch (index) {
