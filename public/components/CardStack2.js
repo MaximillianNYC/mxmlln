@@ -123,6 +123,7 @@ stackLabels.forEach(stackLabel => {
 function expandStackLabel(stackLabel) {
     stackLabel.classList.toggle('expanded');
     const isExpanded = stackLabel.classList.contains('expanded');
+    const cardStack = stackLabel.querySelector('.CardStack');
     
     if (isExpanded) {
         document.body.style.overflow = 'hidden';
@@ -183,6 +184,18 @@ function expandStackLabel(stackLabel) {
             card.style.margin = '';
             setCardPosition(card, index);
         });
+
+        // Add smooth scrolling to center the collapsed CardStack
+        setTimeout(() => {
+            const rect = cardStack.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const centerY = rect.top + scrollTop + rect.height / 2 - window.innerHeight / 2;
+            
+            window.scrollTo({
+                top: centerY,
+                behavior: 'smooth'
+            });
+        }, 50); // Small delay to ensure styles are applied before scrolling
     }
 }
 
