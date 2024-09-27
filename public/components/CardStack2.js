@@ -1,16 +1,4 @@
 function setDefaultCardStackStyles() {
-    const cardStacks = document.querySelectorAll('.CardStack');
-    cardStacks.forEach(cardStack => {
-        cardStack.style.position = 'relative';
-        cardStack.style.display = 'flex';
-        cardStack.style.flexDirection = 'column';
-        cardStack.style.alignItems = 'center';
-        cardStack.style.justifyContent = 'center';
-        cardStack.style.width = '400px';
-        cardStack.style.height = '400px';
-        cardStack.style.transition = 'all 0.5s ease, opacity 0.3s ease';
-    });
-
     const allStacks = document.querySelectorAll('.AllStacks');
     allStacks.forEach(allStack => {
         allStack.style.display = 'flex';
@@ -32,6 +20,18 @@ function setDefaultCardStackStyles() {
         stackLabel.style.justifyContent = 'center';
         stackLabel.style.height = 'auto';
         stackLabel.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
+    });
+
+    const cardStacks = document.querySelectorAll('.CardStack');
+    cardStacks.forEach(cardStack => {
+        cardStack.style.position = 'relative';
+        cardStack.style.display = 'flex';
+        cardStack.style.flexDirection = 'column';
+        cardStack.style.alignItems = 'center';
+        cardStack.style.justifyContent = 'center';
+        cardStack.style.width = '400px';
+        cardStack.style.height = '400px';
+        cardStack.style.transition = 'all 0.5s ease, opacity 0.3s ease';
     });
 
     const cards = document.querySelectorAll('.Card');
@@ -127,7 +127,7 @@ function expandStackLabel(stackLabel) {
     
     if (isExpanded) {
         document.body.style.overflow = 'hidden';
-        stackLabel.style.position = 'fixed';
+        //stackLabel.style.position = 'fixed';
         stackLabel.style.top = '0';
         stackLabel.style.left = '0';
         stackLabel.style.width = '100vw';
@@ -148,13 +148,13 @@ function expandStackLabel(stackLabel) {
         expandedCards.forEach(expandedCard => {
             expandedCard.style.position = 'relative';
             expandedCard.style.transform = 'none';
-            expandedCard.style.width = '400px';
-            expandedCard.style.height = '400px';
+            expandedCard.style.width = '350px';
+            expandedCard.style.height = '350px';
             expandedCard.style.margin = '0';
         });
 
         window.scrollTo({
-            top: expandedCardStack.offsetTop,
+            top: stackLabel.offsetTop,
             behavior: 'smooth'
         });
     } else {
@@ -195,7 +195,7 @@ function expandStackLabel(stackLabel) {
                 top: centerY,
                 behavior: 'smooth'
             });
-        }, 50); // Small delay to ensure styles are applied before scrolling
+        }, 50);
     }
 }
 
