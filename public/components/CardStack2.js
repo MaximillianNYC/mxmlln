@@ -138,13 +138,16 @@ function expandStackLabel(stackLabel) {
     
     if (isExpanded) {
         document.body.style.overflow = 'hidden';
-        stackLabel.style.width = '100vw';
-        stackLabel.style.height = '100vh';
-        stackLabel.style.zIndex = '9999';
-        window.scrollTo({
-            top: stackLabel.offsetTop,
-            behavior: 'smooth'
-        });
+
+            // Make all other StackLabels 0px width and height
+            const allStackLabels = document.querySelectorAll('.StackLabel');
+            allStackLabels.forEach(label => {
+                if (label !== stackLabel) {
+                    label.style.width = '0px';
+                    label.style.height = '0px';
+                    label.style.overflow = 'hidden';
+                }
+            });
 
         const expandedCardStack = stackLabel.querySelector('.CardStack');
         const expandedCards = expandedCardStack.querySelectorAll('.Card');
@@ -164,6 +167,15 @@ function expandStackLabel(stackLabel) {
             }
         });
 
+        stackLabel.style.width = '100vw';
+        stackLabel.style.height = '100vh';
+        stackLabel.style.zIndex = '9999';
+
+        window.scrollTo({
+            top: stackLabel.offsetTop,
+            behavior: 'smooth'
+        });
+
         const stackLabelValue = stackLabel.querySelector('#StackLabelValue');
         if (stackLabelValue) {
             stackLabelValue.style.opacity = '1';
@@ -173,6 +185,8 @@ function expandStackLabel(stackLabel) {
         if (stackLabelClose) {
             stackLabelClose.style.opacity = '1';   
         }
+
+
 
     } else {
         document.body.style.overflow = 'auto';
@@ -215,6 +229,16 @@ function expandStackLabel(stackLabel) {
                 behavior: 'smooth'
             });
         }, 50);
+
+        // Restore other StackLabels to their original size
+        const allStackLabels = document.querySelectorAll('.StackLabel');
+        allStackLabels.forEach(label => {
+            if (label !== stackLabel) {
+                label.style.width = '';
+                label.style.height = '450px';
+                label.style.overflow = '';
+            }
+        });
     }
 }
 
