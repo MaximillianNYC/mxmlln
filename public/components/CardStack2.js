@@ -33,6 +33,7 @@ function setDefaultCardStackStyles() {
         stackLabelValue.style.opacity = '0';
         stackLabelValue.style.fontSize = '32px';
         stackLabelValue.style.fontWeight = '900';
+        stackLabelValue.style.transition = 'opacity 0.15s';
     });
     const stackLabelClose = document.querySelectorAll('#StackLabelClose');
     stackLabelClose.forEach(stackLabelClose => {
@@ -44,6 +45,7 @@ function setDefaultCardStackStyles() {
         stackLabelClose.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         stackLabelClose.style.padding = '16px';
         stackLabelClose.style.borderRadius = '100px';
+        stackLabelClose.style.transition = 'opacity 0.15s';
     });
     // card stack
     const cardStacks = document.querySelectorAll('.CardStack');
@@ -154,7 +156,7 @@ function expandStackLabel(stackLabel) {
         const allStackLabels = document.querySelectorAll('.StackLabel');
         allStackLabels.forEach(label => {
             if (label !== stackLabel) {
-                label.style.transition = 'width 0.1s ease, height 0.1s ease';
+                label.style.transition = 'width 0.05s ease, height 0.05s ease';
                 label.style.width = '0px';
                 label.style.height = '0px';
             }
@@ -162,7 +164,7 @@ function expandStackLabel(stackLabel) {
         const allCardStacks = document.querySelectorAll('.CardStack');
         allCardStacks.forEach(cardStack => {
             if (cardStack !== cardStack) {
-                cardStack.style.transition = 'width 0.1s ease, height 0.1s ease';
+                cardStack.style.transition = 'width 0.05s ease, height 0.05s ease';
                 cardStack.style.width = '0px';
                 cardStack.style.height = '0px';
             }
@@ -170,13 +172,13 @@ function expandStackLabel(stackLabel) {
         const allCards = document.querySelectorAll('.Card');
         allCards.forEach(card => {
             if (card.parentNode !== cardStack) {
-                card.style.transition = 'width 0.1s ease, height 0.1s ease';
+                card.style.transition = 'width 0.05s ease, height 0.05s ease';
                 card.style.width = '0px';
                 card.style.height = '0px';
             }
         });
         setTimeout(() => {
-            stackLabel.style.transition = 'width 0.15s ease, height 0.15s ease, z-index 0s ease';
+            stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
             stackLabel.style.height = '100vh';
             stackLabel.style.zIndex = '9999';
@@ -198,10 +200,12 @@ function expandStackLabel(stackLabel) {
             });
             const stackLabelValue = stackLabel.querySelector('#StackLabelValue');
             if (stackLabelValue) {
+                stackLabelValue.style.transition = 'opacity 1s ease';
                 stackLabelValue.style.opacity = '1';
             }
             const stackLabelClose = stackLabel.querySelector('#StackLabelClose');
             if (stackLabelClose) {
+                stackLabelClose.style.transition = 'opacity 1s ease';
                 stackLabelClose.style.opacity = '1';   
             }
             setTimeout(() => {
@@ -209,7 +213,7 @@ function expandStackLabel(stackLabel) {
                     top: stackLabel.offsetTop,
                     behavior: 'smooth'
                 });
-            }, 150);
+            }, 100);
         }, 0);
     } else {
         document.body.style.overflow = 'auto';
@@ -241,6 +245,7 @@ function expandStackLabel(stackLabel) {
         const allStackLabelValues = document.querySelectorAll('#StackLabelValue');
         const allStackLabelCloses = document.querySelectorAll('#StackLabelClose');
         [...allStackLabelValues, ...allStackLabelCloses].forEach(element => {
+            element.style.transition = 'opacity 0.3s ease';
             element.style.opacity = '0';
         });
     }
