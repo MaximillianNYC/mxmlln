@@ -212,42 +212,40 @@ function expandStackLabel(stackLabel) {
 
     } else {
         document.body.style.overflow = 'auto';
-        stackLabel.style.width = '';
-        stackLabel.style.height = '450px';
-        stackLabel.style.zIndex = '';
 
-        const cardStack = stackLabel.querySelector('.CardStack');
-        cardStack.style.width = '400px';
-        cardStack.style.height = '400px';
-        cardStack.style.flexDirection = 'column';
-        cardStack.style.gap = '';
+        // Apply styles to all StackLabels
+        const allStackLabels = document.querySelectorAll('.StackLabel');
+        allStackLabels.forEach(label => {
+            label.style.transition = 'all 0.25s ease';
+            label.style.width = '450px';
+            label.style.height = '450px';
+            label.style.zIndex = '';
+            label.style.overflow = '';
+        });
 
-        const cards = cardStack.querySelectorAll('.Card');
-        cards.forEach((card, index) => {
+        const allCardStacks = document.querySelectorAll('.CardStack');
+        allCardStacks.forEach(cardStack => {
+            cardStack.style.transition = 'all 0.25s ease';
+            cardStack.style.width = '400px';
+            cardStack.style.height = '400px';
+            cardStack.style.flexDirection = 'column';
+            cardStack.style.gap = '';
+        });
+
+        const allCards = document.querySelectorAll('.Card');
+        allCards.forEach((card, index) => {
+            card.style.transition = 'all 0.25s ease';
             card.style.position = 'absolute';
             card.style.width = '300px';
             card.style.height = '300px';
             card.style.margin = '';
-            setCardPosition(card, index);
+            setCardPosition(card, index % 3);
         });
 
-        const stackLabelValue = stackLabel.querySelector('#StackLabelValue');
-        if (stackLabelValue) {
-            stackLabelValue.style.opacity = '0';
-        }
-
-        const stackLabelClose = stackLabel.querySelector('#StackLabelClose');
-        if (stackLabelClose) {
-            stackLabelClose.style.opacity = '0';
-        }
-
-        const allStackLabels = document.querySelectorAll('.StackLabel');
-        allStackLabels.forEach(label => {
-            if (label !== stackLabel) {
-                label.style.width = '';
-                label.style.height = '450px';
-                label.style.overflow = '';
-            }
+        const allStackLabelValues = document.querySelectorAll('#StackLabelValue');
+        const allStackLabelCloses = document.querySelectorAll('#StackLabelClose');
+        [...allStackLabelValues, ...allStackLabelCloses].forEach(element => {
+            element.style.opacity = '0';
         });
     }
 }
