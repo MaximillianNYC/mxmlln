@@ -65,15 +65,15 @@ const initialStyles = {
 function setCardPosition(card, index) {
     switch (index) {
         case 0:
-            card.style.transform = 'translate(5px, 0px) rotate(15deg)';
+            card.style.transform = 'translate(15px, 0px) rotate(15deg)';
             card.style.zIndex = '500';
             break;
         case 1:
-            card.style.transform = 'translate(0px, 5px) rotate(-10deg)';
+            card.style.transform = 'translate(0px, 5px) rotate(-20deg)';
             card.style.zIndex = '450';
             break;
         case 2:
-            card.style.transform = 'translate(0px, 5px) rotate(3deg)';
+            card.style.transform = 'translate(-25px, 5px) rotate(0deg)';
             card.style.zIndex = '300';
             break;
     }
@@ -90,14 +90,14 @@ function setDefaultCardStackStyles() {
     stackLabels.forEach(stackLabel => {
         Object.assign(stackLabel.style, initialStyles.stackLabel);
     });
-    const stackLabelValues = document.querySelectorAll('#StackLabelValue');
-    stackLabelValues.forEach(stackLabelValue => {
-        Object.assign(stackLabelValue.style, initialStyles.stackLabelValue);
-    });
-    const stackLabelClose = document.querySelectorAll('#StackLabelClose');
-    stackLabelClose.forEach(stackLabelClose => {
-        Object.assign(stackLabelClose.style, initialStyles.stackLabelClose);
-    });
+        const stackLabelValues = document.querySelectorAll('#StackLabelValue');
+        stackLabelValues.forEach(stackLabelValue => {
+            Object.assign(stackLabelValue.style, initialStyles.stackLabelValue);
+        });
+        const stackLabelClose = document.querySelectorAll('#StackLabelClose');
+        stackLabelClose.forEach(stackLabelClose => {
+            Object.assign(stackLabelClose.style, initialStyles.stackLabelClose);
+        });
     // Card stack
     const cardStacks = document.querySelectorAll('.CardStack');
     cardStacks.forEach(cardStack => {
@@ -118,10 +118,10 @@ function setDefaultCardStackStyles() {
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
                 switch (cardIndexInStack) {
                     case 0:
-                        card.style.transform = 'translate(-190px, -20px) rotate(-10deg)';
+                        card.style.transform = 'translate(-260px, -20px) rotate(-10deg)';
                         break;
                     case 1:
-                        card.style.transform = 'translate(50px, 0px) rotate(0deg)';
+                        card.style.transform = 'translate(0px, 0px) rotate(0deg)';
                         break;
                     case 2:
                         card.style.transform = 'translate(250px, -30px) rotate(10deg)';
@@ -250,5 +250,11 @@ function expandStackLabel(stackLabel) {
         [...allStackLabelValues, ...allStackLabelCloses].forEach(element => {
             Object.assign(element.style, element.id === 'StackLabelValue' ? initialStyles.stackLabelValue : initialStyles.stackLabelClose);
         });
+        setTimeout(() => {
+            window.scrollTo({
+                top: stackLabel.offsetTop,
+                behavior: 'smooth'
+            });
+        }, 50);
     }
 }
