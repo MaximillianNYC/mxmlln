@@ -1,82 +1,118 @@
-// set default styles on load
-document.addEventListener('DOMContentLoaded', function() {
-    setDefaultCardStackStyles();
-});
+const initialStyles = {
+    allStack: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100vw',
+        maxWidth: '1000px',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '80px',
+        margin: '80px',
+        transition: 'opacity 0.3s ease, filter 0.3s ease'
+    },
+    stackLabel: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '450px',
+        height: '450px',
+        transition: 'opacity 0.3s ease, filter 0.3s ease',
+        cursor: 'pointer'
+    },
+    stackLabelValue: {
+        opacity: '0',
+        fontSize: '32px',
+        fontWeight: '900',
+        transition: 'opacity 0.15s'
+    },
+    stackLabelClose: {
+        opacity: '0',
+        marginTop: '40px',
+        fontSize: '14px',
+        letterSpacing: '2px',
+        color: 'white',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        padding: '16px',
+        borderRadius: '100px',
+        transition: 'opacity 0.15s'
+    },
+    cardStack: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        width: '400px',
+        height: '400px',
+        gap: '0px',
+        transition: 'all 0.5s ease, opacity 0.3s ease'
+    },
+    card: {
+        borderRadius: '24px',
+        boxShadow: '0 0px 30px rgba(0, 0, 0, 0.05)',
+        overflow: 'hidden',
+        height: '300px',
+        width: '300px',
+        border: '10px solid white',
+        margin: '-150px',
+        transition: 'all 0.5s ease',
+    }
+};
+
+// Set card child positions
+function setCardPosition(card, index) {
+    switch (index) {
+        case 0:
+            card.style.transform = 'translate(5px, 0px) rotate(15deg)';
+            card.style.zIndex = '500';
+            break;
+        case 1:
+            card.style.transform = 'translate(0px, 5px) rotate(-10deg)';
+            card.style.zIndex = '450';
+            break;
+        case 2:
+            card.style.transform = 'translate(0px, 5px) rotate(3deg)';
+            card.style.zIndex = '300';
+            break;
+    }
+}
 
 function setDefaultCardStackStyles() {
-    // main container
+    // Main container
     const allStacks = document.querySelectorAll('.AllStacks');
     allStacks.forEach(allStack => {
-        allStack.style.display = 'flex';
-        allStack.style.flexDirection = 'row';
-        allStack.style.width = '100vw';
-        allStack.style.flexWrap = 'wrap';
-        allStack.style.justifyContent = 'center';
-        allStack.style.alignItems = 'center';
-        allStack.style.gap = '80px';
-        allStack.style.margin = '80px';
-        allStack.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
+        Object.assign(allStack.style, initialStyles.allStack);
     });
-    // card stack container
+    // Card stack container
     const stackLabels = document.querySelectorAll('.StackLabel');
     stackLabels.forEach(stackLabel => {
-        stackLabel.style.display = 'flex';
-        stackLabel.style.flexDirection = 'column';
-        stackLabel.style.alignItems = 'center';
-        stackLabel.style.justifyContent = 'center';
-        stackLabel.style.height = '450px';
-        stackLabel.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
-        stackLabel.style.cursor = 'pointer';
+        Object.assign(stackLabel.style, initialStyles.stackLabel);
     });
     const stackLabelValues = document.querySelectorAll('#StackLabelValue');
     stackLabelValues.forEach(stackLabelValue => {
-        stackLabelValue.style.opacity = '0';
-        stackLabelValue.style.fontSize = '32px';
-        stackLabelValue.style.fontWeight = '900';
-        stackLabelValue.style.transition = 'opacity 0.15s';
+        Object.assign(stackLabelValue.style, initialStyles.stackLabelValue);
     });
     const stackLabelClose = document.querySelectorAll('#StackLabelClose');
     stackLabelClose.forEach(stackLabelClose => {
-        stackLabelClose.style.opacity = '0';
-        stackLabelClose.style.marginTop = '40px';
-        stackLabelClose.style.fontSize = '14px';
-        stackLabelClose.style.letterSpacing = '2px';
-        stackLabelClose.style.color = 'white';
-        stackLabelClose.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        stackLabelClose.style.padding = '16px';
-        stackLabelClose.style.borderRadius = '100px';
-        stackLabelClose.style.transition = 'opacity 0.15s';
+        Object.assign(stackLabelClose.style, initialStyles.stackLabelClose);
     });
-    // card stack
+    // Card stack
     const cardStacks = document.querySelectorAll('.CardStack');
     cardStacks.forEach(cardStack => {
-        cardStack.style.position = 'relative';
-        cardStack.style.display = 'grid';
-        cardStack.style.placeItems = 'center';
-        cardStack.style.width = '400px';
-        cardStack.style.height = '400px';
-        cardStack.style.transition = 'all 0.5s ease, opacity 0.3s ease';
+        Object.assign(cardStack.style, initialStyles.cardStack);
     });
-    // cards
+    // Cards
     const cards = document.querySelectorAll('.Card');
     cards.forEach((card, index) => {
-        card.style.borderRadius = '24px';
-        card.style.boxShadow = '0 0px 30px rgba(0, 0, 0, 0.05)';
-        card.style.aspectRatio = '1 / 1';
-        card.style.overflow = 'hidden';
-        card.style.height = '300px';
-        card.style.width = '300px';
-        card.style.transformOrigin = 'center';
-        card.style.border = '10px solid white';
-        card.style.transition = 'all 0.5s ease';
-        card.style.gridArea = '1 / 1';
-        
-        // card child styles
+        Object.assign(card.style, initialStyles.card);
+        // Card child styles
         const cardStack = card.parentNode;
         const cardsInStack = cardStack.children;
         const cardIndexInStack = Array.prototype.indexOf.call(cardsInStack, card);
         setCardPosition(card, cardIndexInStack);
-        // card hover styles
+        // Card hover styles
         cardStack.addEventListener('mouseover', function() {
             const parentStackLabel = cardStack.closest('.StackLabel');
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
@@ -104,7 +140,7 @@ function setDefaultCardStackStyles() {
                 cardStack.style.zIndex = '1000';
             }
         });
-        // card mouse out styles
+        // Card mouse out styles
         cardStack.addEventListener('mouseout', function() {
             const parentStackLabel = cardStack.closest('.StackLabel');
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
@@ -119,25 +155,12 @@ function setDefaultCardStackStyles() {
     });
 }
 
-// set card child positions
-function setCardPosition(card, index) {
-    switch (index) {
-        case 0:
-            card.style.transform = 'translate(5px, 0px) rotate(15deg)';
-            card.style.zIndex = '500';
-            break;
-        case 1:
-            card.style.transform = 'translate(0px, 5px) rotate(-10deg)';
-            card.style.zIndex = '450';
-            break;
-        case 2:
-            card.style.transform = 'translate(0px, 5px) rotate(3deg)';
-            card.style.zIndex = '300';
-            break;
-    }
-}
+// Initialize default styles
+document.addEventListener('DOMContentLoaded', function() {
+    setDefaultCardStackStyles();
+});
 
-// expand stack trigger
+// Expand stack trigger
 const stackLabels = document.querySelectorAll('.StackLabel');
 stackLabels.forEach(stackLabel => {
     stackLabel.addEventListener('click', function() {
@@ -145,14 +168,15 @@ stackLabels.forEach(stackLabel => {
     });
 });
 
-// expand stack controls
+// Expand stack controls
 function expandStackLabel(stackLabel) {
     stackLabel.classList.toggle('expanded');
     const isExpanded = stackLabel.classList.contains('expanded');
     const cardStack = stackLabel.querySelector('.CardStack');
+    const allStackLabels = document.querySelectorAll('.StackLabel');
+    const allCardStacks = document.querySelectorAll('.CardStack');
+    const allCards = document.querySelectorAll('.Card');
     if (isExpanded) {
-        //document.body.style.overflow = 'hidden';
-        const allStackLabels = document.querySelectorAll('.StackLabel');
         allStackLabels.forEach(label => {
             if (label !== stackLabel) {
                 label.style.transition = 'width 0.05s ease, height 0.05s ease';
@@ -160,15 +184,13 @@ function expandStackLabel(stackLabel) {
                 label.style.height = '0px';
             }
         });
-        const allCardStacks = document.querySelectorAll('.CardStack');
-        allCardStacks.forEach(cardStack => {
-            if (cardStack !== cardStack) {
-                cardStack.style.transition = 'width 0.05s ease, height 0.05s ease';
-                cardStack.style.width = '0px';
-                cardStack.style.height = '0px';
+        allCardStacks.forEach(stack => {
+            if (stack !== cardStack) {
+                stack.style.transition = 'width 0.05s ease, height 0.05s ease';
+                stack.style.width = '0px';
+                stack.style.height = '0px';
             }
         });
-        const allCards = document.querySelectorAll('.Card');
         allCards.forEach(card => {
             if (card.parentNode !== cardStack) {
                 card.style.transition = 'width 0.05s ease, height 0.05s ease';
@@ -180,24 +202,15 @@ function expandStackLabel(stackLabel) {
             stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
             stackLabel.style.height = '100vh';
-            stackLabel.style.zIndex = '9999';
-
-            // Update the CardStack to use flexbox
-            const cardStack = stackLabel.querySelector('.CardStack');
-            cardStack.style.display = 'flex';
-            cardStack.style.flexDirection = 'row';
-            cardStack.style.justifyContent = 'center';
-            cardStack.style.alignItems = 'center';
             cardStack.style.width = '100vw';
-            cardStack.style.flexWrap = 'wrap';
             cardStack.style.gap = '32px';
-
             setTimeout(() => {
-                const expandedCards = stackLabel.querySelectorAll('.Card');
-                expandedCards.forEach((expandedCard) => {
-                    expandedCard.style.width = '350px';
-                    expandedCard.style.height = '350px';
-                    expandedCard.style.transform = 'none';
+                const cards = stackLabel.querySelectorAll('.Card');
+                cards.forEach((card) => {
+                    card.style.width = '400px';
+                    card.style.height = '400px';
+                    card.style.margin = '0px';
+                    card.style.transform = 'translate(0px, 0px) rotate(0deg)';
                 });
                 const stackLabelValue = stackLabel.querySelector('#StackLabelValue');
                 if (stackLabelValue) {
@@ -210,7 +223,6 @@ function expandStackLabel(stackLabel) {
                     stackLabelClose.style.opacity = '1';   
                 }
             }, 100);
-
             setTimeout(() => {
                 window.scrollTo({
                     top: stackLabel.offsetTop,
@@ -219,37 +231,24 @@ function expandStackLabel(stackLabel) {
             }, 150);
         }, 0);
     } else {
-        document.body.style.overflow = 'auto';
-        const allStackLabels = document.querySelectorAll('.StackLabel');
+        const allStacks = document.querySelector('.AllStacks');
+        Object.assign(allStacks.style, initialStyles.allStack);
         allStackLabels.forEach(label => {
-            label.style.transition = 'all 0.25s ease';
-            label.style.width = '450px';
-            label.style.height = '450px';
-            label.style.zIndex = '';
-            label.style.overflow = '';
+            Object.assign(label.style, initialStyles.stackLabel);
         });
-        const allCardStacks = document.querySelectorAll('.CardStack');
-        allCardStacks.forEach(cardStack => {
-            cardStack.style.transition = 'all 0.25s ease';
-            cardStack.style.width = '400px';
-            cardStack.style.height = '400px';
-            cardStack.style.gap = '';
-            cardStack.style.display = 'grid';
-            cardStack.style.placeItems = 'center';
+        allCardStacks.forEach(stack => {
+            Object.assign(stack.style, initialStyles.cardStack);
         });
-        const allCards = document.querySelectorAll('.Card');
-        allCards.forEach((card, index) => {
-            card.style.transition = 'all 0.25s ease';
-            card.style.width = '300px';
-            card.style.height = '300px';
-            //card.style.margin = '';
-            setCardPosition(card, index % 3);
+        allCards.forEach((card) => {
+            const cardStack = card.closest('.CardStack');
+            const cardIndexInStack = Array.from(cardStack.children).indexOf(card);
+            Object.assign(card.style, initialStyles.card);
+            setCardPosition(card, cardIndexInStack);
         });
-        const allStackLabelValues = document.querySelectorAll('#StackLabelValue');
-        const allStackLabelCloses = document.querySelectorAll('#StackLabelClose');
+        const allStackLabelValues = stackLabel.querySelectorAll('#StackLabelValue');
+        const allStackLabelCloses = stackLabel.querySelectorAll('#StackLabelClose');
         [...allStackLabelValues, ...allStackLabelCloses].forEach(element => {
-            element.style.transition = 'opacity 0.3s ease';
-            element.style.opacity = '0';
+            Object.assign(element.style, element.id === 'StackLabelValue' ? initialStyles.stackLabelValue : initialStyles.stackLabelClose);
         });
     }
 }
