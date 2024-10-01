@@ -202,6 +202,7 @@ stackLabels.forEach(stackLabel => {
 // Expand stack controls
 function expandStackLabel(stackLabel) {
     stackLabel.classList.toggle('expanded');
+    const allStacks = document.querySelector('.AllStacks');
     const isExpanded = stackLabel.classList.contains('expanded');
     const cardStack = stackLabel.querySelector('.CardStack');
     const allStackLabels = document.querySelectorAll('.StackLabel');
@@ -232,6 +233,7 @@ function expandStackLabel(stackLabel) {
             }
         });
         setTimeout(() => {
+            allStacks.style.maxWidth = '100vw';
             stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
             stackLabel.style.height = '100vh';
