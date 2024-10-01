@@ -79,7 +79,7 @@ function getStackRandomFactors(stackId) {
 // Set card child positions
 function setCardPosition(card, index, totalCards, stackId) {
     const maxRotation = 20; // Maximum rotation in degrees
-    const maxTranslateX = 40; // Maximum X translation in pixels
+    const maxTranslateX = 30; // Maximum X translation in pixels
     const maxTranslateY = 20; // Maximum Y translation in pixels
 
     // Get random factors for this stack
@@ -90,28 +90,22 @@ function setCardPosition(card, index, totalCards, stackId) {
         stackFactors.cardRotations.push(Math.random() * 20 - 10); // Random rotation between -10 and 10 degrees
     }
 
-    // Calculate position based on index
-    const isEven = index % 2 === 0;
-    const layerDepth = Math.floor(index / 2);
-    const layerFactor = layerDepth / Math.floor(totalCards / 2);
-
-    // Calculate rotation and translation
     let rotation = stackFactors.cardRotations[index];
     let translateX = 0;
     let translateY = 0;
 
     if (index === 0) {
-        // Top card is centered
         translateX = stackFactors.translateX * 5;
         translateY = stackFactors.translateY * 5;
     } else {
-        // Ping-pong distribution
-        translateX = (isEven ? -1 : 1) * maxTranslateX * layerFactor;
-        translateY = (isEven ? -1 : 1) * maxTranslateY * layerFactor;
-        rotation += (isEven ? -1 : 1) * maxRotation * layerFactor;
+        const leftBias = -60;
+        const direction = index % 2 === 0 ? -1.5 : 1; // 
+        const offset = Math.ceil(index / 2);
+        translateX = direction * (offset * 5) + leftBias;
+        translateY = offset * 5;
+        rotation += direction * (offset * 2);
     }
 
-    // Apply calculated styles
     card.style.transform = `translate(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px) rotate(${rotation.toFixed(2)}deg)`;
     card.style.zIndex = totalCards - index;
 }
