@@ -229,7 +229,8 @@ function expandStackLabel(stackLabel) {
             stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
             stackLabel.style.height = '100vh';
-            cardStack.style.width = '100vw';
+            cardStack.style.width = '100%';
+            cardStack.style.height = 'auto';
             cardStack.style.gap = '32px';
             setTimeout(() => {
                 const cards = stackLabel.querySelectorAll('.Card');
@@ -263,8 +264,11 @@ function expandStackLabel(stackLabel) {
         allStackLabels.forEach(label => {
             Object.assign(label.style, initialStyles.stackLabel);
         });
-        allCardStacks.forEach(stack => {
-            Object.assign(stack.style, initialStyles.cardStack);
+        allCardStacks.forEach((stack, index) => {
+            setTimeout(() => {
+                console.log("Resetting card stack (delayed):", stack.id);
+                Object.assign(stack.style, initialStyles.cardStack);
+            }, index * 50); // Stagger the reset of each stack
         });
         allCards.forEach((card) => {
             const cardStack = card.closest('.CardStack');
