@@ -61,22 +61,59 @@ const initialStyles = {
     }
 };
 
-// Set card child positions
-function setCardPosition(card, index) {
-    switch (index) {
-        case 0:
-            card.style.transform = 'translate(15px, 0px) rotate(15deg)';
-            card.style.zIndex = '500';
-            break;
-        case 1:
-            card.style.transform = 'translate(0px, 5px) rotate(-20deg)';
-            card.style.zIndex = '450';
-            break;
-        case 2:
-            card.style.transform = 'translate(-25px, 5px) rotate(0deg)';
-            card.style.zIndex = '300';
-            break;
+// Generate random factors for each stack
+const stackRandomFactors = new Map();
+
+function getStackRandomFactors(stackId) {
+    if (!stackRandomFactors.has(stackId)) {
+        stackRandomFactors.set(stackId, {
+            rotation: Math.random() * 0.8 - 0.2,
+            translateX: Math.random() * 0.4 - 0.2,
+            translateY: Math.random() * 0.4 - 0.2,
+            cardRotations: []
+        });
     }
+    return stackRandomFactors.get(stackId);
+}
+
+// Set card child positions
+function setCardPosition(card, index, totalCards, stackId) {
+    const maxRotation = 20; // Maximum rotation in degrees
+    const maxTranslateX = 40; // Maximum X translation in pixels
+    const maxTranslateY = 20; // Maximum Y translation in pixels
+
+    // Get random factors for this stack
+    const stackFactors = getStackRandomFactors(stackId);
+
+    // Ensure we have a rotation for this card index
+    while (stackFactors.cardRotations.length <= index) {
+        stackFactors.cardRotations.push(Math.random() * 20 - 10); // Random rotation between -10 and 10 degrees
+    }
+
+    // Calculate position based on index
+    const isEven = index % 2 === 0;
+    const layerDepth = Math.floor(index / 2);
+    const layerFactor = layerDepth / Math.floor(totalCards / 2);
+
+    // Calculate rotation and translation
+    let rotation = stackFactors.cardRotations[index];
+    let translateX = 0;
+    let translateY = 0;
+
+    if (index === 0) {
+        // Top card is centered
+        translateX = stackFactors.translateX * 5;
+        translateY = stackFactors.translateY * 5;
+    } else {
+        // Ping-pong distribution
+        translateX = (isEven ? -1 : 1) * maxTranslateX * layerFactor;
+        translateY = (isEven ? -1 : 1) * maxTranslateY * layerFactor;
+        rotation += (isEven ? -1 : 1) * maxRotation * layerFactor;
+    }
+
+    // Apply calculated styles
+    card.style.transform = `translate(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px) rotate(${rotation.toFixed(2)}deg)`;
+    card.style.zIndex = totalCards - index;
 }
 
 function setDefaultCardStackStyles() {
@@ -111,7 +148,7 @@ function setDefaultCardStackStyles() {
         const cardStack = card.parentNode;
         const cardsInStack = cardStack.children;
         const cardIndexInStack = Array.prototype.indexOf.call(cardsInStack, card);
-        setCardPosition(card, cardIndexInStack);
+        setCardPosition(card, cardIndexInStack, cardsInStack.length, cardStack.id || `stack-${Math.random().toString(36).substr(2, 9)}`);
         // Card hover styles
         cardStack.addEventListener('mouseover', function() {
             const parentStackLabel = cardStack.closest('.StackLabel');
@@ -144,7 +181,7 @@ function setDefaultCardStackStyles() {
         cardStack.addEventListener('mouseout', function() {
             const parentStackLabel = cardStack.closest('.StackLabel');
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
-                setCardPosition(card, cardIndexInStack);
+                setCardPosition(card, cardIndexInStack, cardsInStack.length, cardStack.id || `stack-${Math.random().toString(36).substr(2, 9)}`);
                 const otherCardStacks = document.querySelectorAll('.CardStack');
                 otherCardStacks.forEach((otherCardStack) => {
                     otherCardStack.style.opacity = '1';
@@ -243,7 +280,7 @@ function expandStackLabel(stackLabel) {
             const cardStack = card.closest('.CardStack');
             const cardIndexInStack = Array.from(cardStack.children).indexOf(card);
             Object.assign(card.style, initialStyles.card);
-            setCardPosition(card, cardIndexInStack);
+            setCardPosition(card, cardIndexInStack, cardStack.children.length);
         });
         const allStackLabelValues = stackLabel.querySelectorAll('#StackLabelValue');
         const allStackLabelCloses = stackLabel.querySelectorAll('#StackLabelClose');
