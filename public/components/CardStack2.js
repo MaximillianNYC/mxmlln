@@ -188,10 +188,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Expand stack trigger
+let StackIsExpanded = false;
 const stackLabels = document.querySelectorAll('.StackLabel');
 stackLabels.forEach(stackLabel => {
-    stackLabel.addEventListener('click', function() {
-        expandStackLabel(this);
+    stackLabel.addEventListener('click', function(event) {
+        if (!StackIsExpanded || this.classList.contains('expanded')) {
+            event.stopPropagation();
+            expandStackLabel(this);
+        }
     });
 });
 
@@ -204,8 +208,10 @@ function expandStackLabel(stackLabel) {
     const allCardStacks = document.querySelectorAll('.CardStack');
     const allCards = document.querySelectorAll('.Card');
     if (isExpanded) {
+        StackIsExpanded = true;
         allStackLabels.forEach(label => {
             if (label !== stackLabel) {
+                label.style.pointerEvents = 'none';
                 label.style.transition = 'width 0.05s ease, height 0.05s ease';
                 label.style.width = '0px';
                 label.style.height = '0px';
@@ -259,6 +265,10 @@ function expandStackLabel(stackLabel) {
             }, 150);
         }, 0);
     } else {
+        StackIsExpanded = false;
+        allStackLabels.forEach(label => {
+            label.style.pointerEvents = 'auto';
+        });
         const allStacks = document.querySelector('.AllStacks');
         Object.assign(allStacks.style, initialStyles.allStack);
         allStackLabels.forEach(label => {
@@ -268,7 +278,7 @@ function expandStackLabel(stackLabel) {
             setTimeout(() => {
                 console.log("Resetting card stack (delayed):", stack.id);
                 Object.assign(stack.style, initialStyles.cardStack);
-            }, index * 50); // Stagger the reset of each stack
+            }, index * 50);
         });
         allCards.forEach((card) => {
             const cardStack = card.closest('.CardStack');
