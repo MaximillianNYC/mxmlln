@@ -76,36 +76,32 @@ function getStackRandomFactors(stackId) {
     return stackRandomFactors.get(stackId);
 }
 
-// Set card child positions
 function setCardPosition(card, index, totalCards, stackId) {
-    const maxRotation = 20; // Maximum rotation in degrees
-    const maxTranslateX = 30; // Maximum X translation in pixels
-    const maxTranslateY = 20; // Maximum Y translation in pixels
-
-    // Get random factors for this stack
     const stackFactors = getStackRandomFactors(stackId);
-
-    // Ensure we have a rotation for this card index
     while (stackFactors.cardRotations.length <= index) {
-        stackFactors.cardRotations.push(Math.random() * 20 - 10); // Random rotation between -10 and 10 degrees
+        stackFactors.cardRotations.push(Math.random() * 40 - 20);
     }
-
     let rotation = stackFactors.cardRotations[index];
     let translateX = 0;
     let translateY = 0;
-
     if (index === 0) {
         translateX = stackFactors.translateX * 5;
         translateY = stackFactors.translateY * 5;
     } else {
-        const leftBias = -60;
-        const direction = index % 2 === 0 ? -1.5 : 1; // 
+        const leftBias = -50;
+        const direction = index % 2 === 0 ? -1 : 1;
         const offset = Math.ceil(index / 2);
-        translateX = direction * (offset * 5) + leftBias;
+        translateX = direction * (offset * 4) + leftBias;
         translateY = offset * 5;
-        rotation += direction * (offset * 2);
+        let baseRotation;
+        if (index % 2 === 0) {
+            baseRotation = -1 * (offset * 5 + 10);
+        } else {
+            baseRotation = 1 * (offset * 2);
+        }
+        const randomFactor = Math.random() * 5 - 2.5;
+        rotation = baseRotation + randomFactor;
     }
-
     card.style.transform = `translate(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px) rotate(${rotation.toFixed(2)}deg)`;
     card.style.zIndex = totalCards - index;
 }
