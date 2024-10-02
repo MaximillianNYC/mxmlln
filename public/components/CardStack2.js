@@ -22,12 +22,18 @@ const initialStyles = {
         cursor: 'pointer'
     },
     stackLabelValue: {
+        position: 'fixed',
+        zIndex: '9999',
+        top: '24px',
         opacity: '0',
         fontSize: '32px',
         fontWeight: '900',
         transition: 'opacity 0.15s'
     },
     stackLabelClose: {
+        position: 'fixed',
+        zIndex: '9999',
+        bottom: '24px',
         opacity: '0',
         marginTop: '40px',
         fontSize: '14px',
@@ -240,7 +246,7 @@ function expandStackLabel(stackLabel) {
             }, 100);
             setTimeout(() => {
                 window.scrollTo({
-                    top: stackLabel.offsetTop,
+                    top: stackLabel.offsetTop - 320,
                     behavior: 'smooth'
                 });
             }, 300);
