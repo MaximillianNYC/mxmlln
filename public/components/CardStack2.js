@@ -74,15 +74,13 @@ function getStackRandomFactors(stackId) {
 function setCardPosition(card, index, totalCards, stackId) {
     const stackFactors = getStackRandomFactors(stackId);
     while (stackFactors.cardRotations.length <= index) {
-        stackFactors.cardRotations.push(Math.random() * 30 - 15);
+        stackFactors.cardRotations.push((Math.random() - 0.5) * 20);
     }
     let rotation = stackFactors.cardRotations[index];
     let scale = 1;
-
     if (index > 2) {
         scale = 1 - ((index - 2) / Math.min(totalCards - 2, 97)) * 1;
     }
-
     card.style.transform = `rotate(${rotation.toFixed(2)}deg) scale(${scale.toFixed(2)})`;
     card.style.zIndex = Math.min(totalCards, 6) - index;
 }
