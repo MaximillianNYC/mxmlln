@@ -56,7 +56,6 @@ const initialStyles = {
         height: '300px',
         width: '300px',
         border: '10px solid white',
-        margin: '-150px',
         transition: 'all 0.5s ease',
     }
 };
@@ -65,24 +64,25 @@ const stackRandomFactors = new Map();
 function getStackRandomFactors(stackId) {
     if (!stackRandomFactors.has(stackId)) {
         stackRandomFactors.set(stackId, {
-            rotation: Math.random() * 0.8 - 0.2,
-            cardRotations: []
+        rotation: Math.random() * 0.8 - 0.5,
+        cardRotations: []
         });
     }
-    return stackRandomFactors.get(stackId);
+return stackRandomFactors.get(stackId);
 }
 function setCardPosition(card, index, totalCards, stackId) {
     const stackFactors = getStackRandomFactors(stackId);
     while (stackFactors.cardRotations.length <= index) {
-        stackFactors.cardRotations.push((Math.random() - 0.5) * 20);
+        stackFactors.cardRotations.push((Math.random() - 0.5) * 40);
     }
     let rotation = stackFactors.cardRotations[index];
     let scale = 1;
     if (index > 2) {
-        scale = 1 - ((index - 2) / Math.min(totalCards - 2, 97)) * 1;
+        scale = 1 - ((index - 2) / Math.min(totalCards - 2, 97)) * 0.25;
     }
     card.style.transform = `rotate(${rotation.toFixed(2)}deg) scale(${scale.toFixed(2)})`;
     card.style.zIndex = Math.min(totalCards, 6) - index;
+    card.style.margin = '-160px';
 }
 
 function setDefaultCardStackStyles() {
