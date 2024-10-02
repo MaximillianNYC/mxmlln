@@ -221,9 +221,9 @@ function expandStackLabel(stackLabel) {
             allStacks.style.maxWidth = '100vw';
             stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
-            stackLabel.style.height = '100vh';
+            //stackLabel.style.height = 'auto';
             cardStack.style.width = '100%';
-            cardStack.style.height = '100%';
+            //cardStack.style.height = 'auto';
             cardStack.style.gap = '32px';
             setTimeout(() => {
                 const cards = stackLabel.querySelectorAll('.Card');
