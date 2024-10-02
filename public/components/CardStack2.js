@@ -61,49 +61,30 @@ const initialStyles = {
     }
 };
 
-// Generate random factors for each stack
 const stackRandomFactors = new Map();
-
 function getStackRandomFactors(stackId) {
     if (!stackRandomFactors.has(stackId)) {
         stackRandomFactors.set(stackId, {
             rotation: Math.random() * 0.8 - 0.2,
-            translateX: Math.random() * 0.4 - 0.2,
-            translateY: Math.random() * 0.4 - 0.2,
             cardRotations: []
         });
     }
     return stackRandomFactors.get(stackId);
 }
-
 function setCardPosition(card, index, totalCards, stackId) {
     const stackFactors = getStackRandomFactors(stackId);
     while (stackFactors.cardRotations.length <= index) {
-        stackFactors.cardRotations.push(Math.random() * 40 - 20);
+        stackFactors.cardRotations.push(Math.random() * 30 - 15);
     }
     let rotation = stackFactors.cardRotations[index];
-    let translateX = 0;
-    let translateY = 0;
-    if (index === 0) {
-        translateX = stackFactors.translateX * 5;
-        translateY = stackFactors.translateY * 5;
-    } else {
-        const leftBias = -50;
-        const direction = index % 2 === 0 ? -1 : 1;
-        const offset = Math.ceil(index / 2);
-        translateX = direction * (offset * 4) + leftBias;
-        translateY = offset * 5;
-        let baseRotation;
-        if (index % 2 === 0) {
-            baseRotation = -1 * (offset * 5 + 10);
-        } else {
-            baseRotation = 1 * (offset * 2);
-        }
-        const randomFactor = Math.random() * 5 - 2.5;
-        rotation = baseRotation + randomFactor;
+    let scale = 1;
+
+    if (index > 2) {
+        scale = 1 - ((index - 2) / Math.min(totalCards - 2, 97)) * 1;
     }
-    card.style.transform = `translate(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px) rotate(${rotation.toFixed(2)}deg)`;
-    card.style.zIndex = totalCards - index;
+
+    card.style.transform = `rotate(${rotation.toFixed(2)}deg) scale(${scale.toFixed(2)})`;
+    card.style.zIndex = Math.min(totalCards, 6) - index;
 }
 
 function setDefaultCardStackStyles() {
@@ -238,7 +219,7 @@ function expandStackLabel(stackLabel) {
             stackLabel.style.width = '100vw';
             stackLabel.style.height = '100vh';
             cardStack.style.width = '100%';
-            cardStack.style.height = 'auto';
+            cardStack.style.height = '100%';
             cardStack.style.gap = '32px';
             setTimeout(() => {
                 const cards = stackLabel.querySelectorAll('.Card');
@@ -264,7 +245,7 @@ function expandStackLabel(stackLabel) {
                     top: stackLabel.offsetTop,
                     behavior: 'smooth'
                 });
-            }, 150);
+            }, 300);
         }, 0);
     } else {
         StackIsExpanded = false;
