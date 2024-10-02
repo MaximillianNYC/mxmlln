@@ -245,11 +245,15 @@ function expandStackLabel(stackLabel) {
                 }
             }, 100);
             setTimeout(() => {
+                const viewportHeight = window.innerHeight;
+                const stackLabelRect = stackLabel.getBoundingClientRect();
+                const scrollToPosition = window.scrollY + stackLabelRect.top - (viewportHeight * 0.25);
+                
                 window.scrollTo({
-                    top: stackLabel.offsetTop - 320,
+                    top: scrollToPosition,
                     behavior: 'smooth'
                 });
-            }, 300);
+            }, 500);
         }, 0);
     } else {
         StackIsExpanded = false;
