@@ -63,6 +63,10 @@ const initialStyles = {
         width: '300px',
         border: '10px solid white',
         transition: 'all 0.5s ease',
+        backgroundColor: '#f0f0f0',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        overflow: 'hidden'
     }
 };
 
@@ -167,9 +171,42 @@ function setDefaultCardStackStyles() {
     });
 }
 
+function lazyLoadCards() {
+    var cardElements = document.querySelectorAll('.Card[data-src]');
+    cardElements.forEach(function(card) {
+        var rect = card.getBoundingClientRect();
+        if (rect.width >= 301 && rect.height >= 301) {
+            const img = new Image();
+            img.onload = function() {
+                card.style.backgroundImage = "url('" + card.dataset.src + "')";
+                card.removeAttribute('data-src');
+            };
+            img.onerror = function() {
+                console.error('Failed to load image:', card.dataset.src);
+            };
+            img.src = card.dataset.src;
+        }
+    });
+}
+
 // Initialize default styles
 document.addEventListener('DOMContentLoaded', function() {
     setDefaultCardStackStyles();
+    
+    let attempts = 0;
+    const maxAttempts = 10;
+    const attemptInterval = 100; // ms
+
+    function attemptLazyLoad() {
+        lazyLoadCards();
+        attempts++;
+        if (document.querySelectorAll('.Card[data-src]').length > 0 && attempts < maxAttempts) {
+            setTimeout(attemptLazyLoad, attemptInterval);
+        }
+    }
+
+    // Initial delay before starting attempts
+    setTimeout(attemptLazyLoad, 150);
 });
 
 // Expand stack trigger
@@ -254,6 +291,9 @@ function expandStackLabel(stackLabel) {
                     behavior: 'smooth'
                 });
             }, 500);
+            setTimeout(() => {
+                lazyLoadCards();
+            }, 50);
         }, 0);
     } else {
         StackIsExpanded = false;
@@ -287,6 +327,23 @@ function expandStackLabel(stackLabel) {
                 top: stackLabel.offsetTop,
                 behavior: 'smooth'
             });
-        }, 50);
+        }, 150);
     }
 }
+
+// Modify the existing timeout to include multiple attempts
+setTimeout(() => {
+    let attempts = 0;
+    const maxAttempts = 5;
+    const attemptInterval = 15; // ms
+
+    function attemptLazyLoad() {
+        lazyLoadCards();
+        attempts++;
+        if (document.querySelectorAll('.Card[data-src]').length > 0 && attempts < maxAttempts) {
+            setTimeout(attemptLazyLoad, attemptInterval);
+        }
+    }
+
+    attemptLazyLoad();
+}, 50);
