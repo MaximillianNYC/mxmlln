@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>Card Stack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -9,13 +12,6 @@
             align-items: center;
             justify-content: center;
             background-color:aliceblue;
-        }
-        .Card {
-            background-color: #f0f0f0; /* Placeholder color */
-            min-height: 200px; /* Set a minimum height */
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
         }
     </style>
 </head>
@@ -82,9 +78,48 @@
         <div class="StackLabel">
             <p id="StackLabelValue" style="font-family: Arial, Helvetica, sans-serif;"><b>Section Four</b></p>
             <div class="CardStack">
-                <div class="Card" data-src="../!assets/Headliner.gif"></div>
-                <div class="Card" data-src="../!assets/AWW.v1.png"></div>
-                <div class="Card" data-src="../!assets/CC1.png"></div>
+                <div class="Card" data-src="../!assets/AWW.v1.png">
+                    <div class="CardInnerContainer">
+                        <div class="CardContent">
+                            <div class="CardBadge">
+                                <div class="BadgeText">
+                                    ACTIVATION
+                                </div>
+                            </div>
+                            <div class="CardTitle">
+                                Warmer welcomes in new user onboarding
+                            </div>	
+                        </div>
+                    </div>
+                </div>
+                <div class="Card" data-src="../!assets/CC1.png">
+                    <div class="CardInnerContainer">
+                        <div class="CardContent">
+                            <div class="CardBadge">
+                                <div class="BadgeText">
+                                    APP
+                                </div>
+                            </div>
+                            <div class="CardTitle">
+                                CC-1 Concept Calculator
+                            </div>	
+                        </div>
+                    </div>
+                </div>
+                <div class="Card" data-src="../!assets/CC1.png">
+                    <div class="CardInnerContainer">
+                        <div class="CardContent">
+                            <div class="CardBadge">
+                                <div class="BadgeText">
+                                    APP
+                                </div>
+                            </div>
+                            <div class="CardTitle">
+                                CC-1 Concept Calculator
+                            </div>	
+                        </div>
+                    </div>
+                </div>
             </div>
             <p id="StackLabelClose" style="font-family: Arial, Helvetica, sans-serif;"><b>CLOSE</b></p>
         </div>

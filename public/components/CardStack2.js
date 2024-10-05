@@ -56,7 +56,7 @@ const initialStyles = {
         transition: 'all 0.5s ease, opacity 0.3s ease'
     },
     card: {
-        borderRadius: '24px',
+        borderRadius: '12%',
         boxShadow: '0 0px 30px rgba(0, 0, 0, 0.05)',
         overflow: 'hidden',
         height: '300px',
@@ -67,6 +67,51 @@ const initialStyles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         overflow: 'hidden'
+    },
+    CardInnerContainer: {
+        boxShadow: '0px 3px 10px 0px rgba(0, 0, 0, 0)',
+        height: '100%',
+        width: '100%',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignContent: 'flex-end',
+        transition: 'box-shadow 0.25s',
+        backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5))'
+    },
+    CardContent: {
+        alignSelf: 'flex-end',
+        display: 'flex',
+        flexDirection: 'column',
+        maxHeight: '175px',
+        margin: '30px'
+    },
+    CardBadge: {
+        alignSelf: 'flex-start',
+        display: 'flex',
+        height: '15px',
+        padding: '10px',
+        marginBottom: '10px',
+        borderRadius: '10px',
+        color: '#FFFFFF',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        backgroundColor: 'rgba(0, 255, 255, 0.25)'
+    },
+    BadgeText: {
+        paddingLeft: '2px',
+        fontFamily: 'Archivo',
+        fontWeight: 600,
+        letterSpacing: '2px',
+        fontSize: '14px'
+    },
+    CardTitle: {
+        color: '#FFFFFF',
+        fontFamily: 'Archivo',
+        fontWeight: 800,
+        fontSize: '32px',
+        textShadow: '0px 3px 10px rgba(0, 0, 0, 0.25)',
+        textAlign: 'left'
     }
 };
 
@@ -96,6 +141,35 @@ function setCardPosition(card, index, totalCards, stackId) {
 }
 
 function setDefaultCardStackStyles() {
+    // Card inner container
+    const cardInnerContainers = document.querySelectorAll('.CardInnerContainer');
+    cardInnerContainers.forEach(cardInnerContainer => {
+        Object.assign(cardInnerContainer.style, initialStyles.CardInnerContainer);
+    });
+
+    // Card content
+    const cardContents = document.querySelectorAll('.CardContent');
+    cardContents.forEach(cardContent => {
+        Object.assign(cardContent.style, initialStyles.CardContent);
+    });
+
+    // Card badge
+    const cardBadges = document.querySelectorAll('.CardBadge');
+    cardBadges.forEach(cardBadge => {
+        Object.assign(cardBadge.style, initialStyles.CardBadge);
+    });
+
+    // Badge text
+    const badgeTexts = document.querySelectorAll('.BadgeText');
+    badgeTexts.forEach(badgeText => {
+        Object.assign(badgeText.style, initialStyles.BadgeText);
+    });
+
+    // Card title
+    const cardTitles = document.querySelectorAll('.CardTitle');
+    cardTitles.forEach(cardTitle => {
+        Object.assign(cardTitle.style, initialStyles.CardTitle);
+    });
     // Main container
     const allStacks = document.querySelectorAll('.AllStacks');
     allStacks.forEach(allStack => {
