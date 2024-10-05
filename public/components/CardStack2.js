@@ -28,7 +28,6 @@ const initialStyles = {
         letterSpacing: '1.5px',
         fontSize: '14px',
         color: '#000000',
-        backgroundColor: '#ffffff'
     },
     StackBar: {
         zIndex: '9999',
@@ -265,7 +264,6 @@ function lazyLoadCards(cardStack) {
 // Initialize default styles
 document.addEventListener('DOMContentLoaded', function() {
     setDefaultCardStackStyles();
-    
     const cardStacks = document.querySelectorAll('.CardStack');
     cardStacks.forEach(cardStack => {
         const visibleCards = cardStack.querySelectorAll('.Card:nth-child(-n+6)');
@@ -282,12 +280,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+function collapseExpandedStack() {
+    if (StackIsExpanded) {
+        const expandedStackLabel = document.querySelector('.StackLabel.expanded');
+        if (expandedStackLabel) {
+            expandStackLabel(expandedStackLabel);
+        }
+        StackIsExpanded = false;
+    }
+}
+
 // Expand stack trigger
 let StackIsExpanded = false;
 const stackLabels = document.querySelectorAll('.StackLabel');
 stackLabels.forEach(stackLabel => {
     stackLabel.addEventListener('click', function(event) {
-        if (!StackIsExpanded || this.classList.contains('expanded')) {
+        if (!StackIsExpanded) {
             event.stopPropagation();
             expandStackLabel(this);
         }
