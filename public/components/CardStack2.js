@@ -22,11 +22,13 @@ const initialStyles = {
         cursor: 'pointer'
     },
     StackLabelValue: {
+        opacity: '1',
         fontFamily: "'Archivo', sans-serif",
         fontWeight: 700,
         letterSpacing: '1.5px',
         fontSize: '14px',
         color: '#000000',
+        backgroundColor: '#ffffff'
     },
     StackBar: {
         zIndex: '9999',
@@ -151,59 +153,42 @@ function setCardPosition(card, index, totalCards, stackId) {
 }
 
 function setDefaultCardStackStyles() {
-    // StackBar
     const stackBars = document.querySelectorAll('.StackBar');
     stackBars.forEach(stackBar => {
         Object.assign(stackBar.style, initialStyles.StackBar);
     });
-
-    // StackLabelValue
     const stackLabelValues = document.querySelectorAll('.StackLabelValue');
     stackLabelValues.forEach(stackLabelValue => {
         Object.assign(stackLabelValue.style, initialStyles.StackLabelValue);
-    });
-    
-    // Card inner container
+    }); 
     const cardInnerContainers = document.querySelectorAll('.CardInnerContainer');
     cardInnerContainers.forEach(cardInnerContainer => {
         Object.assign(cardInnerContainer.style, initialStyles.CardInnerContainer);
     });
-
-    // Card content
     const cardContents = document.querySelectorAll('.CardContent');
     cardContents.forEach(cardContent => {
         Object.assign(cardContent.style, initialStyles.CardContent);
     });
-
-    // Card badge
     const cardBadges = document.querySelectorAll('.CardBadge');
     cardBadges.forEach(cardBadge => {
         Object.assign(cardBadge.style, initialStyles.CardBadge);
     });
-
-    // Badge text
     const badgeTexts = document.querySelectorAll('.BadgeText');
     badgeTexts.forEach(badgeText => {
         Object.assign(badgeText.style, initialStyles.BadgeText);
     });
-
-    // Card title
     const cardTitles = document.querySelectorAll('.CardTitle');
     cardTitles.forEach(cardTitle => {
         Object.assign(cardTitle.style, initialStyles.CardTitle);
     });
-    // Main container
     const allStacks = document.querySelectorAll('.AllStacks');
     allStacks.forEach(allStack => {
         Object.assign(allStack.style, initialStyles.allStack);
     });
-    // Card stack container
     const stackLabels = document.querySelectorAll('.StackLabel');
     stackLabels.forEach(stackLabel => {
         Object.assign(stackLabel.style, initialStyles.stackLabel);
     });
-
-    // Card stack
     const cardStacks = document.querySelectorAll('.CardStack');
     cardStacks.forEach(cardStack => {
         Object.assign(cardStack.style, initialStyles.cardStack);
@@ -320,6 +305,10 @@ function expandStackLabel(stackLabel) {
     const allCards = document.querySelectorAll('.Card');
     if (isExpanded) {
         StackIsExpanded = true;
+        const allStackLabelValues = document.querySelectorAll('.StackLabelValue');
+        allStackLabelValues.forEach(stackLabelValue => {
+            stackLabelValue.style.opacity = '0';
+        });
         allStackLabels.forEach(label => {
             if (label !== stackLabel) {
                 label.style.pointerEvents = 'none';
@@ -356,16 +345,16 @@ function expandStackLabel(stackLabel) {
                     card.style.margin = '0px';
                     card.style.transform = 'translate(0px, 0px) rotate(0deg)';
                 });
-                const stackLabelValue = stackLabel.querySelector('#StackLabelValue');
-                if (stackLabelValue) {
-                    stackLabelValue.style.transition = 'opacity 1s ease';
-                    stackLabelValue.style.opacity = '1';
-                }
-                const stackLabelClose = stackLabel.querySelector('#StackLabelClose');
-                if (stackLabelClose) {
-                    stackLabelClose.style.transition = 'opacity 1s ease';
-                    stackLabelClose.style.opacity = '1';   
-                }
+                // const stackLabelValue = stackLabel.querySelector('#StackLabelValue');
+                // if (stackLabelValue) {
+                //     stackLabelValue.style.transition = 'opacity 1s ease';
+                //     stackLabelValue.style.opacity = '1';
+                // }
+                // const stackLabelClose = stackLabel.querySelector('#StackLabelClose');
+                // if (stackLabelClose) {
+                //     stackLabelClose.style.transition = 'opacity 1s ease';
+                //     stackLabelClose.style.opacity = '1';   
+                // }
                 const stackBar = document.querySelector('.StackBar');
                 if (stackBar) {
                     stackBar.style.transition = 'opacity 1s ease';
@@ -402,7 +391,6 @@ function expandStackLabel(stackLabel) {
         });
         allCardStacks.forEach((stack, index) => {
             setTimeout(() => {
-                console.log("Resetting card stack (delayed):", stack.id);
                 Object.assign(stack.style, initialStyles.cardStack);
             }, index * 50);
         });
@@ -432,6 +420,10 @@ function expandStackLabel(stackLabel) {
             otherCardStack.style.filter = 'none';
             otherCardStack.style.pointerEvents = 'none';
         });
+        const stackLabelValues = document.querySelectorAll('.StackLabelValue');
+        stackLabelValues.forEach(stackLabelValue => {
+            Object.assign(stackLabelValue.style, initialStyles.StackLabelValue);
+        });
         setTimeout(() => {
             otherCardStacks.forEach((otherCardStack) => {
                 otherCardStack.style.pointerEvents = 'auto';
@@ -439,6 +431,7 @@ function expandStackLabel(stackLabel) {
         }, 1000);
     }
 }
+
 setTimeout(() => {
     let attempts = 0;
     const maxAttempts = 5;
