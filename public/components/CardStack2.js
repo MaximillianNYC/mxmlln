@@ -409,6 +409,17 @@ function expandStackLabel(stackLabel) {
                 behavior: 'smooth'
             });
         }, 150);
+        const otherCardStacks = document.querySelectorAll('.CardStack');
+        otherCardStacks.forEach((otherCardStack) => {
+            otherCardStack.style.opacity = '1';
+            otherCardStack.style.filter = 'none';
+            otherCardStack.style.pointerEvents = 'none';
+        });
+        setTimeout(() => {
+            otherCardStacks.forEach((otherCardStack) => {
+                otherCardStack.style.pointerEvents = 'auto';
+            });
+        }, 1000);
     }
 }
 // Modify the existing timeout to include multiple attempts
