@@ -21,6 +21,26 @@ const initialStyles = {
         transition: 'opacity 0.3s ease, filter 0.3s ease',
         cursor: 'pointer'
     },
+    StackBar: {
+        zIndex: '9999',
+        opacity: '0',
+        position: 'fixed',
+        top: '24px',
+        left: 'calc(50% - 270px)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '0 16px',
+        width: '500px',
+        height: '64px',
+        borderRadius: '40px',
+        backdropFilter: 'blur(80px)',
+        WebkitBackdropFilter: 'blur(80px)',
+        backgroundColor: 'rgba(240, 240, 240, 0.75)',
+        boxShadow: '0px 3px 30px 0px rgba(0, 0, 0, 0.15)',
+        border: 'solid 2px rgba(0, 0, 0, 0.1)',
+        transition: 'opacity 0.5s'
+    },
     stackLabelValue: {
         position: 'fixed',
         zIndex: '9999',
@@ -142,6 +162,12 @@ function setCardPosition(card, index, totalCards, stackId) {
 }
 
 function setDefaultCardStackStyles() {
+    // StackBar
+    const stackBars = document.querySelectorAll('.StackBar');
+    stackBars.forEach(stackBar => {
+        Object.assign(stackBar.style, initialStyles.StackBar);
+    });
+    
     // Card inner container
     const cardInnerContainers = document.querySelectorAll('.CardInnerContainer');
     cardInnerContainers.forEach(cardInnerContainer => {
@@ -351,8 +377,12 @@ function expandStackLabel(stackLabel) {
                 if (stackLabelClose) {
                     stackLabelClose.style.transition = 'opacity 1s ease';
                     stackLabelClose.style.opacity = '1';   
-                }                
-
+                }
+                const stackBar = stackLabel.querySelector('.StackBar');
+                if (stackBar) {
+                    stackBar.style.transition = 'opacity 1s ease';
+                    stackBar.style.opacity = '1';
+                }
             }, 100);
             setTimeout(() => {
                 const cardInnerContainers = stackLabel.querySelectorAll('.CardInnerContainer');
@@ -400,8 +430,15 @@ function expandStackLabel(stackLabel) {
         });
         const allStackLabelValues = stackLabel.querySelectorAll('#StackLabelValue');
         const allStackLabelCloses = stackLabel.querySelectorAll('#StackLabelClose');
-        [...allStackLabelValues, ...allStackLabelCloses].forEach(element => {
-            Object.assign(element.style, element.id === 'StackLabelValue' ? initialStyles.stackLabelValue : initialStyles.stackLabelClose);
+        const stackBars = stackLabel.querySelectorAll('.StackBar');
+        [...allStackLabelValues, ...allStackLabelCloses, ...stackBars].forEach(element => {
+            if (element.id === 'StackLabelValue') {
+                Object.assign(element.style, initialStyles.stackLabelValue);
+            } else if (element.id === 'StackLabelClose') {
+                Object.assign(element.style, initialStyles.stackLabelClose);
+            } else if (element.classList.contains('StackBar')) {
+                Object.assign(element.style, initialStyles.StackBar);
+            }
         });
         setTimeout(() => {
             window.scrollTo({
@@ -422,25 +459,16 @@ function expandStackLabel(stackLabel) {
         }, 1000);
     }
 }
-// Modify the existing timeout to include multiple attempts
 setTimeout(() => {
     let attempts = 0;
     const maxAttempts = 5;
-    const attemptInterval = 15; // ms
-
+    const attemptInterval = 15;
     function attemptLazyLoad() {
-        console.log(`Lazy load attempt ${attempts + 1} of ${maxAttempts}`);
         lazyLoadCards();
         attempts++;
         if (document.querySelectorAll('.Card[data-src]').length > 0 && attempts < maxAttempts) {
-            console.log(`Scheduling next attempt in ${attemptInterval}ms`);
             setTimeout(attemptLazyLoad, attemptInterval);
-        } else if (attempts >= maxAttempts) {
-            console.log('Reached maximum number of lazy load attempts');
-        } else {
-            console.log('All cards lazy loaded successfully');
         }
     }
-
     attemptLazyLoad();
 }, 50);
