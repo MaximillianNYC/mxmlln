@@ -345,16 +345,6 @@ function expandStackLabel(stackLabel) {
                     card.style.margin = '0px';
                     card.style.transform = 'translate(0px, 0px) rotate(0deg)';
                 });
-                // const stackLabelValue = stackLabel.querySelector('#StackLabelValue');
-                // if (stackLabelValue) {
-                //     stackLabelValue.style.transition = 'opacity 1s ease';
-                //     stackLabelValue.style.opacity = '1';
-                // }
-                // const stackLabelClose = stackLabel.querySelector('#StackLabelClose');
-                // if (stackLabelClose) {
-                //     stackLabelClose.style.transition = 'opacity 1s ease';
-                //     stackLabelClose.style.opacity = '1';   
-                // }
                 const stackBar = document.querySelector('.StackBar');
                 if (stackBar) {
                     stackBar.style.transition = 'opacity 1s ease';
@@ -371,7 +361,6 @@ function expandStackLabel(stackLabel) {
                 const viewportHeight = window.innerHeight;
                 const stackLabelRect = stackLabel.getBoundingClientRect();
                 const scrollToPosition = window.scrollY + stackLabelRect.top - (viewportHeight * 0.25);
-                
                 window.scrollTo({
                     top: scrollToPosition,
                     behavior: 'smooth'
