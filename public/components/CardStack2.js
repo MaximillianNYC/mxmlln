@@ -76,7 +76,8 @@ const initialStyles = {
         backgroundPosition: 'center',
         display: 'flex',
         alignContent: 'flex-end',
-        transition: 'box-shadow 0.25s',
+        transition: 'box-shadow 0.25s, opacity 0.5s ease',
+        opacity: '0',
         backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5))'
     },
     CardContent: {
@@ -350,8 +351,15 @@ function expandStackLabel(stackLabel) {
                 if (stackLabelClose) {
                     stackLabelClose.style.transition = 'opacity 1s ease';
                     stackLabelClose.style.opacity = '1';   
-                }
+                }                
+
             }, 100);
+            setTimeout(() => {
+                const cardInnerContainers = stackLabel.querySelectorAll('.CardInnerContainer');
+                cardInnerContainers.forEach((container) => {
+                    container.style.opacity = '1';
+                });
+            }, 500);
             setTimeout(() => {
                 const viewportHeight = window.innerHeight;
                 const stackLabelRect = stackLabel.getBoundingClientRect();
@@ -385,6 +393,10 @@ function expandStackLabel(stackLabel) {
             const cardIndexInStack = Array.from(cardStack.children).indexOf(card);
             Object.assign(card.style, initialStyles.card);
             setCardPosition(card, cardIndexInStack, cardStack.children.length);
+        });
+        const cardInnerContainers = document.querySelectorAll('.CardInnerContainer');
+        cardInnerContainers.forEach(container => {
+            Object.assign(container.style, initialStyles.CardInnerContainer);
         });
         const allStackLabelValues = stackLabel.querySelectorAll('#StackLabelValue');
         const allStackLabelCloses = stackLabel.querySelectorAll('#StackLabelClose');
