@@ -288,6 +288,11 @@ function collapseExpandedStack() {
         }
         StackIsExpanded = false;
     }
+    // Reset the StackBar section name
+    document.getElementById('stackBarSectionName').textContent = 'SECTION NAME';
+
+    // Hide the StackBar
+    document.getElementById('StackBar').style.display = 'none';
 }
 
 // Expand stack trigger
@@ -376,6 +381,14 @@ function expandStackLabel(stackLabel) {
             }, 500);
             lazyLoadCards(cardStack);
         }, 0);
+        // Get the section name from the StackLabelValue
+        const sectionName = stackLabel.querySelector('.StackLabelValue').textContent.trim();
+
+        // Update the StackBar section name
+        document.getElementById('stackBarSectionName').textContent = sectionName;
+
+        // Show the StackBar
+        document.getElementById('StackBar').style.display = 'flex';
     } else {
         StackIsExpanded = false;
         allStackLabels.forEach(label => {
