@@ -171,21 +171,20 @@ function setDefaultCardStackStyles() {
     });
 }
 
-function lazyLoadCards() {
-    var cardElements = document.querySelectorAll('.Card[data-src]');
-    cardElements.forEach(function(card) {
-        var rect = card.getBoundingClientRect();
-        if (rect.width >= 301 && rect.height >= 301) {
-            const img = new Image();
-            img.onload = function() {
-                card.style.backgroundImage = "url('" + card.dataset.src + "')";
-                card.removeAttribute('data-src');
-            };
-            img.onerror = function() {
-                console.error('Failed to load image:', card.dataset.src);
-            };
-            img.src = card.dataset.src;
-        }
+function lazyLoadCards(cardStack) {
+    const cards = cardStack.querySelectorAll('.Card[data-src]');
+    console.log(`Attempting to lazy load ${cards.length} cards in stack`);
+    cards.forEach(function(card) {
+        const img = new Image();
+        img.onload = function() {
+            card.style.backgroundImage = "url('" + card.dataset.src + "')";
+            card.removeAttribute('data-src');
+            console.log(`Successfully loaded image: ${card.dataset.src}`);
+        };
+        img.onerror = function() {
+            console.error('Failed to load image:', card.dataset.src);
+        };
+        img.src = card.dataset.src;
     });
 }
 
@@ -193,20 +192,20 @@ function lazyLoadCards() {
 document.addEventListener('DOMContentLoaded', function() {
     setDefaultCardStackStyles();
     
-    let attempts = 0;
-    const maxAttempts = 10;
-    const attemptInterval = 100; // ms
-
-    function attemptLazyLoad() {
-        lazyLoadCards();
-        attempts++;
-        if (document.querySelectorAll('.Card[data-src]').length > 0 && attempts < maxAttempts) {
-            setTimeout(attemptLazyLoad, attemptInterval);
-        }
-    }
-
-    // Initial delay before starting attempts
-    setTimeout(attemptLazyLoad, 150);
+    const cardStacks = document.querySelectorAll('.CardStack');
+    cardStacks.forEach(cardStack => {
+        const visibleCards = cardStack.querySelectorAll('.Card:nth-child(-n+6)');
+        visibleCards.forEach(card => {
+            if (card.dataset.src) {
+                const img = new Image();
+                img.onload = function() {
+                    card.style.backgroundImage = "url('" + card.dataset.src + "')";
+                    card.removeAttribute('data-src');
+                };
+                img.src = card.dataset.src;
+            }
+        });
+    });
 });
 
 // Expand stack trigger
@@ -258,9 +257,7 @@ function expandStackLabel(stackLabel) {
             allStacks.style.maxWidth = '100vw';
             stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
-            //stackLabel.style.height = 'auto';
             cardStack.style.width = '100%';
-            //cardStack.style.height = 'auto';
             cardStack.style.gap = '32px';
             setTimeout(() => {
                 const cards = stackLabel.querySelectorAll('.Card');
@@ -291,9 +288,7 @@ function expandStackLabel(stackLabel) {
                     behavior: 'smooth'
                 });
             }, 500);
-            setTimeout(() => {
-                lazyLoadCards();
-            }, 50);
+            lazyLoadCards(cardStack);
         }, 0);
     } else {
         StackIsExpanded = false;
@@ -330,7 +325,6 @@ function expandStackLabel(stackLabel) {
         }, 150);
     }
 }
-
 // Modify the existing timeout to include multiple attempts
 setTimeout(() => {
     let attempts = 0;
@@ -338,10 +332,16 @@ setTimeout(() => {
     const attemptInterval = 15; // ms
 
     function attemptLazyLoad() {
+        console.log(`Lazy load attempt ${attempts + 1} of ${maxAttempts}`);
         lazyLoadCards();
         attempts++;
         if (document.querySelectorAll('.Card[data-src]').length > 0 && attempts < maxAttempts) {
+            console.log(`Scheduling next attempt in ${attemptInterval}ms`);
             setTimeout(attemptLazyLoad, attemptInterval);
+        } else if (attempts >= maxAttempts) {
+            console.log('Reached maximum number of lazy load attempts');
+        } else {
+            console.log('All cards lazy loaded successfully');
         }
     }
 
