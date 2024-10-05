@@ -21,6 +21,13 @@ const initialStyles = {
         transition: 'opacity 0.3s ease, filter 0.3s ease',
         cursor: 'pointer'
     },
+    StackLabelValue: {
+        fontFamily: "'Archivo', sans-serif",
+        fontWeight: 700,
+        letterSpacing: '1.5px',
+        fontSize: '14px',
+        color: '#000000',
+    },
     StackBar: {
         zIndex: '9999',
         opacity: '0',
@@ -39,30 +46,12 @@ const initialStyles = {
         backgroundColor: 'rgba(240, 240, 240, 0.75)',
         boxShadow: '0px 3px 30px 0px rgba(0, 0, 0, 0.15)',
         border: 'solid 2px rgba(0, 0, 0, 0.1)',
-        transition: 'opacity 0.5s'
-    },
-    stackLabelValue: {
-        position: 'fixed',
-        zIndex: '9999',
-        top: '24px',
-        opacity: '0',
-        fontSize: '32px',
-        fontWeight: '900',
-        transition: 'opacity 0.15s'
-    },
-    stackLabelClose: {
-        position: 'fixed',
-        zIndex: '9999',
-        bottom: '24px',
-        opacity: '0',
-        marginTop: '40px',
+        fontFamily: "'Archivo', sans-serif",
+        fontWeight: 700,
+        letterSpacing: '1.5px',
         fontSize: '14px',
-        letterSpacing: '2px',
-        color: 'white',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        padding: '16px',
-        borderRadius: '100px',
-        transition: 'opacity 0.15s'
+        color: '#000000',
+        transition: 'opacity 0.5s'
     },
     cardStack: {
         display: 'flex',
@@ -83,7 +72,7 @@ const initialStyles = {
         width: '300px',
         border: '10px solid white',
         transition: 'all 0.5s ease',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#000000',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         overflow: 'hidden'
@@ -167,6 +156,12 @@ function setDefaultCardStackStyles() {
     stackBars.forEach(stackBar => {
         Object.assign(stackBar.style, initialStyles.StackBar);
     });
+
+    // StackLabelValue
+    const stackLabelValues = document.querySelectorAll('.StackLabelValue');
+    stackLabelValues.forEach(stackLabelValue => {
+        Object.assign(stackLabelValue.style, initialStyles.StackLabelValue);
+    });
     
     // Card inner container
     const cardInnerContainers = document.querySelectorAll('.CardInnerContainer');
@@ -207,14 +202,7 @@ function setDefaultCardStackStyles() {
     stackLabels.forEach(stackLabel => {
         Object.assign(stackLabel.style, initialStyles.stackLabel);
     });
-        const stackLabelValues = document.querySelectorAll('#StackLabelValue');
-        stackLabelValues.forEach(stackLabelValue => {
-            Object.assign(stackLabelValue.style, initialStyles.stackLabelValue);
-        });
-        const stackLabelClose = document.querySelectorAll('#StackLabelClose');
-        stackLabelClose.forEach(stackLabelClose => {
-            Object.assign(stackLabelClose.style, initialStyles.stackLabelClose);
-        });
+
     // Card stack
     const cardStacks = document.querySelectorAll('.CardStack');
     cardStacks.forEach(cardStack => {
@@ -378,7 +366,7 @@ function expandStackLabel(stackLabel) {
                     stackLabelClose.style.transition = 'opacity 1s ease';
                     stackLabelClose.style.opacity = '1';   
                 }
-                const stackBar = stackLabel.querySelector('.StackBar');
+                const stackBar = document.querySelector('.StackBar');
                 if (stackBar) {
                     stackBar.style.transition = 'opacity 1s ease';
                     stackBar.style.opacity = '1';
@@ -428,18 +416,10 @@ function expandStackLabel(stackLabel) {
         cardInnerContainers.forEach(container => {
             Object.assign(container.style, initialStyles.CardInnerContainer);
         });
-        const allStackLabelValues = stackLabel.querySelectorAll('#StackLabelValue');
-        const allStackLabelCloses = stackLabel.querySelectorAll('#StackLabelClose');
-        const stackBars = stackLabel.querySelectorAll('.StackBar');
-        [...allStackLabelValues, ...allStackLabelCloses, ...stackBars].forEach(element => {
-            if (element.id === 'StackLabelValue') {
-                Object.assign(element.style, initialStyles.stackLabelValue);
-            } else if (element.id === 'StackLabelClose') {
-                Object.assign(element.style, initialStyles.stackLabelClose);
-            } else if (element.classList.contains('StackBar')) {
-                Object.assign(element.style, initialStyles.StackBar);
-            }
-        });
+        const stackBar = document.querySelector('.StackBar');
+        if (stackBar) {
+            Object.assign(stackBar.style, initialStyles.StackBar);
+        }
         setTimeout(() => {
             window.scrollTo({
                 top: stackLabel.offsetTop,
