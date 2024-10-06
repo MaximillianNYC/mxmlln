@@ -28,6 +28,8 @@ const initialStyles = {
         letterSpacing: '1.5px',
         fontSize: '14px',
         color: '#000000',
+        padding: '8px',
+        transition: 'opacity 0.3s ease, filter 0.3s ease'
     },
     StackBar: {
         zIndex: '9999',
@@ -217,6 +219,7 @@ function setDefaultCardStackStyles() {
                         break;
                 }
                 const otherCardStacks = document.querySelectorAll('.CardStack');
+                const allStackLabelValues = document.querySelectorAll('.StackLabelValue');
                 otherCardStacks.forEach((otherCardStack) => {
                     if (otherCardStack !== cardStack) {
                         otherCardStack.style.opacity = '0.8';
@@ -224,9 +227,17 @@ function setDefaultCardStackStyles() {
                         otherCardStack.style.zIndex = '0';
                     }
                 });
+                allStackLabelValues.forEach((stackLabelValue) => {
+                    if (!stackLabelValue.closest('.StackLabel').contains(cardStack)) {
+                        stackLabelValue.style.opacity = '0.8';
+                        stackLabelValue.style.filter = 'blur(20px)';
+                    }
+                });
                 cardStack.style.opacity = '1';
                 cardStack.style.filter = 'none';
                 cardStack.style.zIndex = '1000';
+                parentStackLabel.querySelector('.StackLabelValue').style.opacity = '1';
+                parentStackLabel.querySelector('.StackLabelValue').style.filter = 'none';
             }
         });
         // Card mouse out styles
@@ -235,10 +246,17 @@ function setDefaultCardStackStyles() {
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
                 setCardPosition(card, cardIndexInStack, cardsInStack.length, cardStack.id || `stack-${Math.random().toString(36).substr(2, 9)}`);
                 const otherCardStacks = document.querySelectorAll('.CardStack');
+                const allStackLabelValues = document.querySelectorAll('.StackLabelValue');
                 otherCardStacks.forEach((otherCardStack) => {
                     otherCardStack.style.opacity = '1';
                     otherCardStack.style.filter = 'none';
+                    otherCardStack.style.zIndex = 'auto';
                 });
+                allStackLabelValues.forEach((stackLabelValue) => {
+                    stackLabelValue.style.opacity = '1';
+                    stackLabelValue.style.filter = 'none';
+                });
+                cardStack.style.zIndex = 'auto';
             }
         });
     });
