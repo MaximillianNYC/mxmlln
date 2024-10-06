@@ -18,8 +18,7 @@ const initialStyles = {
         justifyContent: 'center',
         width: '450px',
         height: '450px',
-        transition: 'opacity 0.3s ease, filter 0.3s ease',
-        cursor: 'pointer'
+        transition: 'opacity 0.3s ease, filter 0.3s ease'
     },
     StackLabelValue: {
         opacity: '1',
@@ -79,7 +78,8 @@ const initialStyles = {
         backgroundColor: '#000000',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        cursor: 'pointer'
     },
     CardInnerContainer: {
         boxShadow: '0px 3px 10px 0px rgba(0, 0, 0, 0)',
@@ -367,8 +367,7 @@ function expandStackLabel(stackLabel) {
             allStacks.style.maxWidth = '100vw';
             stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
-            stackLabel.style.height = '100%';
-            cardStack.style.height = '100%';
+            stackLabel.style.height = '100dvh';
             cardStack.style.width = '100%';
             cardStack.style.gap = '32px';
             setTimeout(() => {
@@ -392,9 +391,9 @@ function expandStackLabel(stackLabel) {
                 });
             }, 500);
             setTimeout(() => {
-                const viewportHeight = window.innerHeight;
+                //const viewportHeight = window.innerHeight;
                 const stackLabelRect = stackLabel.getBoundingClientRect();
-                const scrollToPosition = window.scrollY + stackLabelRect.top - (viewportHeight * 0.25);
+                const scrollToPosition = window.scrollY + stackLabelRect.top - 8;
                 window.scrollTo({
                     top: scrollToPosition,
                     behavior: 'smooth'
