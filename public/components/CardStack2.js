@@ -23,12 +23,13 @@ const initialStyles = {
     },
     StackLabelValue: {
         opacity: '1',
+        filter: 'blur(0px)',
         fontFamily: "'Archivo', sans-serif",
         fontWeight: 700,
         letterSpacing: '1.5px',
         fontSize: '14px',
         color: '#000000',
-        padding: '8px',
+        padding: '16px',
         transition: 'opacity 0.3s ease, filter 0.3s ease'
     },
     StackBar: {
@@ -209,13 +210,13 @@ function setDefaultCardStackStyles() {
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
                 switch (cardIndexInStack) {
                     case 0:
-                        card.style.transform = 'translate(-260px, -20px) rotate(-10deg)';
+                        card.style.transform = 'translate(-200px, -20px) rotate(-10deg)';
                         break;
                     case 1:
                         card.style.transform = 'translate(0px, 0px) rotate(0deg)';
                         break;
                     case 2:
-                        card.style.transform = 'translate(250px, -30px) rotate(10deg)';
+                        card.style.transform = 'translate(200px, -30px) rotate(10deg)';
                         break;
                 }
                 const otherCardStacks = document.querySelectorAll('.CardStack');
@@ -366,6 +367,8 @@ function expandStackLabel(stackLabel) {
             allStacks.style.maxWidth = '100vw';
             stackLabel.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             stackLabel.style.width = '100vw';
+            stackLabel.style.height = '100%';
+            cardStack.style.height = '100%';
             cardStack.style.width = '100%';
             cardStack.style.gap = '32px';
             setTimeout(() => {
