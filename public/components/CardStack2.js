@@ -65,7 +65,7 @@ const initialStyles = {
         width: '400px',
         height: '400px',
         gap: '0px',
-        transition: 'all 0.5s ease, opacity 0.3s ease'
+        transition: 'all 0.05s ease, opacity 0.3s ease'
     },
     card: {
         borderRadius: '12%',
@@ -74,12 +74,12 @@ const initialStyles = {
         height: '300px',
         width: '300px',
         border: '10px solid white',
-        transition: 'all 0.5s ease',
         backgroundColor: '#000000',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         overflow: 'hidden',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        transition: 'all 0.5s ease',
     },
     CardInnerContainer: {
         boxShadow: '0px 3px 10px 0px rgba(0, 0, 0, 0)',
@@ -403,10 +403,8 @@ function expandStackLabel(stackLabel) {
         }, 0);
         // Get the section name from the StackLabelValue
         const sectionName = stackLabel.querySelector('.StackLabelValue').textContent.trim();
-
         // Update the StackBar section name
         document.getElementById('stackBarSectionName').textContent = sectionName;
-
         // Show the StackBar
         document.getElementById('StackBar').style.display = 'flex';
     } else {
@@ -446,10 +444,14 @@ function expandStackLabel(stackLabel) {
         }, 150);
         const otherCardStacks = document.querySelectorAll('.CardStack');
         otherCardStacks.forEach((otherCardStack) => {
-            otherCardStack.style.opacity = '1';
-            otherCardStack.style.filter = 'none';
             otherCardStack.style.pointerEvents = 'none';
         });
+        setTimeout(() => {
+            otherCardStacks.forEach((otherCardStack) => {
+                otherCardStack.style.opacity = '1';
+                otherCardStack.style.filter = 'none';
+            });
+        }, 500);
         const stackLabelValues = document.querySelectorAll('.StackLabelValue');
         stackLabelValues.forEach(stackLabelValue => {
             Object.assign(stackLabelValue.style, initialStyles.StackLabelValue);
