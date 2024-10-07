@@ -434,13 +434,13 @@ function expandStackLabel(stackLabel) {
             stackLabelValues.forEach(stackLabelValue => {
                 Object.assign(stackLabelValue.style, initialStyles.StackLabelValue);
             });
-        }, 350);
+        }, 50);
         setTimeout(() => {
             otherCardStacks.forEach((otherCardStack) => {
                 otherCardStack.style.opacity = '1';
                 otherCardStack.style.filter = 'none';
             });
-        }, 500); 
+        }, 100); 
         setTimeout(() => {
             otherCardStacks.forEach((otherCardStack) => {
                 otherCardStack.style.pointerEvents = 'auto';
