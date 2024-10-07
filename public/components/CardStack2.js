@@ -338,7 +338,6 @@ function expandStackLabel(stackLabel) {
         });
         allStackLabels.forEach(label => {
             if (label !== stackLabel) {
-                //label.style.pointerEvents = 'none';
                 label.style.transition = 'width 0.05s ease, height 0.05s ease';
                 label.style.width = '0px';
                 label.style.height = '0px';
@@ -353,9 +352,11 @@ function expandStackLabel(stackLabel) {
         });
         allCards.forEach(card => {
             if (card.parentNode !== cardStack) {
-                card.style.transition = 'width 0.05s ease, height 0.05s ease';
+                card.style.transition = 'all 0.05s ease';
                 card.style.width = '0px';
                 card.style.height = '0px';
+                card.style.transform = 'none';
+                card.style.margin = '0px';
             }
         });
         setTimeout(() => {
@@ -399,9 +400,6 @@ function expandStackLabel(stackLabel) {
         StackBar.style.top = '24px';
     } else {
         StackIsExpanded = false;
-        // allStackLabels.forEach(label => {
-        //     label.style.pointerEvents = 'auto';
-        // });
         const stackBar = document.querySelector('.StackBar');
         if (stackBar) {
             Object.assign(stackBar.style, initialStyles.StackBar);
@@ -416,7 +414,7 @@ function expandStackLabel(stackLabel) {
                 const cardStack = card.closest('.CardStack');
                 const cardIndexInStack = Array.from(cardStack.children).indexOf(card);
                 Object.assign(card.style, initialStyles.card);
-                setCardPosition(card, cardIndexInStack, cardStack.children.length);
+                setCardPosition(card, cardIndexInStack, cardStack.children.length, cardStack.id || `stack-${Math.random().toString(36).substr(2, 9)}`);
             });
             const allStacks = document.querySelector('.AllStacks');
             Object.assign(allStacks.style, initialStyles.allStack);
