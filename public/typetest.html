@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36917341-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-36917341-6');
+  </script>
+	
+  <!-- Metadata -->
+  <meta charset="UTF-8">
+  <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration.">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Maximillian Piras, Design Portfolio</title>
+  <meta property="og:title" content="Maximillian Piras, Product Designer"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.maximillian.nyc"/>
+  <meta property="og:image" content="https://www.maximillian.nyc/fb.png"/>
+  <meta property="og:site_name" content="Maximillian Piras"/>
+  <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration."/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta property="fb:admins" content="577048085831970"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
+  <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
+	
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="css/StyleMatters.2024.css">
+  <link rel="stylesheet" href="./components/NavBar.css">
+  <link rel="stylesheet" href="css/ProgressiveBlur.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+  <style>
+    .letter {
+      display: inline-block;
+      transition: font-family 0.3s ease;
+    }
+    .letter:hover {
+      font-family: 'Homemade Apple', cursive;
+    }
+    .delightful {
+      display: block;
+      margin-top: 10px; /* Adjust as needed */
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="gradeFront"></div>
+  <div class="gradeBG"></div>
+
+  <!-- Main Content -->
+  <div class="ContentContainer" style="display:none;height:100dvh;"> 
+    <div class="TitleBlock2" style="height:90dvh;">
+      <div class="Text" style="text-align:center;">
+        <div class="Title" style="padding:0px;">
+          <span class="hover-text">Amplifying human capabilities with</span>
+          <span class="hover-text delightful">delightful</span>
+          <div class="ampersand">&</div>
+          <span class="hover-text">instinctual technology.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>  
+
+<!-- Intro Animation -->
+<script>
+  jQuery(document).ready(function() {
+    $('.IntroLoader').animate({width:'300px',height:'300px'}, 500, function() {
+      $('.IntroLoader')
+      .delay(1000)
+      .animate({top:'-100%'}, 250);
+    });
+    $('.gradeFront')
+    .delay(1250)
+    .animate({width:'100%',height:'100%'}, 500);
+    setTimeout(function() {
+      $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
+        $('.ContentContainer').animate({top: '0px'}, 1000);
+      });
+    }, 1000);
+    setTimeout(function() {
+      $('.navDynamicContainer').css('bottom', '-100px').fadeIn(250, function() {
+        $('.navDynamicContainer').animate({bottom: '24px'}, 250);
+      });
+    }, 1250);
+    $('body').css('overflow-y', 'hidden');
+    setTimeout(function() {
+      $('body').css('overflow-y', 'auto');
+    }, 2500);
+  });
+</script>
+
+<!-- Add this script tag just before the closing </body> tag -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const hoverTexts = document.querySelectorAll('.hover-text');
+  
+  hoverTexts.forEach(text => {
+    const content = text.textContent;
+    text.innerHTML = '';
+    for (let i = 0; i < content.length; i++) {
+      if (content[i] === ' ') {
+        text.appendChild(document.createTextNode(' '));
+      } else {
+        const span = document.createElement('span');
+        span.textContent = content[i];
+        span.className = 'letter';
+        text.appendChild(span);
+      }
+    }
+  });
+});
+</script>
+
+</body>
+</html>
