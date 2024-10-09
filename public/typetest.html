@@ -41,6 +41,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
   <style>
+    .gradeFront {
+      position: fixed;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 525px;
+      height: 525px;
+      background-color: rgba(255, 255, 255, 0.75);
+      overflow: hidden;
+      filter: blur(150px);
+      transition: all 0.5s ease;
+    }
     .letter {
       display: inline-block;
       transition: all 0.3s ease;
@@ -113,11 +126,6 @@
         $('.ContentContainer').animate({top: '0px'}, 1000);
       });
     }, 1000);
-    setTimeout(function() {
-      $('.navDynamicContainer').css('bottom', '-100px').fadeIn(250, function() {
-        $('.navDynamicContainer').animate({bottom: '24px'}, 250);
-      });
-    }, 1250);
     $('body').css('overflow-y', 'hidden');
     setTimeout(function() {
       $('body').css('overflow-y', 'auto');
@@ -125,10 +133,10 @@
   });
 </script>
 
-<!-- Add this script tag just before the closing </body> tag -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const hoverTexts = document.querySelectorAll('.hover-text');
+  const gradeFront = document.querySelector('.gradeFront');
   
   hoverTexts.forEach(text => {
     const content = text.textContent;
@@ -141,6 +149,21 @@ document.addEventListener('DOMContentLoaded', function() {
         span.textContent = content[i];
         span.className = 'letter';
         text.appendChild(span);
+
+        span.addEventListener('mouseenter', function(e) {
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height) * 5;
+          gradeFront.style.width = size + 'px';
+          gradeFront.style.height = size + 'px';
+          gradeFront.style.top = (rect.top + rect.height / 2) + 'px';
+          gradeFront.style.left = (rect.left + rect.width / 2) + 'px';
+          gradeFront.style.transform = 'translate(-50%, -50%)';
+        });
+
+        span.addEventListener('mouseleave', function() {
+          gradeFront.style.width = '100%';
+          gradeFront.style.height = '100%';
+        });
       }
     }
   });
