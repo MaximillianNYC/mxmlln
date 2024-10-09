@@ -52,6 +52,7 @@
       background-color: rgba(255, 255, 255, 0.75);
       overflow: hidden;
       filter: blur(150px);
+      border-radius: 0px;
       transition: all 0.5s ease;
     }
     .letter {
@@ -152,17 +153,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         span.addEventListener('mouseenter', function(e) {
           const rect = this.getBoundingClientRect();
-          const size = Math.max(rect.width, rect.height) * 5;
-          gradeFront.style.width = size + 'px';
-          gradeFront.style.height = size + 'px';
+          gradeFront.style.width = '300px';
+          gradeFront.style.height = '300px';
           gradeFront.style.top = (rect.top + rect.height / 2) + 'px';
           gradeFront.style.left = (rect.left + rect.width / 2) + 'px';
           gradeFront.style.transform = 'translate(-50%, -50%)';
+          gradeFront.style.filter = 'blur(75px)';
+          gradeFront.style.borderRadius = '300px';
         });
 
         span.addEventListener('mouseleave', function() {
           gradeFront.style.width = '100%';
           gradeFront.style.height = '100%';
+          gradeFront.style.filter = 'blur(150px)';
+          gradeFront.style.borderRadius = '0px';
         });
       }
     }
