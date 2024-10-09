@@ -53,7 +53,7 @@
       overflow: hidden;
       filter: blur(150px);
       border-radius: 0px;
-      transition: all 0.5s ease;
+      transition: all 0.75s ease;
     }
     .letter {
       display: inline-block;
@@ -66,7 +66,8 @@
       font-family: 'Homemade Apple', cursive;
       cursor: pointer;
       font-size: 30pt;
-      color:blue;
+      color: rgb(30, 0, 255);
+      transition: all 0.3s ease;
     }
     .delightful {
       display: block;
@@ -80,10 +81,10 @@
     }
     .delightful {
       margin-top: 4px;
-      margin-right: 8px; /* Adjust spacing between "delightful" and "&" */
+      margin-right: 0px; /* Adjust spacing between "delightful" and "&" */
     }
     .ampersand {
-      margin: 0 10px; /* Adjust spacing around "&" */
+      margin: 0 10px 4px; /* Adjust spacing around "&" and add bottom margin */
     }
   </style>
 
@@ -102,7 +103,7 @@
           <span class="hover-text">Amplifying human capabilities with</span>
           <div class="lower-line">
             <span class="hover-text delightful">delightful</span>
-            <div class="ampersand">&</div>
+            <span class="hover-text ampersand">&</span>
             <span class="hover-text">instinctual technology.</span>
           </div>
         </div>
@@ -157,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
           gradeFront.style.height = '300px';
           gradeFront.style.top = (rect.top + rect.height / 2) + 'px';
           gradeFront.style.left = (rect.left + rect.width / 2) + 'px';
-          gradeFront.style.transform = 'translate(-50%, -50%)';
+          //gradeFront.style.transform = 'translate(-50%, -50%)';
           gradeFront.style.filter = 'blur(75px)';
           gradeFront.style.borderRadius = '300px';
         });
@@ -167,6 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
           gradeFront.style.height = '100%';
           gradeFront.style.filter = 'blur(150px)';
           gradeFront.style.borderRadius = '0px';
+          gradeFront.style.top = '50%';
+          gradeFront.style.left = '50%';
+          //gradeFront.style.transform = 'translate(-50%, -50%)';
         });
       }
     }
