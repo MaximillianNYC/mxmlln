@@ -63,10 +63,9 @@
       font-size: 34pt;
     }
     .letter:hover {
-      font-family: 'Homemade Apple', cursive;
       cursor: pointer;
-      font-size: 30pt;
-      color: rgb(30, 0, 255);
+      font-size: 50pt;
+      color: rgb(255, 0, 0);
       transition: all 0.3s ease;
     }
     .delightful {
@@ -139,6 +138,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const hoverTexts = document.querySelectorAll('.hover-text');
   const gradeFront = document.querySelector('.gradeFront');
+  const fonts = ['Archivo', 'Homemade Apple', 'Playfair Display SC', 'Arial', 'Verdana', 'Helvetica', 'Times New Roman', 'Courier New', 'Georgia', 'Palatino', 'Garamond', 'Bookman', 'Comic Sans MS', 'Trebuchet MS', 'Arial Black'];
   
   hoverTexts.forEach(text => {
     const content = text.textContent;
@@ -158,9 +158,12 @@ document.addEventListener('DOMContentLoaded', function() {
           gradeFront.style.height = '300px';
           gradeFront.style.top = (rect.top + rect.height / 2) + 'px';
           gradeFront.style.left = (rect.left + rect.width / 2) + 'px';
-          //gradeFront.style.transform = 'translate(-50%, -50%)';
           gradeFront.style.filter = 'blur(75px)';
           gradeFront.style.borderRadius = '300px';
+          
+          // Randomize font on hover
+          const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+          this.style.fontFamily = randomFont;
         });
 
         span.addEventListener('mouseleave', function() {
@@ -170,7 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
           gradeFront.style.borderRadius = '0px';
           gradeFront.style.top = '50%';
           gradeFront.style.left = '50%';
-          //gradeFront.style.transform = 'translate(-50%, -50%)';
+          
+          // Reset font to default
+          this.style.fontFamily = '';
         });
       }
     }
