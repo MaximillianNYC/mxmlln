@@ -22,6 +22,7 @@ const initialStyles = {
     },
     StackLabelValue: {
         opacity: '1',
+        zIndex: 50,
         filter: 'blur(0px)',
         fontFamily: "'Archivo', sans-serif",
         fontWeight: 700,
@@ -58,6 +59,7 @@ const initialStyles = {
     },
     cardStack: {
         display: 'flex',
+        //zIndex: 100,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -126,6 +128,32 @@ const initialStyles = {
         fontSize: '32px',
         textShadow: '0px 3px 10px rgba(0, 0, 0, 0.25)',
         textAlign: 'left'
+    },
+    gradeBG: {
+        position: 'fixed',
+        zIndex: 1,
+        top: '0px',
+        left: '0px',
+        width: '100vw',
+        height: '100dvh',
+        overflow: 'hidden',
+        background: 'linear-gradient(10deg, #30d6ff, #5357EB, #DD8ABA, #D8D8FF)',
+        backgroundSize: '400% 400%',
+        animation: 'gradient 5s ease infinite'
+    },
+    gradeFront: {
+        position: 'fixed',
+        zIndex: 2,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '100vw',
+        height: '100dvh',
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        overflow: 'hidden',
+        filter: 'blur(150px)',
+        borderRadius: '0px',
+        transition: 'all 0.75s ease'
     }
 };
 
@@ -195,6 +223,14 @@ function setDefaultCardStackStyles() {
     cardStacks.forEach(cardStack => {
         Object.assign(cardStack.style, initialStyles.cardStack);
     });
+    const gradeBG = document.querySelector('.gradeBG');
+    if (gradeBG) {
+        Object.assign(gradeBG.style, initialStyles.gradeBG);
+    }
+    const gradeFront = document.querySelector('.gradeFront');
+    if (gradeFront) {
+        Object.assign(gradeFront.style, initialStyles.gradeFront);
+    }
     // Cards
     const cards = document.querySelectorAll('.Card');
     cards.forEach((card, index) => {
@@ -204,63 +240,125 @@ function setDefaultCardStackStyles() {
         const cardsInStack = cardStack.children;
         const cardIndexInStack = Array.prototype.indexOf.call(cardsInStack, card);
         setCardPosition(card, cardIndexInStack, cardsInStack.length, cardStack.id || `stack-${Math.random().toString(36).substr(2, 9)}`);
-        // Card hover styles
+        
+        // Card stack hover styles
+        cardStack.addEventListener('mouseover', function(e) {
+            handleCardStackHover(e, cardStack);
+        });
+        
+        // Card stack mouse out styles
+        cardStack.addEventListener('mouseout', function() {
+            handleCardStackMouseOut(cardStack);
+        });
+
+        // Existing card hover styles
         cardStack.addEventListener('mouseover', function() {
             const parentStackLabel = cardStack.closest('.StackLabel');
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
-                switch (cardIndexInStack) {
-                    case 0:
-                        card.style.transform = 'translate(-200px, -20px) rotate(-10deg)';
-                        break;
-                    case 1:
-                        card.style.transform = 'translate(0px, 0px) rotate(0deg)';
-                        break;
-                    case 2:
-                        card.style.transform = 'translate(200px, -30px) rotate(10deg)';
-                        break;
-                }
-                const otherCardStacks = document.querySelectorAll('.CardStack');
-                const allStackLabelValues = document.querySelectorAll('.StackLabelValue');
-                otherCardStacks.forEach((otherCardStack) => {
-                    if (otherCardStack !== cardStack) {
-                        otherCardStack.style.opacity = '0.8';
-                        otherCardStack.style.filter = 'blur(20px)';
-                        otherCardStack.style.zIndex = '0';
-                    }
-                });
-                allStackLabelValues.forEach((stackLabelValue) => {
-                    if (!stackLabelValue.closest('.StackLabel').contains(cardStack)) {
-                        stackLabelValue.style.opacity = '0.8';
-                        stackLabelValue.style.filter = 'blur(20px)';
-                    }
-                });
-                cardStack.style.opacity = '1';
-                cardStack.style.filter = 'none';
-                cardStack.style.zIndex = '1000';
-                parentStackLabel.querySelector('.StackLabelValue').style.opacity = '1';
-                parentStackLabel.querySelector('.StackLabelValue').style.filter = 'none';
+                applyCardHoverStyles(cardStack, cardIndexInStack);
             }
         });
-        // Card mouse out styles
+
+        // Existing card mouse out styles
         cardStack.addEventListener('mouseout', function() {
             const parentStackLabel = cardStack.closest('.StackLabel');
             if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
-                setCardPosition(card, cardIndexInStack, cardsInStack.length, cardStack.id || `stack-${Math.random().toString(36).substr(2, 9)}`);
-                const otherCardStacks = document.querySelectorAll('.CardStack');
-                const allStackLabelValues = document.querySelectorAll('.StackLabelValue');
-                otherCardStacks.forEach((otherCardStack) => {
-                    otherCardStack.style.opacity = '1';
-                    otherCardStack.style.filter = 'none';
-                    otherCardStack.style.zIndex = 'auto';
-                });
-                allStackLabelValues.forEach((stackLabelValue) => {
-                    stackLabelValue.style.opacity = '1';
-                    stackLabelValue.style.filter = 'none';
-                });
-                cardStack.style.zIndex = 'auto';
+                resetCardStyles(cardStack, cardIndexInStack, cardsInStack.length);
             }
         });
     });
+}
+
+// New functions for card stack hover effect
+function handleCardStackHover(e, cardStack) {
+    const parentStackLabel = cardStack.closest('.StackLabel');
+    if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
+        const rect = cardStack.getBoundingClientRect();
+        const gradeFront = document.querySelector('.gradeFront');
+        
+        gradeFront.style.width = '600px';
+        gradeFront.style.height = '600px';
+        gradeFront.style.top = (rect.top + rect.height / 2) + 'px';
+        gradeFront.style.left = (rect.left + rect.width / 2) + 'px';
+        gradeFront.style.filter = 'blur(50px)';
+        gradeFront.style.borderRadius = '400px';
+    }
+}
+
+function handleCardStackMouseOut(cardStack) {
+    const parentStackLabel = cardStack.closest('.StackLabel');
+    if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
+        const gradeFront = document.querySelector('.gradeFront');
+        
+        gradeFront.style.width = '100%';
+        gradeFront.style.height = '100%';
+        gradeFront.style.filter = 'blur(150px)';
+        gradeFront.style.borderRadius = '0px';
+        gradeFront.style.top = '50%';
+        gradeFront.style.left = '50%';
+    }
+}
+
+// Existing hover style functions (modified to be reusable)
+function applyCardHoverStyles(cardStack, cardIndexInStack) {
+    const cards = cardStack.querySelectorAll('.Card');
+    cards.forEach((card, index) => {
+        switch (index) {
+            case 0:
+                card.style.transform = 'translate(-200px, -20px) rotate(-10deg)';
+                break;
+            case 1:
+                card.style.transform = 'translate(0px, 0px) rotate(0deg)';
+                break;
+            case 2:
+                card.style.transform = 'translate(200px, -30px) rotate(10deg)';
+                break;
+        }
+    });
+
+    const otherCardStacks = document.querySelectorAll('.CardStack');
+    const allStackLabelValues = document.querySelectorAll('.StackLabelValue');
+    otherCardStacks.forEach((otherCardStack) => {
+        if (otherCardStack !== cardStack) {
+            otherCardStack.style.opacity = '0.8';
+            otherCardStack.style.filter = 'blur(20px)';
+            otherCardStack.style.zIndex = '30';
+        }
+    });
+    allStackLabelValues.forEach((stackLabelValue) => {
+        if (!stackLabelValue.closest('.StackLabel').contains(cardStack)) {
+            stackLabelValue.style.opacity = '0.8';
+            stackLabelValue.style.filter = 'blur(20px)';
+        }
+    });
+    cardStack.style.opacity = '1';
+    cardStack.style.filter = 'none';
+    cardStack.style.zIndex = '1000';
+    cardStack.closest('.StackLabel').querySelector('.StackLabelValue').style.opacity = '1';
+    cardStack.closest('.StackLabel').querySelector('.StackLabelValue').style.filter = 'none';
+}
+
+function resetCardStyles(cardStack, cardIndexInStack, totalCards) {
+    const cards = cardStack.querySelectorAll('.Card');
+    cards.forEach((card, index) => {
+        setCardPosition(card, index, totalCards, cardStack.id || `stack-${Math.random().toString(36).substr(2, 9)}`);
+    });
+
+    const otherCardStacks = document.querySelectorAll('.CardStack');
+    const allStackLabelValues = document.querySelectorAll('.StackLabelValue');
+    otherCardStacks.forEach((otherCardStack) => {
+        otherCardStack.style.transition = 'opacity 0.3s ease, filter 0.3s ease, z-index 0.3s ease';
+        otherCardStack.style.opacity = '1';
+        otherCardStack.style.filter = 'none';
+        otherCardStack.style.zIndex = '100';
+    });
+    allStackLabelValues.forEach((stackLabelValue) => {
+        stackLabelValue.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
+        stackLabelValue.style.opacity = '1';
+        stackLabelValue.style.filter = 'none';
+    });
+    cardStack.style.transition = 'z-index 0.3s ease';
+    cardStack.style.zIndex = '100';
 }
 
 function lazyLoadCards(cardStack) {
