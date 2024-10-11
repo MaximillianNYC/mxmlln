@@ -288,15 +288,13 @@ function handleCardStackHover(e, cardStack) {
 function handleCardStackMouseOut(cardStack) {
     const parentStackLabel = cardStack.closest('.StackLabel');
     if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
-        const gradeFront = document.querySelector('.gradeFront');
-        
-        gradeFront.style.width = '100%';
-        gradeFront.style.height = '100%';
-        gradeFront.style.filter = 'blur(150px)';
-        gradeFront.style.borderRadius = '0px';
-        gradeFront.style.top = '50%';
-        gradeFront.style.left = '50%';
+        resetGradeFrontStyles();
     }
+}
+
+function resetGradeFrontStyles() {
+    const gradeFront = document.querySelector('.gradeFront');
+    Object.assign(gradeFront.style, initialStyles.gradeFront);
 }
 
 // Existing hover style functions (modified to be reusable)
@@ -415,6 +413,7 @@ stackLabels.forEach(stackLabel => {
         if (!StackIsExpanded) {
             event.stopPropagation();
             expandStackLabel(this);
+            resetGradeFrontStyles(); // Added function call
         }
     });
 });
