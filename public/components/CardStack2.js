@@ -153,7 +153,7 @@ const initialStyles = {
         overflow: 'hidden',
         filter: 'blur(150px)',
         borderRadius: '0px',
-        transition: 'all 0.75s ease'
+        transition: 'all 0.5s ease'
     }
 };
 
