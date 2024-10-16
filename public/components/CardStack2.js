@@ -24,16 +24,16 @@ const initialStyles = {
         opacity: '1',
         zIndex: 50,
         filter: 'blur(0px)',
-        fontFamily: "'Archivo', sans-serif",
+        fontFamily: '"Homemade Apple", cursive',
         fontWeight: 700,
         letterSpacing: '1.5px',
-        fontSize: '14px',
+        fontSize: '18px',
         color: '#000000',
         padding: '16px',
         transition: 'opacity 0.15s ease, filter 0.15s ease'
     },
     StackBar: {
-        zIndex: '9999',
+        zIndex: '799',
         position: 'fixed',
         top: '-124px',
         left: '50%',
@@ -50,10 +50,10 @@ const initialStyles = {
         backgroundColor: 'rgba(240, 240, 240, 0.75)',
         boxShadow: '0px 3px 30px 0px rgba(0, 0, 0, 0.15)',
         border: 'solid 2px rgba(0, 0, 0, 0.1)',
-        fontFamily: "'Archivo', sans-serif",
+        fontFamily: '"Homemade Apple", cursive',
         fontWeight: 700,
         letterSpacing: '1.5px',
-        fontSize: '14px',
+        fontSize: '18px',
         color: '#000000',
         transition: 'all 0.5s'
     },
@@ -269,7 +269,6 @@ function setDefaultCardStackStyles() {
     });
 }
 
-// New functions for card stack hover effect
 function handleCardStackHover(e, cardStack) {
     const parentStackLabel = cardStack.closest('.StackLabel');
     if (!parentStackLabel || !parentStackLabel.classList.contains('expanded')) {
@@ -297,7 +296,6 @@ function resetGradeFrontStyles() {
     Object.assign(gradeFront.style, initialStyles.gradeFront);
 }
 
-// Existing hover style functions (modified to be reusable)
 function applyCardHoverStyles(cardStack, cardIndexInStack) {
     const cards = cardStack.querySelectorAll('.Card');
     cards.forEach((card, index) => {
@@ -331,7 +329,7 @@ function applyCardHoverStyles(cardStack, cardIndexInStack) {
     });
     cardStack.style.opacity = '1';
     cardStack.style.filter = 'none';
-    cardStack.style.zIndex = '1000';
+    cardStack.style.zIndex = '800';
     cardStack.closest('.StackLabel').querySelector('.StackLabelValue').style.opacity = '1';
     cardStack.closest('.StackLabel').querySelector('.StackLabelValue').style.filter = 'none';
 }
