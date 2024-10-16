@@ -41,6 +41,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
+  <style>
+    .Card, .CardInnerContainer, .CardContent {
+        background-color: transparent;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -224,7 +230,7 @@
         </div>    
     </div>
   </div>
-  <div class="bottomFade" id="bottomFade" style="z-index:900;"></div>
+  <div class="bottomFade" id="bottomFade"></div>
   <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
   </div>
   <div class="gradeFront"></div>
@@ -235,7 +241,7 @@
     <div class="TitleBlock2" style="height:200px;margin-top:100px;">
       <div class="Text" style="text-align:center;">
         <div class="Name" id="Siggy" style="padding:0px;font-size:20px;">
-          Design Portfolio by Maximillian Piras</div>		
+          A prototype of the Design Portfolio by Maximillian Piras</div>		
         <div class="Title" style="padding:0px;">
           Amplifying human capabilities with delightful
             <div class="ampersand">&</div>
@@ -244,7 +250,7 @@
       </div>
     </div>
 
-    <div class="AllStacks" style="z-index:200;">
+    <div class="AllStacks">
         <div class="StackLabel">
             <div class="CardStack">
                 <div class="Card" data-src="!assets/Abstraction.gif"></div>
@@ -258,7 +264,7 @@
                 <div class="Card" data-src="!assets/id/8tracksTape3.jpeg"></div>
             </div>
             <div class="StackLabelValue">
-                SECTION ONE
+                New movements
             </div>
         </div>
         <div class="StackLabel">
@@ -269,7 +275,7 @@
                 <div class="Card" data-src="!assets/img/101.jpeg"></div>
             </div>
             <div class="StackLabelValue">
-                SECTION TWO
+                Out of body experiences
             </div>
         </div>
         <div class="StackLabel">
@@ -282,7 +288,7 @@
                 <div class="Card" data-src="!assets/img/Catintosh.jpeg"></div>
             </div>
             <div class="StackLabelValue">
-                SECTION THREE
+                Abstract thoughts
             </div>        
         </div>
         <div class="StackLabel">
@@ -331,14 +337,13 @@
                 </div>
             </div>
             <div class="StackLabelValue">
-                SECTION FOUR
+                Strange dreams
             </div>
         </div>
     </div>
 
     <div class="StackBar" id="StackBar">
-        <img src="!assets/Logo2024.png" height="36px">
-        <span id="stackBarSectionName">SECTION NAME</span>
+        <span id="stackBarSectionName" style="margin-left:10px;margin-top:6px;">SECTION NAME</span>
         <img src="!assets/Close.png" height="32px" onclick="collapseExpandedStack()" style="cursor:pointer;">
     </div>
 
