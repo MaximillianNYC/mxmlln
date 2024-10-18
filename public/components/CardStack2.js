@@ -33,7 +33,7 @@ const initialStyles = {
         transition: 'opacity 0.15s ease, filter 0.15s ease'
     },
     StackBar: {
-        zIndex: '799',
+        zIndex: '999',
         position: 'fixed',
         top: '-124px',
         left: '50%',
@@ -42,7 +42,7 @@ const initialStyles = {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0 16px',
-        width: '400px',
+        width: '440px',
         height: '64px',
         borderRadius: '40px',
         backdropFilter: 'blur(80px)',
