@@ -1,31 +1,9 @@
 <!doctype html>
 <html>
 <head>
-
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36917341-6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-36917341-6');
-  </script>
 	
   <!-- Metadata -->
   <meta charset="UTF-8">
-  <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration.">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Maximillian Piras, Design Portfolio</title>
-  <meta property="og:title" content="Maximillian Piras, Product Designer"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://www.maximillian.nyc"/>
-  <meta property="og:image" content="https://www.maximillian.nyc/fb.png"/>
-  <meta property="og:site_name" content="Maximillian Piras"/>
-  <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration."/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta property="fb:admins" content="577048085831970"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
-  <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
 	
   <!-- Style Sheets -->
   <link rel="stylesheet" href="css/StyleMatters.2024.css">
@@ -57,15 +35,15 @@
     }
     .letter {
       display: inline-block;
-      transition: all 0.3s ease;
       line-height: 1.3%;
       letter-spacing: 2%;
       font-size: 34pt;
+      transition: all 0.5s ease;
     }
     .letter:hover {
       cursor: pointer;
-      font-size: 50pt;
-      color: rgb(255, 0, 0);
+      font-size: 34pt;
+      color: rgb(13, 0, 255);
       transition: all 0.3s ease;
     }
     .delightful {
@@ -152,6 +130,9 @@ document.addEventListener('DOMContentLoaded', function() {
         span.className = 'letter';
         text.appendChild(span);
 
+        let fontIndex = 0;
+        let fontCycleInterval;
+
         span.addEventListener('mouseenter', function(e) {
           const rect = this.getBoundingClientRect();
           gradeFront.style.width = '300px';
@@ -161,9 +142,11 @@ document.addEventListener('DOMContentLoaded', function() {
           gradeFront.style.filter = 'blur(75px)';
           gradeFront.style.borderRadius = '300px';
           
-          // Randomize font on hover
-          const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-          this.style.fontFamily = randomFont;
+          // Start cycling through fonts
+          fontCycleInterval = setInterval(() => {
+            this.style.fontFamily = fonts[fontIndex];
+            fontIndex = (fontIndex + 1) % fonts.length;
+          }, 100); // Change font every 100ms
         });
 
         span.addEventListener('mouseleave', function() {
@@ -174,7 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
           gradeFront.style.top = '50%';
           gradeFront.style.left = '50%';
           
-          // Reset font to default
+          // Stop cycling through fonts and reset
+          clearInterval(fontCycleInterval);
           this.style.fontFamily = '';
         });
       }
