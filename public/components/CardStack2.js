@@ -42,7 +42,7 @@ const initialStyles = {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0 16px',
-        width: '440px',
+        width: '432px',
         height: '64px',
         borderRadius: '40px',
         backdropFilter: 'blur(80px)',
