@@ -58,15 +58,15 @@
   <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
     <div class="navBar" id="navBar">
         <div class="navBarSegController" id="navBarSegController">
-            <img src="./!assets/Logo2024.png" height="36px" onmouseover="this.src='./!assets/LogoHover.gif'" onmouseout="this.src='./!assets/Logo2024.png'" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <img src="./!assets/LogoHover.gif" height="36px" onmouseover="this.src='./!assets/LogoHover.gif'" onmouseout="this.src='./!assets/Logo2024.png'" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
+                <font class="navBarItem">👋 ABOUT</font>
+              </a>
             <a href="folio.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
                 <font class="navBarItem_OnState">📐 WORK</font>
             </a>
-            <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
-              <font class="navBarItem">👋 ABOUT</font>
-            </a>
             <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 CHAT</font>
-            <img src="./!assets/Contact_black.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
+            <img src="./!assets/Contact_black.png" height="36px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
         </div>
     </div>
     <div class="infoViewContent" id="infoViewContent">
@@ -243,9 +243,9 @@
                 <div class="Name" id="Siggy" style="padding:0px;font-size:20px;">
                 A prototype of the Design Portfolio by Maximillian Piras</div>		
                 <div class="Title" style="padding:0px;">
-                Amplifying human capabilities with delightful
+                    Amplifying human capabilities with delightful
                     <div class="ampersand">&</div>
-                instinctual technology.
+                    instinctual technology.
                 </div>
             </div>
         </div>
@@ -370,7 +370,7 @@
                     </div>
                 </div>
                 <div class="StackLabelValue">
-                    Strange dreams
+                    Bonus round
                 </div>
             </div>
         </div>
@@ -382,39 +382,10 @@
         <img src="!assets/Close.png" height="32px" onclick="collapseExpandedStack()" style="cursor:pointer;">
     </div>
 
-<!-- Component Imports -->
+<!-- Components -->
 <script src="./components/NavBar.js"></script>
 <script src="./components/ChatIntelligence.js"></script>
-<script src="./components/CardStack2.js"></script>
-
-<!-- Intro Animation -->
-<script>
-  jQuery(document).ready(function() {
-    $('.IntroLoader').animate({width:'300px',height:'300px'}, 500, function() {
-      $('.IntroLoader')
-      .delay(1000)
-      .animate({top:'-100%'}, 250);
-    });
-    $('.gradeFront').css({width: '525px', height: '525px'})
-    .delay(1250)
-    .animate({width:'100%',height:'100%'}, 500);
-    setTimeout(function() {
-      $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
-        $('.ContentContainer').animate({top: '0px'}, 1000);
-      });
-    }, 1000);
-    setTimeout(function() {
-      $('.navDynamicContainer').css('bottom', '-100px').fadeIn(250, function() {
-        $('.navDynamicContainer').animate({bottom: '24px'}, 250);
-      });
-    }, 1250);
-    $('body').css('overflow-y', 'hidden');
-    setTimeout(function() {
-      $('body').css('overflow-y', 'auto');
-    }, 2500);
-  });
-</script>
-
+<script src="./components/FolioEngine.js"></script>
 
 </body>
 </html>
