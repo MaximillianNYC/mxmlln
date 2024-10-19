@@ -13,7 +13,7 @@
 	
   <!-- Metadata -->
   <meta charset="UTF-8">
-  <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration.">
+  <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces) focused on AI, branding, animation, & illustration.">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Maximillian Piras, Design Portfolio</title>
   <meta property="og:title" content="Maximillian Piras, Product Designer"/>
@@ -21,10 +21,10 @@
   <meta property="og:url" content="https://www.maximillian.nyc"/>
   <meta property="og:image" content="https://www.maximillian.nyc/fb.png"/>
   <meta property="og:site_name" content="Maximillian Piras"/>
-  <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration."/>
+  <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces) focused on AI, branding, animation, & illustration."/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta property="fb:admins" content="577048085831970"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
+  <meta property="fb:admins" content="577048085831970"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
   <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
 	
   <!-- Style Sheets -->
@@ -52,7 +52,7 @@
   <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
     <div class="navBar" id="navBar">
         <div class="navBarSegController" id="navBarSegController">
-            <img src="./!assets/LogoHover.gif" height="36px" onmouseover="this.src='./!assets/LogoHover.gif'" onmouseout="this.src='./!assets/Logo2024.png'" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <img src="./!assets/LogoHover.gif" height="36px" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
             <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
                 <font class="navBarItem">👋 ABOUT</font>
               </a>
@@ -232,7 +232,7 @@
     <div></div>
     <div></div>
   </div>
-  <div class="bottomFade" id="bottomFade"></div>
+  <!-- <div class="bottomFade" id="bottomFade"></div> -->
   <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
   </div>
   <div class="gradeFront"></div>
@@ -240,10 +240,11 @@
 
   <!-- Main Content -->
     <div class="ContentContainer" style="display:none;"> 
-        <div class="TitleBlock2" style="height:200px;margin-top:100px;">
+        <div class="TitleBlock3">
             <div class="Text" style="text-align:center;">
                 <div class="Name" id="Siggy" style="padding:0px;font-size:20px;">
-                A prototype of the Design Portfolio by Maximillian Piras</div>		
+                    Portfolio Prototype by Maximillian Piras
+                </div>		
                 <div class="Title" style="padding:0px;">
                     Amplifying human capabilities with delightful
                     <div class="ampersand">&</div>
@@ -253,7 +254,7 @@
         </div>
 
         <div class="AllStacks">
-            <div class="StackLabel">
+            <div class="CardStackLabelContainer">
                 <div class="CardStack">
                     <div class="Card" data-src="!assets/AWW.v1.png">
                         <div class="CardInnerContainer">
@@ -298,22 +299,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="StackLabelValue">
+                <div class="CardStackLabelContainerValue">
                     New movements
                 </div>
             </div>
-            <div class="StackLabel">
+            <div class="CardStackLabelContainer">
                 <div class="CardStack">
                     <div class="Card" data-src="!assets/VideoFiles.png"></div>
                     <div class="Card" data-src="!assets/img/8GangSign.jpeg"></div>
                     <div class="Card" data-src="!assets/Workspace.jpeg"></div>
                     <div class="Card" data-src="!assets/img/101.jpeg"></div>
                 </div>
-                <div class="StackLabelValue">
+                <div class="CardStackLabelContainerValue">
                     Out of body experiences
                 </div>
             </div>
-            <div class="StackLabel">
+            <div class="CardStackLabelContainer">
                 <div class="CardStack">
                     <div class="Card" data-src="!assets/id/8tracksSketchbooks.jpeg"></div>
                     <div class="Card" data-src="!assets/img/Acid.jpg"></div>
@@ -322,11 +323,11 @@
                     <div class="Card" data-src="!assets/id/LaborShirt1.jpeg"></div>
                     <div class="Card" data-src="!assets/img/Catintosh.jpeg"></div>
                 </div>
-                <div class="StackLabelValue">
+                <div class="CardStackLabelContainerValue">
                     Abstract thoughts
                 </div>        
             </div>
-            <div class="StackLabel">
+            <div class="CardStackLabelContainer">
                 <div class="CardStack">
                     <div class="Card" data-src="!assets/AWW.v1.png">
                         <div class="CardInnerContainer">
@@ -371,7 +372,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="StackLabelValue">
+                <div class="CardStackLabelContainerValue">
                     Bonus round
                 </div>
             </div>

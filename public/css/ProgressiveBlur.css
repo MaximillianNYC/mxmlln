@@ -2,7 +2,7 @@
   position: fixed;
   z-index: 800;
   inset: auto 0 0 0;
-  height: 100px;
+  height: 175px;
   pointer-events: none;
   bottom: 0px;
 }
