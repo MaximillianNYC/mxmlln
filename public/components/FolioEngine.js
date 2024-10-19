@@ -59,7 +59,6 @@ const initialStyles = {
     },
     cardStack: {
         display: 'flex',
-        //zIndex: 100,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -91,9 +90,10 @@ const initialStyles = {
         backgroundPosition: 'center',
         display: 'flex',
         alignContent: 'flex-end',
-        transition: 'box-shadow 0.25s, opacity 0.5s ease',
+        backgroundColor: 'transparent',
         opacity: '0',
-        backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5))'
+        backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5))',
+        transition: 'box-shadow 0.25s, opacity 0.5s ease'
     },
     CardContent: {
         alignSelf: 'flex-end',

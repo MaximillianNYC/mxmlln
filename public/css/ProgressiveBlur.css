@@ -1,9 +1,10 @@
 .gradient-blur {
   position: fixed;
-  z-index: 5;
+  z-index: 800;
   inset: auto 0 0 0;
   height: 100px;
   pointer-events: none;
+  bottom: 0px;
 }
 
 .gradient-blur > div,
