@@ -665,20 +665,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle card zooms
     document.querySelectorAll('.Card#cardZoom').forEach(card => {
         card.addEventListener('click', function(event) {
-            const container = this.closest('.CardStackLabelContainer');
-            if (container && container.getAttribute('data-zoom-enabled') === 'true') {
-                event.stopPropagation(); // Prevent triggering stack collapse
-                const bgImage = window.getComputedStyle(this).backgroundImage;
-                const imageSrc = bgImage.slice(5, -2);
-                if (imageSrc && imageSrc !== 'none') {
-                    const img = document.createElement('img');
-                    img.style.display = 'none';
-                    img.src = imageSrc;
-                    document.body.appendChild(img);
-                    Intense(img);
-                    img.click();
-                    img.addEventListener('intense-close', () => document.body.removeChild(img));
-                }
+            event.stopPropagation();
+            const bgImage = window.getComputedStyle(this).backgroundImage;
+            const imageSrc = bgImage.slice(5, -2);
+            if (imageSrc && imageSrc !== 'none') {
+                const img = document.createElement('img');
+                img.style.display = 'none';
+                img.src = imageSrc;
+                document.body.appendChild(img);
+                Intense(img);
+                img.click();
+                img.addEventListener('intense-close', () => document.body.removeChild(img));
             }
         });
     });
