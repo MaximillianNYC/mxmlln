@@ -128,7 +128,7 @@ a {
     border-radius: 40px;
 	backdrop-filter: blur(80px);
 	-webkit-backdrop-filter: blur(80px);
-	background-color: rgba(240, 240, 240, 0.75);
+	background-color: rgba(240, 240, 240, 0.65);
 	box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, .15);
 	border: solid 2px rgba(0, 0, 0, .1);
     transition: display 0.5s, visibility 0.5s;
