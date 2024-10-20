@@ -227,15 +227,15 @@
         </div>    
     </div>
   </div>
-  <div class="gradient-blur">
+  <!-- <div class="gradient-blur">
     <div></div>
     <div></div>
     <div></div>
     <div></div>
     <div></div>
     <div></div>
-  </div>
-  <!-- <div class="bottomFade" id="bottomFade"></div> -->
+  </div> -->
+  <div class="bottomFade" id="bottomFade"></div>
   <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
   </div>
   <div class="gradeFront"></div>
@@ -662,30 +662,7 @@
 <script src="./components/NavBar.js"></script>
 <script src="./components/ChatIntelligence.js"></script>
 <script src="./components/FolioEngine.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var cardExpands = document.querySelectorAll('.Card#cardZoom');
-        
-        cardExpands.forEach(function(card) {
-            card.addEventListener('click', function() {
-                var style = window.getComputedStyle(this);
-                var bgImage = style.getPropertyValue('background-image');
-                var imageSrc = bgImage.replace(/^url\(['"](.+)['"]\)$/, '$1');
-                if (imageSrc && imageSrc !== 'none') {
-                    var hiddenImg = document.createElement('img');
-                    hiddenImg.style.display = 'none';
-                    hiddenImg.src = imageSrc;
-                    document.body.appendChild(hiddenImg);
-                    Intense(hiddenImg);
-                    hiddenImg.click();
-                    hiddenImg.addEventListener('intense-close', function() {
-                        document.body.removeChild(hiddenImg);
-                    });
-                }
-            });
-        });
-    });
-</script>
+
 
 </body>
 </html>
