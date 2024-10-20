@@ -9,7 +9,8 @@ const initialStyles = {
         width: '100%',
         maxWidth: '800px',
         height: '200px',
-        marginTop: '100px',
+        marginTop: '140px',
+        marginBottom: '40px',
         opacity: '1',
         overflow: 'hidden',
         transition: 'all 0.3s ease'
@@ -62,10 +63,10 @@ const initialStyles = {
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
-        justifyContent: 'space-between',
+        gap: '14px',
         alignItems: 'center',
         padding: '0 16px',
-        width: '432px',
+        width: 'auto',
         height: '64px',
         borderRadius: '40px',
         backdropFilter: 'blur(80px)',
@@ -78,7 +79,8 @@ const initialStyles = {
         letterSpacing: '1.5px',
         fontSize: '18px',
         color: '#000000',
-        transition: 'all 0.5s'
+        transition: 'all 0.5s',
+        whiteSpace: 'nowrap'
     },
     cardStack: {
         display: 'flex',
@@ -89,6 +91,7 @@ const initialStyles = {
         width: '400px',
         height: '400px',
         gap: '0px',
+        cursor: 'pointer',
         //backgroundColor: 'red',
         transition: 'all 0.25s ease'
     },
@@ -103,15 +106,17 @@ const initialStyles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         overflow: 'hidden',
-        cursor: 'pointer',
+        pointerEvents: 'none',
+        //cursor: 'pointer',
         transition: 'all 0.35s ease',
     },
     CardInnerContainer: {
         boxShadow: '0px 3px 10px 0px rgba(0, 0, 0, 0)',
-        height: '100%',
-        width: '100%',
+        height: '0%',
+        width: '0%',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        overflow: 'hidden',
         display: 'flex',
         alignContent: 'flex-end',
         backgroundColor: 'transparent',
@@ -408,7 +413,7 @@ CardStackLabelContainers.forEach(CardStackLabelContainer => {
         if (!StackIsExpanded) {
             event.stopPropagation();
             expandCardStackLabelContainer(this);
-            resetGradeFrontStyles(); // Added function call
+            resetGradeFrontStyles();
         }
     });
 });
@@ -428,12 +433,9 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
             TitleBlock3.style.opacity = '0';
             TitleBlock3.style.height = '0px';
             TitleBlock3.style.width = '0px';
-        const CardStackLabelContainerRect = CardStackLabelContainer.getBoundingClientRect();
-        const scrollToPosition = window.scrollY + CardStackLabelContainerRect.top - 140;
-        window.scrollTo({
-            top: scrollToPosition,
-            behavior: 'smooth'
-        });
+            TitleBlock3.style.marginTop = '0px';
+            TitleBlock3.style.marginBottom = '0px';
+
         const allCardStackLabelContainerValues = document.querySelectorAll('.CardStackLabelContainerValue');
         allCardStackLabelContainerValues.forEach(CardStackLabelContainerValue => {
             CardStackLabelContainerValue.style.opacity = '0';
@@ -455,6 +457,7 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
                 stack.style.width = '0px';
                 stack.style.height = '0px';
             }
+            stack.style.cursor = 'default';
         });
         allCards.forEach(card => {
             if (card.parentNode !== cardStack) {
@@ -464,15 +467,16 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
                 card.style.transform = 'none';
                 card.style.margin = '0px';
             }
+            card.style.pointerEvents = 'auto';
         });
         setTimeout(() => {
             AllStacks.style.maxWidth = '100vw';
             AllStacks.style.gap = '0px';
-            AllStacks.style.margin = '0px';
+            AllStacks.style.margin = '16px';
             CardStackLabelContainer.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             CardStackLabelContainer.style.width = '100vw';
             CardStackLabelContainer.style.height = 'auto';
-            CardStackLabelContainer.style.minHeight = 'calc(100dvh - 200px)';
+            CardStackLabelContainer.style.minHeight = 'calc(100dvh)';
             cardStack.style.width = '100%';
             cardStack.style.height = 'auto';
             cardStack.style.gap = '32px';
@@ -485,15 +489,19 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
                     card.style.height = '400px';
                 });
             }, 50);
+            const cardInnerContainers = CardStackLabelContainer.querySelectorAll('.CardInnerContainer');
+            cardInnerContainers.forEach((container) => {
+                container.style.height = '100%';
+                container.style.width = '100%';
+            });
             setTimeout(() => {
-                const cardInnerContainers = CardStackLabelContainer.querySelectorAll('.CardInnerContainer');
                 cardInnerContainers.forEach((container) => {
                     container.style.opacity = '1';
                 });
-            }, 250);
+            }, 500);
             setTimeout(() => {
                 const CardStackLabelContainerRect = CardStackLabelContainer.getBoundingClientRect();
-                const scrollToPosition = window.scrollY + CardStackLabelContainerRect.top - 140;
+                const scrollToPosition = window.scrollY + CardStackLabelContainerRect.top - 180;
                 window.scrollTo({
                     top: scrollToPosition,
                     behavior: 'smooth'
@@ -639,5 +647,39 @@ function initIntroAnimation() {
   }, 2500);
 }
 
-// Call the intro animation when the document is ready
+// Initialize intro animation
 $(document).ready(initIntroAnimation);
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle card links
+    document.querySelectorAll('.Card[data-href]').forEach(card => {
+        card.addEventListener('click', function() {
+            const container = this.closest('.CardStackLabelContainer');
+            if (container && container.classList.contains('expanded')) {
+                const href = this.getAttribute('data-href');
+                if (href) window.open(href, '_blank');
+            }
+        });
+    });
+
+    // Handle card zooms
+    document.querySelectorAll('.Card#cardZoom').forEach(card => {
+        card.addEventListener('click', function(event) {
+            const container = this.closest('.CardStackLabelContainer');
+            if (container && container.getAttribute('data-zoom-enabled') === 'true') {
+                event.stopPropagation(); // Prevent triggering stack collapse
+                const bgImage = window.getComputedStyle(this).backgroundImage;
+                const imageSrc = bgImage.slice(5, -2);
+                if (imageSrc && imageSrc !== 'none') {
+                    const img = document.createElement('img');
+                    img.style.display = 'none';
+                    img.src = imageSrc;
+                    document.body.appendChild(img);
+                    Intense(img);
+                    img.click();
+                    img.addEventListener('intense-close', () => document.body.removeChild(img));
+                }
+            }
+        });
+    });
+});
