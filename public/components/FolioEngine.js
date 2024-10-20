@@ -588,7 +588,7 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
             CardStackLabelContainerValues.forEach(CardStackLabelContainerValue => {
                 Object.assign(CardStackLabelContainerValue.style, initialStyles.CardStackLabelContainerValue);
             });
-        }, 50);
+        }, 250);
         setTimeout(() => {
             otherCardStacks.forEach((otherCardStack) => {
                 otherCardStack.style.opacity = '1';
