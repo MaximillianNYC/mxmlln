@@ -13,7 +13,7 @@
 	
   <!-- Metadata -->
   <meta charset="UTF-8">
-  <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration.">
+  <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces) focused on AI, branding, animation, & illustration.">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Maximillian Piras, Design Portfolio</title>
   <meta property="og:title" content="Maximillian Piras, Product Designer"/>
@@ -21,17 +21,18 @@
   <meta property="og:url" content="https://www.maximillian.nyc"/>
   <meta property="og:image" content="https://www.maximillian.nyc/fb.png"/>
   <meta property="og:site_name" content="Maximillian Piras"/>
-  <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration."/>
+  <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces) focused on AI, branding, animation, & illustration."/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta property="fb:admins" content="577048085831970"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
+  <meta property="fb:admins" content="577048085831970"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
   <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
 	
-  <!-- Style Sheets -->
+  <!-- Style Sheets etc.-->
   <link rel="stylesheet" href="css/StyleMatters.2024.css">
   <link rel="stylesheet" href="./components/NavBar.css">
   <link rel="stylesheet" href="css/ProgressiveBlur.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./js/IntenseImages/intense.js"></script>
     
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +40,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">	
 
 </head>
 
@@ -51,15 +55,15 @@
   <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
     <div class="navBar" id="navBar">
         <div class="navBarSegController" id="navBarSegController">
-            <img src="./!assets/Logo2024.png" height="36px" onmouseover="this.src='./!assets/LogoHover.gif'" onmouseout="this.src='./!assets/Logo2024.png'" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <img src="./!assets/LogoHover.gif" height="36px" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
+                <font class="navBarItem">👋 ABOUT</font>
+              </a>
             <a href="folio.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
                 <font class="navBarItem_OnState">📐 WORK</font>
             </a>
-            <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
-              <font class="navBarItem">👋 ABOUT</font>
-            </a>
             <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 CHAT</font>
-            <img src="./!assets/Contact_black.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
+            <img src="./!assets/Contact_black.png" height="38px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
         </div>
     </div>
     <div class="infoViewContent" id="infoViewContent">
@@ -94,10 +98,10 @@
                 <img src="./!assets/LogoHover.gif" height="150px">
             </div>
             <div class="chatEmptyStateText">
-            <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
-            <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
+                <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
+                <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
             </div>
-            <div class="CardBadge" style="background-color:rgba(6, 174, 239, 0.55);align-self:center;">
+            <div class="BetaBadge" style="background-color:rgba(6, 174, 239, 0.55);align-self:center;">
                 <div class="BadgeText">
                     BETA v1.0
                 </div>
@@ -223,433 +227,464 @@
         </div>    
     </div>
   </div>
-  <div class="bottomFade" id="bottomFade"></div>
+  <div class="gradient-blur">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <!-- <div class="bottomFade" id="bottomFade"></div> -->
   <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
   </div>
   <div class="gradeFront"></div>
   <div class="gradeBG"></div>
 
   <!-- Main Content -->
-  <div class="ContentContainer" style="display:none;"> 
-    <div class="TitleBlock2">
-      <div class="Text" style="text-align:center;">
-        <div class="Name" id="Siggy" style="padding:0px;font-size:20px;">
-          Design Portfolio by Maximillian Piras</div>		
-        <div class="Title" style="padding:0px;">
-          Amplifying human capabilities with delightful
-            <div class="ampersand">&</div>
-          instinctual technology.
+    <div class="ContentContainer" style="display:none;"> 
+        <div class="TitleBlock3">
+            <div class="Text" style="text-align:center;">
+                <div class="Name" id="Siggy" style="padding:0px;font-size:20px;">
+                    Design Portfolio by Maximillian Piras
+                </div>		
+                <div class="Title" style="padding:0px;">
+                    Amplifying human capabilities with delightful
+                    <div class="ampersand">&</div>
+                    instinctual technology.
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="AllStacks">
+            <div class="CardStackLabelContainer">
+                <div class="CardStack">
+                    <div class="Card" data-src="!assets/AWW.v1.png" data-href="https://www.figma.com/proto/uEzQoQzs0lLZJvkYkHYFBJ/CS1%3A-AWW-v1?type=design&node-id=114-532&t=hxx58FRNhf97vNdV-8&scaling=contain&page-id=112%3A531&starting-point-node-id=114%3A532&show-proto-sidebar=1&hide-ui=1" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        ACTIVATION
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Warmer welcomes in new user onboarding
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/AutomationCoverImageTrim.gif" data-href="https://www.figma.com/proto/TaR3OtQUcpMaYG52tQucyA/CS2%3A-BACP-v1?type=design&node-id=20-196&t=odVaPZG9GpjJLaDO-8&scaling=contain&page-id=112%3A531&starting-point-node-id=20%3A196&hide-ui=1" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        RETENTION
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Boring automations for creative people
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/ComingSoon.png">
+                        <div class="CardInnerContainer" style="cursor:not-allowed;">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        REVENUE
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Aligning user value with purchase price
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="CardStackLabelContainerValue">
+                    Case studies
+                </div>
+            </div>
+            <div class="CardStackLabelContainer">
+                <div class="CardStack">
+                    <div class="Card" data-src="!assets/Abstraction.gif" data-href="https://uxmag.com/articles/when-words-cannot-describe-designing-for-ai-beyond-conversational-interfaces" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        UX MAG
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    When words cannot describe: AI beyond conversational UI
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/Friction3.png" data-href="https://www.smashingmagazine.com/2023/08/friction-feature-machine-learning-algorithms/" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        SMASHING MAGAZINE
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Using friction as a feature in machine learning algorithms
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/Algo.png" data-href="https://uxdesign.cc/designing-algorithm-friendly-interfaces-84da3ed076a9" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        UX COLLECTIVE
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Designing algorithm-friendly interfaces
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="CardStackLabelContainerValue">
+                    Published writing
+                </div>
+            </div>
+            <div class="CardStackLabelContainer">
+                <div class="CardStack">
+                    <div class="Card" data-src="!assets/id/ATCQ_v66E.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        A TRIBE CALLED QUEST
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Logotype exploration
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/Athenian_EditP.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        ATHENIAN
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Logomark
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/VinylEyeInsta.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        8TRACKS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Mission art
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/8tracksTape.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        8TRACKS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Anniversary graphic
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/8tracksIcons.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        8TRACKS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Iconset
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/8tracksSketchbooks.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        8TRACKS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Branded sketchbooks
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/LaborShirt1.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        LABOR
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Graphic tee
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/LostCatLogos.gif" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        LOST CAT
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Logo variations
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/LostCatAds.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        LOST CAT
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Street art ad campaign
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/Catintosh.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        LOST CAT
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Catintosh graphic
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/WestPoint.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                       WEST POINT
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                   Rugby crest
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/id/DamnJackals_VinylMock.jpeg" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                       DAMN JACKALS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Band logo
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="CardStackLabelContainerValue">
+                    Brand identity
+                </div>        
+            </div>
+            <div class="CardStackLabelContainer">
+                <div class="CardStack">
+                    <div class="Card" data-src="!assets/AndataTrans.gif" data-href="https://www.youtube.com/watch?v=BbvRQ7c-8IU" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        MILAN RECORDS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Ryuichi Sakamoto music video
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/Bangkok.gif" data-href="https://giphy.com/MaximillianNYC" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        GIPHY
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Various GIF commissions
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/Ace.gif" data-href="https://www.youtube.com/watch?v=6E9SNenPAkU" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        ACE HOTEL
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Artist-in-residence commission
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/Ramen.gif" data-href="https://www.thetokyoiter.com/2016-2020#/gallerymx/" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        TOKYOITER
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Cover animation
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/Saud.gif" data-href="https://www.youtube.com/watch?v=yINnHHAg6LQ" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        SAÜD
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    SAÜD ft. King Los visualizer
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/ConsABN_v4.gif" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        CONSEQUENCE
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Consequence ft. Royce Da 5'9" cover
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/HomeAnimation_v1_AltColors500.gif" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        8TRACKS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    "Playlists by People" campaign
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="!assets/img/StillListening_v2_Square.gif" id="cardZoom">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        8TRACKS
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    "Still listening?" graphic
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="CardStackLabelContainerValue">
+                    Animations
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="folioBlock">
-
-      <div style="display:flex;flex-direction:row;color:rgba(0, 0, 0, 0.65);">
-        <div class="Name" style="width:400px;">
-          <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:22px;">💼</div> Case studies
-        </div>
-      </div>
-      <div class="carousel-container">
-        <div class="carousel-slider">
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://www.figma.com/proto/uEzQoQzs0lLZJvkYkHYFBJ/CS1%3A-AWW-v1?type=design&node-id=114-532&t=hxx58FRNhf97vNdV-8&scaling=contain&page-id=112%3A531&starting-point-node-id=114%3A532&show-proto-sidebar=1&hide-ui=1" target="_blank" gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Headliner'});">
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AWW.v1.png);">
-                      <div class="CardContent">
-                        <div class="CardBadge">
-                          <div class="BadgeText">
-                            ACTIVATION
-                          </div>
-                        </div>
-                        <div class="CardTitle">
-                          Warmer welcomes in new user onboarding
-                        </div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://www.figma.com/proto/TaR3OtQUcpMaYG52tQucyA/CS2%3A-BACP-v1?type=design&node-id=20-196&t=odVaPZG9GpjJLaDO-8&scaling=contain&page-id=112%3A531&starting-point-node-id=20%3A196&hide-ui=1" target="_blank" gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Headliner'});">
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AutomationCoverImageTrim.gif);">
-                      <div class="CardContent">
-                        <div class="CardBadge">
-                          <div class="BadgeText">
-                            RETENTION
-                          </div>
-                        </div>
-                        <div class="CardTitle">
-                          Boring automations for creative people
-                        </div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                    <div class="CardInnerContainer" style="cursor:not-allowed;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/ComingSoon.png);">
-                      <div class="CardContent">
-                        <div class="CardBadge">
-                          <div class="BadgeText">
-                            REVENUE
-                          </div>
-                        </div>
-                        <div class="CardTitle">
-                          Aligning user value with purchase price 
-                        </div>	
-                      </div>
-                    </div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <button id="prev" class="carouselButtonPrev">
-          <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
-        </button>
-        <button id="next" class="carouselButtonNext">
-          <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
-        </button>
-      </div>
-      <div style="display:flex;flex-direction:row;color:rgba(0, 0, 0, 0.65);">
-        <div class="Name" style="width:400px;">
-          <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:22px;">📚</div> 
-          Published writing
-        </div>
-      </div>			
-      <div class="carousel-container">
-        <div class="carousel-slider2">
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://uxmag.com/articles/when-words-cannot-describe-designing-for-ai-beyond-conversational-interfaces" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Smashing Abstraction'});">
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5)), url(!assets/Abstraction.gif);">
-                      <div class="CardContent">
-                        <div class="CardBadge"><div class="BadgeText">UX MAG</div></div>
-                        <div class="CardTitle">When words cannot describe: AI beyond conversational UI</div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://www.smashingmagazine.com/2023/08/friction-feature-machine-learning-algorithms/" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Smashing Frcition'});">
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5)), url(!assets/Friction3.png);">
-                      <div class="CardContent">
-                        <div class="CardBadge"><div class="BadgeText">SMASHING MAGAZINE</div></div>
-                        <div class="CardTitle">Using friction as a feature in machine learning algorithms</div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://uxdesign.cc/designing-algorithm-friendly-interfaces-84da3ed076a9" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Algorithms'});">
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/Algo.png);">
-                      <div class="CardContent">
-                        <div class="CardBadge"><div class="BadgeText">UX COLLECTIVE</div></div>
-                        <div class="CardTitle">Designing algorithm-friendly interfaces</div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>	
-            </div>
-        </div>
-        <button id="prev2" class="carouselButtonPrev">
-          <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
-        </button>
-        <button id="next2" class="carouselButtonNext">
-          <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
-        </button>
-      </div>
-      <div style="display:flex;flex-direction:row;color:rgba(0, 0, 0, 0.65);">
-        <div class="Name" style="width:400px;">
-          <div style="display:inline-block;padding:14px 8px 6px 24px;font-size:22px;">🕹️</div> 
-          Fun stuff
-        </div>
-      </div>		
-      <div class="carousel-container">
-        <div class="carousel-slider3">
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://www.youtube.com/watch?v=BbvRQ7c-8IU" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : 'Andata'});">
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/AndataTrans.gif);">
-                      <div class="CardContent">
-                        <div class="CardBadge">
-                          <div class="BadgeText">
-                            MILAN RECORDS
-                          </div>
-                        </div>
-                        <div class="CardTitle">
-                          A music video for Ryuichi Sakamoto
-                        </div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://giphy.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : '8tracks'});">	
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/img/Bangkok.gif);">
-                      <div class="CardContent">
-                        <div class="CardBadge">
-                          <div class="BadgeText">
-                            GIPHY
-                          </div>
-                        </div>
-                        <div class="CardTitle">
-                          A bunch of animated GIFs with 2B+ views
-                        </div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>	
-            </div>
-            <div class="carousel-item">
-              <div class="Wrap">
-                <div class="Card">
-                  <a href="https://www.workspaces.xyz/p/299-maximillian-piras" target="_blank" onclick="gtag('event', 'Click Article', { 'event_category' : 'Article', 'event_label' : 'Workspaces'});">
-                    <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(!assets/Workspace.jpeg);">
-                      <div class="CardContent">
-                        <div class="CardBadge"><div class="BadgeText">WORKSPACES.XYZ</div></div>
-                        <div class="CardTitle">A brief interview <br>on my favorite gear</div>	
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-        </div>
-        <button id="prev3" class="carouselButtonPrev">
-          <img src="!assets/chevron.svg" style="transform: scaleX(-1);margin-left:-4px;" width="24px" height="24px">
-        </button>
-        <button id="next3" class="carouselButtonNext">
-          <img src="!assets/chevron.svg" width="24px" height="24px" style="margin-left:-4px;">
-        </button>
-      </div>
+    <div class="StackBar" id="StackBar">
+        <span id="stackBarSectionName" style="margin-left:10px;margin-top:6px;">SECTION NAME</span>
+        <img src="!assets/Close.png" height="32px" onclick="collapseExpandedStack()" style="cursor:pointer;">
     </div>
-  </div>  
 
-<!-- Component Imports -->
+<!-- Components -->
 <script src="./components/NavBar.js"></script>
 <script src="./components/ChatIntelligence.js"></script>
-<script src="./components/CardStack.js"></script>
-
-<!-- Intro Animation -->
+<script src="./components/FolioEngine.js"></script>
 <script>
-  jQuery(document).ready(function() {
-    $('.IntroLoader').animate({width:'300px',height:'300px'}, 500, function() {
-      $('.IntroLoader')
-      .delay(1000)
-      .animate({top:'-100%'}, 250);
+    document.addEventListener('DOMContentLoaded', function() {
+        var cardExpands = document.querySelectorAll('.Card#cardZoom');
+        
+        cardExpands.forEach(function(card) {
+            card.addEventListener('click', function() {
+                var style = window.getComputedStyle(this);
+                var bgImage = style.getPropertyValue('background-image');
+                var imageSrc = bgImage.replace(/^url\(['"](.+)['"]\)$/, '$1');
+                if (imageSrc && imageSrc !== 'none') {
+                    var hiddenImg = document.createElement('img');
+                    hiddenImg.style.display = 'none';
+                    hiddenImg.src = imageSrc;
+                    document.body.appendChild(hiddenImg);
+                    Intense(hiddenImg);
+                    hiddenImg.click();
+                    hiddenImg.addEventListener('intense-close', function() {
+                        document.body.removeChild(hiddenImg);
+                    });
+                }
+            });
+        });
     });
-    $('.gradeFront')
-    .delay(1250)
-    .animate({width:'100%',height:'100%'}, 500);
-    setTimeout(function() {
-      $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
-        $('.ContentContainer').animate({top: '0px'}, 1000);
-      });
-    }, 1000);
-    setTimeout(function() {
-      $('.navDynamicContainer').css('bottom', '-100px').fadeIn(250, function() {
-        $('.navDynamicContainer').animate({bottom: '24px'}, 250);
-      });
-    }, 1250);
-    $('body').css('overflow-y', 'hidden');
-    setTimeout(function() {
-      $('body').css('overflow-y', 'auto');
-    }, 2500);
-  });
-</script>
-
-<!-- Carousel Controls -->
-<script>
-  const prevButton = document.getElementById('prev');
-  const nextButton = document.getElementById('next');
-  const slider = document.querySelector('.carousel-slider');
-  let currentIndex = 0;
-
-  function updateSlidePosition() {
-      const offset = currentIndex * -450; 
-      slider.style.transform = `translateX(${offset}px)`;
-      if (currentIndex === 0) {
-        prevButton.style.visibility = 'hidden';
-        prevButton.style.opacity = '0';
-      } else {
-        prevButton.style.visibility = 'visible';
-        prevButton.style.opacity = '1';
-      }
-
-      if (window.matchMedia("(max-width: 1000px)").matches) {
-        if (currentIndex < 2) {
-          nextButton.style.visibility = 'visible';
-          nextButton.style.opacity = '1';
-        } else {
-          nextButton.style.visibility = 'hidden';
-          nextButton.style.opacity = '0';
-        }
-      }
-
-      if (window.matchMedia("(min-width: 1000px)").matches) {
-        if (currentIndex < 1) {
-          nextButton.style.visibility = 'visible';
-          nextButton.style.opacity = '1';
-        } else {
-          nextButton.style.visibility = 'hidden';
-          nextButton.style.opacity = '0';
-        }
-      }
-  }
-
-  prevButton.addEventListener('click', () => {
-      if (currentIndex > 0) {
-          currentIndex--;
-          updateSlidePosition();
-      }
-  });
-
-  nextButton.addEventListener('click', () => {
-      if (currentIndex < 2) {
-          currentIndex++;
-          updateSlidePosition();
-      }
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-      updateSlidePosition();
-  });
-</script>
-<script>
-  const prevButton2 = document.getElementById('prev2');
-  const nextButton2 = document.getElementById('next2');
-  const slider2 = document.querySelector('.carousel-slider2');
-  let currentIndex2 = 0;
-
-  function updateSlidePosition2() {
-      const offset = currentIndex2 * -450; 
-      slider2.style.transform = `translateX(${offset}px)`;
-      if (currentIndex2 === 0) {
-        prevButton2.style.visibility = 'hidden';
-        prevButton2.style.opacity = '0';
-      } else {
-        prevButton2.style.visibility = 'visible';
-        prevButton2.style.opacity = '1';
-      }
-
-      if (window.matchMedia("(max-width: 1000px)").matches) {
-        if (currentIndex2 < 2) {
-          nextButton2.style.visibility = 'visible';
-          nextButton2.style.opacity = '1';
-        } else {
-          nextButton2.style.visibility = 'hidden';
-          nextButton2.style.opacity = '0';
-        }
-      }
-
-      if (window.matchMedia("(min-width: 1000px)").matches) {
-        if (currentIndex2 < 1) {
-          nextButton2.style.visibility = 'visible';
-          nextButton2.style.opacity = '1';
-        } else {
-          nextButton2.style.visibility = 'hidden';
-          nextButton2.style.opacity = '0';
-        }
-      }
-  }
-
-  prevButton2.addEventListener('click', () => {
-      if (currentIndex2 > 0) {
-          currentIndex2--;
-          updateSlidePosition2();
-      }
-  });
-
-  nextButton2.addEventListener('click', () => {
-      if (currentIndex2 < 2) {
-          currentIndex2++;
-          updateSlidePosition2();
-      }
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-      updateSlidePosition2();
-  });
-</script>
-<script>
-  const prevButton3 = document.getElementById('prev3');
-  const nextButton3 = document.getElementById('next3');
-  const slider3 = document.querySelector('.carousel-slider3');
-  let currentIndex3 = 0;
-
-  function updateSlidePosition3() {
-      const offset = currentIndex3 * -450; 
-      slider3.style.transform = `translateX(${offset}px)`;
-      if (currentIndex3 === 0) {
-        prevButton3.style.visibility = 'hidden';
-        prevButton3.style.opacity = '0';
-      } else {
-        prevButton3.style.visibility = 'visible';
-        prevButton3.style.opacity = '1';
-      }
-
-      if (window.matchMedia("(max-width: 1000px)").matches) {
-        if (currentIndex3 < 2) {
-          nextButton3.style.visibility = 'visible';
-          nextButton3.style.opacity = '1';
-        } else {
-          nextButton3.style.visibility = 'hidden';
-          nextButton3.style.opacity = '0';
-        }
-      }
-
-      if (window.matchMedia("(min-width: 1000px)").matches) {
-        if (currentIndex3 < 1) {
-          nextButton3.style.visibility = 'visible';
-          nextButton3.style.opacity = '1';
-        } else {
-          nextButton3.style.visibility = 'hidden';
-          nextButton3.style.opacity = '0';
-        }
-      }
-  }
-
-  prevButton3.addEventListener('click', () => {
-      if (currentIndex3 > 0) {
-          currentIndex3--;
-          updateSlidePosition3();
-      }
-  });
-
-  nextButton3.addEventListener('click', () => {
-      if (currentIndex3 < 2) {
-          currentIndex3++;
-          updateSlidePosition3();
-      }
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-      updateSlidePosition3();
-  });
 </script>
 
 </body>
