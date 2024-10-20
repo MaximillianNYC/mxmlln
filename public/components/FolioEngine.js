@@ -25,7 +25,7 @@ const initialStyles = {
         justifyContent: 'center',
         alignItems: 'center',
         gap: '80px',
-        margin: '80px',
+        margin: '80px 0 200px',
         //backgroundColor: 'green',
         transition: 'all 0.15s ease'
     },
@@ -39,6 +39,7 @@ const initialStyles = {
         minHeight: '450px',
         overflow: 'visible',
         //backgroundColor: 'blue',
+        margin: '0px',
         transition: 'all 0.25s ease'
     },
     CardStackLabelContainerValue: {
@@ -92,6 +93,7 @@ const initialStyles = {
         height: '400px',
         gap: '0px',
         cursor: 'pointer',
+        margin: '0px',
         //backgroundColor: 'red',
         transition: 'all 0.25s ease'
     },
@@ -107,7 +109,6 @@ const initialStyles = {
         backgroundPosition: 'center',
         overflow: 'hidden',
         pointerEvents: 'none',
-        //cursor: 'pointer',
         transition: 'all 0.35s ease',
     },
     CardInnerContainer: {
@@ -479,7 +480,7 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
         setTimeout(() => {
             AllStacks.style.maxWidth = '100vw';
             AllStacks.style.gap = '0px';
-            AllStacks.style.margin = '16px';
+            AllStacks.style.margin = '0px';
             CardStackLabelContainer.style.transition = 'width 0.1s ease, height 0.1s ease, z-index 0s ease';
             CardStackLabelContainer.style.width = '100vw';
             CardStackLabelContainer.style.height = 'auto';
@@ -487,6 +488,7 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
             cardStack.style.width = '100%';
             cardStack.style.height = 'auto';
             cardStack.style.gap = '32px';
+            cardStack.style.margin = '118px';
             setTimeout(() => {
                 const cards = CardStackLabelContainer.querySelectorAll('.Card');
                 cards.forEach((card) => {
@@ -508,7 +510,7 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
             }, 500);
             setTimeout(() => {
                 const CardStackLabelContainerRect = CardStackLabelContainer.getBoundingClientRect();
-                const scrollToPosition = window.scrollY + CardStackLabelContainerRect.top - 180;
+                const scrollToPosition = window.scrollY + CardStackLabelContainerRect.top - 0;
                 window.scrollTo({
                     top: scrollToPosition,
                     behavior: 'smooth'
