@@ -405,6 +405,13 @@ function collapseExpandedStack() {
     }
 }
 
+// Collapse keyboard shortcut
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        collapseExpandedStack();
+    }
+});
+
 // Expand stack trigger
 let StackIsExpanded = false;
 const CardStackLabelContainers = document.querySelectorAll('.CardStackLabelContainer');
