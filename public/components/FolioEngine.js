@@ -58,7 +58,7 @@ const initialStyles = {
         transition: 'all 0.15s ease'
     },
     StackBar: {
-        zIndex: '999',
+        zIndex: '699',
         position: 'fixed',
         top: '-124px',
         left: '50%',
