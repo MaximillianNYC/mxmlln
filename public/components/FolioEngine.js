@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-    }, 1000); // 500ms delay before starting to load images
+    }, 1500); 
 });
 
 function collapseExpandedStack() {
