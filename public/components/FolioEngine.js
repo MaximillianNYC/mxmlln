@@ -111,6 +111,16 @@ const initialStyles = {
         pointerEvents: 'none',
         transition: 'all 0.35s ease',
     },
+    'card .autoplay-video': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        borderRadius: 'inherit',
+        zIndex: -1,
+    },
     CardInnerContainer: {
         boxShadow: '0px 3px 10px 0px rgba(0, 0, 0, 0)',
         height: '0%',
@@ -361,19 +371,56 @@ function resetCardStyles(cardStack, cardIndexInStack, totalCards) {
 }
 
 function lazyLoadCards(cardStack) {
-    const cards = cardStack.querySelectorAll('.Card[data-src]');
-    console.log(`Attempting to lazy load ${cards.length} cards in stack`);
+    const cards = cardStack ? cardStack.querySelectorAll('.Card[data-src]') : document.querySelectorAll('.Card[data-src]');
+    console.log(`Attempting to lazy load ${cards.length} cards`);
     cards.forEach(function(card) {
-        const img = new Image();
-        img.onload = function() {
-            card.style.backgroundImage = "url('" + card.dataset.src + "')";
+        const src = card.dataset.src;
+        if (src.endsWith('.webm') || src.endsWith('.mp4')) {
+            // Handle video
+            const [videoSrc, params] = src.split('#');
+            const video = document.createElement('video');
+            video.className = 'autoplay-video';
+            video.src = videoSrc;
+
+            // Set default values
+            video.autoplay = true;
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+
+            if (params) {
+                const urlParams = new URLSearchParams(params);
+                if (urlParams.has('autoplay')) video.autoplay = urlParams.get('autoplay') === '1';
+                if (urlParams.has('muted')) video.muted = urlParams.get('muted') === '1';
+                if (urlParams.has('loop')) video.loop = urlParams.get('loop') === '1';
+            }
+
+            Object.assign(video.style, initialStyles['card .autoplay-video']);
+
+            // Set video as background
+            card.style.backgroundImage = 'none';
+            card.style.backgroundColor = 'transparent';
+            card.appendChild(video);
+
+            video.play().catch(error => {
+                console.error("Auto-play was prevented:", error);
+            });
+
             card.removeAttribute('data-src');
-            console.log(`Successfully loaded image: ${card.dataset.src}`);
-        };
-        img.onerror = function() {
-            console.error('Failed to load image:', card.dataset.src);
-        };
-        img.src = card.dataset.src;
+            console.log(`Successfully loaded video: ${videoSrc}`);
+        } else {
+            // Handle image (existing code)
+            const img = new Image();
+            img.onload = function() {
+                card.style.backgroundImage = "url('" + card.dataset.src + "')";
+                card.removeAttribute('data-src');
+                console.log(`Successfully loaded image: ${card.dataset.src}`);
+            };
+            img.onerror = function() {
+                console.error('Failed to load image:', card.dataset.src);
+            };
+            img.src = card.dataset.src;
+        }
     });
 }
 
@@ -689,3 +736,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
