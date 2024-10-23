@@ -360,7 +360,7 @@ function resetCardStyles(cardStack, cardIndexInStack, totalCards) {
     cardStack.style.zIndex = '100';
 }
 
-function lazyLoadCards(cardStack) {
+function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
     const cards = cardStack.querySelectorAll('.Card[data-src]');
     console.log(`Attempting to lazy load ${cards.length} cards in stack`);
     cards.forEach(function(card) {
@@ -517,6 +517,14 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
                 });
             }, 300);
             lazyLoadCards();
+
+            setTimeout(() => {
+                const expandedCardStack = CardStackLabelContainer.querySelector('.CardStack');
+                if (expandedCardStack) {
+                    lazyLoadCards(expandedCardStack);
+                }
+            }, 600);
+
         }, 0);
         // StackBar Setup
         const sectionName = CardStackLabelContainer.querySelector('.CardStackLabelContainerValue').textContent.trim();
