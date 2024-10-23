@@ -361,53 +361,47 @@ function resetCardStyles(cardStack, cardIndexInStack, totalCards) {
 }
 
 function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
-    const cards = cardStack.querySelectorAll('.Card[data-src]');
-    console.log(`Attempting to lazy load ${cards.length} cards in stack`);
-    cards.forEach(function(card) {
-        const img = new Image();
-        img.onload = function() {
-            card.style.backgroundImage = "url('" + card.dataset.src + "')";
-            card.removeAttribute('data-src');
-            console.log(`Successfully loaded image: ${card.dataset.src}`);
-        };
-        img.onerror = function() {
-            console.error('Failed to load image:', card.dataset.src);
-        };
-        img.src = card.dataset.src;
+    const cards = cardStack.querySelectorAll('.Card');
+    cards.forEach(function(card, index) {
+        const src = card.dataset.src;
+        if (src) {
+            const img = new Image();
+            img.onload = function() {
+                card.style.backgroundImage = `url('${src}')`;
+                card.removeAttribute('data-src');
+            };
+            img.onerror = function() {
+                console.error(`Failed to load image for card ${index + 1}:`, src);
+            };
+            img.src = src;
+        } else {
+            console.warn(`No data-src attribute for card ${index + 1}`);
+        }
     });
 }
 
 // Initialize default styles
 document.addEventListener('DOMContentLoaded', function() {
     setDefaultCardStackStyles();
-
-    // Delay the lazy loading process
-    setTimeout(() => {
+    function attemptLazyLoad() {
+        console.log('Attempting to lazy load all card stacks');
         const cardStacks = document.querySelectorAll('.CardStack');
-        cardStacks.forEach((cardStack, stackIndex) => {
-            const visibleCards = cardStack.querySelectorAll('.Card:nth-child(-n+6)');
-            visibleCards.forEach((card, cardIndex) => {
-                if (card.dataset.src) {
-                    const img = new Image();
-                    img.onload = function() {
-                        try {
-                            card.style.backgroundImage = "url('" + card.dataset.src + "')";
-                            card.removeAttribute('data-src');
-                            console.log(`Loaded card ${cardIndex + 1} in stack ${stackIndex + 1}`);
-                        } catch (error) {
-                            console.error(`Error setting background image for card ${cardIndex + 1} in stack ${stackIndex + 1}:`, error);
-                        }
-                    };
-                    img.onerror = function(error) {
-                        console.error(`Failed to load card ${cardIndex + 1} in stack ${stackIndex + 1}:`, card.dataset.src, error);
-                    };
-                    img.src = card.dataset.src;
-                } else {
-                    console.warn(`No data-src attribute for card ${cardIndex + 1} in stack ${stackIndex + 1}`);
-                }
-            });
+        cardStacks.forEach((stack, index) => {
+            setTimeout(() => {
+                console.log(`Processing stack ${index + 1}`);
+                lazyLoadCards(stack);
+            }, 1000);
         });
-    }, 1000);
+    }
+
+    // Attempt lazy loading immediately
+    attemptLazyLoad();
+
+    // Attempt again after a short delay
+    //setTimeout(attemptLazyLoad, 1000);
+
+    // Final attempt after a longer delay
+    //setTimeout(attemptLazyLoad, 3000);
 });
 
 function collapseExpandedStack() {
@@ -633,20 +627,6 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
         }, 1000);
     }
 }
-
-setTimeout(() => {
-    let attempts = 0;
-    const maxAttempts = 5;
-    const attemptInterval = 15;
-    function attemptLazyLoad() {
-        lazyLoadCards();
-        attempts++;
-        if (document.querySelectorAll('.Card[data-src]').length > 0 && attempts < maxAttempts) {
-            setTimeout(attemptLazyLoad, attemptInterval);
-        }
-    }
-    attemptLazyLoad();
-}, 50);
 
 // Intro Animation
 function initIntroAnimation() {
