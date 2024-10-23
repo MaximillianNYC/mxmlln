@@ -380,20 +380,28 @@ function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
 // Initialize default styles
 document.addEventListener('DOMContentLoaded', function() {
     setDefaultCardStackStyles();
-    const cardStacks = document.querySelectorAll('.CardStack');
-    cardStacks.forEach(cardStack => {
-        const visibleCards = cardStack.querySelectorAll('.Card:nth-child(-n+6)');
-        visibleCards.forEach(card => {
-            if (card.dataset.src) {
-                const img = new Image();
-                img.onload = function() {
-                    card.style.backgroundImage = "url('" + card.dataset.src + "')";
-                    card.removeAttribute('data-src');
-                };
-                img.src = card.dataset.src;
-            }
+
+    // Delay the lazy loading process
+    setTimeout(() => {
+        const cardStacks = document.querySelectorAll('.CardStack');
+        cardStacks.forEach((cardStack, stackIndex) => {
+            const visibleCards = cardStack.querySelectorAll('.Card:nth-child(-n+6)');
+            visibleCards.forEach((card, cardIndex) => {
+                if (card.dataset.src) {
+                    const img = new Image();
+                    img.onload = function() {
+                        card.style.backgroundImage = "url('" + card.dataset.src + "')";
+                        card.removeAttribute('data-src');
+                        console.log(`Loaded card ${cardIndex + 1} in stack ${stackIndex + 1}`);
+                    };
+                    img.onerror = function() {
+                        console.error(`Failed to load card ${cardIndex + 1} in stack ${stackIndex + 1}:`, card.dataset.src);
+                    };
+                    img.src = card.dataset.src;
+                }
+            });
         });
-    });
+    }, 500); // 500ms delay before starting to load images
 });
 
 function collapseExpandedStack() {
@@ -697,3 +705,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
