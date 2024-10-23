@@ -47,7 +47,7 @@ const initialStyles = {
         zIndex: 50,
         filter: 'blur(0px)',
         fontFamily: '"Homemade Apple", cursive',
-        fontWeight: 700,
+        fontWeight: 500,
         letterSpacing: '1.5px',
         fontSize: '18px',
         color: '#000000',
