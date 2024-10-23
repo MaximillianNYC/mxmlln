@@ -370,9 +370,11 @@ function resetCardStyles(cardStack, cardIndexInStack, totalCards) {
     cardStack.style.zIndex = '100';
 }
 
-function lazyLoadCards(cardStack) {
-    const cards = cardStack ? cardStack.querySelectorAll('.Card[data-src]') : document.querySelectorAll('.Card[data-src]');
+function lazyLoadCards() {
+    const cards = document.querySelectorAll('.Card[data-src]');
+    
     console.log(`Attempting to lazy load ${cards.length} cards`);
+    
     cards.forEach(function(card) {
         const src = card.dataset.src;
         if (src.endsWith('.webm') || src.endsWith('.mp4')) {
@@ -409,10 +411,10 @@ function lazyLoadCards(cardStack) {
             card.removeAttribute('data-src');
             console.log(`Successfully loaded video: ${videoSrc}`);
         } else {
-            // Handle image (existing code)
+            // Handle image
             const img = new Image();
             img.onload = function() {
-                card.style.backgroundImage = "url('" + card.dataset.src + "')";
+                card.style.backgroundImage = `url('${card.dataset.src}')`;
                 card.removeAttribute('data-src');
                 console.log(`Successfully loaded image: ${card.dataset.src}`);
             };
@@ -563,7 +565,7 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
                     behavior: 'smooth'
                 });
             }, 300);
-            lazyLoadCards(cardStack);
+            lazyLoadCards();
         }, 0);
         // StackBar Setup
         const sectionName = CardStackLabelContainer.querySelector('.CardStackLabelContainerValue').textContent.trim();
