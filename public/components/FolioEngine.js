@@ -390,18 +390,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (card.dataset.src) {
                     const img = new Image();
                     img.onload = function() {
-                        card.style.backgroundImage = "url('" + card.dataset.src + "')";
-                        card.removeAttribute('data-src');
-                        console.log(`Loaded card ${cardIndex + 1} in stack ${stackIndex + 1}`);
+                        try {
+                            card.style.backgroundImage = "url('" + card.dataset.src + "')";
+                            card.removeAttribute('data-src');
+                            console.log(`Loaded card ${cardIndex + 1} in stack ${stackIndex + 1}`);
+                        } catch (error) {
+                            console.error(`Error setting background image for card ${cardIndex + 1} in stack ${stackIndex + 1}:`, error);
+                        }
                     };
-                    img.onerror = function() {
-                        console.error(`Failed to load card ${cardIndex + 1} in stack ${stackIndex + 1}:`, card.dataset.src);
+                    img.onerror = function(error) {
+                        console.error(`Failed to load card ${cardIndex + 1} in stack ${stackIndex + 1}:`, card.dataset.src, error);
                     };
                     img.src = card.dataset.src;
+                } else {
+                    console.warn(`No data-src attribute for card ${cardIndex + 1} in stack ${stackIndex + 1}`);
                 }
             });
         });
-    }, 2000); 
+    }, 1000);
 });
 
 function collapseExpandedStack() {
