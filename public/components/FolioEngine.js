@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-    }, 1000); 
+    }, 2000); 
 });
 
 function collapseExpandedStack() {
