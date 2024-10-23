@@ -76,7 +76,7 @@ const initialStyles = {
         boxShadow: '0px 3px 30px 0px rgba(0, 0, 0, 0.15)',
         border: 'solid 2px rgba(0, 0, 0, 0.1)',
         fontFamily: '"Homemade Apple", cursive',
-        fontWeight: 700,
+        fontWeight: 500,
         letterSpacing: '1.5px',
         fontSize: '18px',
         color: '#000000',
