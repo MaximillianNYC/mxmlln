@@ -366,10 +366,10 @@ function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
     const cards = cardStack.querySelectorAll('.Card');
     cards.forEach(function(card, index) {
         const imageSrc = card.dataset.src;
-        const videoSrc = card.dataset.videoSrc;
-
+        let videoSrc = card.dataset.videoSrc;
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        
         if (videoSrc) {
-            // Handle video background
             const video = document.createElement('video');
             video.style.cssText = `
                 position: absolute;
@@ -380,16 +380,36 @@ function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
                 object-fit: cover;
                 z-index: 0;
             `;
+            video.muted = true;
             video.autoplay = true;
             video.loop = true;
-            video.muted = true;
             video.playsInline = true;
+            video.controls = false;
+
+            if (isSafari) {
+                videoSrc = videoSrc.replace('.webm', '.mp4');
+            }
+
             video.src = videoSrc;
             card.style.overflow = 'hidden';
             card.style.position = 'relative';
             card.appendChild(video);
+            
+            video.play().catch(error => {
+                console.warn(`Autoplay failed for video on card ${index + 1}:`, error);
+
+                // Fallback: play video on the first user interaction
+                const playOnInteraction = () => {
+                    video.play();
+                    document.removeEventListener('click', playOnInteraction);
+                    document.removeEventListener('touchstart', playOnInteraction);
+                };
+
+                document.addEventListener('click', playOnInteraction);
+                document.addEventListener('touchstart', playOnInteraction);
+            });
+
         } else if (imageSrc) {
-            // Handle image background (existing functionality)
             const img = new Image();
             img.onload = function() {
                 card.style.backgroundImage = `url('${imageSrc}')`;
@@ -660,11 +680,9 @@ function initIntroAnimation() {
       .delay(1000)
       .animate({top:'-100%'}, 250);
   });
-
   $('.gradeFront').css({width: '525px', height: '525px', borderRadius: '400px'})
     .delay(1250)
     .animate({width:'100%',height:'100%',borderRadius:'0px'}, 500);
-
   setTimeout(function() {
     $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
       $('.ContentContainer').animate({top: '0px'}, 1000);
