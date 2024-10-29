@@ -112,6 +112,8 @@ const initialStyles = {
         transition: 'all 0.35s ease',
     },
     CardInnerContainer: {
+        zIndex: '200',
+        position: 'relative',
         boxShadow: '0px 3px 10px 0px rgba(0, 0, 0, 0)',
         height: '0%',
         width: '0%',
@@ -363,19 +365,42 @@ function resetCardStyles(cardStack, cardIndexInStack, totalCards) {
 function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
     const cards = cardStack.querySelectorAll('.Card');
     cards.forEach(function(card, index) {
-        const src = card.dataset.src;
-        if (src) {
+        const imageSrc = card.dataset.src;
+        const videoSrc = card.dataset.videoSrc;
+
+        if (videoSrc) {
+            // Handle video background
+            const video = document.createElement('video');
+            video.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 0;
+            `;
+            video.autoplay = true;
+            video.loop = true;
+            video.muted = true;
+            video.playsInline = true;
+            video.src = videoSrc;
+            card.style.overflow = 'hidden';
+            card.style.position = 'relative';
+            card.appendChild(video);
+        } else if (imageSrc) {
+            // Handle image background (existing functionality)
             const img = new Image();
             img.onload = function() {
-                card.style.backgroundImage = `url('${src}')`;
+                card.style.backgroundImage = `url('${imageSrc}')`;
                 card.removeAttribute('data-src');
             };
             img.onerror = function() {
-                console.error(`Failed to load image for card ${index + 1}:`, src);
+                console.error(`Failed to load image for card ${index + 1}:`, imageSrc);
             };
-            img.src = src;
+            img.src = imageSrc;
         } else {
-            console.warn(`No data-src attribute for card ${index + 1}`);
+            console.warn(`No data-src or data-video-src attribute for card ${index + 1}`);
         }
     });
 }
@@ -677,16 +702,45 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.Card#cardZoom').forEach(card => {
         card.addEventListener('click', function(event) {
             event.stopPropagation();
-            const bgImage = window.getComputedStyle(this).backgroundImage;
-            const imageSrc = bgImage.slice(5, -2);
-            if (imageSrc && imageSrc !== 'none') {
-                const img = document.createElement('img');
-                img.style.display = 'none';
-                img.src = imageSrc;
-                document.body.appendChild(img);
-                Intense(img);
-                img.click();
-                img.addEventListener('intense-close', () => document.body.removeChild(img));
+            const video = card.querySelector('video');
+            if (video) {
+                // Handle video zoom (you might want to implement a custom video player modal)
+                const videoModal = document.createElement('div');
+                videoModal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0,0,0,0.9);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 9999;
+                `;
+                const videoClone = video.cloneNode(true);
+                videoClone.style.maxWidth = '90vw';
+                videoClone.style.maxHeight = '90vh';
+                videoModal.appendChild(videoClone);
+                
+                videoModal.addEventListener('click', () => {
+                    document.body.removeChild(videoModal);
+                });
+                
+                document.body.appendChild(videoModal);
+            } else {
+                // Existing image zoom functionality
+                const bgImage = window.getComputedStyle(this).backgroundImage;
+                const imageSrc = bgImage.slice(5, -2);
+                if (imageSrc && imageSrc !== 'none') {
+                    const img = document.createElement('img');
+                    img.style.display = 'none';
+                    img.src = imageSrc;
+                    document.body.appendChild(img);
+                    Intense(img);
+                    img.click();
+                    img.addEventListener('intense-close', () => document.body.removeChild(img));
+                }
             }
         });
     });
