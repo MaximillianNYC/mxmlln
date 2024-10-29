@@ -661,9 +661,9 @@ function initIntroAnimation() {
       .animate({top:'-100%'}, 250);
   });
 
-  $('.gradeFront').css({width: '525px', height: '525px'})
+  $('.gradeFront').css({width: '525px', height: '525px', borderRadius: '400px'})
     .delay(1250)
-    .animate({width:'100%',height:'100%'}, 500);
+    .animate({width:'100%',height:'100%',borderRadius:'0px'}, 500);
 
   setTimeout(function() {
     $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
