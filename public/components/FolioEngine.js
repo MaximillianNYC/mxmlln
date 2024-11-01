@@ -1,4 +1,8 @@
 const initialStyles = {
+    appStore: {
+        opacity: '1',
+        transition: 'all 0.3s ease'
+    },
     TitleBlock3: {
         position: 'relative',
         display: 'flex',
@@ -216,6 +220,7 @@ function setCardPosition(card, index, totalCards, stackId) {
 
 function setDefaultCardStackStyles() {
     const styleSelectors = {
+        '.appStore': 'appStore',
         '.TitleBlock3': 'TitleBlock3',
         '.StackBar': 'StackBar',
         '.CardStackLabelContainerValue': 'CardStackLabelContainerValue',
@@ -483,6 +488,10 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
     const allCards = document.querySelectorAll('.Card');
     if (isExpanded) {
         StackIsExpanded = true;
+        
+        const appStore = document.querySelector('.appStore');
+            appStore.style.opacity = '0';
+        
         const TitleBlock3 = document.querySelector('.TitleBlock3');
             TitleBlock3.style.opacity = '0';
             TitleBlock3.style.height = '0px';
@@ -580,6 +589,10 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
         StackBar.style.top = '24px';
     } else {
         StackIsExpanded = false;
+        const appStore = document.querySelector('.appStore');
+        if (appStore) {
+            Object.assign(appStore.style, initialStyles.appStore);
+        }
         const stackBar = document.querySelector('.StackBar');
         if (stackBar) {
             Object.assign(stackBar.style, initialStyles.StackBar);
