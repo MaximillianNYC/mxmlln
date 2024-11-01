@@ -1,6 +1,10 @@
 const initialStyles = {
     appStore: {
         opacity: '1',
+        height: 'auto',
+        width: 'calc(100% - 124px)',
+        maxWidth: '800px',
+        overflow: 'visible',
         transition: 'all 0.3s ease'
     },
     TitleBlock3: {
@@ -491,6 +495,9 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
         
         const appStore = document.querySelector('.appStore');
             appStore.style.opacity = '0';
+            appStore.style.height = '0px';
+            appStore.style.width = '0px';
+            appStore.style.overflow = 'hidden';
         
         const TitleBlock3 = document.querySelector('.TitleBlock3');
             TitleBlock3.style.opacity = '0';
