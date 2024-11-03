@@ -46,13 +46,13 @@
 <body>
   
   <!-- Intro Graphic -->
-  <img src="!assets/WebIntro.gif" class="IntroLoader">
+  <img src="assets/WebIntro.gif" class="IntroLoader">
 
   <!-- Nav Bar -->
   <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
     <div class="navBar" id="navBar">
         <div class="navBarSegController" id="navBarSegController">
-            <img src="./!assets/LogoHover.gif" height="40px" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <img src="./assets/LogoHover.gif" height="40px" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
             <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
                 <font class="navBarItem_OnState">👋 ABOUT</font>
               </a>
@@ -60,16 +60,16 @@
                 <font class="navBarItem">📐 WORK</font>
             </a>
             <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 CHAT</font>
-            <img src="./!assets/Contact_black.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
+            <img src="./assets/Contact_black.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
         </div>
     </div>
     <div class="infoViewContent" id="infoViewContent">
         <div class="viewHeader">
             <font class="viewHeaderText">MXMLLN FOLIO v2.0</font>
-            <img src="./!assets/Close.png" onclick="closeNavInfoView()" class="closeButton">
+            <img src="./assets/Close.png" onclick="closeNavInfoView()" class="closeButton">
         </div>
         <div style="padding-bottom:32px;">
-            <img src="./!assets/Logo.gif" height="200px">
+            <img src="./assets/Logo.gif" height="200px">
         </div>
         <div>
             <a href="https://github.com/MaximillianNYC/mxmlln" target="_blank">
@@ -80,19 +80,19 @@
     <div class="chatViewContent" id="chatViewContent">
         <!--close button-->
         <div class="viewHeader" style="justify-content:flex-end;">
-            <img src="./!assets/Close.png" onclick="closeNavChatView()" class="closeButton">
+            <img src="./assets/Close.png" onclick="closeNavChatView()" class="closeButton">
         </div>
         <!--input field-->
         <form class="chatInputContainer" id="chatInputContainer">
             <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
-            <img src="./!assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
+            <img src="./assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
             </button>
             <input type="text" class="chatInputField" name="defineProblem" id="chatInputField" placeholder="Tell me what you're looking for..." autocomplete="off">
         </form>
         <!--empty state-->
         <div class="chatEmptyState" id="chatEmptyState">
             <div class="chatEmptyStateLogo">
-                <img src="./!assets/LogoHover.gif" height="150px">
+                <img src="./assets/LogoHover.gif" height="150px">
             </div>
             <div class="chatEmptyStateText">
             <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
@@ -122,7 +122,7 @@
             <div class="chatResponseContainer">
                 <div class="chatBlurb">
                     <div class="chatResponseLogoContainer">
-                        <img src="./!assets/LogoHover.gif" class="chatResponseLogo">
+                        <img src="./assets/LogoHover.gif" class="chatResponseLogo">
                     </div>
                     <p style="margin:0px;padding:0px;text-align:left;"></p>
                 </div>
@@ -144,7 +144,7 @@
     <div class="contactViewContent" id="contactViewContent">
         <div class="viewHeader">
             <font class="viewHeaderText">CONTACT</font>
-            <img src="./!assets/Close.png" onclick="closeNavContactView()" class="closeButton">
+            <img src="./assets/Close.png" onclick="closeNavContactView()" class="closeButton">
         </div>            
         <div style="display:flex;flex-direction:row;height:100px;">
             <div class="contactViewIconContainer" id="Email">
@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <a href="mailto:max@mxmlln.com" onclick="gtag('event', 'Click Email Button', { 'event_category' : 'Contact', 'event_label' : 'MAX@MXMLLN.COM'});">
-                    <img src="./!assets/contact/EmailButton.svg" class="CircleButton" alt="Email" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                    <img src="./assets/contact/EmailButton.svg" class="CircleButton" alt="Email" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
                 </a>
             </div>
             <div class="contactViewIconContainer" id="X">
@@ -168,7 +168,7 @@
                     </div>
                 </div>
                 <a href="https://twitter.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Twitter Button', { 'event_category' : 'Contact', 'event_label' : 'TWITTER'});">
-                    <img src="./!assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                    <img src="./assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
                 </a>
             </div>
             <div class="contactViewIconContainer" id="LinkedIn">
@@ -180,7 +180,7 @@
                     </div>
                 </div>
                 <a href="https://www.linkedin.com/in/maximilliannyc/" target="_blank" onclick="gtag('event', 'Click LinkedIn Button', { 'event_category' : 'Contact', 'event_label' : 'LinkedIn'});">
-                    <img src="./!assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                    <img src="./assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
                 </a>
             </div>
         </div>  
@@ -194,7 +194,7 @@
                     </div>
                 </div>
                 <a href="https://medium.com/@MaximillianNYC"  target="_blank" onclick="gtag('event', 'Click Medium Button', { 'event_category' : 'Contact', 'event_label' : 'Medium'});">
-                    <img src="./!assets/contact/MediumButton.svg" class="CircleButton" alt="Medium" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                    <img src="./assets/contact/MediumButton.svg" class="CircleButton" alt="Medium" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
                 </a>
             </div>
             <div class="contactViewIconContainer" id="X">
@@ -206,7 +206,7 @@
                     </div>
                 </div>
                 <a href="https://www.instagram.com/maximillian.nyc" target="_blank" onclick="gtag('event', 'Click Instagram Button', { 'event_category' : 'Contact', 'event_label' : 'Insta'});">
-                    <img src="./!assets/contact/InstaButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                    <img src="./assets/contact/InstaButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
                 </a>
             </div>
             <div class="contactViewIconContainer" id="LinkedIn">
@@ -218,7 +218,7 @@
                     </div>
                 </div>
                 <a href="https://dribbble.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Dribbble Button', { 'event_category' : 'Contact', 'event_label' : 'Dribbble'});">
-                    <img src="./!assets/contact/DribbbleButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                    <img src="./assets/contact/DribbbleButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
                 </a>
             </div>
         </div>    
@@ -247,7 +247,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/baby.svg" width="30px" alt="baby" />
+                    <img src="./assets/icons/baby.svg" width="30px" alt="baby" />
                 </div>
                 <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
             </div>
@@ -264,7 +264,7 @@
                     </p>
                 </div>
                 <div class="timelinePhotoAlbum">
-                    <img src="!assets/timeline/Baby.jpeg" class="timelinePhoto" style="width:400px;">
+                    <img src="assets/timeline/Baby.jpeg" class="timelinePhoto" style="width:400px;">
                 </div>            
             </div>
         </div>
@@ -272,7 +272,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/grad.svg" width="32px" alt="graduation cap" />
+                    <img src="./assets/icons/grad.svg" width="32px" alt="graduation cap" />
                 </div>
                 <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
             </div>
@@ -289,9 +289,9 @@
                     </p>
                 </div>
                 <div class="timelinePhotoAlbum">
-                    <img src="!assets/id/WestPointHelmet.jpeg" class="timelinePhoto">
-                    <img src="!assets/id/DamnJackals_VinylMock.jpeg" class="timelinePhoto">
-                    <img src="!assets/id/LaborShirt2.jpeg" class="timelinePhoto">
+                    <img src="assets/id/WestPointHelmet.jpeg" class="timelinePhoto">
+                    <img src="assets/id/DamnJackals_VinylMock.jpeg" class="timelinePhoto">
+                    <img src="assets/id/LaborShirt2.jpeg" class="timelinePhoto">
                 </div>           
             </div>
         </div>
@@ -299,7 +299,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/wifi.svg" width="24px" alt="wifi" />
+                    <img src="./assets/icons/wifi.svg" width="24px" alt="wifi" />
                 </div>
                 <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
             </div>
@@ -322,7 +322,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/cd.svg" width="30px" alt="cd" />
+                    <img src="./assets/icons/cd.svg" width="30px" alt="cd" />
                 </div>
                 <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
             </div>
@@ -339,9 +339,9 @@
                     </p>
                 </div>
                 <div class="timelinePhotoAlbum">
-                    <img src="!assets/id/8tracksTape3.jpeg" class="timelinePhoto">
-                    <img src="!assets/img/8tracks_FeaturedDJs.jpg" class="timelinePhoto">
-                    <img src="!assets/id/VinylEyeInsta.jpeg" class="timelinePhoto">
+                    <img src="assets/id/8tracksTape3.jpeg" class="timelinePhoto">
+                    <img src="assets/img/8tracks_FeaturedDJs.jpg" class="timelinePhoto">
+                    <img src="assets/id/VinylEyeInsta.jpeg" class="timelinePhoto">
                 </div>
             </div>
         </div>
@@ -349,7 +349,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/cat.svg" width="24px" alt="cat" />
+                    <img src="./assets/icons/cat.svg" width="24px" alt="cat" />
                 </div>
                 <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
             </div>
@@ -366,9 +366,9 @@
                     </p>
                 </div>
                 <div class="timelinePhotoAlbum">
-                    <img src="!assets/img/Catintosh.jpeg" class="timelinePhoto">
-                    <img src="!assets/timeline/LostCatSweater.gif" class="timelinePhoto">
-                    <img src="!assets/id/LostCatLogos.gif" class="timelinePhoto">
+                    <img src="assets/img/Catintosh.jpeg" class="timelinePhoto">
+                    <img src="assets/timeline/LostCatSweater.gif" class="timelinePhoto">
+                    <img src="assets/id/LostCatLogos.gif" class="timelinePhoto">
                 </div>
             </div>
         </div>
@@ -376,7 +376,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/pencil.svg" width="24px" alt="pencil" />
+                    <img src="./assets/icons/pencil.svg" width="24px" alt="pencil" />
                 </div>
                 <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
             </div>
@@ -393,9 +393,9 @@
                     </p>
                 </div>
                 <div class="timelinePhotoAlbum">
-                    <img src="!assets/img/Ramen.gif" class="timelinePhoto">
-                    <img src="!assets/img/Ace.gif" class="timelinePhoto">
-                    <img src="!assets/img/Saud.gif" class="timelinePhoto">
+                    <img src="assets/img/Ramen.gif" class="timelinePhoto">
+                    <img src="assets/img/Ace.gif" class="timelinePhoto">
+                    <img src="assets/img/Saud.gif" class="timelinePhoto">
                 </div>
             </div>
         </div>
@@ -403,7 +403,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/mic.svg" width="20px" alt="mic" />
+                    <img src="./assets/icons/mic.svg" width="20px" alt="mic" />
                 </div>
                 <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
             </div>
@@ -420,9 +420,9 @@
                     </p>
                 </div>
                 <div class="timelinePhotoAlbum">
-                    <img src="!assets/Headliner.gif" class="timelinePhoto">
-                    <img src="!assets/timeline/HeadlinerMobileScreens.png" class="timelinePhoto">
-                    <img src="!assets/VideoFiles.png" class="timelinePhoto">
+                    <img src="assets/Headliner.gif" class="timelinePhoto">
+                    <img src="assets/timeline/HeadlinerMobileScreens.png" class="timelinePhoto">
+                    <img src="assets/VideoFiles.png" class="timelinePhoto">
                 </div>
             </div>
         </div>
@@ -430,7 +430,7 @@
         <div class="timelineBlock">
             <div class="timelineRuler">
                 <div class="timelineIcon">
-                    <img src="./!assets/icons/nodes.svg" width="24px" alt="nodes" />
+                    <img src="./assets/icons/nodes.svg" width="24px" alt="nodes" />
                 </div>
             </div>
             <div class="timelineContent">
@@ -446,9 +446,9 @@
                     </p>
                 </div>
                 <div class="timelinePhotoAlbum">
-                    <img src="!assets/Abstraction.gif" class="timelinePhoto">
-                    <img src="!assets/Algo.png" class="timelinePhoto">
-                    <img src="!assets/CC1.png" class="timelinePhoto">
+                    <img src="assets/Abstraction.gif" class="timelinePhoto">
+                    <img src="assets/Algo.png" class="timelinePhoto">
+                    <img src="assets/CC1.png" class="timelinePhoto">
                 </div>            
             </div>
         </div>
