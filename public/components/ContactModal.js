@@ -89,9 +89,9 @@ class ContactModal {
           <div class="Modal">
             <div class="ModalContent">
               <div class="ModalImage" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75)),
-              url(../../!assets/MaximillianPiras.jpg);">	
+              url(../../assets/MaximillianPiras.jpg);">	
                 <div class="ModalImageContent">
-                  <img src="!assets/Close.png" class="Close" id="${this.closerId}">	
+                  <img src="assets/Close.png" class="Close" id="${this.closerId}">	
                   <br><br>
                   <div class="CardBadge">
                     <div class="BadgeText">
@@ -113,7 +113,7 @@ class ContactModal {
                     </div>
                   </div>
                   <a href="mailto:max@mxmlln.com" onclick="gtag('event', 'Click Email Button', { 'event_category' : 'Contact', 'event_label' : 'MAX@MXMLLN.COM'});">
-                    <img src="!assets/contact/EmailButton.svg" class="CircleButton" alt="Email" />
+                    <img src="assets/contact/EmailButton.svg" class="CircleButton" alt="Email" />
                   </a>
                 </div>
                 <div class="ModalIconContainer">
@@ -125,7 +125,7 @@ class ContactModal {
                     </div>
                   </div>
                   <a href="https://twitter.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Twitter Button', { 'event_category' : 'Contact', 'event_label' : 'TWITTER'});">
-                    <img src="!assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" />
+                    <img src="assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" />
                   </a>
                 </div>
                 <div class="ModalIconContainer">
@@ -137,7 +137,7 @@ class ContactModal {
                     </div>
                   </div>
                   <a href="https://www.linkedin.com/in/maximilliannyc/" target="_blank" onclick="gtag('event', 'Click LinkedIn Button', { 'event_category' : 'Contact', 'event_label' : 'LinkedIn'});">
-                    <img src="!assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" />
+                    <img src="assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" />
                   </a>
                 </div>
               </div>

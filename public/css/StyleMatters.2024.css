@@ -336,7 +336,7 @@ h3 {
 }
 
 #cardLinkOut {
-	cursor: url('../!assets/icons/LinkOutFill.png') 25 25, pointer;
+	cursor: url('../assets/icons/LinkOutFill.png') 25 25, pointer;
 }
 
 .carousel-container {
