@@ -328,11 +328,11 @@ h3 {
 	border: #ffffff 8px solid;
 	box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, .025);
 	width: 35%;
-	cursor: url('../js/IntenseImages/plus_cursor.png') 25 25, auto;
+	cursor: url('../js/IntenseImages/plus_cursor.png') 25 25, pointer;
 }
 
 #cardZoom {
-	cursor: url('../js/IntenseImages/plus_cursor.png') 25 25, auto;
+	cursor: url('../js/IntenseImages/plus_cursor.png') 25 25, pointer;
 }
 
 #cardLinkOut {
