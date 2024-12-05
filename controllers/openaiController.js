@@ -503,7 +503,7 @@ const generateMeta = async (req, res) => {
                     - Content: This is my X profile, which was formerly known as Twitter, where I post frequently about AI and UI UX design.
 
                     Case Study Option 20: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/Dribbble.png
                     - cardHeader: My Dribbble profile
                     - cardDescription: A collection of my visual design work.
                     - cardURL: https://dribbble.com/MaximillianNYC

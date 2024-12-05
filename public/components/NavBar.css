@@ -423,7 +423,7 @@ a {
 
 .chatCardHeaderTitle {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 900;
     letter-spacing: 0px;
     line-height: 1.2;
@@ -437,6 +437,7 @@ a {
 .chatCardDescriptionText {
     text-align: left;
     font-size: 12px;
+    line-height: 1.2;
 }
 
 .loadingIndicator {
