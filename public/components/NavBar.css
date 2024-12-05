@@ -353,7 +353,7 @@ a {
 
 .chatSuggestionCard {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     max-width: 600px;
     width: 100%;
     background-color: #F5F5F5;
@@ -362,6 +362,7 @@ a {
     border: 2px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
     transition: border 0.5s;
+    gap: 24px;
 }
 
 .chatSuggestionCard:hover {
@@ -393,6 +394,12 @@ a {
     align-items: center;
     justify-content: flex-start;
     text-align: left;
+}
+
+.chatCardImage {
+    height: 200px;
+    width: 200px;
+    border-radius: 24px;
 }
 
 .chatCardHeader {
