@@ -17,6 +17,7 @@ const AiResponseCardHeader = document.querySelector('.chatCardHeader p')
 const AiResponseCardDescription = document.querySelector('.chatCardDescription p')
 const URL = document.querySelector('.chatCardURL')
 const AiResponseCardURL = document.querySelector('.chatCardURL a')
+const AiResponseCardImage = document.querySelector('.chatCardImage')
 // store data from responses below
 let data
 
@@ -79,10 +80,12 @@ chatSubmit.addEventListener('submit', async (e) => {
     const cardHeader = contentObject.cardHeader
     const cardDescription = contentObject.cardDescription
     const cardURL = contentObject.cardURL
+    const cardImage = contentObject.cardImage
     if (AiResponseBlurb) AiResponseBlurb.textContent = blurb
     if (AiResponseCardHeader) AiResponseCardHeader.textContent = cardHeader
     if (AiResponseCardDescription) AiResponseCardDescription.textContent = cardDescription
     if (AiResponseCardURL) AiResponseCardURL.href = cardURL
+    if (AiResponseCardImage) AiResponseCardImage.src = cardImage
     loader.style.visibility = 'hidden'
     loader.style.opacity = 0
     loader.style.height = '0px'
