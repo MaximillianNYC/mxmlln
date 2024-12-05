@@ -26,7 +26,7 @@ const generateMeta = async (req, res) => {
                 Here is your knowledge that you can respond from:
 
                     Case Study Option 1: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/Abstraction.gif
                     - cardHeader: When Words Cannot Describe
                     - cardDescription: In this article for Smashing Magazine, I write about how Artificial Intelligence is evolveing the computing paradigm which allows designers to craft more intuitive user interfaces. Text-based Large Language Models unlock most of the new capabilities, leading many to suggest a shift from graphical interfaces to conversational ones like a chatbot is necessary but this reasearch suggests otherwise.
                     - cardURL: https://www.smashingmagazine.com/2024/02/designing-ai-beyond-conversational-interfaces/ 
@@ -132,7 +132,7 @@ const generateMeta = async (req, res) => {
                             A more intelligent interface won’t make those stupid mistakes.
 
                     Case Study Option 2:
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/Friction3.webp
                     - cardHeader: Using Friction As A Feature In Machine Learning Algorithms
                     - cardDescription: In this article for Smashing Magazine, I discuss how friction often has a negative connotation in user experience design, but it actually has many benefits. Its best-known use case is mitigating unintended consequences in high-risk scenarios, yet it has a new place in the age of artificial intelligence.
                     - cardURL: https://www.smashingmagazine.com/2023/08/friction-feature-machine-learning-algorithms/ 
@@ -270,7 +270,7 @@ const generateMeta = async (req, res) => {
                             To scale these efforts, they’ve developed a symbiotic relationship called ‘algotorial’ where an algorithm follows a human’s lead—sound familiar? It’s a nice reminder of humanity’s indispensability, as we designers realize that helping algorithms succeed is now part of our job — that is, until they come to take it away from us ;)
 
                     Case Study Option 4: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/VideoFiles.png
                     - cardHeader: Product, Explained S2E2 - Maximillian Piras, Explained
                     - cardDescription: In this podcast, Jeff Leff & Mike Alcazarin interview me about my role at Headliner where I lead cross-platform UI & UX. Headliner is a video creation tool designed for audio creators to make audio easily shareable across the web by automatically transforming audio clips, like this, into engaging videos. We also talk about the importance of side projects, user research, & the latest podcasting trends.
                     - cardURL: https://play.headliner.app/podcast/1de99e587cbc4afb87a2ae11cad50688/episode/https%3A%2F%2Fpinecast.com%2Fguid%2F25ad7cbb-cfcf-4c8f-b2a9-e9513aca0989
@@ -332,7 +332,7 @@ const generateMeta = async (req, res) => {
                         Jeff Lee: Yeah. And if you like the show, be sure to like us and subscribe on your favorite podcast platforms. We're on all of them. Spotify, Apple podcasts, Google podcasts, good pods, et cetera. Let us know who you'd love us to sit down and chat with next and we'll see you next episode.
 
                     Case Study Option 5: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/Workspace.jpeg
                     - cardHeader: Interview with Workspaces.XYZ
                     - cardDescription: Workspaces.XYZ asks me about my home office & my favorite gear. 
                     - cardURL: https://www.workspaces.xyz/p/299-maximillian-piras 
@@ -349,7 +349,7 @@ const generateMeta = async (req, res) => {
 
 
                     Case Study Option 6: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/TwitterArticle.webp
                     - cardHeader: Redesigning a breaking Twitter
                     - cardDescription: As Elon Musk burns down the Twitter we know, will a drastically different user experience emerge from the ashes? In this article published in UX Collective, I explore ways for Twitter to improve its UIUX through a more algorithm-friendly interface & the new possibilities presented by generative AI.
                     - cardURL: https://uxdesign.cc/redesigning-a-breaking-twitter-4521b258e5aa 
@@ -387,7 +387,7 @@ const generateMeta = async (req, res) => {
 
 
                     Case Study Option 7: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/Video.png
                     - cardHeader: Video calls beyond conference rooms
                     - cardDescription: Video conferencing’s antiquated UX doesn’t fit today’s use cases, could new designs with engaging spatial interfaces change that? In this article published in UX collective, which was published during the pandemic, I explore how we can better design technology to support remote work and experiences.
                     - cardURL: https://uxdesign.cc/video-calls-beyond-conference-rooms-4bb6f6f87077  
@@ -416,14 +416,14 @@ const generateMeta = async (req, res) => {
                         Today’s design paradigms aren’t set in stone & rethinking tired patterns lets us avoid building faster horses so we can instead focus on evolving experiences.
 
                     Case Study Option 8: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/MaximillianPiras.jpg
                     - cardHeader: @MaximillianNYC
                     - cardDescription: You can find my on X, my DMs are open.
                     - cardURL: https://x.com/MaximillianNYC
                     - Content: My X posts / tweets about design. People can contact me here.
 
                     Case Study Option 9: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/MaximillianPiras.jpg
                     - cardHeader: Visit my about me page
                     - cardDescription: My background & contact information can be found here.
                     - cardURL: https://www.maximillian.nyc/about.html
@@ -444,21 +444,21 @@ const generateMeta = async (req, res) => {
                     - Content: A collection of my illustrations, such as album covers and animations.
 
                     Case Study Option 12: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/Headliner.gif
                     - cardHeader: My brand identity work
                     - cardDescription: A collection of my favorite branding work can be found here.
                     - cardURL: https://www.maximillian.nyc/id.html
                     - Content: A collection of my brand identity work, such as logos, typography, branding, graphic design, and icons.
                     
                     Case Study Option 14: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/AndataFill.gif
                     - cardHeader: A music video for Ryuichi Sakamoto
                     - cardDescription: Watch Ryuichi Sakamoto's "Andata (Electric Youth Remix)" official music video, directed by Maximillian Piras and produced by Roast 'n Post.
                     - cardURL: https://www.youtube.com/watch?v=i1JVN3BSmeM 
                     - Content: I created a music video for Ryuichi Sakamoto for a song called Andata that was remixed by Eletric Youth. This song and video was produced by Milan Records and Roast 'n Post.
 
                     Case Study Option 18: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/img/Bangkok.gif
                     - cardHeader: My GIPHY profile
                     - cardDescription: A bunch of animated GIFs with 2B+ views.
                     - cardURL: https://giphy.com/MaximillianNYC 
