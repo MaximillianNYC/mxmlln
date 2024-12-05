@@ -430,7 +430,7 @@ const generateMeta = async (req, res) => {
                     - Content: All details about my personal information, such as contact information, can be found here. As well as a story of how I started in design ten years ago. For any inquiries you are unsure about, you can refer them to this page.
 
                     Case Study Option 10: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/MaximillianPiras.jpg
                     - cardHeader: Visit my LinkedIn page
                     - cardDescription: My work history & credentials can be found here.
                     - cardURL: https://www.linkedin.com/in/maximilliannyc/
@@ -449,13 +449,6 @@ const generateMeta = async (req, res) => {
                     - cardDescription: A collection of my favorite branding work can be found here.
                     - cardURL: https://www.maximillian.nyc/id.html
                     - Content: A collection of my brand identity work, such as logos, typography, branding, graphic design, and icons.
-
-                    Case Study Option 13: 
-                    - cardImage: ./assets/Algo.png
-                    - cardHeader: John's of Bleeker Street
-                    - cardDescription: A classic NYC pizza joint founded by Italian immigrant Giovanni "John" Sasso at the turn of the 20th century.
-                    - cardURL: https://johnsofbleecker.com/
-                    - Content: My favorite food, pizza, in case anyone asks about what I like to eat.
                     
                     Case Study Option 14: 
                     - cardImage: ./assets/Algo.png
@@ -463,30 +456,6 @@ const generateMeta = async (req, res) => {
                     - cardDescription: Watch Ryuichi Sakamoto's "Andata (Electric Youth Remix)" official music video, directed by Maximillian Piras and produced by Roast 'n Post.
                     - cardURL: https://www.youtube.com/watch?v=i1JVN3BSmeM 
                     - Content: I created a music video for Ryuichi Sakamoto for a song called Andata that was remixed by Eletric Youth. This song and video was produced by Milan Records and Roast 'n Post.
-
-                    Case Study Option 15: 
-                    - cardImage: ./assets/Algo.png
-                    - cardHeader: A music video for Ryuichi Sakamoto
-                    - cardDescription: A classic NYC pizza joint founded by Italian immigrant Giovanni "John" Sasso at the turn of the 20th century.
-                    - cardURL: https://www.youtube.com/watch?v=i1JVN3BSmeM 
-                    - Content: I created a music video for Ryuichi Sakamoto for a song called Andata that was remixed by Eletric Youth. This song and video was produced by Milan Records.
-
-                    Case Study Option 16: 
-                    - cardImage: ./assets/Algo.png
-                    - cardHeader: Penny Janes Cookies by Julie May
-                    - cardDescription: My mom makes amazing custom decorated cookies in NYC for events.
-                    - cardURL: https://crumrinecoder.github.io/portfoliotypescript/ 
-                    - Content: My mother, Julie May, is a renowned cookie maker. She creates her cookies under the name Penny Jane's Cookies.
-
-                    Case Study Option 17: 
-                    - cardImage: ./assets/Algo.png
-                    - cardHeader: Madisen Holbrook
-                    - cardDescription: Learn about Maximillian's girlfriend, the lovely Madisen Holbrook, who is currently doing her postdoctoral research at Columbia.
-                    - cardURL: https://hone.me.columbia.edu/people/madisen-holbrook
-                    - Content: My girlfriend, Madisen Holbrook, is very beautiful and is currently working as in the Physics lab at Columbia. Madisen began her postdoctoral research in July of 2021.
-                    She is currently working on the synthesis and defect control of flux grown TMDs. She is using scanning tunneling microscopy and spectroscopy (STM/S) to characterize the defect species and their electronic properties.
-                    Madisen received her Ph.D. in condensed matter physics from the University of Texas at Austin. Madisen’s research focus was the synthesis of two-dimensional materials and the characterization of their electronic properties using STM/S with Prof. Ken Shih. Her dissertation titled “Engineering Two-Dimensional Materials: Discovery, Defects, and Environment” won the Outstanding Dissertation Award from the UT Physics Department.
-                    Madisen completed her bachelor’s studies in physics at Lewis &amp; Clark College in Portland, Oregon where she studied gecko adhesion with Prof. Kellar Autumn. Madisen’s hobbies include cooking, art, and spending time with her dog Bijou.
 
                     Case Study Option 18: 
                     - cardImage: ./assets/Algo.png
@@ -496,7 +465,7 @@ const generateMeta = async (req, res) => {
                     - Content: I have created animated GIFs with over two billion views and have been commissioned by Giphy/Meta and ACE hotel to create custom animated GIFs.
 
                     Case Study Option 19: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/MaximillianPiras.jpg
                     - cardHeader: My X profile
                     - cardDescription: These days I mostly post about UIUX design & AI.
                     - cardURL: https://x.com/MaximillianNYC 
@@ -510,14 +479,14 @@ const generateMeta = async (req, res) => {
                     - Content: This is my Dribbble profile, which contains many posts of my visual design work. This is a great reference for anyone interested in seeing many examples of my user interface (UI) work.
 
                     Case Study Option 21: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/MaximillianPiras.jpg
                     - cardHeader: My Insta
                     - cardDescription: Mostly just videos of me skateboarding.
                     - cardURL: https://www.instagram.com/maximillian.nyc
                     - Content: This is my Instagram profile.
 
                     Case Study Option 22: 
-                    - cardImage: ./assets/Algo.png
+                    - cardImage: ./assets/MaximillianPiras.jpg
                     - cardHeader: My Medium profile
                     - cardDescription: A collection of my older articles on design.
                     - cardURL: https://medium.com/@MaximillianNYC
