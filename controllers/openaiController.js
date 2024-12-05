@@ -16,7 +16,7 @@ const generateMeta = async (req, res) => {
                 User: I want to redesign my new user onboarding flow.
                 Assistant:
                     {
-                        "blurb": "In one sentence that is no more than 10 words, begin by reiterating the user's inquiry then explain the relevance of the selected case study in relation to their inquiry ("Based on your interest in X, I think you will enjoy Y because Z).",
+                        "blurb": "Short sentence, less than 10 words, that reiterates the user's inquiry and explains the relevance of the selected case study ("Based on your interest in X, I think you will enjoy Y).",
                         "cardHeader": "Take this from one of the examples below",
                         "cardDescription": "Take this from one of the examples below",
                         "cardURL": "Take this from one of the examples below"
