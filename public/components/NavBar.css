@@ -362,7 +362,7 @@ a {
     border: 2px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
     transition: border 0.5s;
-    gap: 24px;
+    gap: 8px;
 }
 
 .chatSuggestionCard:hover {
@@ -397,9 +397,18 @@ a {
 }
 
 .chatCardImage {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     border-radius: 24px;
+}
+
+.chatCardTextBlock {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: left;
 }
 
 .chatCardHeader {
