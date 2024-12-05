@@ -356,7 +356,7 @@ a {
     flex-direction: row;
     max-width: 600px;
     width: 100%;
-    height: 300px;
+    height: 250px;
     background-color: #F5F5F5;
     border-radius: 40px;
     padding: 0px;
@@ -398,7 +398,7 @@ a {
 
 .chatCardImageContainer {
     width: 150px;
-    height: 300px;
+    height: 250px;
     border-radius: 24px 0px 0px 24px;
     overflow: hidden;
 }
@@ -436,6 +436,7 @@ a {
 
 .chatCardDescriptionText {
     text-align: left;
+    font-size: 12px;
 }
 
 .loadingIndicator {
