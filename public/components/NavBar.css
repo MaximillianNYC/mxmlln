@@ -398,7 +398,7 @@ a {
 .chatCardImageContainer {
     width: 150px;
     height: 100%;
-    border-radius: 24px;
+    border-radius: 24px 0px 0px 24px;
     overflow: hidden;
 }
 
