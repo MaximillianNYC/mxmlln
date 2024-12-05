@@ -398,7 +398,7 @@ a {
 
 .chatCardImage {
     height: 150px;
-    width: 150px;
+    width: auto;
     border-radius: 24px;
 }
 
