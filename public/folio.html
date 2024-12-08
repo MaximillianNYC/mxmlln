@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <!-- Metadata -->
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
   <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces) focused on AI, branding, animation, & illustration."/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta property="fb:admins" content="577048085831970"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, target-densityDpi=device-dpi" />
   <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
 	
   <!-- Preload critical assets -->
@@ -68,13 +68,14 @@
     loading="lazy" 
     width="300px" 
     height="300px"
+    alt="Portfolio welcome animation"
   >
 
   <!-- Nav Bar -->
   <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
     <div class="navBar" id="navBar">
         <div class="navBarSegController" id="navBarSegController">
-            <img src="./assets/LogoHoverMed.gif" height="40px" width="40px" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <img src="./assets/LogoHoverMed.gif" height="40px" width="40px" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;" alt="Open info menu">
             <a href="about2.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
                 <font class="navBarItem">👋 ABOUT</font>
               </a>
@@ -82,16 +83,16 @@
                 <font class="navBarItem_OnState">📐 WORK</font>
             </a>
             <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 CHAT</font>
-            <img src="./assets/ContactSML.png" height="40px" width="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
+            <img src="./assets/ContactSML.png" height="40px" width="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView" alt="Open contact menu">
         </div>
     </div>
     <div class="infoViewContent" id="infoViewContent">
         <div class="viewHeader">
             <font class="viewHeaderText">MXMLLN FOLIO v2.0</font>
-            <img src="./assets/CloseSML.png" onclick="closeNavInfoView()" class="closeButton">
+            <img src="./assets/CloseSML.png" onclick="closeNavInfoView()" class="closeButton" alt="Close panel">
         </div>
         <div style="padding-bottom:32px;">
-            <img src="./assets/Logo200.gif" height="200px" width="200px">
+            <img src="./assets/Logo200.gif" height="200px" width="200px" alt="MXMLLN logo">
         </div>
         <div>
             <a href="https://github.com/MaximillianNYC/mxmlln" target="_blank">
@@ -102,19 +103,19 @@
     <div class="chatViewContent" id="chatViewContent">
         <!--close button-->
         <div class="viewHeader" style="justify-content:flex-end;">
-            <img src="./assets/CloseSML.png" onclick="closeNavChatView()" class="closeButton">
+            <img src="./assets/CloseSML.png" onclick="closeNavChatView()" class="closeButton" alt="Close panel">
         </div>
         <!--input field-->
         <form class="chatInputContainer" id="chatInputContainer">
             <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
-            <img src="./assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
+            <img src="./assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG" alt="Submit message">
             </button>
             <input type="text" class="chatInputField" name="defineProblem" id="chatInputField" placeholder="Tell me what you're looking for..." autocomplete="off">
         </form>
         <!--empty state-->
         <div class="chatEmptyState" id="chatEmptyState">
             <div class="chatEmptyStateLogo">
-                <img src="./assets/LogoHoverMed.gif" height="150px" width="150px">
+                <img src="./assets/LogoHoverMed.gif" height="150px" width="150px" alt="MXMLLN logo">
             </div>
             <div class="chatEmptyStateText">
                 <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
@@ -144,7 +145,7 @@
             <div class="chatResponseContainer">
                 <div class="chatBlurb">
                     <div class="chatResponseLogoContainer">
-                        <img src="./assets/LogoHoverMed.gif" class="chatResponseLogo">
+                        <img src="./assets/LogoHoverMed.gif" class="chatResponseLogo" alt="MXMLLN logo">
                     </div>
                     <p style="margin:0px;padding:0px;text-align:left;"></p>
                 </div>
@@ -152,7 +153,7 @@
                     <a href="https://www.maximillian.nyc" target="_blank">
                         <div class="chatSuggestionCard">
                             <div class="chatCardImageContainer">
-                                <img src="./assets/StealthSML.png" class="chatCardImage">
+                                <img src="./assets/StealthSML.png" class="chatCardImage" alt="Preview image for chat suggestion">
                             </div>
                             <div class="chatCardTextBlock">
                                 <div class="chatCardHeader">
@@ -171,7 +172,7 @@
     <div class="contactViewContent" id="contactViewContent">
         <div class="viewHeader">
             <font class="viewHeaderText">CONTACT</font>
-            <img src="./assets/CloseSML.png" onclick="closeNavContactView()" class="closeButton">
+            <img src="./assets/CloseSML.png" onclick="closeNavContactView()" class="closeButton" alt="Close panel">
         </div>            
         <div style="display:flex;flex-direction:row;height:100px;">
             <div class="contactViewIconContainer" id="Email">
@@ -717,7 +718,7 @@
                 <hr style="width:100%; border-color:rgba(0,0,0,0.05);">
                 <a href="https://www.conceptcalculator.com" target="_blank">
                     <div class="appStoreRow">
-                        <img src="assets/CC1ThumbSML.png" class="appStoreImage">
+                        <img src="assets/CC1ThumbSML.png" class="appStoreImage" alt="CC-1 Concept Calculator app icon">
                         <div class="appStoreRowText">
                             <p style="text-align:left;">
                                 <b>CC-1 Concept Calculator</b><br>
@@ -726,13 +727,13 @@
                                 </font>
                             </p>
                         </div>
-                        <img src="assets/icons/LinkOutOutline.png" height="48px" width="48px" style="padding-right:4px;">
+                        <img src="assets/icons/LinkOutOutline.png" height="48px" width="48px" style="padding-right:4px;" alt="External link icon">
                     </div>
                 </a>
                 <hr style="width:100%; border-color:rgba(0,0,0,0.05);">
                 <a href="https://www.headliner.app" target="_blank">
                     <div class="appStoreRow">
-                        <img src="assets/HeadlinerSML.gif" class="appStoreImage">
+                        <img src="assets/HeadlinerSML.gif" class="appStoreImage" alt="Headliner app icon">
                         <div class="appStoreRowText">
                             <p style="text-align:left;">
                                 <b>Headliner</b><br>
@@ -741,13 +742,13 @@
                                 </font>
                             </p>
                         </div>
-                        <img src="assets/icons/LinkOutOutline.png" height="48px" width="48px" style="padding-right:4px;">
+                        <img src="assets/icons/LinkOutOutline.png" height="48px" width="48px" style="padding-right:4px;" alt="External link icon">
                     </div>
                 </a>
                 <hr style="width:100%; border-color:rgba(0,0,0,0.05);">
                 <a href="https://www.x.com/MaximillianNYC" target="_blank">
                     <div class="appStoreRow">
-                        <img src="assets/StealthSML.png" class="appStoreImage">
+                        <img src="assets/StealthSML.png" class="appStoreImage" alt="Stealth project preview">
                         <div class="appStoreRowText">
                             <p style="text-align:left;">
                                 <b>Something stealth</b><br>
@@ -756,7 +757,7 @@
                                 </font>
                             </p>
                         </div>
-                        <img src="assets/icons/LinkOutOutline.png" height="48px" width="48px" style="padding-right:4px;">
+                        <img src="assets/icons/LinkOutOutline.png" height="48px" width="48px" style="padding-right:4px;" alt="External link icon">
                     </div>
                 </a>
             </div>
@@ -766,7 +767,7 @@
 
     <div class="StackBar" id="StackBar">
         <span id="stackBarSectionName" style="margin-left:10px;margin-top:6px;">SECTION NAME</span>
-        <img src="assets/CloseSML.png" height="32px" width="32px" onclick="collapseExpandedStack()" style="cursor:pointer;">
+        <img src="assets/CloseSML.png" height="32px" width="32px" onclick="collapseExpandedStack()" style="cursor:pointer;" alt="Close expanded stack">
     </div>
 
 <!-- Components -->
