@@ -17,6 +17,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
   <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
 	
+  <!-- Preload critical assets -->
+  <link rel="preload" href="assets/WebIntro.gif" as="image">
+  <link rel="preload" href="css/StyleMatters.2024.css" as="style">
+  <link rel="preload" href="./components/FolioEngine.js" as="script">
+  <link rel="preload" href="./components/NavBar.js" as="script">
+
   <!-- Preconnect to external domains early -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -765,16 +771,21 @@
 
 <!-- Components -->
 <script defer src="./components/NavBar.js"></script>
-<script defer src="./components/ChatIntelligence.js"></script>
 <script defer src="./components/FolioEngine.js"></script>
 
-<!-- Move analytics here -->
+<!-- Defer non-critical scripts -->
+<script defer src="./components/ChatIntelligence.js"></script>
+<script defer src="./js/IntenseImages/intense.js"></script>
+
+<!-- Analytics (moved to end and async) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36917341-6"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-36917341-6');
+  window.addEventListener('load', function() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-36917341-6');
+  });
 </script>
 
 </body>
