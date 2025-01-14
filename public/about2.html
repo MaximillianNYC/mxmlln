@@ -59,7 +59,7 @@
             <a href="folio.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
                 <font class="navBarItem">📐 WORK</font>
             </a>
-            <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 CHAT</font>
+            <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 MY AI</font>
             <img src="./assets/Contact_black.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
         </div>
     </div>
@@ -80,23 +80,23 @@
     <div class="chatViewContent" id="chatViewContent">
         <!--close button-->
         <div class="viewHeader" style="justify-content:flex-end;">
-            <img src="./assets/Close.png" onclick="closeNavChatView()" class="closeButton">
+            <img src="./assets/CloseSML.png" onclick="closeNavChatView()" class="closeButton" alt="Close panel">
         </div>
         <!--input field-->
         <form class="chatInputContainer" id="chatInputContainer">
             <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
-            <img src="./assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG">
+            <img src="./assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG" alt="Submit message">
             </button>
             <input type="text" class="chatInputField" name="defineProblem" id="chatInputField" placeholder="Tell me what you're looking for..." autocomplete="off">
         </form>
         <!--empty state-->
         <div class="chatEmptyState" id="chatEmptyState">
             <div class="chatEmptyStateLogo">
-                <img src="./assets/LogoHover.gif" height="150px">
+                <img src="./assets/LogoSpin2024.MED.MEZZO.gif" height="150px" width="150px" alt="MXMLLN logo">
             </div>
             <div class="chatEmptyStateText">
-            <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
-            <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
+                <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
+                <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
             </div>
             <div class="BetaBadge" style="background-color:rgba(6, 174, 239, 0.55);align-self:center;">
                 <div class="BadgeText">
@@ -122,18 +122,23 @@
             <div class="chatResponseContainer">
                 <div class="chatBlurb">
                     <div class="chatResponseLogoContainer">
-                        <img src="./assets/LogoHover.gif" class="chatResponseLogo">
+                        <img src="./assets/LogoSpin2024.SML.gif" class="chatResponseLogo" alt="MXMLLN logo">
                     </div>
                     <p style="margin:0px;padding:0px;text-align:left;"></p>
                 </div>
                 <div class="chatCardURL">
                     <a href="https://www.maximillian.nyc" target="_blank">
                         <div class="chatSuggestionCard">
-                            <div class="chatCardHeader">
-                                <p class="chatCardHeaderTitle"></p>
+                            <div class="chatCardImageContainer">
+                                <img src="./assets/StealthSML.png" class="chatCardImage" alt="Preview image for chat suggestion">
                             </div>
-                            <div class="chatCardDescription">
-                                <p class="chatCardDescriptionText"></p>
+                            <div class="chatCardTextBlock">
+                                <div class="chatCardHeader">
+                                    <p class="chatCardHeaderTitle"></p>
+                                </div>
+                                <div class="chatCardDescription">
+                                    <p class="chatCardDescriptionText"></p>
+                                </div>
                             </div>
                         </div>
                     </a>
