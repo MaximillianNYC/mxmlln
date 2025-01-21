@@ -62,14 +62,23 @@
 <body>
   
   <!-- Intro Graphic -->
-  <img 
-    src="assets/WebIntro.gif" 
+  <video 
     class="IntroLoader"
-    loading="lazy" 
     width="300px" 
     height="300px"
-    alt="Portfolio welcome animation"
+    autoplay
+    muted
+    playsinline
   >
+    <source src="assets/WebIntro.webm" type="video/webm">
+    <source src="assets/WebIntro.gif" type="image/gif">
+    <img 
+      src="assets/WebIntro.gif" 
+      width="300px" 
+      height="300px"
+      alt="Portfolio welcome animation"
+    >
+  </video>
 
   <!-- Nav Bar -->
   <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
@@ -274,55 +283,7 @@
         </div>
 
         <div class="AllStacks">
-            <div class="CardStackLabelContainer">
-                <div class="CardStack">
-                    <div class="Card" data-src="assets/AWW.v1.webp" data-href="https://www.figma.com/proto/uEzQoQzs0lLZJvkYkHYFBJ/CS1%3A-AWW-v1?type=design&node-id=114-532&t=hxx58FRNhf97vNdV-8&scaling=contain&page-id=112%3A531&starting-point-node-id=114%3A532&show-proto-sidebar=1&hide-ui=1" id="cardLinkOut">
-                        <div class="CardInnerContainer">
-                            <div class="CardContent">
-                                <div class="CardBadge">
-                                    <div class="BadgeText">
-                                        ACTIVATION
-                                    </div>
-                                </div>
-                                <div class="CardTitle">
-                                    Warmer welcomes in new user onboarding
-                                </div>	
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Card" data-video-src="assets/AutomationCover.webm" data-href="https://www.figma.com/proto/TaR3OtQUcpMaYG52tQucyA/CS2%3A-BACP-v1?type=design&node-id=20-196&t=odVaPZG9GpjJLaDO-8&scaling=contain&page-id=112%3A531&starting-point-node-id=20%3A196&hide-ui=1" id="cardLinkOut">
-                        <div class="CardInnerContainer">
-                            <div class="CardContent">
-                                <div class="CardBadge">
-                                    <div class="BadgeText">
-                                        RETENTION
-                                    </div>
-                                </div>
-                                <div class="CardTitle">
-                                    Boring automations for creative people
-                                </div>	
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Card" data-src="assets/ComingSoon.webp">
-                        <div class="CardInnerContainer" style="cursor:not-allowed;">
-                            <div class="CardContent">
-                                <div class="CardBadge">
-                                    <div class="BadgeText">
-                                        REVENUE
-                                    </div>
-                                </div>
-                                <div class="CardTitle">
-                                    Aligning user value with purchase price
-                                </div>	
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="CardStackLabelContainerValue">
-                    Case studies
-                </div>
-            </div>
+
             <div class="CardStackLabelContainer">
                 <div class="CardStack">
                     <div class="Card" data-video-src="assets/Abstraction.webm" data-href="https://uxmag.com/articles/when-words-cannot-describe-designing-for-ai-beyond-conversational-interfaces" id="cardLinkOut">
@@ -711,6 +672,56 @@
                 <div class="CardStackLabelContainerValue">
                     Brand identity
                 </div>        
+            </div>
+
+            <div class="CardStackLabelContainer">
+                <div class="CardStack">
+                    <div class="Card" data-src="assets/AWW.v1.webp" data-href="https://www.figma.com/proto/uEzQoQzs0lLZJvkYkHYFBJ/CS1%3A-AWW-v1?type=design&node-id=114-532&t=hxx58FRNhf97vNdV-8&scaling=contain&page-id=112%3A531&starting-point-node-id=114%3A532&show-proto-sidebar=1&hide-ui=1" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        ACTIVATION
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Warmer welcomes in new user onboarding
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-video-src="assets/AutomationCover.webm" data-href="https://www.figma.com/proto/TaR3OtQUcpMaYG52tQucyA/CS2%3A-BACP-v1?type=design&node-id=20-196&t=odVaPZG9GpjJLaDO-8&scaling=contain&page-id=112%3A531&starting-point-node-id=20%3A196&hide-ui=1" id="cardLinkOut">
+                        <div class="CardInnerContainer">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        RETENTION
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Boring automations for creative people
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Card" data-src="assets/ComingSoon.webp">
+                        <div class="CardInnerContainer" style="cursor:not-allowed;">
+                            <div class="CardContent">
+                                <div class="CardBadge">
+                                    <div class="BadgeText">
+                                        REVENUE
+                                    </div>
+                                </div>
+                                <div class="CardTitle">
+                                    Aligning user value with purchase price
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="CardStackLabelContainerValue">
+                    Media appearances
+                </div>
             </div>
 
             <div class="appStore">
