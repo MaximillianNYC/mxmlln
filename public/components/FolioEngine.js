@@ -106,12 +106,12 @@ const initialStyles = {
         transition: 'all 0.25s ease'
     },
     card: {
-        borderRadius: '12%',
-        boxShadow: '0 0px 30px rgba(0, 0, 0, 0.05)',
+        borderRadius: '24px',
+        boxShadow: '0 0px 30px rgba(0, 0, 0, 0.15)',
         overflow: 'hidden',
         height: '300px',
         width: '300px',
-        border: '10px solid white',
+        border: '10px solid #ffffff',
         backgroundColor: '#000000',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
