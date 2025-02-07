@@ -26,6 +26,7 @@ button:disabled {
 	background-size: 400% 400%;
 	animation: gradient 5s ease infinite;
 	filter: contrast(1.1) brightness(1.1) url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9Im4iPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjU1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIj48L2ZlVHVyYnVsZW5jZT48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbikiIG9wYWNpdHk9IjAuMzMiLz48L3N2Zz4=);
+	will-change: background-position;
 }
 
 .gradeFront {
@@ -1299,6 +1300,8 @@ input:focus {
 	height: 450px;	
 	overflow: hidden;
 	flex-wrap: nowrap;
+	content-visibility: auto;
+	contain-intrinsic-size: 300px;
 }
 	
 .CardInnerContainer {
@@ -1312,6 +1315,7 @@ input:focus {
 	display: flex;
 	align-content: flex-end;
 	transition: box-shadow 0.25s, width 0.25s, height 0.25s;
+	will-change: transform, opacity;
 }	
 	
 .CardInnerContainer:hover {

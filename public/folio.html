@@ -18,8 +18,8 @@
   <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
 	
   <!-- Preload critical assets -->
-  <link rel="preload" href="assets/WebIntro.gif" as="image">
-  <link rel="preload" href="css/StyleMatters.2024.css" as="style">
+  <link rel="preload" href="assets/WebIntro.gif" as="image" fetchpriority="high">
+  <link rel="preload" href="css/StyleMatters.2024.css" as="style" fetchpriority="high">
   <link rel="preload" href="./components/FolioEngine.js" as="script">
   <link rel="preload" href="./components/NavBar.js" as="script">
 
@@ -100,7 +100,7 @@
             <img src="./assets/CloseSML.png" onclick="closeNavInfoView()" class="closeButton" alt="Close panel">
         </div>
         <div style="padding-bottom:32px;">
-            <img src="./assets/Logo200.gif" height="200px" width="200px" alt="MXMLLN logo">
+            <img src="./assets/Logo200.gif" height="200px" width="200px" decoding="async" alt="MXMLLN logo">
         </div>
         <div>
             <a href="https://github.com/MaximillianNYC/mxmlln" target="_blank">
@@ -773,7 +773,7 @@
                 <hr style="width:100%; border-color:rgba(0,0,0,0.05);">
                 <a href="https://www.x.com/MaximillianNYC" target="_blank">
                     <div class="appStoreRow">
-                        <img src="assets/StealthSML.png" class="appStoreImage" alt="Stealth project preview">
+                        <img src="assets/StealthSML.png" loading="lazy" class="appStoreImage" alt="Stealth project preview">
                         <div class="appStoreRowText">
                             <p style="text-align:left;">
                                 <b>Something stealth</b><br>

@@ -207,19 +207,61 @@ function getStackRandomFactors(stackId) {
     }
 return stackRandomFactors.get(stackId);
 }
+
+// Debounce scroll and resize handlers
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Use Intersection Observer for lazy loading
+function setupLazyLoading() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const cardStack = entry.target;
+                lazyLoadCards(cardStack);
+                observer.unobserve(cardStack);
+            }
+        });
+    }, {
+        rootMargin: '50px'
+    });
+
+    document.querySelectorAll('.CardStack').forEach(stack => {
+        observer.observe(stack);
+    });
+}
+
+// Optimize card position calculations
+const cardPositionCache = new WeakMap();
 function setCardPosition(card, index, totalCards, stackId) {
+    const cacheKey = `${index}-${totalCards}-${stackId}`;
+    if (cardPositionCache.has(card) && cardPositionCache.get(card).key === cacheKey) {
+        return;
+    }
+
     const stackFactors = getStackRandomFactors(stackId);
     while (stackFactors.cardRotations.length <= index) {
         stackFactors.cardRotations.push((Math.random() - 0.5) * 40);
     }
-    let rotation = stackFactors.cardRotations[index];
-    let scale = 1;
-    if (index > 2) {
-        scale = 1 - ((index - 2) / Math.min(totalCards - 2, 97)) * 0.25;
-    }
-    card.style.transform = `rotate(${rotation.toFixed(2)}deg) scale(${scale.toFixed(2)})`;
+    
+    const rotation = stackFactors.cardRotations[index];
+    const scale = index > 2 ? 1 - ((index - 2) / Math.min(totalCards - 2, 97)) * 0.25 : 1;
+    
+    // Use transform3d for hardware acceleration
+    card.style.transform = `translate3d(0,0,0) rotate(${rotation.toFixed(2)}deg) scale(${scale.toFixed(2)})`;
     card.style.zIndex = Math.min(totalCards, 6) - index;
     card.style.margin = '-160px';
+
+    cardPositionCache.set(card, {key: cacheKey});
 }
 
 function setDefaultCardStackStyles() {
@@ -283,19 +325,23 @@ cards.forEach((card, index) => {
     });
 });
 
-
+// Use requestAnimationFrame for smooth animations
 function handleCardStackHover(e, cardStack) {
-    const parentCardStackLabelContainer = cardStack.closest('.CardStackLabelContainer');
-    if (!parentCardStackLabelContainer || !parentCardStackLabelContainer.classList.contains('expanded')) {
-        const rect = cardStack.getBoundingClientRect();
-        const gradeFront = document.querySelector('.gradeFront');
-        gradeFront.style.width = '600px';
-        gradeFront.style.height = '600px';
-        gradeFront.style.top = (rect.top + rect.height / 2) + 'px';
-        gradeFront.style.left = (rect.left + rect.width / 2) + 'px';
-        gradeFront.style.filter = 'blur(50px)';
-        gradeFront.style.borderRadius = '400px';
-    }
+    requestAnimationFrame(() => {
+        const parentCardStackLabelContainer = cardStack.closest('.CardStackLabelContainer');
+        if (!parentCardStackLabelContainer?.classList.contains('expanded')) {
+            const rect = cardStack.getBoundingClientRect();
+            const gradeFront = document.querySelector('.gradeFront');
+            Object.assign(gradeFront.style, {
+                width: '600px',
+                height: '600px',
+                top: `${rect.top + rect.height / 2}px`,
+                left: `${rect.left + rect.width / 2}px`,
+                filter: 'blur(50px)',
+                borderRadius: '400px'
+            });
+        }
+    });
 }
 
 function handleCardStackMouseOut(cardStack) {
@@ -434,21 +480,13 @@ function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
     });
 }
 
-// Initialize default styles
-document.addEventListener('DOMContentLoaded', function() {
-    setDefaultCardStackStyles();
-    function attemptLazyLoad() {
-        console.log('Attempting to lazy load all card stacks');
-        const cardStacks = document.querySelectorAll('.CardStack');
-        cardStacks.forEach((stack, index) => {
-            setTimeout(() => {
-                console.log(`Processing stack ${index + 1}`);
-                lazyLoadCards(stack);
-            }, 1000);
-        });
-    }
-
-    attemptLazyLoad();
+// Initialize on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Use requestIdleCallback for non-critical initialization
+    requestIdleCallback(() => {
+        setDefaultCardStackStyles();
+        setupLazyLoading();
+    });
 });
 
 function collapseExpandedStack() {
