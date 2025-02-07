@@ -150,9 +150,9 @@ const initialStyles = {
         marginBottom: '10px',
         borderRadius: '10px',
         color: '#FFFFFF',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
-        backgroundColor: 'rgba(0, 255, 255, 0.25)'
+        // backdropFilter: 'blur(10px)',
+        // webkitBackdropFilter: 'blur(10px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.35)'
     },
     BadgeText: {
         paddingLeft: '2px',

@@ -1248,6 +1248,8 @@ input:focus {
 	margin-bottom: 10px;
 	border-radius: 10px;
 	color: #FFFFFF;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 	background-color: rgba(0, 0, 0, .75);
 }
 
