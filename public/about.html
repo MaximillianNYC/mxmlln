@@ -1,407 +1,504 @@
 <!doctype html>
 <html>
 <head>
+
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36917341-6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'UA-36917341-6');
   </script>
-    
+	
+  <!-- Metadata -->
   <meta charset="UTF-8">
   <meta name="description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration.">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Maximillian Piras, Product Designer</title>
   <meta property="og:title" content="Maximillian Piras, Product Designer"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://www.maximillian.nyc"/>
-    <meta property="og:image" content="https://www.maximillian.nyc/fb.png"/>
-    <meta property="og:site_name" content="Maximillian Piras"/>
-    <meta property="og:description"
-        content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.maximillian.nyc"/>
+  <meta property="og:image" content="https://www.maximillian.nyc/fb.png"/>
+  <meta property="og:site_name" content="Maximillian Piras"/>
+  <meta property="og:description" content="The design portfolio of Maximillian Piras: product design for tech startups (user experience & user interfaces), branding, animation, & illustration."/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta property="fb:admins" content="577048085831970"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
-  <link rel="icon" href="/MXMLLN.ico">
+	<meta property="fb:admins" content="577048085831970"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no, target-densityDpi=device-dpi" />
+  <link rel="icon" href="https://www.maximillian.nyc/MXMLLN.ico" />
+	
+  <!-- Style Sheets ETC. -->
+  <link rel="stylesheet" href="css/StyleMatters.2024.css">
+  <link rel="stylesheet" href="./components/NavBar.css">
+  <link rel="stylesheet" href="css/ProgressiveBlur.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./js/IntenseImages/intense.js"></script>
     
-  <link rel="stylesheet" href="css/StyleMatters.2021.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>	
-    
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">	
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-  <div class="Nav">
-    <div class="navSegController">
-        <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
-          <font class="navItem">📐 PRODUCT DESIGN</font>
-        </a>
-        <a href="illo.html" onclick="gtag('event', 'Illustration', {'event_category' : 'Nav Item', 'event_label' : 'View Illustration Portfolio'});">
-          <font class="navItem">✏️ ILLUSTRATION</font>
-        </a>
-        <a href="id.html" onclick="gtag('event', 'Branding', {'event_category' : 'Nav Item', 'event_label' : 'View Brand Identity Portfolio'});">
-          <font class="navItem">🏷️ BRANDING</font>
-        </a>
-        <a href="about.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
-          <font class="navItem_OnState">👋 ABOUT</font>
-        </a>
-    </div>
-  </div>
+  
+  <!-- Intro Graphic -->
+  <img src="assets/WebIntro.gif" class="IntroLoader">
 
-<div class="NavMob">
-<div class="NavMobInner">	
-<img src="assets/Logo.gif" class="Logo" style="padding:0px;">
-<img src="assets/Hamburgaler.png" class="NavMenuButton" id="Nav" height="80px" onclick="gtag('event', 'Click Nav', {'event_category' : 'Nav', 'event_label' : 'Hamburger'});">	
-<img src="assets/Contact.png" class="Contact" id="ContactMob" style="padding:0px;" onclick="gtag('event', 'Click Contact', {'event_category' : 'Contact', 'event_label' : 'At Symbol'});">	
-</div><hr width="420px"></div>	
-			
-<div class="AboutBlock">
-  <div>
-    <img src="assets/MaximillianPiras.jpg" style="border-radius:100%;width:350px;height:350px;padding:50px;" alt="Maximillian Piras profile photo">
-  </div>	
-  <div>
-    <div class="Title">Hi, I’m Maximillian Piras.</div><br>
-    <div class="Desc" style="text-align:left;width:95%;padding-left:35px;">
-      As a teenager I just wanted somewhere online to share videos of my friends skateboarding, but YouTube didn't exist yet so I had to code my own website—I had no idea this was the start of my web design career. 
-      <br><br>
-      I later studied Graphic Design to avoid becoming a starving artist, but I accidentally fell in love with design & my studies soon collided with my fascination of the rapidly developing web. UX Design was too new to be taught in school, but I couldn't help voluntarily including digital components in my class projects. Once I entered the <i>real world</i> I dove into designing for the web & haven't come up for air since.
-      <br><br>
-      Want to chat? Feel free to reach me at <a href="mailto:max@mxmlln.com"><b>max@mxmlln.com</b></a>
+  <!-- Nav Bar -->
+  <div id="navDynamicContainer" class="navDynamicContainer" style="display:none;">
+    <div class="navBar" id="navBar">
+        <div class="navBarSegController" id="navBarSegController">
+            <img src="./assets/LogoSpin2024.SML.gif" height="40px" onclick="openNavInfoView()" id="openNavInfoView" class="openNavInfoView" style="cursor: pointer;">
+            <a href="about.html" onclick="gtag('event', 'About', {'event_category' : 'Nav Item', 'event_label' : 'View About Page'});">
+                <font class="navBarItem_OnState">👋 ABOUT</font>
+              </a>
+            <a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});">
+                <font class="navBarItem">📐 WORK</font>
+            </a>
+            <font class="navBarItem" onclick="openNavChatView()" id="openChatView" class="openChatView">💬 MY AI</font>
+            <img src="./assets/Contact_black.png" height="40px" onclick="openNavContactView()" id="openNavContactView" class="openNavContactView">
+        </div>
+    </div>
+    <div class="infoViewContent" id="infoViewContent">
+        <div class="viewHeader">
+            <font class="viewHeaderText">MXMLLN FOLIO v2.0</font>
+            <img src="./assets/Close.png" onclick="closeNavInfoView()" class="closeButton">
+        </div>
+        <div style="padding-bottom:32px;">
+            <img src="./assets/Logo200.gif" height="200px" width="200px" decoding="async" alt="MXMLLN logo">
+        </div>
+        <div>
+            <a href="https://github.com/MaximillianNYC/mxmlln" target="_blank">
+                <button style="width:424px;">VIEW SOURCE ON GITHUB</button>
+            </a>
+        </div>
+    </div>
+    <div class="chatViewContent" id="chatViewContent">
+        <!--close button-->
+        <div class="viewHeader" style="justify-content:flex-end;">
+            <img src="./assets/CloseSML.png" onclick="closeNavChatView()" class="closeButton" alt="Close panel">
+        </div>
+        <!--input field-->
+        <form class="chatInputContainer" id="chatInputContainer">
+            <button type="submit" class="chatSubmit" id="chatSubmit" disabled>
+            <img src="./assets/up.svg" class="chatSubmitIMG" id="chatSubmitIMG" alt="Submit message">
+            </button>
+            <input type="text" class="chatInputField" name="defineProblem" id="chatInputField" placeholder="Tell me what you're looking for..." autocomplete="off">
+        </form>
+        <!--empty state-->
+        <div class="chatEmptyState" id="chatEmptyState">
+            <div class="chatEmptyStateLogo">
+                <img src="./assets/LogoSpin2024.MED.MEZZO.gif" height="150px" width="150px" alt="MXMLLN logo">
+            </div>
+            <div class="chatEmptyStateText">
+                <h1 style="line-height:0%;font-weight:900;">Maximillian AI</h1>
+                <p>Tell me what you're looking for <font class="ampersand" style="font-size:18px;">&</font> I'll find the<br> most relevant content from my design portfolio.</p>
+            </div>
+            <div class="BetaBadge" style="background-color:rgba(6, 174, 239, 0.55);align-self:center;">
+                <div class="BadgeText">
+                    BETA v1.0
+                </div>
+            </div>
+        </div>
+        <!--populated state-->
+        <div class="chatResponseLog" id="chatResponseLog">
+            <div class="chatQueryContainer">
+                <div class="chatQuery">
+                    <p style="margin:0px;padding:0px;"></p>
+                </div>
+            </div>
+            <div class="loadingIndicator">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="chatResponseContainer">
+                <div class="chatBlurb">
+                    <div class="chatResponseLogoContainer">
+                        <img src="./assets/LogoSpin2024.SML.gif" class="chatResponseLogo" alt="MXMLLN logo">
+                    </div>
+                    <p style="margin:0px;padding:0px;text-align:left;"></p>
+                </div>
+                <div class="chatCardURL">
+                    <a href="https://www.maximillian.nyc" target="_blank">
+                        <div class="chatSuggestionCard">
+                            <div class="chatCardImageContainer">
+                                <img src="./assets/StealthSML.png" class="chatCardImage" alt="Preview image for chat suggestion">
+                            </div>
+                            <div class="chatCardTextBlock">
+                                <div class="chatCardHeader">
+                                    <p class="chatCardHeaderTitle"></p>
+                                </div>
+                                <div class="chatCardDescription">
+                                    <p class="chatCardDescriptionText"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contactViewContent" id="contactViewContent">
+        <div class="viewHeader">
+            <font class="viewHeaderText">CONTACT</font>
+            <img src="./assets/Close.png" onclick="closeNavContactView()" class="closeButton">
+        </div>            
+        <div style="display:flex;flex-direction:row;height:100px;">
+            <div class="contactViewIconContainer" id="Email">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            MAX@MXMLLN.COM
+                        </div>
+                    </div>
+                </div>
+                <a href="mailto:max@mxmlln.com" onclick="gtag('event', 'Click Email Button', { 'event_category' : 'Contact', 'event_label' : 'MAX@MXMLLN.COM'});">
+                    <img src="./assets/contact/EmailButton.svg" class="CircleButton" alt="Email" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="X">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            X / TWITTER
+                        </div>
+                    </div>
+                </div>
+                <a href="https://twitter.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Twitter Button', { 'event_category' : 'Contact', 'event_label' : 'TWITTER'});">
+                    <img src="./assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="LinkedIn">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            LINKEDIN
+                        </div>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/maximilliannyc/" target="_blank" onclick="gtag('event', 'Click LinkedIn Button', { 'event_category' : 'Contact', 'event_label' : 'LinkedIn'});">
+                    <img src="./assets/contact/LinkedInButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+        </div>  
+        <div style="display:flex;flex-direction:row;height:100px;">
+            <div class="contactViewIconContainer" id="Email">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            MEDIUM
+                        </div>
+                    </div>
+                </div>
+                <a href="https://medium.com/@MaximillianNYC"  target="_blank" onclick="gtag('event', 'Click Medium Button', { 'event_category' : 'Contact', 'event_label' : 'Medium'});">
+                    <img src="./assets/contact/MediumButton.svg" class="CircleButton" alt="Medium" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="X">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            INSTAGRAM
+                        </div>
+                    </div>
+                </div>
+                <a href="https://www.instagram.com/maximillian.nyc" target="_blank" onclick="gtag('event', 'Click Instagram Button', { 'event_category' : 'Contact', 'event_label' : 'Insta'});">
+                    <img src="./assets/contact/InstaButton.svg" class="CircleButton" alt="Twitter" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+            <div class="contactViewIconContainer" id="LinkedIn">
+                <div class="ToolTip" id="ToolTip">
+                    <div class="ToolTipBadge">
+                        <div class="BadgeText">
+                            DRIBBBLE
+                        </div>
+                    </div>
+                </div>
+                <a href="https://dribbble.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Dribbble Button', { 'event_category' : 'Contact', 'event_label' : 'Dribbble'});">
+                    <img src="./assets/contact/DribbbleButton.svg" class="CircleButton" alt="LinkedIn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                </a>
+            </div>
+        </div>    
     </div>
   </div>
-</div>
-	
-<div class="Title" style="font-size:36px;">
-  🎯 Current focus
-</div>	
-<div class="Wrap">
-  <div class="Card">
-    <a href="https://dribbble.com/MaximillianNYC/projects/2038326-Headliner" target="_blank" onclick="gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Headliner'});">
-      <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
-      url(assets/Headliner.gif);">
-        <div class="CardContent">
-          <div class="CardBadge">
-            <div class="BadgeText">
-              MAIN FOCUS
-            </div>
-          </div>
-          <div class="CardTitle">
-            Product Design <br>@ Headliner
-          </div>	
+  <div class="bottomFade" id="bottomFade"></div>
+  <div class="navBarOverlay" id="navBarOverlay" onclick="document.getElementById('chatViewContent').style.visibility === 'visible' ? closeNavChatView() : (document.getElementById('contactViewContent').style.visibility === 'visible' ? closeNavContactView() : document.getElementById('infoViewContent').style.visibility === 'visible' ? closeNavInfoView() : null)">
+  </div>
+  <div class="gradeFront"></div>
+  <div class="gradeBG"></div>
+
+  <!-- Main Content -->
+  <div class="ContentContainer" style="display:none;"> 
+    <div class="TitleBlock2">
+      <div class="Text" style="text-align:center;">
+        <div class="Name" id="Siggy" style="padding:0px;font-size:20px;">
+          Design Portfolio by Maximillian Piras</div>		
+        <div class="Title" style="padding:0px;">
+          A brief history of (my) time.
         </div>
       </div>
-    </a>
-  </div>
-</div>	
-<div class="Wrap">
-  <div class="Card">
-      <a href="https://conceptcalculator.ai" target="_blank" onclick="gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'CC-1'});">	
-        <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
-        url(assets/CC1.png);">
-          <div class="CardContent">
-            <div class="CardBadge">
-              <div class="BadgeText">
-                SIDE PROJECT
-              </div>
-            </div>
-            <div class="CardTitle">
-              CC-1 Concept Calculator
-            </div>	
-          </div>
-        </div>
-      </a>
-  </div>
-</div>
-<div class="Wrap">
-  <div class="Card">
-    <a href="https://medium.com/@MaximillianNYC" target="_blank" onclick="gtag('event', 'Current focus', { 'event_category' : 'About', 'event_label' : 'Writing'});">	
-      <div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
-      url(assets/Algo.png);">
-        <div class="CardContent">
-          <div class="CardBadge">
-            <div class="BadgeText">
-              SIDE PROJECT
-            </div>
-          </div>
-          <div class="CardTitle">
-            Articles about <br>product design
-          </div>	
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
-
-<br><br><br><br><br>
-	
-<div class="Title" style="font-size:36px;">✨ Older highlights</div>		
-	
-<div class="Wrap"><div class="Card">
-<a href="https://dribbble.com/MaximillianNYC/projects/2074139-8tracks" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : '8tracks'});">	
-<div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
-url(assets/8tracksNUX.gif);">
-<div class="CardContent">
-<div class="CardBadge"><div class="BadgeText">PRODUCT DESIGN</div></div>
-<div class="CardTitle">Product Design <br>@ 8tracks</div>	
-</div></div>
-</a></div></div>	
-	
-<div class="Wrap"><div class="Card">
-<a href="https://www.youtube.com/watch?v=i1JVN3BSmeM" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : 'Andata'});">
-<div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
-url(assets/AndataTrans.gif);">
-<div class="CardContent">
-<div class="CardBadge"><div class="BadgeText">ANIMATION</div></div>
-<div class="CardTitle">Ryuichi Sakamoto music video</div>	
-</div></div>
-</a></div></div>	
-	
-<div class="Wrap"><div class="Card">
-<a href="https://www.youtube.com/watch?v=6E9SNenPAkU&t" target="_blank" onclick="gtag('event', 'Older highlights', { 'event_category' : 'About', 'event_label' : 'Giphy'});">		
-<div class="CardInnerContainer" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
-url(assets/img/Ace.gif);">
-<div class="CardContent">
-<div class="CardBadge"><div class="BadgeText">ANIMATION</div></div>
-<div class="CardTitle">GIPHY x ACE Hotel commission</div>	
-</div></div>
-</a></div></div>
-
-<br><br><br><br><br>
-<div class="footer" style="align-items: center;">
-  <img src="assets/SigLogo.2024.png" width="350px" style="padding-bottom:8px;">
-  <div class="footerIconRow">
-    <a href="https://dribbble.com/MaximillianNYC" target="_blank"><button class="iconButton">
-      <img src="assets/social/DBo.png" height="32px" width="32px">
-    </button></a>
-    <a href="https://instagram.com/maximillian.nyc" target="_blank"><button class="iconButton">
-      <img src="assets/social/INo.png" height="32px" width="32px">
-    </button></a>
-    <a href="https://twitter.com/MaximillianNYC" target="_blank"><button class="iconButton">
-      <img src="assets/social/X.png" width="22px">
-    </button></a>
-    <a href="https://medium.com/@MaximillianNYC" target="_blank"><button class="iconButton">
-      <img src="assets/social/MDo.png" width="32px">
-    </button></a>
-    <a href="https://www.linkedin.com/in/maximilliannyc" target="_blank"><button class="iconButton">
-      <img src="assets/social/LIo.png" width="28px">
-    </button></a>
-  </div>
-  <button id="NewsletterOpen" style="width:380px;text-align:center;">GET UPDATES ON MY PROJECTS</button>
-  <p style="padding-top:16px;font-size: 12px;">🧑🏻‍💻 Design & code ©Maximillian Piras 2024 ☕</p>
-</div>
-<br><br><br><br><br>	
-	
-<div class="ModalContainerWrap" id="NavModalContainerWrap">
-<div class="ModalContainer" id="NavModalContainer">
-<div class="Modal">
-<div class="ModalContent">
-<div class="ModalImage" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75)),
-url(assets/LogoHover.gif);">	
-<div class="ModalImageContent">
-<img src="assets/Close.png" class="Close" id="NavClose" style="padding-bottom:35px;">	
-<div class="CardBadge"><div class="BadgeText">NAVIGATION</div></div>
-<div class="CardTitle">Where can I take you?<br></div>	
-</div></div>
-<div class="ModalBody">
-<div align="center">	
-<a href="index.html" onclick="gtag('event', 'Product Design', {'event_category' : 'Nav Item', 'event_label' : 'View Product Design Portfolio'});"><button class="ModalButton">PRODUCT DESIGN</button></a>
-<a href="illo.html" onclick="gtag('event', 'Illustration', {'event_category' : 'Nav Item', 'event_label' : 'View Illustration Portfolio'});"><button class="ModalButton">ILLUSTRATION</button></a>
-<a href="id.html" onclick="gtag('event', 'Branding', {'event_category' : 'Nav Item', 'event_label' : 'View Brand Identity Portfolio'});"><button class="ModalButton">BRAND IDENTITY</button></a>
-<a href="shop.html" onclick="gtag('event', 'Shop', {'event_category' : 'Nav Item', 'event_label' : 'View Shop'});"><button class="ModalButton">SHOP</button></a>
-<br></div>	
-</div>	
-</div></div></div></div>
-	
-<script>
-
-var NavModalContainerWrap = document.getElementById("NavModalContainerWrap");
-	
-var NavModalContainer = document.getElementById("NavModalContainer");	
-	
-var NavOpen = document.getElementById("Nav");
-	
-var NavClose = document.getElementById("NavClose");	
-	
-NavOpen.onclick = function() {
-  NavModalContainerWrap.style.display = "block";
-  NavModalContainer.className = "ModalContainer";
-  NavModalContainer.style.opacity = "1";
-}
-
-NavClose.onclick = function() {
-  NavModalContainer.className = "ModalContainerfadeOut";
-  NavModalContainerWrap.style.display = "block";
-  setTimeout(function(){ NavModalContainerWrap.style.display = "none"; }, 250);
-}
-
-window.onclick = function(event) {
-  if (event.target == NavModalContainer) {
-  NavModalContainer.className = "ModalContainerfadeOut";
-  NavModalContainerWrap.style.display = "block";
-  setTimeout(function(){ NavModalContainerWrap.style.display = "none"; }, 250);
-}
-}
-
-</script>
-	
-<div class="ModalContainerWrap" id="ContactModalContainerWrap">
-<div class="ModalContainer" id="ContactModalContainer">
-<div class="Modal">
-<div class="ModalContent">
-<div class="ModalImage" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75)),
-url(assets/MaximillianPiras.jpg);">	
-<div class="ModalImageContent">
-<img src="assets/Close.png" class="Close" id="ContactClose">	
-<div class="CardBadge"><div class="BadgeText">CONTACT</div></div>
-<div class="CardTitle">Let's talk about <br>tech & design</div>	
-</div></div>
-<div class="ModalBody">
-<div class="ModalIconContainer" width="50px"><div class="ToolTip" id="ToolTip"><div class="ToolTipBadge"><div class="BadgeText">MAX@MXMLLN.COM</div></div></div><a href="mailto:max@mxmlln.com" onclick="gtag('event', 'Click Email Button', { 'event_category' : 'Contact', 'event_label' : 'MAX@MXMLLN.COM'});"><img src="assets/contact/EmailButton.svg" class="CircleButton" alt="Email" /></a></div>
-<div class="ModalIconContainer"><div class="ToolTip" id="ToolTip"><div class="ToolTipBadge"><div class="BadgeText">@MAXIMILLIANNYC</div></div></div><a href="https://twitter.com/MaximillianNYC" target="_blank" onclick="gtag('event', 'Click Twitter Button', { 'event_category' : 'Contact', 'event_label' : 'TWITTER'});"><img src="assets/contact/TwitterButton.svg" class="CircleButton" alt="Twitter" /></a></div>
-</div>	
-</div></div></div></div>
-	
-<script>
-
-var ContactModalContainerWrap = document.getElementById("ContactModalContainerWrap");
-	
-var ContactModalContainer = document.getElementById("ContactModalContainer");	
-	
-var ContactOpen = document.getElementById("Contact");
-	
-var ContactClose = document.getElementById("ContactClose");	
-	
-ContactOpen.onclick = function() {
-  ContactModalContainerWrap.style.display = "block";
-  ContactModalContainer.className = "ModalContainer";
-  ContactModalContainer.style.opacity = "1";
-}
-
-ContactClose.onclick = function() {
-  ContactModalContainer.className = "ModalContainerfadeOut";
-  ContactModalContainerWrap.style.display = "block";
-  setTimeout(function(){ ContactModalContainerWrap.style.display = "none"; }, 250);
-}
-
-window.onclick = function(event) {
-  if (event.target == ContactModalContainer) {
-  ContactModalContainer.className = "ModalContainerfadeOut";
-  ContactModalContainerWrap.style.display = "block";
-  setTimeout(function(){ ContactModalContainerWrap.style.display = "none"; }, 250);
-}
-}
-
-</script>		
-	
-<script>
-
-var CasesModalContainerWrap = document.getElementById("CasesModalContainerWrap");
-	
-var CasesModalContainer = document.getElementById("CasesModalContainer");	
-	
-var CasesOpen = document.getElementById("CasesOpen");
-	
-var CasesClose = document.getElementById("CasesClose");	
-	
-CasesOpen.onclick = function() {
-  CasesModalContainerWrap.style.display = "block";
-  CasesModalContainer.className = "ModalContainer";
-  CasesModalContainer.style.opacity = "1";	
-}
-
-CasesClose.onclick = function() {
-  CasesModalContainer.className = "ModalContainerfadeOut";
-  CasesModalContainerWrap.style.display = "block";
-  setTimeout(function(){ CasesModalContainerWrap.style.display = "none"; }, 250);
-}
-
-window.onclick = function(event) {
-  if (event.target == CasesModalContainer) {
-    CasesModalContainer.className = "ModalContainerfadeOut";
-    CasesModalContainerWrap.style.display = "block";
-    setTimeout(function(){ CasesModalContainerWrap.style.display = "none"; }, 250);
-  }
-}
-
-</script>		
-	
-<div class="ModalContainerWrap" id="NewsletterModalContainerWrap">
-  <div class="ModalContainer" id="NewsletterModalContainer">
-  <div class="Modal">
-  <div class="ModalContent">
-  <div class="ModalImage" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75)),
-  url(assets/Sketch.png);">	
-  <div class="ModalImageContent">
-  <img src="assets/Close.png" class="Close" id="NewsletterClose">	
-  <div class="CardBadge"><div class="BadgeText">MAILING LIST</div></div>
-  <div class="CardTitle">Get monthly updates on my new projects</div>	
-  </div></div>
-  <div class="ModalBody" align="center">
-  <div id="mc_embed_signup">
-  <form action="https://nyc.us11.list-manage.com/subscribe/post?u=1341ce34ba5f389b85bcb97fc&amp;id=79afe8a215&amp;f_id=00c59fe0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-      <div id="mc_embed_signup_scroll">
-    <div class="mc-field-group">
-      <input type="email" placeholder="Email address" value="" name="EMAIL" class="" id="mce-EMAIL">
-      <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
     </div>
-    <div class="mc-field-group">
-      <input type="text" placeholder="Name (optional)" value="" name="FNAME" class="" id="mce-FNAME">
-      <span id="mce-FNAME-HELPERTEXT" class="helper_text"></span>
-    </div>
-    <div id="mce-responses" class="clear foot">
-      <div class="response" id="mce-error-response" style="display:none"></div>
-      <div class="response" id="mce-success-response" style="display:none"></div>
-    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_1341ce34ba5f389b85bcb97fc_79afe8a215" tabindex="-1" value=""></div>
-          <div class="optionalParent">
-          <div class="clear foot"><input type="submit" value="SUBSCRIBE" name="subscribe" id="mc-embedded-subscribe" class="ModalButton"></div>
-          </div>
-      </div>
-  </form>
+
+    <div class="timeline" style="margin-bottom:60px;">
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/baby.svg" width="30px" alt="baby" />
+                </div>
+                <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
+            </div>
+            <div class="timelineContent">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        1989 - Y2K
+                    </div>
+                    <h2>
+                        First steps to first login
+                    </h2>
+                    <p>
+                        My fascination with the web began on our family computer through a dial-up connection. The first website I hacked together was a showcase for videos of me & my friends skateboarding since YouTube had yet to be invented.
+                    </p>
+                </div>
+                <div class="timelinePhotoAlbum">
+                    <img src="assets/timeline/Baby.jpeg" class="timelinePhoto" style="width:400px;">
+                </div>            
+            </div>
+        </div>
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/grad.svg" width="32px" alt="graduation cap" />
+                </div>
+                <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
+            </div>
+            <div class="timelineContent">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        2007 - 2011
+                    </div>
+                    <h2>
+                        Graphic Design BFA
+                    </h2>
+                    <p>
+                        To avoid becoming a starving artist, I attended CSULB where I unexpectedly fell in love with design. While there were no UX classes when I entered school, upon my exit it became obvious that I could combine my graphic skills with my technical experience to design for the web.
+                    </p>
+                </div>
+                <div class="timelinePhotoAlbum">
+                    <img src="assets/id/WestPointHelmet.jpeg" class="timelinePhoto">
+                    <img src="assets/id/DamnJackals_VinylMock.jpeg" class="timelinePhoto">
+                    <img src="assets/id/LaborShirt2.jpeg" class="timelinePhoto">
+                </div>           
+            </div>
+        </div>
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/wifi.svg" width="24px" alt="wifi" />
+                </div>
+                <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
+            </div>
+            <div class="timelineContent" style="padding-bottom: 80px;">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        2012 - 2014
+                    </div>
+                    <h2>
+                        Agency life
+                    </h2>
+                    <p>
+                        I began my career working as a Digital Designer at a creative agency that contracted out to companies such as Yelp, Microsoft, Chevrolet, & Choice Hotels. I never got permission to share this work but it was mostly banner ads anyways so perhaps it's best left on my hard drive.
+                    </p>
+                </div>
+         
+            </div>
+        </div>
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/cd.svg" width="30px" alt="cd" />
+                </div>
+                <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
+            </div>
+            <div class="timelineContent">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        2014 - 2018
+                    </div>
+                    <h2>
+                        UIUX @ 8tracks
+                    </h2>
+                    <p>
+                        I jumped over to San Francisco to help millions of music lovers connect with each other through new tracks. I began work with the marketing team & eventually found myself leading the Product Design efforts until the company met its unfortunate conclusion.
+                    </p>
+                </div>
+                <div class="timelinePhotoAlbum">
+                    <img src="assets/id/8tracksTape3.jpeg" class="timelinePhoto">
+                    <img src="assets/img/8tracks_FeaturedDJs.jpg" class="timelinePhoto">
+                    <img src="assets/id/VinylEyeInsta.jpeg" class="timelinePhoto">
+                </div>
+            </div>
+        </div>
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/cat.svg" width="24px" alt="cat" />
+                </div>
+                <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
+            </div>
+            <div class="timelineContent">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        2015 - 2018
+                    </div>
+                    <h2>
+                        Founder @ Lost Cat™
+                    </h2>
+                    <p>
+                        In the early days of the e-commerce craze, I spent nights & weekends experimenting with my first long-term side project by building a niche streetwear brand. It began selling at a local NYC skateshop called Labor & eventually found its way onto the racks at the New Museum's gift shop. Despite the humble success, I decided to close up the e-shop to focus on things more fulfilling than fashion logistics.
+                    </p>
+                </div>
+                <div class="timelinePhotoAlbum">
+                    <img src="assets/img/Catintosh.jpeg" class="timelinePhoto">
+                    <img src="assets/timeline/LostCatSweater.gif" class="timelinePhoto">
+                    <img src="assets/id/LostCatLogos.gif" class="timelinePhoto">
+                </div>
+            </div>
+        </div>
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/pencil.svg" width="24px" alt="pencil" />
+                </div>
+                <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
+            </div>
+            <div class="timelineContent">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        2017 - 2018
+                    </div>
+                    <h2>
+                        Freelance animator
+                    </h2>
+                    <p>
+                        After regaining my nights & weekends, I began exploring animation by sharing my progress each week on <a href="https://www.instagram.com/p/BYWDfS_FTDn/?next=%2F" target="_blank" style="color: blue;"><u>Instagram</u></a>. It caught the attention of some musicians who began hiring me for freelance projects. While the highlight of this era was creating a music video for <a href="https://www.youtube.com/watch?v=BbvRQ7c-8IU" target="_blank" style="color: blue;"><u>Ryuichi Sakamoto</u></a>, I found it hard to justify taking on more contracts because in some ways software is much more fun to work on (& tends to pay much better).
+                    </p>
+                </div>
+                <div class="timelinePhotoAlbum">
+                    <img src="assets/img/Ramen.gif" class="timelinePhoto">
+                    <img src="assets/img/Ace.gif" class="timelinePhoto">
+                    <img src="assets/img/Saud.gif" class="timelinePhoto">
+                </div>
+            </div>
+        </div>
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/mic.svg" width="20px" alt="mic" />
+                </div>
+                <hr style="height: 100%; width: 2px; border: none; background-color: rgba(0, 0, 0, 0.075);" />
+            </div>
+            <div class="timelineContent">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        2018 - 2024
+                    </div>
+                    <h2>
+                        Design Lead @ Headliner
+                    </h2>
+                    <p>
+                        My animation contracts highlighted a problem many audio creators face sharing their content across a web primarily designed for visual discovery, so I joined Headliner's effort to help podcasters easily share their work by automating supportive asset creation. This was my first experience designing around AI, forcing me to understand the abilities & constraints of NLP, LLMs, & generative image/video models.
+                    </p>
+                </div>
+                <div class="timelinePhotoAlbum">
+                    <img src="assets/Headliner.gif" class="timelinePhoto">
+                    <img src="assets/timeline/HeadlinerMobileScreens.png" class="timelinePhoto">
+                    <img src="assets/VideoFiles.png" class="timelinePhoto">
+                </div>
+            </div>
+        </div>
+
+        <div class="timelineBlock">
+            <div class="timelineRuler">
+                <div class="timelineIcon">
+                    <img src="./assets/icons/nodes.svg" width="24px" alt="nodes" />
+                </div>
+            </div>
+            <div class="timelineContent">
+                <div class="timelineCopy">
+                    <div class="BadgeText" style="margin:4px 0px;">
+                        2025
+                    </div>
+                    <h2>
+                        AI UX
+                    </h2>
+                    <p>
+                        I'm convinced that Generative AI will unrecognizably change software, which tends to subsequently change the world, so I'm building off my work at Headliner by diving into AI UX. It began with a series of articles published in the likes of <a href="https://www.smashingmagazine.com/author/maximillian-piras/" target="_blank" style="color: blue;"><u>Smashing Magazine</u></a> & <a href="https://uxmag.com/contributors/maximillian-piras" target="_blank" style="color: blue;"><u>UX Mag</u></a>. Then a series of side projects, such as <a href="https://www.conceptcalculator.ai" target="_blank" style="color: blue;"><u>CC-1 Concept Calculator</u></a>. Now I'm working on something new at <a href="https://yutori.com" target="_blank" style="color: blue;"><u>Yutori</u></a>. I'll be sharing many updates on <a href="https://x.com/MaximillianNYC" target="_blank" style="color: blue;"><u>X</u></a> this year!
+                    </p>
+                </div>
+                <div class="timelinePhotoAlbum">
+                    <img src="assets/Abstraction.gif" class="timelinePhoto">
+                    <img src="assets/Algo.png" class="timelinePhoto">
+                    <img src="assets/CC1.png" class="timelinePhoto">
+                </div>            
+            </div>
+        </div>
+
+    </div>  
   </div>
-  <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
-  </div></div></div></div></div>	
-	
+
+<!-- Component Imports -->
+<script src="./components/NavBar.js"></script>
+<script src="./components/ChatIntelligence.js"></script>
+<script src="./components/CardStack.js"></script>
 <script>
-
-var NewsletterModalContainerWrap = document.getElementById("NewsletterModalContainerWrap");
-	
-var NewsletterModalContainer = document.getElementById("NewsletterModalContainer");	
-	
-var NewsletterOpen = document.getElementById("NewsletterOpen");
-	
-var NewsletterClose = document.getElementById("NewsletterClose");	
-	
-NewsletterOpen.onclick = function() {
-  NewsletterModalContainerWrap.style.display = "block";
-  NewsletterModalContainer.className = "ModalContainer";
-  NewsletterModalContainer.style.opacity = "1";	
-}
-
-NewsletterClose.onclick = function() {
-  NewsletterModalContainer.className = "ModalContainerfadeOut";
-  NewsletterModalContainerWrap.style.display = "block";
-  setTimeout(function(){ NewsletterModalContainerWrap.style.display = "none"; }, 250);
-}
-
-member_submit.onclick = function() {
-  NewsletterModalContainer.className = "ModalContainerfadeOut";
-  NewsletterModalContainerWrap.style.display = "block";
-  setTimeout(function(){ NewsletterModalContainerWrap.style.display = "none"; }, 250);
-}
-
-window.onclick = function(event) {
-  if (event.target == NewsletterModalContainer) {
-	NewsletterModalContainer.className = "ModalContainerfadeOut";
-    NewsletterModalContainerWrap.style.display = "block";
-    setTimeout(function(){ NewsletterModalContainerWrap.style.display = "none"; }, 250);
-  }
-}
-
+    window.onload = function() {
+        var elements = document.querySelectorAll( '.timelinePhoto' );
+      Intense( elements );
+    }
 </script>	
-	
+
+<!-- Intro Animation -->
+<script>
+  jQuery(document).ready(function() {
+    $('.IntroLoader').animate({width:'300px',height:'300px'}, 500, function() {
+      $('.IntroLoader')
+      .delay(1000)
+      .animate({top:'-100%'}, 250);
+    });
+   $('.gradeFront').css({width: '525px', height: '525px', borderRadius: '400px'})
+    .delay(1250)
+    .animate({width:'100%',height:'100%',borderRadius:'0px'}, 500);
+    setTimeout(function() {
+      $('.ContentContainer').css('top', '200%').fadeIn(0, function() {
+        $('.ContentContainer').animate({top: '0px'}, 1000);
+      });
+    }, 1000);
+    setTimeout(function() {
+      $('.navDynamicContainer').css('bottom', '-100px').fadeIn(250, function() {
+        $('.navDynamicContainer').animate({bottom: '24px'}, 250);
+      });
+    }, 1250);
+    $('body').css('overflow-y', 'hidden');
+    setTimeout(function() {
+      $('body').css('overflow-y', 'auto');
+    }, 2500);
+  });
+</script>
+
 </body>
 </html>
