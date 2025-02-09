@@ -371,12 +371,11 @@ function resetCardStyles(cardStack, cardIndexInStack, totalCards) {
     cardStack.style.zIndex = '100';
 }
 
-function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
+function loadCards(cardStack = document.querySelector('.CardStack')) {
     const cards = cardStack.querySelectorAll('.Card');
-    cards.forEach(function(card, index) {
+    cards.forEach(function(card) {
         const imageSrc = card.dataset.src;
-        let videoSrc = card.dataset.videoSrc;
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const videoSrc = card.dataset.videoSrc;
         
         if (videoSrc) {
             const video = document.createElement('video');
@@ -395,41 +394,20 @@ function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
             video.playsInline = true;
             video.controls = false;
 
-            if (isSafari) {
-                videoSrc = videoSrc.replace('.webm', '.mp4');
-            }
-
-            video.src = videoSrc;
+            // Handle Safari video format
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            const videoSource = isSafari ? videoSrc.replace('.webm', '.mp4') : videoSrc;
+            video.src = videoSource;
+            
             card.style.overflow = 'hidden';
             card.style.position = 'relative';
             card.appendChild(video);
             
             video.play().catch(error => {
-                console.warn(`Autoplay failed for video on card ${index + 1}:`, error);
-
-                // Fallback: play video on the first user interaction
-                const playOnInteraction = () => {
-                    video.play();
-                    document.removeEventListener('click', playOnInteraction);
-                    document.removeEventListener('touchstart', playOnInteraction);
-                };
-
-                document.addEventListener('click', playOnInteraction);
-                document.addEventListener('touchstart', playOnInteraction);
+                console.warn('Video autoplay failed:', error);
             });
-
         } else if (imageSrc) {
-            const img = new Image();
-            img.onload = function() {
-                card.style.backgroundImage = `url('${imageSrc}')`;
-                card.removeAttribute('data-src');
-            };
-            img.onerror = function() {
-                console.error(`Failed to load image for card ${index + 1}:`, imageSrc);
-            };
-            img.src = imageSrc;
-        } else {
-            console.warn(`No data-src or data-video-src attribute for card ${index + 1}`);
+            card.style.backgroundImage = `url('${imageSrc}')`;
         }
     });
 }
@@ -437,18 +415,12 @@ function lazyLoadCards(cardStack = document.querySelector('.CardStack')) {
 // Initialize default styles
 document.addEventListener('DOMContentLoaded', function() {
     setDefaultCardStackStyles();
-    function attemptLazyLoad() {
-        console.log('Attempting to lazy load all card stacks');
-        const cardStacks = document.querySelectorAll('.CardStack');
-        cardStacks.forEach((stack, index) => {
-            setTimeout(() => {
-                console.log(`Processing stack ${index + 1}`);
-                lazyLoadCards(stack);
-            }, 1000);
-        });
-    }
-
-    attemptLazyLoad();
+    
+    // Load all card stacks immediately
+    const cardStacks = document.querySelectorAll('.CardStack');
+    cardStacks.forEach(stack => {
+        loadCards(stack);
+    });
 });
 
 function collapseExpandedStack() {
@@ -578,14 +550,14 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
                     behavior: 'smooth'
                 });
             }, 300);
-            lazyLoadCards();
+            // lazyLoadCards();
 
-            setTimeout(() => {
-                const expandedCardStack = CardStackLabelContainer.querySelector('.CardStack');
-                if (expandedCardStack) {
-                    lazyLoadCards(expandedCardStack);
-                }
-            }, 600);
+            // setTimeout(() => {
+            //     const expandedCardStack = CardStackLabelContainer.querySelector('.CardStack');
+            //     if (expandedCardStack) {
+            //         lazyLoadCards(expandedCardStack);
+            //     }
+            // }, 600);
 
         }, 0);
         // StackBar Setup
