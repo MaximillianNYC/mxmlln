@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dieter Rams Dial</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .dial-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dial-shadow {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            box-shadow: 
+                2px 2px 15px rgba(0, 0, 0, 0.1),
+                4px 4px 30px rgba(0, 0, 0, 0.15);
+            z-index: 1;
+        }
+
+        .dial {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease-out;
+            background: #ffffff;
+            box-shadow: 
+                inset -1px -1px 5px rgba(0, 0, 0, 0.05),
+                inset 1px 1px 5px rgba(255, 255, 255, 0.1);
+            z-index: 2;
+            transform: rotate(140deg);
+        }
+
+        .dial:active {
+            box-shadow: 
+                inset -1px -1px 3px rgba(0, 0, 0, 0.05),
+                inset 1px 1px 3px rgba(255, 255, 255, 0.1);
+        }
+
+        .dial::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 9.2px;
+            height: 9.2px;
+            background: #FF6B35;
+            border-radius: 50%;
+            transform: translate(-50%, 0);
+            box-shadow: 1px 1px 4px rgba(255, 107, 53, 0.3);
+        }
+
+        .progress-ring {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: conic-gradient(#FF6B35 0deg, #EEEEEE 0deg);
+            z-index: 1;
+            clip-path: path('M 120 120 L 120 0 A 120 120 0 1 1 120 240 L 120 120');
+        }
+
+        .progress-ring::before {
+            content: '';
+            position: absolute;
+            width: 227.5px;
+            height: 227.5px;
+            background: #ffffff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset -1px -1px 3px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="dial-container">
+        <div class="progress-ring" id="progress"></div>
+        <div class="dial-shadow"></div>
+        <div class="dial" id="dial"></div>
+    </div>
+
+    <script>
+        const dial = document.getElementById('dial');
+        const progressRing = document.getElementById('progress');
+        let isDragging = false;
+        let startAngle = 0;
+        let currentAngle = 140; // Start at 140 degrees
+
+        function getAngle(e) {
+            const rect = dial.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+            return (angle * 180 / Math.PI + 360) % 360;
+        }
+
+        function updateProgress(angle) {
+            // Convert angle to match the progress ring orientation
+            const normalizedAngle = (angle - 140 + 360) % 360;
+            if (normalizedAngle <= 280) { // Show progress from 140° to -140° (280° total)
+                progressRing.style.background = `conic-gradient(#FF6B35 ${normalizedAngle}deg, #EEEEEE ${normalizedAngle}deg)`;
+            }
+        }
+
+        function rotateTo(angle) {
+            currentAngle = angle;
+            dial.style.transform = `rotate(${angle}deg)`;
+            updateProgress(angle);
+        }
+
+        dial.addEventListener('click', (e) => {
+            if (!isDragging) {
+                const clickAngle = getAngle(e);
+                rotateTo(clickAngle);
+            }
+        });
+
+        dial.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startAngle = getAngle(e) - currentAngle;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentAngle = getAngle(e) - startAngle;
+            rotateTo(currentAngle);
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Add touch support
+        dial.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            const touch = e.touches[0];
+            startAngle = getAngle(touch) - currentAngle;
+            e.preventDefault(); // Prevent scrolling while touching dial
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            currentAngle = getAngle(touch) - startAngle;
+            rotateTo(currentAngle);
+            e.preventDefault(); // Prevent scrolling while dragging
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Initialize the dial position
+        rotateTo(currentAngle);
+    </script>
+</body>
+</html> 
