@@ -47,7 +47,7 @@
                 inset -1px -1px 5px rgba(0, 0, 0, 0.05),
                 inset 1px 1px 5px rgba(255, 255, 255, 0.1);
             z-index: 2;
-            transform: rotate(140deg);
+            transform: rotate(-140deg);
         }
 
         .dial:active {
@@ -79,7 +79,7 @@
             transform: translate(-50%, -50%);
             background: conic-gradient(#FF6B35 0deg, #EEEEEE 0deg);
             z-index: 1;
-            clip-path: path('M 120 120 L 120 0 A 120 120 0 1 1 120 240 L 120 120');
+            clip-path: path('M 120 120 L 28.08 197.16 A 120 120 0 1 1 28.08 42.84 L 120 120');
         }
 
         .progress-ring::before {
@@ -108,73 +108,82 @@
         const progressRing = document.getElementById('progress');
         let isDragging = false;
         let startAngle = 0;
-        let currentAngle = 140; // Start at 140 degrees
+        let currentAngle = -140;
 
-        function getAngle(e) {
+        function getRelativeAngle(e) {
             const rect = dial.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-            const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
-            return (angle * 180 / Math.PI + 360) % 360;
+            const x = e.clientX - centerX;
+            const y = e.clientY - centerY;
+
+            let angle = Math.atan2(y, x) * (180 / Math.PI); // -180 to 180
+            angle = angle - 90; // Make top = 0
+            if (angle < -180) angle += 360;
+
+            return angle; // now ranges roughly from -270 to 90
+        }
+
+        function clampAngle(angle) {
+            return Math.max(-140, Math.min(140, angle));
         }
 
         function updateProgress(angle) {
-            // Convert angle to match the progress ring orientation
-            const normalizedAngle = (angle - 140 + 360) % 360;
-            if (normalizedAngle <= 280) { // Show progress from 140° to -140° (280° total)
-                progressRing.style.background = `conic-gradient(#FF6B35 ${normalizedAngle}deg, #EEEEEE ${normalizedAngle}deg)`;
-            }
+            const clamped = clampAngle(angle);
+            const progressDegrees = clamped + 140;
+            progressRing.style.background = `conic-gradient(transparent 0deg ${progressDegrees}deg, #EEEEEE ${progressDegrees}deg 280deg, transparent 280deg)`;
         }
 
         function rotateTo(angle) {
-            currentAngle = angle;
-            dial.style.transform = `rotate(${angle}deg)`;
-            updateProgress(angle);
+            const clamped = clampAngle(angle);
+            currentAngle = clamped;
+            dial.style.transform = `rotate(${clamped}deg)`;
+            updateProgress(clamped);
         }
-
-        dial.addEventListener('click', (e) => {
-            if (!isDragging) {
-                const clickAngle = getAngle(e);
-                rotateTo(clickAngle);
-            }
-        });
 
         dial.addEventListener('mousedown', (e) => {
             isDragging = true;
-            startAngle = getAngle(e) - currentAngle;
+            startAngle = getRelativeAngle(e) - currentAngle;
         });
 
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
-            currentAngle = getAngle(e) - startAngle;
-            rotateTo(currentAngle);
+            let newAngle = getRelativeAngle(e) - startAngle;
+            rotateTo(newAngle);
         });
 
         document.addEventListener('mouseup', () => {
             isDragging = false;
         });
 
-        // Add touch support
+        dial.addEventListener('click', (e) => {
+            if (!isDragging) {
+                let angle = getRelativeAngle(e);
+                rotateTo(angle);
+            }
+        });
+
+        // Touch support
         dial.addEventListener('touchstart', (e) => {
             isDragging = true;
             const touch = e.touches[0];
-            startAngle = getAngle(touch) - currentAngle;
-            e.preventDefault(); // Prevent scrolling while touching dial
+            startAngle = getRelativeAngle(touch) - currentAngle;
+            e.preventDefault();
         });
 
         document.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             const touch = e.touches[0];
-            currentAngle = getAngle(touch) - startAngle;
-            rotateTo(currentAngle);
-            e.preventDefault(); // Prevent scrolling while dragging
+            let newAngle = getRelativeAngle(touch) - startAngle;
+            rotateTo(newAngle);
+            e.preventDefault();
         });
 
         document.addEventListener('touchend', () => {
             isDragging = false;
         });
 
-        // Initialize the dial position
+        // Init
         rotateTo(currentAngle);
     </script>
 </body>
