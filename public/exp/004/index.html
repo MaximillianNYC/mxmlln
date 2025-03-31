@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTA Button</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            height: 40px;
+            padding: 0 16px;
+            background: linear-gradient(to bottom, #FF6B35 0%, #FF6B35 50%, #FF8B5C 50%, #FF8B5C 100%);
+            background-size: 1px 60px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+        }
+
+        .cta-button:hover {
+            background-position: 0 60px;
+            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .cta-button svg {
+            width: 16px;
+            height: 16px;
+            pointer-events: none;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="cta-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
+        </svg>
+        Get Started
+    </button>
+</body>
+</html> 
