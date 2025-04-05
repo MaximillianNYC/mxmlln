@@ -39,7 +39,7 @@
             color: white;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-position 0.5s ease;
             box-shadow: 
                 -1px 3px 4px 0px rgba(255, 255, 255, 0.40) inset,
                 1px -2px 4px 0px rgba(255, 255, 255, 0.15) inset,
@@ -121,12 +121,48 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const button = document.querySelector('.cta-button');
+            let animationFrame;
+            let lastBgPos = '0% 50%';
             
             // Store the last background position before hover ends
+            button.addEventListener('mouseenter', () => {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                }
+                button.style.animation = 'animatedgradient 2s ease infinite';
+            });
+
             button.addEventListener('mouseleave', () => {
                 const style = window.getComputedStyle(button);
-                const bgPos = style.backgroundPosition;
-                button.style.setProperty('--last-bg-pos', bgPos);
+                lastBgPos = style.backgroundPosition;
+                button.style.animation = 'none';
+                button.style.backgroundPosition = lastBgPos;
+                
+                // Smoothly transition back to initial position
+                let startTime;
+                const duration = 500; // 0.5 seconds
+                
+                function animate(currentTime) {
+                    if (!startTime) startTime = currentTime;
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Ease out cubic
+                    const easeProgress = 1 - Math.pow(1 - progress, 3);
+                    
+                    // Calculate new position
+                    const [startX, startY] = lastBgPos.split(' ').map(pos => parseFloat(pos));
+                    const newX = startX + (0 - startX) * easeProgress;
+                    const newY = 50 + (50 - 50) * easeProgress;
+                    
+                    button.style.backgroundPosition = `${newX}% ${newY}%`;
+                    
+                    if (progress < 1) {
+                        animationFrame = requestAnimationFrame(animate);
+                    }
+                }
+                
+                animationFrame = requestAnimationFrame(animate);
             });
             
             button.addEventListener('mousemove', (e) => {
