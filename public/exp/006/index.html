@@ -87,9 +87,10 @@
                     // Calculate distance in pixels
                     const distanceInPixels = Math.abs(hoveredCenter - charCenter);
                     
-                    // Convert pixel distance to character distance (approximate)
-                    const averageCharWidth = hoveredRect.width;
-                    const distance = Math.round(distanceInPixels / averageCharWidth);
+                    // Convert pixel distance to character distance using a fixed reference width
+                    // This prevents issues with narrow characters like 'I'
+                    const referenceWidth = 40; // Approximate width of a typical character
+                    const distance = Math.round(distanceInPixels / referenceWidth);
                     
                     // The hovered character gets the highest weight
                     if (distance === 0) {
