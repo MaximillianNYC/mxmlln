@@ -56,8 +56,31 @@
             bottom: -1px;
             height: 1px;
             background: linear-gradient(270deg, rgba(29, 205, 152, 0.00) 0%, #1DCD98 50%, rgba(29, 205, 152, 0.00) 100%);
-            transition: left 0.3s ease, width 0.3s ease;
             z-index: 2;
+        }
+
+        @keyframes moveRight {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-20px) translateY(0); }
+            50% { transform: translateX(-20px) translateY(-44px); }
+            75% { transform: translateX(calc(var(--move-distance) + 20px)) translateY(-44px); }
+            100% { transform: translateX(var(--move-distance)) translateY(0); }
+        }
+
+        @keyframes moveRightToLeft {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(20px) translateY(0); }
+            50% { transform: translateX(20px) translateY(-44px); }
+            75% { transform: translateX(calc(var(--move-distance) - 20px)) translateY(-44px); }
+            100% { transform: translateX(var(--move-distance)) translateY(0); }
+        }
+
+        .active-indicator.moving-right {
+            animation: moveRight 0.5s ease-in-out forwards;
+        }
+
+        .active-indicator.moving-right-to-left {
+            animation: moveRightToLeft 0.5s ease-in-out forwards;
         }
 
         .nav-item:hover {
@@ -77,10 +100,51 @@
         const navItems = document.querySelectorAll('.nav-item');
         const indicator = document.querySelector('.active-indicator');
         
-        function updateIndicator(item) {
+        function updateIndicator(item, previousItem) {
             const rect = item.getBoundingClientRect();
-            indicator.style.width = `${rect.width}px`;
-            indicator.style.left = `${rect.left - item.parentElement.getBoundingClientRect().left}px`;
+            const containerRect = item.parentElement.getBoundingClientRect();
+            const newLeft = rect.left - containerRect.left;
+            
+            if (previousItem) {
+                const prevRect = previousItem.getBoundingClientRect();
+                const prevLeft = prevRect.left - containerRect.left;
+                const moveDistance = newLeft - prevLeft;
+                const isLongDistance = Math.abs(moveDistance) > rect.width * 2;
+                
+                indicator.style.width = `${rect.width}px`;
+                indicator.style.left = `${prevLeft}px`;
+                
+                if (isLongDistance) {
+                    // For longer distances (e.g., Home to Contact), use circular animations
+                    indicator.style.setProperty('--move-distance', `${moveDistance}px`);
+                    if (moveDistance < 0) {
+                        indicator.classList.remove('moving-right');
+                        indicator.classList.add('moving-right-to-left');
+                    } else {
+                        indicator.classList.remove('moving-right-to-left');
+                        indicator.classList.add('moving-right');
+                    }
+                } else {
+                    // For shorter distances, use simple translation
+                    indicator.style.transition = 'left 0.3s ease, width 0.3s ease';
+                    indicator.style.left = `${newLeft}px`;
+                    setTimeout(() => {
+                        indicator.style.transition = '';
+                    }, 300);
+                }
+                
+                const handleAnimationEnd = () => {
+                    indicator.classList.remove('moving-right', 'moving-right-to-left');
+                    indicator.style.left = `${newLeft}px`;
+                    indicator.style.transform = '';
+                };
+                
+                indicator.addEventListener('animationend', handleAnimationEnd, { once: true });
+            } else {
+                // Initial position or direct update
+                indicator.style.width = `${rect.width}px`;
+                indicator.style.left = `${newLeft}px`;
+            }
         }
         
         // Initialize indicator position
@@ -89,9 +153,10 @@
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
+                const previousActive = document.querySelector('.nav-item.active');
                 navItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
-                updateIndicator(item);
+                updateIndicator(item, previousActive);
             });
         });
     </script>
