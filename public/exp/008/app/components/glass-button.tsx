@@ -64,21 +64,21 @@ export default function GlassButton({
   const getDynamicShadow = () => {
     const insetX = shadowAngle.x * 1
     const insetY = shadowAngle.y * 1
-    const shadowX = shadowAngle.x * 3
-    const shadowY = shadowAngle.y * 3
+    const shadowX = shadowAngle.x * 2
+    const shadowY = shadowAngle.y * 2
 
     // Scale shadow sizes based on distance
     const blackShadowScale = 1 - distance
     const whiteShadowScale = distance
-    const blurScale = 1 + (distance * 1.2)
+    const blurScale = 1 + (distance * 0.8)
 
-    return `${shadowX * 120 * blackShadowScale}px ${shadowY * 120 * blackShadowScale}px ${120 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.12),
-            ${shadowX * 85 * blackShadowScale}px ${shadowY * 85 * blackShadowScale}px ${90 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.1),
-            ${shadowX * 55 * blackShadowScale}px ${shadowY * 55 * blackShadowScale}px ${65 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.08),
-            ${shadowX * 35 * blackShadowScale}px ${shadowY * 35 * blackShadowScale}px ${45 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.06),
-            ${shadowX * 20 * blackShadowScale}px ${shadowY * 20 * blackShadowScale}px ${30 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.05),
-            ${shadowX * 12 * blackShadowScale}px ${shadowY * 12 * blackShadowScale}px ${20 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.04),
-            ${insetX * whiteShadowScale}px ${insetY * whiteShadowScale}px ${2 + (whiteShadowScale * 4)}px 0px rgba(255, 255, 255, 0.3) inset`
+    return `${shadowX * 60 * blackShadowScale}px ${shadowY * 60 * blackShadowScale}px ${60 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.08),
+            ${shadowX * 40 * blackShadowScale}px ${shadowY * 40 * blackShadowScale}px ${45 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.06),
+            ${shadowX * 25 * blackShadowScale}px ${shadowY * 25 * blackShadowScale}px ${30 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.04),
+            ${shadowX * 15 * blackShadowScale}px ${shadowY * 15 * blackShadowScale}px ${20 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.03),
+            ${shadowX * 8 * blackShadowScale}px ${shadowY * 8 * blackShadowScale}px ${12 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.02),
+            ${shadowX * 4 * blackShadowScale}px ${shadowY * 4 * blackShadowScale}px ${8 * blurScale * blackShadowScale}px 0 rgba(0, 0, 0, 0.01),
+            ${insetX * whiteShadowScale}px ${insetY * whiteShadowScale}px ${2 + (whiteShadowScale * 2)}px 0px rgba(255, 255, 255, 0.2) inset`
   }
 
   const Button = (

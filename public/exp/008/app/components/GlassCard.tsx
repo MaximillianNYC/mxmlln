@@ -115,25 +115,25 @@ export default function GlassCard({
     <div className="fixed inset-0 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#CBD5E1" }}>
       <div
         ref={cardRef}
-        className={`${inter.className} relative w-[400px] rounded-2xl p-6`}
+        className={`${inter.className} relative w-[400px] rounded-[24px] p-6 overflow-hidden`}
         style={{
-          background: "rgba(255, 255, 255, 0.04)",
-          backdropFilter: "blur(1px)",
+          background: "rgba(255, 255, 255, 0.85)",
+          backdropFilter: "blur(8px)",
           boxShadow: getDynamicShadow(),
           transition: "box-shadow 0.2s ease-out",
         }}
       >
         {/* Gradient border */}
         <div
-          className="pointer-events-none absolute inset-0 rounded-2xl"
+          className="pointer-events-none absolute inset-0 rounded-[24px]"
           style={{
             padding: "1px",
             background: `linear-gradient(
               ${Math.atan2(shadowAngle.y, shadowAngle.x) * (180 / Math.PI) + 90}deg,
-              rgba(255, 255, 255, 0.94),
-              #797979 26%,
-              #a4a4a4 63%,
-              rgba(255, 255, 255, ${0.5 + (distance * 0.5)})
+              rgba(0, 0, 0, 0.1),
+              rgba(0, 0, 0, 0.2) 26%,
+              rgba(0, 0, 0, 0.15) 63%,
+              rgba(0, 0, 0, ${0.1 + (distance * 0.2)})
             )`,
             mask: "linear-gradient(black, black) content-box, linear-gradient(black, black)",
             maskComposite: "exclude",
@@ -144,9 +144,9 @@ export default function GlassCard({
         {/* Image placeholder */}
         <div className="relative mb-4" ref={imageRef}>
           <div 
-            className="h-48 w-full rounded-xl bg-gray-200"
+            className="h-48 w-full rounded-xl bg-gray-100"
             style={{
-              background: imageUrl ? `url(${imageUrl}) center/cover` : "rgba(255, 255, 255, 0.08)",
+              background: imageUrl ? `url(${imageUrl}) center/cover` : "rgba(0, 0, 0, 0.05)",
               boxShadow: getDynamicShadow(),
             }}
           />
@@ -156,23 +156,7 @@ export default function GlassCard({
         <div className="mb-6">
           <div className="mb-2" ref={titleRef}>
             <h2 
-              className="text-2xl font-semibold"
-              style={{
-                color: 'white',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                background: `linear-gradient(
-                  ${Math.atan2(shadowAngle.y, shadowAngle.x) * (180 / Math.PI) + 90}deg,
-                  rgba(255, 255, 255, 0.85),
-                  rgba(255, 255, 255, 1) 45%,
-                  rgba(255, 255, 255, 1) 55%,
-                  rgba(255, 255, 255, 0.85)
-                )`,
-                WebkitTextFillColor: 'transparent',
-                backgroundSize: '200% 100%',
-                backgroundPosition: `${50 + (mousePosition.x / 16)}% ${50 + (mousePosition.y / 16)}%`,
-                transition: 'background-position 0.2s ease-out'
-              }}
+              className="text-2xl font-semibold text-black"
             >
               {title}
             </h2>
@@ -180,23 +164,7 @@ export default function GlassCard({
           
           <div ref={subtitleRef}>
             <p 
-              className="text-base"
-              style={{
-                color: 'white',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                background: `linear-gradient(
-                  ${Math.atan2(shadowAngle.y, shadowAngle.x) * (180 / Math.PI) + 90}deg,
-                  rgba(255, 255, 255, 0.85),
-                  rgba(255, 255, 255, 1) 45%,
-                  rgba(255, 255, 255, 1) 55%,
-                  rgba(255, 255, 255, 0.85)
-                )`,
-                WebkitTextFillColor: 'transparent',
-                backgroundSize: '200% 100%',
-                backgroundPosition: `${50 + (mousePosition.x / 16)}% ${50 + (mousePosition.y / 16)}%`,
-                transition: 'background-position 0.2s ease-out'
-              }}
+              className="text-base text-black/80"
             >
               {subtitle}
             </p>
