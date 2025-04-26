@@ -117,10 +117,15 @@ export default function GlassCard({
         ref={cardRef}
         className={`${inter.className} relative w-[400px] rounded-[24px] p-6 overflow-hidden`}
         style={{
-          background: "rgba(255, 255, 255, 0.85)",
+          background: `radial-gradient(
+            circle at ${mousePosition.x}px ${mousePosition.y}px,
+            rgba(255, 255, 255, 0.75) 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 255, 255, 0.25) 100%
+          )`,
           backdropFilter: "blur(8px)",
           boxShadow: getDynamicShadow(),
-          transition: "box-shadow 0.2s ease-out",
+          transition: "box-shadow 0.2s ease-out, background 0.2s ease-out",
         }}
       >
         {/* Gradient border */}
@@ -144,7 +149,7 @@ export default function GlassCard({
         {/* Image placeholder */}
         <div className="relative mb-4" ref={imageRef}>
           <div 
-            className="h-48 w-full rounded-xl bg-gray-100"
+            className="h-48 w-full rounded-[8px] bg-gray-100"
             style={{
               background: imageUrl ? `url(${imageUrl}) center/cover` : "rgba(0, 0, 0, 0.05)",
               boxShadow: getDynamicShadow(),
@@ -153,7 +158,7 @@ export default function GlassCard({
         </div>
 
         {/* Content */}
-        <div className="mb-6">
+        <div className="mb-8">
           <div className="mb-2" ref={titleRef}>
             <h2 
               className="text-2xl font-semibold text-black"
