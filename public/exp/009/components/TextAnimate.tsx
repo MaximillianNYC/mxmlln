@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { AnimatedShinyText } from "./AnimatedShinyText"
 
 interface TextAnimateProps {
   children: string
@@ -11,8 +12,6 @@ interface TextAnimateProps {
   className?: string
 }
 
-const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()"
-
 export function TextAnimate({
   children,
   animation = "blurInUp",
@@ -21,9 +20,7 @@ export function TextAnimate({
   className = "",
 }: TextAnimateProps) {
   const [isVisible, setIsVisible] = useState(false)
-  const [scrambledText, setScrambledText] = useState<string[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
-  const animationRef = useRef<number>()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,41 +44,6 @@ export function TextAnimate({
     return () => observer.disconnect()
   }, [once])
 
-  useEffect(() => {
-    if (isVisible) {
-      const splitText = by === "character" ? children.split("") : children.split(" ")
-      setScrambledText(splitText.map(() => randomChars[Math.floor(Math.random() * randomChars.length)]))
-
-      let iterations = 0
-      const maxIterations = 10
-      const interval = 50
-
-      const animate = () => {
-        setScrambledText(prev => 
-          prev.map((_, index) => {
-            if (iterations >= maxIterations) {
-              return splitText[index]
-            }
-            return randomChars[Math.floor(Math.random() * randomChars.length)]
-          })
-        )
-
-        iterations++
-        if (iterations < maxIterations) {
-          animationRef.current = window.setTimeout(animate, interval)
-        }
-      }
-
-      animationRef.current = window.setTimeout(animate, interval)
-    }
-
-    return () => {
-      if (animationRef.current) {
-        clearTimeout(animationRef.current)
-      }
-    }
-  }, [isVisible, children, by])
-
   const getAnimationVariants = () => {
     const baseVariants = {
       hidden: {
@@ -96,19 +58,19 @@ export function TextAnimate({
 
     const directionVariants = {
       blurInUp: {
-        hidden: { ...baseVariants.hidden, y: 20 },
+        hidden: { ...baseVariants.hidden, y: 30 },
         visible: { ...baseVariants.visible, y: 0 },
       },
       blurInDown: {
-        hidden: { ...baseVariants.hidden, y: -20 },
+        hidden: { ...baseVariants.hidden, y: -30 },
         visible: { ...baseVariants.visible, y: 0 },
       },
       blurInLeft: {
-        hidden: { ...baseVariants.hidden, x: 20 },
+        hidden: { ...baseVariants.hidden, x: 30 },
         visible: { ...baseVariants.visible, x: 0 },
       },
       blurInRight: {
-        hidden: { ...baseVariants.hidden, x: -20 },
+        hidden: { ...baseVariants.hidden, x: -30 },
         visible: { ...baseVariants.visible, x: 0 },
       },
     }
@@ -120,26 +82,62 @@ export function TextAnimate({
 
   return (
     <div ref={containerRef} className={`inline-block ${className}`}>
+      <style jsx global>{`
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .char-wrapper {
+          position: relative;
+          display: inline-block;
+        }
+
+        .char-wrapper::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          background: linear-gradient(90deg, #ff0080, #7928ca, #ff0080);
+          background-size: 200% 100%;
+          z-index: -1;
+          border-radius: 4px;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .char-wrapper:hover::before {
+          opacity: 1;
+          animation: gradient 2s linear infinite;
+        }
+
+        .char-wrapper:hover .char {
+          color: white;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+      `}</style>
       <AnimatePresence>
         {isVisible && (
           <>
             {splitText.map((char, index) => (
-              <motion.span
+              <motion.div
                 key={index}
+                className="char-wrapper"
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
                 variants={getAnimationVariants()}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.7,
                   delay: index * 0.05,
                   ease: [0.4, 0, 0.2, 1],
                 }}
-                className="inline-block"
               >
-                {scrambledText[index] || char}
-                {by === "character" && char === " " && <span>&nbsp;</span>}
-              </motion.span>
+                <AnimatedShinyText className="char inline-block">
+                  {char}
+                  {by === "character" && char === " " && <span>&nbsp;</span>}
+                </AnimatedShinyText>
+              </motion.div>
             ))}
           </>
         )}
