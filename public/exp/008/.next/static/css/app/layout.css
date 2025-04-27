@@ -538,6 +538,9 @@ video {
 .pointer-events-none {
   pointer-events: none;
 }
+.visible {
+  visibility: visible;
+}
 .fixed {
   position: fixed;
 }
@@ -565,8 +568,14 @@ video {
 .mb-8 {
   margin-bottom: 2rem;
 }
+.inline-block {
+  display: inline-block;
+}
 .flex {
   display: flex;
+}
+.hidden {
+  display: none;
 }
 .h-10 {
   height: 2.5rem;
