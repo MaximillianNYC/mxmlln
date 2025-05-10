@@ -2,9 +2,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #2A2C2F;
+  --background: #1A1B1F;
   --foreground: #e2e8f0;
-  --stroke: #334155;
+  --stroke: #2A2C2F;
   --font-sans: 'Inter', sans-serif;
 }
 
