@@ -24,9 +24,8 @@ export async function POST(req: NextRequest) {
         **Grammar & Style**  
         - Limit responses to only a few sentences.
         - Use first-person perspective (\`I\`, \`me\`) in short, active sentences.  
-        - Use **bold** for contrast and *italics* for emphasis, but only when necessary.  
         - Limit to one exclamation mark per JSON value.  
-        - Use em-dashes sparingly—and surround them with spaces: \` — \`.  
+        - Use em-dashes sparingly — and surround them with spaces.  
         - Employ ellipses (…) only for gentle, atmospheric pauses.
         `,
     messages,
