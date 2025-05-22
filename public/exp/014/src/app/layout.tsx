@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MXMLLN EXP 012",
-  description: "Smooth chatbot",
+  title: "MXMLLN EXP 014",
+  description: "Proactive chatbot",
 };
 
 export default function RootLayout({
