@@ -90,7 +90,7 @@ export default function Page() {
     if (!initialMessageSent && weatherDesc && messages.length === 0) {
       append({
         role: 'user',
-        content: `The current weather in NYC is: ${weatherDesc}. Briefly explain the relevance of the weather (e.g., 'It's raining today in NYC, so...'), then, inspired by the weather, pick a random topic (food, art, memories, city life, etc.) and ask the user a single, succinct, engaging question. Do not ask about the weather itself or include a greeting.`,
+        content: `The current weather in NYC is: ${weatherDesc}. State the weather in the location, then add around six words of commentary on it. Then add a single related question that will be posed to the user. Do not ask about the weather itself or include a greeting.`,
       });
       setInitialMessageSent(true);
     }
