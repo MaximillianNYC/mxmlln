@@ -52,6 +52,8 @@ export default function Page() {
   const [hasUserMessage, setHasUserMessage] = useState(false);
   const [initialMessageSent, setInitialMessageSent] = useState(false);
   const [weatherDesc, setWeatherDesc] = useState<string | null>(null);
+  const [nycTime, setNycTime] = useState<string | null>(null);
+  const [nycSeconds, setNycSeconds] = useState<string | null>(null);
   const prevPairCount = useRef(0);
   const { messages, input, handleInputChange, handleSubmit, status, append } = useChat({
     onFinish: () => {
@@ -61,9 +63,9 @@ export default function Page() {
     },
   });
 
-  // Fetch weather on mount and set weatherDesc
+  // Fetch weather and time on mount
   useEffect(() => {
-    async function fetchWeather() {
+    async function fetchWeatherAndTime() {
       try {
         // Open-Meteo API for NYC: latitude=40.7128, longitude=-74.0060
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current_weather=true');
@@ -78,24 +80,32 @@ export default function Page() {
         else if ([71,73,75,77,85,86].includes(code)) weather = 'snowy';
         else weather = 'unknown';
         setWeatherDesc(makeWeatherDescription(weather));
+        // Get current time in NYC (America/New_York)
+        const now = new Date();
+        const nycHour = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: true });
+        const nycSeconds = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', second: '2-digit' });
+        setNycTime(`${nycHour}`);
+        setNycSeconds(nycSeconds);
       } catch {
         setWeatherDesc(null);
+        setNycTime(null);
+        setNycSeconds(null);
       }
     }
-    fetchWeather();
+    fetchWeatherAndTime();
   }, []);
 
-  // On first mount, send the initial user message after weatherDesc is loaded
+  // On first mount, send the initial user message after weatherDesc and nycTime are loaded
   useEffect(() => {
-    if (!initialMessageSent && weatherDesc && messages.length === 0) {
+    if (!initialMessageSent && weatherDesc && nycTime && nycSeconds && messages.length === 0) {
       append({
         role: 'user',
-        content: `The current weather in NYC is: ${weatherDesc}. State the weather in the location, then add around six words of commentary on it. Then add a single related question that will be posed to the user. Do not ask about the weather itself or include a greeting.`,
+        content: `The current weather in NYC is: ${weatherDesc}. The current time in NYC is: ${nycTime}. The current time in seconds is: ${nycSeconds}. State the time only by the hour (e.g., '5PM'), not the full time. Use the seconds value internally to help you randomize or select a topic. State the weather and time in the location, then add around six words of commentary on them. Then ask the user if they will do a specific activity that is fitting for the provided weather and time, but do not choose activities that are too obvious. The question should be surprising, succinct (under ten words), and not about the weather or time itself, nor include a greeting.`,
       });
       setInitialMessageSent(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialMessageSent, weatherDesc, messages.length]);
+  }, [initialMessageSent, weatherDesc, nycTime, nycSeconds, messages.length]);
 
   const prevMessagesLength = useRef(messages.length);
 
