@@ -3,7 +3,46 @@ import { useChat } from '@ai-sdk/react';
 import { useRef, useEffect, useState } from 'react';
 import { TextAnimate } from "@/registry/magicui/TextAnimate";
 
-const INITIAL_PROMPT = "Start the conversation with a friendly, open-ended question for the user.";
+// Helper to generate a variable weather description for the LLM
+function makeWeatherDescription(weather: string) {
+  const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+  if (weather.includes('rain')) return pick([
+    "rainy",
+    "showery",
+    "wet and drizzly",
+    "a day of steady rain",
+    "NYC is getting a good soaking"
+  ]);
+  if (weather.includes('cloud')) return pick([
+    "cloudy",
+    "overcast",
+    "a sky full of clouds",
+    "gray and subdued",
+    "the sun is hiding behind clouds"
+  ]);
+  if (weather.includes('clear') || weather.includes('sun')) return pick([
+    "sunny",
+    "bright and clear",
+    "bathed in sunshine",
+    "a perfect blue sky",
+    "NYC is sparkling in the sun"
+  ]);
+  if (weather.includes('snow')) return pick([
+    "snowy",
+    "blanketed in snow",
+    "flurries are falling",
+    "a winter wonderland",
+    "NYC is shimmering with snow"
+  ]);
+  if (weather.includes('fog')) return pick([
+    "foggy",
+    "misty",
+    "shrouded in fog",
+    "the city is wrapped in mist",
+    "a mysterious, fog-laden day"
+  ]);
+  return weather;
+}
 
 export default function Page() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -12,6 +51,7 @@ export default function Page() {
   const latestPairRef = useRef<HTMLDivElement>(null);
   const [hasUserMessage, setHasUserMessage] = useState(false);
   const [initialMessageSent, setInitialMessageSent] = useState(false);
+  const [weatherDesc, setWeatherDesc] = useState<string | null>(null);
   const prevPairCount = useRef(0);
   const { messages, input, handleInputChange, handleSubmit, status, append } = useChat({
     onFinish: () => {
@@ -21,14 +61,41 @@ export default function Page() {
     },
   });
 
-  // On first mount, send the initial user message
+  // Fetch weather on mount and set weatherDesc
   useEffect(() => {
-    if (!initialMessageSent && messages.length === 0) {
-      append({ role: 'user', content: INITIAL_PROMPT });
+    async function fetchWeather() {
+      try {
+        // Open-Meteo API for NYC: latitude=40.7128, longitude=-74.0060
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current_weather=true');
+        const data = await res.json();
+        const code = data.current_weather.weathercode;
+        // Map Open-Meteo weather codes to text
+        let weather = '';
+        if (code === 0) weather = 'clear';
+        else if ([1,2,3].includes(code)) weather = 'cloudy';
+        else if ([45,48].includes(code)) weather = 'foggy';
+        else if ([51,53,55,56,57,61,63,65,66,67,80,81,82].includes(code)) weather = 'rainy';
+        else if ([71,73,75,77,85,86].includes(code)) weather = 'snowy';
+        else weather = 'unknown';
+        setWeatherDesc(makeWeatherDescription(weather));
+      } catch {
+        setWeatherDesc(null);
+      }
+    }
+    fetchWeather();
+  }, []);
+
+  // On first mount, send the initial user message after weatherDesc is loaded
+  useEffect(() => {
+    if (!initialMessageSent && weatherDesc && messages.length === 0) {
+      append({
+        role: 'user',
+        content: `The current weather in NYC is: ${weatherDesc}. Briefly explain the relevance of the weather (e.g., 'It's raining today in NYC, so...'), then, inspired by the weather, pick a random topic (food, art, memories, city life, etc.) and ask the user a single, succinct, engaging question. Do not ask about the weather itself or include a greeting.`,
+      });
       setInitialMessageSent(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialMessageSent, messages.length]);
+  }, [initialMessageSent, weatherDesc, messages.length]);
 
   const prevMessagesLength = useRef(messages.length);
 
@@ -80,7 +147,8 @@ export default function Page() {
   }, [messages]);
 
   // Helper: is this the initial user message?
-  const isInitialUserMessage = (msg: any) => msg.role === 'user' && msg.content === INITIAL_PROMPT;
+  const isInitialUserMessage = (msg: any) =>
+    msg.role === 'user' && msg.content && msg.content.startsWith('The current weather in NYC is:');
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
