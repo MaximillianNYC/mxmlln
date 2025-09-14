@@ -466,10 +466,12 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
         StackIsExpanded = true;
         
         const appStore = document.querySelector('.appStore');
+        if (appStore) {
             appStore.style.opacity = '0';
             appStore.style.height = '0px';
             appStore.style.width = '0px';
             appStore.style.overflow = 'hidden';
+        }
         
         const TitleBlock3 = document.querySelector('.TitleBlock3');
             TitleBlock3.style.opacity = '0';
