@@ -566,8 +566,10 @@ function expandCardStackLabelContainer(CardStackLabelContainer) {
         const sectionName = CardStackLabelContainer.querySelector('.CardStackLabelContainerValue').textContent.trim();
         document.getElementById('stackBarSectionName').textContent = sectionName;
         const StackBar = document.getElementById('StackBar');
-        StackBar.style.transition = 'top 0.5s';
+        StackBar.style.transition = 'top 0.5s, opacity 0.5s, visibility 0.5s';
         StackBar.style.top = '24px';
+        StackBar.style.opacity = '1';
+        StackBar.style.visibility = 'visible';
     } else {
         StackIsExpanded = false;
         const appStore = document.querySelector('.appStore');
