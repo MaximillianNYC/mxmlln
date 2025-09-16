@@ -1,0 +1,60 @@
+# LLMs.txt - Maximillian Piras Design Portfolio
+
+## Project Overview
+This is the personal portfolio of Maximillian Piras, a product designer specializing in AI-powered interfaces, user experience design, and creative technology implementations.
+
+## Main Application (mxmlln/)
+**Primary Site**: Design portfolio showcasing work for tech startups
+- **URL**: https://www.maximin.design
+- **Tech Stack**: HTML/CSS/JavaScript, Node.js/Express backend, OpenAI API integration
+- **Key Features**: Interactive portfolio cards, AI chat integration, animated UI components
+
+### Core Architecture
+- **Frontend**: Vanilla JavaScript with custom components (CardStack, NavBar, FolioEngine)
+- **Backend**: Express.js server with OpenAI API proxy
+- **Database**: Vercel Postgres for data storage
+- **Deployment**: Vercel hosting
+
+### Key Files & Components
+- `public/index.html` - Main portfolio page with animated card stacks
+- `controllers/openaiController.js` - AI chat functionality and API handling
+- `public/components/` - Modular UI components (CardStack, ChatIntelligence, etc.)
+
+## Design Philosophy
+- **Focus**: Amplifying human capabilities with delightful & instinctual technology
+- **Specialties**: AI interface design, animation, branding, illustration
+- **Approach**: Modern, clean aesthetics with subtle interactions and micro-animations
+
+## Technical Preferences
+- **Styling**: Custom CSS with focus on glassmorphism, gradients, and smooth animations
+- **JavaScript**: Vanilla JS preferred for performance and control
+- **AI Integration**: OpenAI GPT models for conversational interfaces
+- **Animation**: CSS transforms, transitions, and keyframe animations
+
+## Professional Experience
+
+### Yutori - AI UX Designer
+Specializing in user experience design for web agents that perform autonomous computer and browser interactions:
+- **Focus Area**: Designing interfaces for AI agents that can navigate, interact with, and control web browsers autonomously
+- **Core Challenge**: Creating intuitive UX patterns for human-AI collaboration in browser automation
+- **Expertise**: Web agent behavior design, autonomous interaction flows, and human oversight interfaces
+- **Innovation**: Pioneering UX methodologies for agents that can understand and manipulate web interfaces independently
+
+## Project Context
+- **Portfolio Work**: Showcases design work for various tech startups and AI companies
+- **AI Focus**: Strong emphasis on human-AI interaction design, conversational interfaces, and autonomous agent UX
+
+## File Structure Notes
+- `/assets/` contains extensive media library (images, GIFs, videos)
+- `/components/` houses reusable JavaScript modules
+- `/css/` contains styling frameworks and theme files
+- Root level contains documentation and configuration files
+
+## Current Development Focus
+- Advanced text effects and animations
+- AI-powered interface design
+- Modern glassmorphism UI components
+- Conversational AI experiences
+- Web agent UX patterns and autonomous browser interaction design
+
+This portfolio represents professional design work with a particular emphasis on AI-human interaction patterns, autonomous agent interfaces, and delightful micro-interactions. Special focus on designing for AI systems that can independently navigate and interact with web interfaces while maintaining human oversight and control.
