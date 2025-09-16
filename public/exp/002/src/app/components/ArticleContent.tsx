@@ -2,7 +2,6 @@
 
 import { useCallback, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useCompletion } from 'ai/react'
 import { ContextMenu } from './ContextMenu'
 
 interface ArticleContentProps {
@@ -20,33 +19,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   const [error, setError] = useState<string | null>(null)
   const [expansions, setExpansions] = useState<Expansion[]>([])
 
-  const {
-    complete,
-    isLoading,
-  } = useCompletion({
-    api: '/api/expand',
-    onResponse: () => {
-      // Reset any errors when starting a new completion
-      setError(null)
-    },
-    onFinish: (completion) => {
-      if (!selection) return
-      
-      // Add new expansion at the current selection point
-      const newExpansion: Expansion = {
-        selectedText: selection.text,
-        expandedContent: completion,
-        position: selection.range.startOffset,
-      }
-      setExpansions(prev => [...prev, newExpansion].sort((a, b) => a.position - b.position))
-      setSelection(null)
-    },
-    onError: (err) => {
-      console.error('Error expanding text:', err)
-      setError('Failed to expand text. Please try again.')
-      setTimeout(() => setError(null), 3000)
-    }
-  })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleTextSelection = useCallback(() => {
     const selection = window.getSelection()
@@ -64,13 +37,52 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   }, [])
 
   const handleZoomIn = async () => {
-    if (!selection) return
+    if (!selection) {
+      console.warn('No selection available for zoom operation')
+      return
+    }
+    
+    if (!selection.text || selection.text.trim() === '') {
+      console.warn('Selection text is empty')
+      setError('Please select some text to expand.')
+      setTimeout(() => setError(null), 3000)
+      return
+    }
+    
+    console.log('Expanding text:', selection.text)
+    setIsLoading(true)
+    setError(null)
+    
     try {
-      await complete(selection.text)
+      const response = await fetch('/api/expand', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: selection.text }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const expandedContent = await response.text()
+      
+      // Add new expansion at the current selection point
+      const newExpansion: Expansion = {
+        selectedText: selection.text,
+        expandedContent: expandedContent,
+        position: selection.range.startOffset,
+      }
+      setExpansions(prev => [...prev, newExpansion].sort((a, b) => a.position - b.position))
+      setSelection(null)
+      
     } catch (error) {
       console.error('Error in zoom operation:', error)
       setError('Failed to zoom in. Please try again.')
       setTimeout(() => setError(null), 3000)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -87,7 +99,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       // Add text before this expansion
       if (expansion.position > lastIndex) {
         result.push(
-          <p key={`text-${index}`} className="text-lg leading-relaxed">
+          <p key={`text-${index}`} className="text-lg leading-relaxed text-slate-900">
             {initialContent.slice(lastIndex, expansion.position)}
           </p>
         )
@@ -123,7 +135,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
     // Add remaining text
     if (lastIndex < initialContent.length) {
       result.push(
-        <p key="text-final" className="text-lg leading-relaxed">
+        <p key="text-final" className="text-lg leading-relaxed text-slate-900">
           {initialContent.slice(lastIndex)}
         </p>
       )
@@ -133,7 +145,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   }
 
   return (
-    <div className="relative max-w-2xl mx-auto px-4 py-8">
+    <div className="relative">
       <div 
         className="prose prose-slate max-w-none"
         onMouseUp={handleTextSelection}
