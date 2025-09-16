@@ -1,1 +1,1 @@
-Semantic Zoom — Prototype 001
+Semantic Zoom — Prototype 1

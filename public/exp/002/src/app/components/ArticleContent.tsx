@@ -1,55 +1,33 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ContextMenu } from './ContextMenu'
+import { useState, useRef } from 'react'
+import { motion } from 'framer-motion'
 
 interface ArticleContentProps {
   initialContent: string
 }
 
-interface Expansion {
-  selectedText: string
-  expandedContent: string
-  position: number // Position in the original text where to insert
-}
-
 export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
-  const [selection, setSelection] = useState<{ text: string; range: Range } | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [expansions, setExpansions] = useState<Expansion[]>([])
-
+  const [content, setContent] = useState(initialContent)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const handleTextSelection = useCallback(() => {
-    const selection = window.getSelection()
-    if (!selection || selection.isCollapsed) {
-      setSelection(null)
-      return
-    }
+  const handleExpand = async () => {
+    const textarea = textareaRef.current
+    if (!textarea) return
 
-    const range = selection.getRangeAt(0)
-    const text = range.toString().trim()
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
     
-    if (text) {
-      setSelection({ text, range })
-    }
-  }, [])
-
-  const handleZoomIn = async () => {
-    if (!selection) {
-      console.warn('No selection available for zoom operation')
-      return
-    }
-    
-    if (!selection.text || selection.text.trim() === '') {
-      console.warn('Selection text is empty')
+    if (start === end) {
       setError('Please select some text to expand.')
       setTimeout(() => setError(null), 3000)
       return
     }
+
+    const selectedText = content.slice(start, end)
     
-    console.log('Expanding text:', selection.text)
     setIsLoading(true)
     setError(null)
     
@@ -59,102 +37,46 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: selection.text }),
+        body: JSON.stringify({ 
+          prompt: `Rewrite this text, but add only 5-10 additional words to expand on the selected part: "${selectedText}". Keep the expansion minimal and subtle - just enough to add clarity or detail. Maintain the exact same structure and flow. Return ONLY the rewritten text with no introduction, explanation, or quotes. Here's the full text: "${content}"` 
+        }),
       })
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      const expandedContent = await response.text()
-      
-      // Add new expansion at the current selection point
-      const newExpansion: Expansion = {
-        selectedText: selection.text,
-        expandedContent: expandedContent,
-        position: selection.range.startOffset,
-      }
-      setExpansions(prev => [...prev, newExpansion].sort((a, b) => a.position - b.position))
-      setSelection(null)
+      const newContent = await response.text()
+      setContent(newContent)
       
     } catch (error) {
-      console.error('Error in zoom operation:', error)
-      setError('Failed to zoom in. Please try again.')
+      console.error('Error expanding text:', error)
+      setError('Failed to expand text. Please try again.')
       setTimeout(() => setError(null), 3000)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleCloseExpansion = (position: number) => {
-    setExpansions(prev => prev.filter(exp => exp.position !== position))
-  }
-
-  // Split content and insert expansions
-  const renderContent = () => {
-    let lastIndex = 0
-    const result = []
-
-    expansions.forEach((expansion, index) => {
-      // Add text before this expansion
-      if (expansion.position > lastIndex) {
-        result.push(
-          <p key={`text-${index}`} className="text-lg leading-relaxed text-slate-900">
-            {initialContent.slice(lastIndex, expansion.position)}
-          </p>
-        )
-      }
-
-      // Add the expansion
-      result.push(
-        <motion.div
-          key={`expansion-${index}`}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="my-4 p-4 border border-slate-200 rounded-lg bg-slate-50 relative"
-        >
-          <button
-            onClick={() => handleCloseExpansion(expansion.position)}
-            className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full hover:bg-slate-200 transition-colors"
-          >
-            <span className="text-slate-500">×</span>
-          </button>
-          <div className="font-medium text-slate-900 mb-2 pb-2 border-b border-slate-200">
-            {expansion.selectedText}
-          </div>
-          <div className="text-slate-700">
-            {expansion.expandedContent}
-          </div>
-        </motion.div>
-      )
-
-      lastIndex = expansion.position + expansion.selectedText.length
-    })
-
-    // Add remaining text
-    if (lastIndex < initialContent.length) {
-      result.push(
-        <p key="text-final" className="text-lg leading-relaxed text-slate-900">
-          {initialContent.slice(lastIndex)}
-        </p>
-      )
-    }
-
-    return result
-  }
-
   return (
     <div className="relative">
-      <div 
-        className="prose prose-slate max-w-none"
-        onMouseUp={handleTextSelection}
-        onTouchEnd={handleTextSelection}
-      >
-        <AnimatePresence>
-          {renderContent()}
-        </AnimatePresence>
+      <div className="mb-4">
+        <button
+          onClick={handleExpand}
+          disabled={isLoading}
+          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-lg transition-colors text-sm font-medium"
+        >
+          {isLoading ? 'Expanding...' : 'Expand Selected Text'}
+        </button>
       </div>
+
+      <textarea
+        ref={textareaRef}
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        className="w-full h-screen resize-none text-lg leading-relaxed text-slate-900 bg-transparent border-none outline-none"
+        placeholder="Type or paste your content here, then select text and click 'Expand Selected Text'..."
+      />
 
       {error && (
         <motion.div
@@ -167,18 +89,10 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         </motion.div>
       )}
 
-      {selection && (
-        <ContextMenu 
-          onZoomIn={handleZoomIn}
-          selection={selection}
-          onClose={() => setSelection(null)}
-        />
-      )}
-
       {isLoading && (
         <div className="fixed bottom-4 right-4 bg-white shadow-lg rounded-full px-4 py-2 flex items-center gap-2">
           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-slate-800" />
-          <span className="text-sm text-slate-600">Expanding text...</span>
+          <span className="text-sm text-slate-600">Rewriting with expansion...</span>
         </div>
       )}
     </div>
