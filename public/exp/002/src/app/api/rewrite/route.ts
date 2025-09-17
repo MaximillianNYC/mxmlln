@@ -8,16 +8,21 @@ export const runtime = 'edge'
 
 export async function POST(req: Request) {
   try {
-    console.log('API Route called')
+    console.log('Rewrite API Route called')
     
     const body = await req.json()
     console.log('Request body:', body)
     
-    const { prompt } = body
+    const { prompt, operation } = body
     
     if (!prompt) {
       console.log('No prompt provided')
       return new Response('Missing prompt', { status: 400 })
+    }
+
+    if (!operation || !['expand', 'contract'].includes(operation)) {
+      console.log('Invalid or missing operation')
+      return new Response('Missing or invalid operation. Must be "expand" or "contract"', { status: 400 })
     }
 
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -26,25 +31,19 @@ export async function POST(req: Request) {
     }
 
     console.log('Using prompt:', prompt.substring(0, 100) + '...')
+    console.log('Operation:', operation)
 
-    const expandPrompt = `You are an expert at expanding and elaborating on text while maintaining context and flow. Your task is to take the given text and provide a detailed, insightful expansion that:
-1. Explains the concepts in more depth
-2. Provides relevant examples or analogies
-3. Adds historical or theoretical context where appropriate
-4. Maintains academic rigor while being accessible
-
-Here is the text to expand:
-"${prompt}"
-
-Provide a thorough, multi-paragraph expansion that builds upon the original text. Focus on adding value through explanation and elaboration, not just rephrasing.`
+    const systemPrompt = operation === 'expand'
+      ? `The user has provided you with text to be expanded on, meaning they'd like a version of the same text with more detail and clarity. Please rewrite their text in a form that is around 33% longer, it must be longer than the original text at all costs. Reply with only the expanded text, no introduction, explanation, or quotes. Text: ${prompt}`
+      : `The user has provided you with text to be contracted, meaning they'd like a more concise version of the same text with less detail. Please rewrite their text in a form that is around 33% shorter while maintaining the core meaning, it must be shorter than the original text at all costs. Reply with only the contracted text, no introduction, explanation, or quotes. Text: ${prompt}`
 
     console.log('Calling Anthropic API...')
 
     const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-opus-4-1-20250805',
       max_tokens: 1024,
       temperature: 0.7,
-      messages: [{ role: 'user', content: expandPrompt }],
+      messages: [{ role: 'user', content: systemPrompt }],
     })
 
     console.log('API call successful')
@@ -63,4 +62,4 @@ Provide a thorough, multi-paragraph expansion that builds upon the original text
     console.error('API Error:', error)
     return new Response(`Internal Server Error: ${error.message}`, { status: 500 })
   }
-} 
+}
