@@ -13,9 +13,9 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   const [error, setError] = useState<string | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const handleExpand = async () => {
+  const handleRewrite = async (operation: 'expand' | 'contract') => {
     if (!content.trim()) {
-      setError('Please enter some text to expand.')
+      setError(`Please enter some text to ${operation}.`)
       setTimeout(() => setError(null), 3000)
       return
     }
@@ -24,13 +24,14 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
     setError(null)
     
     try {
-      const response = await fetch('/api/expand', {
+      const response = await fetch('/api/rewrite', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          prompt: `Rewrite this text, but add only 5-10 additional words throughout to expand and add clarity or detail. Keep the expansion minimal and subtle - just enough to enhance the content. Maintain the exact same structure and flow. Return ONLY the rewritten text with no introduction, explanation, or quotes. Text: "${content}"` 
+          prompt: `"${content}"`,
+          operation
         }),
       })
 
@@ -42,13 +43,16 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       setContent(newContent)
       
     } catch (error) {
-      console.error('Error expanding text:', error)
-      setError('Failed to expand text. Please try again.')
+      console.error(`Error ${operation}ing text:`, error)
+      setError(`Failed to ${operation} text. Please try again.`)
       setTimeout(() => setError(null), 3000)
     } finally {
       setIsLoading(false)
     }
   }
+
+  const handleExpand = () => handleRewrite('expand')
+  const handleContract = () => handleRewrite('contract')
 
   return (
     <div className="relative">
@@ -58,17 +62,26 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         onChange={(e) => setContent(e.target.value)}
         className="w-full h-screen resize-none text-lg leading-relaxed text-slate-900 bg-transparent border-none outline-none pb-20"
         placeholder="Type or paste your content here..."
+        autoFocus
       />
 
-      {/* Fixed expand button at bottom */}
-      <button
-        onClick={handleExpand}
-        disabled={isLoading}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-lg transition-colors text-sm font-medium shadow-lg z-50"
-        style={{ zIndex: 9999 }}
-      >
-        {isLoading ? 'Expanding...' : 'Expand Text'}
-      </button>
+      {/* Fixed buttons at bottom */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-4 z-50" style={{ zIndex: 9999 }}>
+        <button
+          onClick={handleExpand}
+          disabled={isLoading}
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-lg transition-colors text-sm font-medium shadow-lg"
+        >
+          {isLoading ? 'Expanding...' : 'Expand Text'}
+        </button>
+        <button
+          onClick={handleContract}
+          disabled={isLoading}
+          className="px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white rounded-lg transition-colors text-sm font-medium shadow-lg"
+        >
+          {isLoading ? 'Contracting...' : 'Contract Text'}
+        </button>
+      </div>
 
       {error && (
         <motion.div
@@ -84,7 +97,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       {isLoading && (
         <div className="fixed bottom-20 right-4 bg-white shadow-lg rounded-full px-4 py-2 flex items-center gap-2 z-40">
           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-slate-800" />
-          <span className="text-sm text-slate-600">Rewriting with expansion...</span>
+          <span className="text-sm text-slate-600">Rewriting...</span>
         </div>
       )}
     </div>
