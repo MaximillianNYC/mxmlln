@@ -129,7 +129,13 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       />
 
       {/* Fixed slider control at bottom */}
-      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50" style={{ zIndex: 9999 }}>
+      <div 
+        className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out" 
+        style={{ 
+          zIndex: 9999,
+          bottom: content.trim() ? '40px' : '-100px'
+        }}
+      >
         <div className="bg-white rounded-full shadow-lg border border-slate-200 p-2">
           <div 
             ref={sliderRef}
