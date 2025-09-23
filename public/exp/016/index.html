@@ -16,6 +16,46 @@
             font-family: Arial, sans-serif;
         }
 
+        .timeline-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-time {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .morphing-time {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .time-char {
+            display: inline-block;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                       filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .time-char.morphing-out {
+            opacity: 0;
+            filter: blur(10px);
+        }
+
+        .time-char.morphing-in {
+            opacity: 0;
+            filter: blur(10px);
+        }
+
+        .time-char.morphing-in.active {
+            opacity: 1;
+            filter: blur(0px);
+        }
+
         .lines-container {
             display: flex;
             width: 600px;
@@ -81,32 +121,141 @@
     </style>
 </head>
 <body>
-    <div class="lines-container">
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
+    <div class="timeline-container">
+        <div class="date-time" id="current-date"></div>
+        <div class="lines-container">
+        <div class="line-wrapper" data-hour="0"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="1"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="2"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="3"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="4"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="5"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="6"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="7"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="8"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="9"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="10"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="11"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="12"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="13"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="14"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="15"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="16"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="17"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="18"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="19"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="20"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="21"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="22"><div class="line"></div></div>
+        <div class="line-wrapper" data-hour="23"><div class="line"></div></div>
+        </div>
+        <div class="date-time">
+            <span class="morphing-time" id="current-time"></span>
+        </div>
     </div>
+
+    <script>
+        let originalTimeString = '';
+        let isHovering = false;
+        let currentDisplayedTime = '';
+        
+        function morphText(element, newText) {
+            if (currentDisplayedTime === newText) return;
+            
+            const oldChars = element.querySelectorAll('.time-char');
+            
+            // Start morphing out old characters with staggered timing (with initial delay)
+            oldChars.forEach((char, index) => {
+                setTimeout(() => {
+                    char.classList.add('morphing-out');
+                }, 100 + (index * 20)); // 100ms initial delay + staggered timing
+            });
+            
+            // Start new characters while old ones are still morphing out
+            setTimeout(() => {
+                element.innerHTML = '';
+                
+                newText.split('').forEach((char, index) => {
+                    const charSpan = document.createElement('span');
+                    charSpan.className = 'time-char morphing-in';
+                    charSpan.textContent = char === ' ' ? '\u00A0' : char;
+                    element.appendChild(charSpan);
+                    
+                    // Trigger morph in animation with stagger
+                    setTimeout(() => {
+                        charSpan.classList.add('active');
+                    }, index * 20); // Match the stagger timing
+                });
+                
+                currentDisplayedTime = newText;
+            }, 220); // Adjusted for the 100ms initial delay + 120ms original delay
+        }
+        
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Format date as MMM DD
+            const dateOptions = { month: 'short', day: '2-digit' };
+            const dateString = now.toLocaleDateString('en-US', dateOptions);
+            
+            // Format time as HH:MMAM/PM
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+            const timeString = now.toLocaleTimeString('en-US', timeOptions);
+            
+            document.getElementById('current-date').textContent = dateString;
+            
+            // Only update time display if not hovering over a line
+            if (!isHovering) {
+                const timeElement = document.getElementById('current-time');
+                if (currentDisplayedTime === '') {
+                    // Initial load - no morphing
+                    timeElement.innerHTML = '';
+                    timeString.split('').forEach(char => {
+                        const charSpan = document.createElement('span');
+                        charSpan.className = 'time-char';
+                        charSpan.textContent = char === ' ' ? '\u00A0' : char;
+                        timeElement.appendChild(charSpan);
+                    });
+                    currentDisplayedTime = timeString;
+                } else {
+                    morphText(timeElement, timeString);
+                }
+                originalTimeString = timeString;
+            }
+        }
+        
+        function formatHourTime(hour) {
+            const date = new Date();
+            date.setHours(hour, 0, 0, 0);
+            
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+            return date.toLocaleTimeString('en-US', timeOptions);
+        }
+        
+        // Add hover event listeners to all line wrappers
+        document.addEventListener('DOMContentLoaded', function() {
+            const lineWrappers = document.querySelectorAll('.line-wrapper');
+            
+            lineWrappers.forEach(wrapper => {
+                wrapper.addEventListener('mouseenter', function() {
+                    const hour = parseInt(this.dataset.hour);
+                    const hourTime = formatHourTime(hour);
+                    const timeElement = document.getElementById('current-time');
+                    morphText(timeElement, hourTime);
+                    isHovering = true;
+                });
+                
+                wrapper.addEventListener('mouseleave', function() {
+                    isHovering = false;
+                    const timeElement = document.getElementById('current-time');
+                    morphText(timeElement, originalTimeString);
+                });
+            });
+        });
+        
+        // Update immediately and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
 </body>
 </html>
