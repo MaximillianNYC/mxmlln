@@ -23,6 +23,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            position: relative;
         }
 
         .date-time {
@@ -32,6 +33,15 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             font-family: 'IBM Plex Mono', monospace;
+            width: 80px;
+        }
+
+        #current-date {
+            text-align: right;
+        }
+
+        #current-time {
+            text-align: left;
         }
 
 
@@ -42,9 +52,56 @@
             position: relative;
         }
 
+        .blocks-container {
+            display: none;
+            width: 600px;
+            height: 48px;
+            position: relative;
+        }
+
+        .blocks-container.active {
+            display: flex;
+        }
+
+
+        .block-wrapper {
+            flex: 1;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 0 6px;
+        }
+
+        .block {
+            width: 100%;
+            height: 48px;
+            background-color: #333;
+            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .block-wrapper:hover .block {
+            width: 120%;
+        }
+
+        .back-arrow {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            justify-content: flex-end;
+        }
+
+        .back-arrow:hover {
+            opacity: 0.7;
+        }
+
         .time-indicator {
             position: absolute;
-            top: -15px;
+            top: -15px; /* Position above the lines/blocks */
             left: 0;
             width: 0;
             height: 0;
@@ -66,7 +123,7 @@
         }
 
         .line {
-            width: 1px;
+            width: 2px;
             height: 48px;
             background-color: #333;
             transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
@@ -79,7 +136,7 @@
 
         .line-wrapper:hover + .line-wrapper .line,
         .line-wrapper:has(+ .line-wrapper:hover) .line {
-            width: 20px; 
+            width: 18px; 
             transition-delay: 0.03s;
         }
 
@@ -117,8 +174,8 @@
 <body>
     <div class="timeline-container">
         <div class="date-time" id="current-date"></div>
-        <div class="lines-container">
         <div class="time-indicator" id="time-indicator"></div>
+        <div class="lines-container" id="lines-view">
         <div class="line-wrapper" data-hour="0"><div class="line"></div></div>
         <div class="line-wrapper" data-hour="1"><div class="line"></div></div>
         <div class="line-wrapper" data-hour="2"><div class="line"></div></div>
@@ -144,6 +201,12 @@
         <div class="line-wrapper" data-hour="22"><div class="line"></div></div>
         <div class="line-wrapper" data-hour="23"><div class="line"></div></div>
         </div>
+        <div class="blocks-container" id="blocks-view">
+            <div class="block-wrapper" data-quarter="0"><div class="block"></div></div>
+            <div class="block-wrapper" data-quarter="1"><div class="block"></div></div>
+            <div class="block-wrapper" data-quarter="2"><div class="block"></div></div>
+            <div class="block-wrapper" data-quarter="3"><div class="block"></div></div>
+        </div>
         <div class="date-time" id="current-time"></div>
     </div>
 
@@ -151,6 +214,8 @@
         let originalTimeString = '';
         let isHovering = false;
         let selectedHour = null; // Track manually selected hour
+        let isInSubview = false; // Track if we're in the blocks view
+        let subviewHour = null; // Track which hour's subview we're in
         
         function updateDateTime() {
             const now = new Date();
@@ -163,7 +228,10 @@
             const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
             const timeString = now.toLocaleTimeString('en-US', timeOptions);
             
-            document.getElementById('current-date').textContent = dateString;
+            // Only update date if not in subview (to preserve back arrow)
+            if (!isInSubview) {
+                document.getElementById('current-date').textContent = dateString;
+            }
             
             // Only update time display if not hovering over a line and no specific hour is selected
             if (!isHovering) {
@@ -178,10 +246,19 @@
                 originalTimeString = timeString;
             }
             
-            // Update indicator position if no manual selection
-            if (selectedHour === null) {
-                const currentHour = now.getHours();
-                updateIndicatorPosition(currentHour);
+            // Update indicator position
+            if (!isInSubview) {
+                // Update main timeline indicator if no manual selection
+                if (selectedHour === null) {
+                    const currentHour = now.getHours();
+                    updateIndicatorPosition(currentHour);
+                }
+            } else {
+                // Update quarter indicator if we're in the current hour's subview
+                if (subviewHour === now.getHours()) {
+                    const currentQuarter = Math.floor(now.getMinutes() / 15);
+                    updateIndicatorPosition(currentQuarter);
+                }
             }
         }
         
@@ -193,15 +270,78 @@
             return date.toLocaleTimeString('en-US', timeOptions);
         }
         
-        function updateIndicatorPosition(hour) {
+        function updateIndicatorPosition(value) {
             const indicator = document.getElementById('time-indicator');
-            const lineWrappers = document.querySelectorAll('.line-wrapper');
-            const containerWidth = 600; // Width of lines container
-            const lineWidth = containerWidth / 24; // Width per line
+            const containerWidth = 600; // Width of both containers
+            const dateWidth = 88; // Fixed width: 80px + 8px gap
             
-            // Calculate position: center of the target line minus half indicator width
-            const targetPosition = (hour * lineWidth) + (lineWidth / 2) - 6; // 6px is half indicator width
+            let targetPosition;
+            
+            if (isInSubview) {
+                // Subview: 4 blocks, value is quarter (0-3)
+                const blockWidth = containerWidth / 4;
+                targetPosition = dateWidth + (value * blockWidth) + (blockWidth / 2) - 6;
+            } else {
+                // Main view: 24 lines, value is hour (0-23)  
+                const lineWidth = containerWidth / 24;
+                targetPosition = dateWidth + (value * lineWidth) + (lineWidth / 2) - 6;
+            }
+            
             indicator.style.left = `${targetPosition}px`;
+        }
+        
+        function switchToSubview(hour) {
+            isInSubview = true;
+            subviewHour = hour;
+            
+            // Hide lines view, show blocks view
+            document.getElementById('lines-view').style.display = 'none';
+            document.getElementById('blocks-view').classList.add('active');
+            
+            // Replace date with back arrow
+            const dateElement = document.getElementById('current-date');
+            dateElement.innerHTML = '<span class="back-arrow" onclick="switchToMainview()">← BACK</span>';
+            
+            // Update time to show the selected hour
+            const selectedTime = formatHourTime(hour);
+            document.getElementById('current-time').textContent = selectedTime;
+            
+            // Initialize indicator position based on current time
+            const now = new Date();
+            if (now.getHours() === hour) {
+                const currentQuarter = Math.floor(now.getMinutes() / 15);
+                updateIndicatorPosition(currentQuarter);
+            } else {
+                // Default to first quarter if not current hour
+                updateIndicatorPosition(0);
+            }
+        }
+        
+        function switchToMainview() {
+            isInSubview = false;
+            subviewHour = null;
+            
+            // Show lines view, hide blocks view
+            document.getElementById('lines-view').style.display = 'flex';
+            document.getElementById('blocks-view').classList.remove('active');
+            
+            // Restore date display
+            const now = new Date();
+            const dateOptions = { month: 'short', day: '2-digit' };
+            const dateString = now.toLocaleDateString('en-US', dateOptions);
+            document.getElementById('current-date').textContent = dateString;
+            
+            // Reset selected hour
+            selectedHour = null;
+        }
+        
+        function formatQuarterTime(hour, quarter) {
+            const minutes = quarter * 15; // 0, 15, 30, 45
+            const date = new Date();
+            date.setHours(hour, minutes, 0, 0);
+            
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+            return date.toLocaleTimeString('en-US', timeOptions);
         }
         
         // Add hover and click event listeners to all line wrappers
@@ -229,12 +369,39 @@
                 
                 wrapper.addEventListener('click', function() {
                     const hour = parseInt(this.dataset.hour);
-                    selectedHour = hour;
-                    updateIndicatorPosition(hour);
-                    
-                    // Update the time display to show the selected hour
-                    const selectedTime = formatHourTime(hour);
-                    document.getElementById('current-time').textContent = selectedTime;
+                    switchToSubview(hour);
+                });
+            });
+            
+            // Add event listeners for block elements
+            const blockWrappers = document.querySelectorAll('.block-wrapper');
+            blockWrappers.forEach(wrapper => {
+                wrapper.addEventListener('mouseenter', function() {
+                    if (isInSubview && subviewHour !== null) {
+                        const quarter = parseInt(this.dataset.quarter);
+                        const quarterTime = formatQuarterTime(subviewHour, quarter);
+                        document.getElementById('current-time').textContent = quarterTime;
+                        isHovering = true;
+                    }
+                });
+                
+                wrapper.addEventListener('mouseleave', function() {
+                    if (isInSubview && subviewHour !== null) {
+                        isHovering = false;
+                        const hourTime = formatHourTime(subviewHour);
+                        document.getElementById('current-time').textContent = hourTime;
+                    }
+                });
+                
+                wrapper.addEventListener('click', function() {
+                    if (isInSubview && subviewHour !== null) {
+                        const quarter = parseInt(this.dataset.quarter);
+                        updateIndicatorPosition(quarter);
+                        
+                        // Update time display to show the selected quarter
+                        const quarterTime = formatQuarterTime(subviewHour, quarter);
+                        document.getElementById('current-time').textContent = quarterTime;
+                    }
                 });
             });
             
@@ -242,6 +409,9 @@
             const now = new Date();
             updateIndicatorPosition(now.getHours());
         });
+        
+        // Make switchToMainview globally accessible
+        window.switchToMainview = switchToMainview;
         
         // Update immediately and then every second
         updateDateTime();
