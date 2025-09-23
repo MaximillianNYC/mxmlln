@@ -39,98 +39,65 @@
                         height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Every other line is 50% shorter */
-        .line-wrapper:nth-child(even) .line {
-            height: 24px; /* 48px * 0.5 */
-        }
 
         /* Hover effects with ripple - 10% decrease per ring */
         .line-wrapper:hover .line {
-            width: 12px; /* Hovered line - 100% */
-            height: 60px; /* 48px * 1.25 */
+            width: 24px; /* Hovered line - 100% */
+            height: 48px; /* 48px * 1.25 */
         }
 
-        /* Even lines (shorter) have proportional hover effect */
-        .line-wrapper:nth-child(even):hover .line {
-            height: 36px; /* 24px base * 1.5 expansion */
-        }
 
         /* First neighbors - 90% of hover effect */
         .line-wrapper:hover + .line-wrapper .line,
         .line-wrapper:has(+ .line-wrapper:hover) .line {
-            width: 10px; /* 90% of max width */
-            height: 58px; /* 90% of max height: 60px * 0.9 + 48px base */
+            width: 20px; /* 90% of max width */
+            height: 48px; /* 90% of max height: 60px * 0.9 + 48px base */
             transition-delay: 0.03s;
         }
 
         /* Second neighbors - 80% of hover effect */
         .line-wrapper:hover + .line-wrapper + .line-wrapper .line,
         .line-wrapper:has(+ .line-wrapper + .line-wrapper:hover) .line {
-            width: 8px; /* 80% of max width */
-            height: 57px; /* 80% of height effect */
+            width: 16px; /* 80% of max width */
+            height: 48px; /* 80% of height effect */
             transition-delay: 0.06s;
         }
 
         /* Third neighbors - 70% of hover effect */
         .line-wrapper:hover + .line-wrapper + .line-wrapper + .line-wrapper .line,
         .line-wrapper:has(+ .line-wrapper + .line-wrapper + .line-wrapper:hover) .line {
-            width: 4px; /* 70% of max width */
-            height: 56px; /* 70% of height effect */
+            width: 12px; /* 70% of max width */
+            height: 48px; /* 70% of height effect */
             transition-delay: 0.09s;
         }
 
         /* Fourth neighbors - 60% of hover effect */
         .line-wrapper:hover + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper .line,
         .line-wrapper:has(+ .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper:hover) .line {
-            width: 3px; /* 60% of max width */
-            height: 55px; /* 60% of height effect */
+            width: 8px; /* 60% of max width */
+            height: 48px; /* 60% of height effect */
             transition-delay: 0.12s;
         }
 
         /* Fifth neighbors - 50% of hover effect */
         .line-wrapper:hover + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper .line,
         .line-wrapper:has(+ .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper:hover) .line {
-            width: 2px; /* 50% of max width */
-            height: 54px; /* 50% of height effect */
+            width: 6px; /* 50% of max width */
+            height: 48px; /* 50% of height effect */
             transition-delay: 0.15s;
         }
 
         /* Sixth neighbors - 40% of hover effect */
         .line-wrapper:hover + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper .line,
         .line-wrapper:has(+ .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper + .line-wrapper:hover) .line {
-            width: 1px; /* 40% of max width */
-            height: 53px; /* 40% of height effect */
+            width: 4px; /* 40% of max width */
+            height: 48px; /* 40% of height effect */
             transition-delay: 0.18s;
         }
     </style>
 </head>
 <body>
     <div class="lines-container">
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
-        <div class="line-wrapper"><div class="line"></div></div>
         <div class="line-wrapper"><div class="line"></div></div>
         <div class="line-wrapper"><div class="line"></div></div>
         <div class="line-wrapper"><div class="line"></div></div>
