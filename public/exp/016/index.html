@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline</title>
+    <title>Linetime</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
         
@@ -34,6 +34,7 @@
             text-transform: uppercase;
             font-family: 'IBM Plex Mono', monospace;
             width: 80px;
+            transition: opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         #current-date {
@@ -96,10 +97,11 @@
         /* Transition overlay element */
         .transition-overlay {
             position: absolute;
-            top: 0;
-            left: 88px; /* Position after date element */
-            width: 600px;
+            top: 0px;
+            left: 93px; /* Position after date element */
+            width: 590px;
             height: 48px;
+            overflow: hidden;
             background-color: #333;
             opacity: 0;
             pointer-events: none;
@@ -108,11 +110,11 @@
         }
 
         .timeline-container.expanding .transition-overlay {
-            animation: expandOverlay 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: expandOverlay 0.53s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         .timeline-container.collapsing .transition-overlay {
-            animation: collapseOverlay 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: collapseOverlay 0.53s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         @keyframes expandOverlay {
@@ -122,12 +124,12 @@
                 transform: translateX(var(--selected-position));
             }
             50% {
-                width: 600px;
+                width: 590px;
                 opacity: 1;
                 transform: translateX(0);
             }
             100% {
-                width: 600px;
+                width: 590px;
                 opacity: 0;
                 transform: translateX(0);
             }
@@ -135,12 +137,12 @@
 
         @keyframes collapseOverlay {
             0% {
-                width: 600px;
+                width: 590px;
                 opacity: 0;
                 transform: translateX(0);
             }
             50% {
-                width: 600px;
+                width: 590px;
                 opacity: 1;
                 transform: translateX(0);
             }
@@ -168,21 +170,21 @@
             width: 100%;
             height: 48px;
             background-color: #333;
-            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: width 0.27s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.27s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             transform-origin: center;
         }
 
         /* Blocks fade in after overlay expansion */
         .timeline-container.expanding .block {
-            animation: blocksAppear 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+            animation: blocksAppear 0.27s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.27s forwards;
             opacity: 0;
         }
 
         .timeline-container.collapsing .block {
-            animation: blocksDisappear 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: blocksDisappear 0.27s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         @keyframes blocksAppear {
@@ -233,21 +235,21 @@
             border-left: 6px solid transparent;
             border-right: 6px solid transparent;
             border-top: 8px solid #333;
-            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                        opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             pointer-events: none;
             z-index: 10;
         }
 
         /* Indicator transitions during view changes */
         .timeline-container.expanding .time-indicator {
-            transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
         }
 
         .timeline-container.collapsing .time-indicator {
-            transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .line-wrapper {
@@ -258,24 +260,26 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         .line {
             width: 2px;
             height: 48px;
             background-color: #333;
-            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: width 0.27s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.27s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* All lines fade out during expansion */
         .timeline-container.expanding .line-wrapper .line {
-            animation: fadeOut 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: fadeOut 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         .timeline-container.collapsing .line-wrapper .line {
-            animation: fadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+            animation: fadeIn 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.27s forwards;
             opacity: 0;
         }
 
@@ -383,7 +387,8 @@
     <script>
         let originalTimeString = '';
         let isHovering = false;
-        let selectedHour = null; // Track manually selected hour
+        let selectedHour = 17; // Default to 5pm (17:00)
+        let selectedQuarter = 0; // Default to top of the hour (0 = :00, 1 = :15, 2 = :30, 3 = :45)
         let isInSubview = false; // Track if we're in the blocks view
         let subviewHour = null; // Track which hour's subview we're in
         
@@ -394,41 +399,22 @@
             const dateOptions = { month: 'short', day: '2-digit' };
             const dateString = now.toLocaleDateString('en-US', dateOptions);
             
-            // Format time as HH:MMAM/PM
-            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
-            const timeString = now.toLocaleTimeString('en-US', timeOptions);
-            
             // Only update date if not in subview (to preserve back arrow)
             if (!isInSubview) {
                 document.getElementById('current-date').textContent = dateString;
             }
             
-            // Only update time display if not hovering over a line and no specific hour is selected
+            // Only update time display if not hovering over a line
             if (!isHovering) {
-                if (selectedHour !== null) {
-                    // Show the selected hour time
-                    const selectedTime = formatHourTime(selectedHour);
-                    document.getElementById('current-time').textContent = selectedTime;
-                } else {
-                    // Show current time
-                    document.getElementById('current-time').textContent = timeString;
-                }
-                originalTimeString = timeString;
+                // Show the selected time (hour + quarter)
+                const selectedTime = formatQuarterTime(selectedHour, selectedQuarter);
+                document.getElementById('current-time').textContent = selectedTime;
+                originalTimeString = selectedTime;
             }
             
-            // Update indicator position
+            // Update indicator position to show selected hour
             if (!isInSubview) {
-                // Update main timeline indicator if no manual selection
-                if (selectedHour === null) {
-                    const currentHour = now.getHours();
-                    updateIndicatorPosition(currentHour);
-                }
-            } else {
-                // Update quarter indicator if we're in the current hour's subview
-                if (subviewHour === now.getHours()) {
-                    const currentQuarter = Math.floor(now.getMinutes() / 15);
-                    updateIndicatorPosition(currentQuarter);
-                }
+                updateIndicatorPosition(selectedHour);
             }
         }
         
@@ -475,6 +461,10 @@
             const selectedWrapper = document.querySelector(`[data-hour="${hour}"]`);
             const overlay = document.getElementById('transition-overlay');
             
+            // Update selected hour and reset quarter to 0 (top of hour)
+            selectedHour = hour;
+            selectedQuarter = 0;
+            
             // Calculate position of selected line
             const lineWidth = 25; // Each line wrapper is 25px wide
             const selectedPosition = hour * lineWidth + (lineWidth / 2) - 1; // Center of the line minus half line width
@@ -495,9 +485,8 @@
             setTimeout(() => {
                 // Set subview state first so updateIndicatorPosition uses quarter logic
                 isInSubview = true;
-                // Always move to first quarter (0) when entering subview
-                // This uses the same logic as clicking the first quarter block
-                updateIndicatorPosition(0);
+                // Move to the selected quarter position
+                updateIndicatorPosition(selectedQuarter);
             }, 100);
             
             // After animation completes
@@ -514,14 +503,22 @@
                 container.classList.remove('expanding');
                 selectedWrapper.classList.remove('selected');
                 
-                // Replace date with back arrow
+                // Replace date with back arrow using fade transition (no delay)
                 const dateElement = document.getElementById('current-date');
-                dateElement.innerHTML = '<span class="back-arrow" onclick="switchToMainview()">← BACK</span>';
                 
-                // Update time to show the selected hour
-                const selectedTime = formatHourTime(hour);
+                // Fade out current date
+                dateElement.style.opacity = '0';
+                
+                setTimeout(() => {
+                    // Replace content and fade back in
+                    dateElement.innerHTML = '<span class="back-arrow" onclick="switchToMainview()">← BACK</span>';
+                    dateElement.style.opacity = '1';
+                }, 200); // Wait for fade out to complete
+                
+                // Update time to show the selected time (hour + quarter)
+                const selectedTime = formatQuarterTime(selectedHour, selectedQuarter);
                 document.getElementById('current-time').textContent = selectedTime;
-            }, 800); // Match animation duration
+            }, 530); // Match animation duration
         }
         
         function switchToMainview() {
@@ -543,21 +540,21 @@
             // Start collapsing animation
             container.classList.add('collapsing');
             
-            // Show lines view for animation
-            document.getElementById('lines-view').style.display = 'block';
+            // Keep lines view hidden initially during collapse
+            document.getElementById('lines-view').style.display = 'none';
             document.getElementById('blocks-view').classList.add('transitioning');
+            
+            // Show lines view after blocks start collapsing
+            setTimeout(() => {
+                document.getElementById('lines-view').style.display = 'block';
+            }, 100); // Show lines after blocks have collapsed
             
             // Start transitioning indicator back to main view position
             setTimeout(() => {
                 // Set main view state first so updateIndicatorPosition uses hour logic
                 isInSubview = false;
-                // Return to the hour that was originally selected
-                if (subviewHour !== null) {
-                    updateIndicatorPosition(subviewHour);
-                } else {
-                    const now = new Date();
-                    updateIndicatorPosition(now.getHours());
-                }
+                // Return to the selected hour
+                updateIndicatorPosition(selectedHour);
             }, 100);
             
             // After animation completes
@@ -575,18 +572,21 @@
                     selectedWrapper.classList.remove('selected');
                 }
                 
-                // Restore date display
-                const now = new Date();
-                const dateOptions = { month: 'short', day: '2-digit' };
-                const dateString = now.toLocaleDateString('en-US', dateOptions);
-                document.getElementById('current-date').textContent = dateString;
+                // Restore date display with fade transition (no delay)
+                const dateElement = document.getElementById('current-date');
                 
-                // Reset selected hour
-                selectedHour = null;
+                // Fade out back button
+                dateElement.style.opacity = '0';
                 
-                // Update indicator to current time position after transition
-                updateIndicatorPosition(now.getHours());
-            }, 800); // Match animation duration
+                setTimeout(() => {
+                    // Replace content with date and fade back in
+                    const now = new Date();
+                    const dateOptions = { month: 'short', day: '2-digit' };
+                    const dateString = now.toLocaleDateString('en-US', dateOptions);
+                    dateElement.textContent = dateString;
+                    dateElement.style.opacity = '1';
+                }, 200); // Wait for fade out to complete
+            }, 530); // Match animation duration
         }
         
         function formatQuarterTime(hour, quarter) {
@@ -612,13 +612,9 @@
                 
                 wrapper.addEventListener('mouseleave', function() {
                     isHovering = false;
-                    // If a specific hour is selected, show that time, otherwise show current time
-                    if (selectedHour !== null) {
-                        const selectedTime = formatHourTime(selectedHour);
-                        document.getElementById('current-time').textContent = selectedTime;
-                    } else {
-                        document.getElementById('current-time').textContent = originalTimeString;
-                    }
+                    // Show the selected time (hour + quarter)
+                    const selectedTime = formatQuarterTime(selectedHour, selectedQuarter);
+                    document.getElementById('current-time').textContent = selectedTime;
                 });
                 
                 wrapper.addEventListener('click', function() {
@@ -652,16 +648,18 @@
                         const quarter = parseInt(this.dataset.quarter);
                         updateIndicatorPosition(quarter);
                         
-                        // Update time display to show the selected quarter
+                        // Update selected quarter to remember the selection
+                        selectedQuarter = quarter;
+                        
+                        // Update time display
                         const quarterTime = formatQuarterTime(subviewHour, quarter);
                         document.getElementById('current-time').textContent = quarterTime;
                     }
                 });
             });
             
-            // Initialize indicator position
-            const now = new Date();
-            updateIndicatorPosition(now.getHours());
+            // Initialize indicator position to default selected hour (5pm)
+            updateIndicatorPosition(selectedHour);
         });
         
         // Make switchToMainview globally accessible
