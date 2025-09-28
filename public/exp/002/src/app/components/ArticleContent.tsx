@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { CircleMinus, CirclePlus } from 'lucide-react'
+import html2canvas from 'html2canvas'
 
 interface ArticleContentProps {
   initialContent: string
@@ -16,6 +17,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   const [isDragging, setIsDragging] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
+  const glassHandleRef = useRef<any>(null)
 
   const handleRewrite = async (operation: 'expand' | 'contract') => {
     if (!content.trim()) {
@@ -70,6 +72,57 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   React.useEffect(() => {
     autoResize()
   }, [content, autoResize])
+
+  // Build and inject displacement map
+  React.useEffect(() => {
+    const buildDisplacementImage = () => {
+      const config = {
+        width: 64,
+        height: 64,
+        radius: 32,
+        border: 0.07,
+        lightness: 50,
+        alpha: 0.93,
+        blur: 11,
+        blend: 'difference'
+      }
+      
+      const border = Math.min(config.width, config.height) * (config.border * 0.5)
+      const svgContent = `
+        <svg viewBox="0 0 ${config.width} ${config.height}" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="red" x1="100%" y1="0%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#000"/>
+              <stop offset="100%" stop-color="red"/>
+            </linearGradient>
+            <linearGradient id="blue" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#000"/>
+              <stop offset="100%" stop-color="blue"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="${config.width}" height="${config.height}" fill="black"/>
+          <rect x="0" y="0" width="${config.width}" height="${config.height}" rx="${config.radius}" fill="url(#red)" />
+          <rect x="0" y="0" width="${config.width}" height="${config.height}" rx="${config.radius}" fill="url(#blue)" style="mix-blend-mode: ${config.blend}" />
+          <rect x="${border}" y="${border}" width="${config.width - border * 2}" height="${config.height - border * 2}" rx="${config.radius}" fill="hsl(0 0% ${config.lightness}% / ${config.alpha})" style="filter:blur(${config.blur}px)" />
+        </svg>
+      `
+      
+      const encoded = encodeURIComponent(svgContent)
+      const dataUri = `data:image/svg+xml,${encoded}`
+      
+      const feImage = document.querySelector('#glass-displacement feImage')
+      if (feImage) {
+        feImage.setAttribute('href', dataUri)
+        console.log('Displacement map injected:', dataUri.substring(0, 100) + '...')
+        console.log('feImage href attribute:', feImage.getAttribute('href'))
+      } else {
+        console.error('feImage element not found')
+      }
+    }
+    
+    buildDisplacementImage()
+  }, [])
+
 
   // Update light position based on slider position
   React.useEffect(() => {
@@ -175,7 +228,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
               <fePointLight
                 id="point-light"
                 x="128"
-                y="40"
+                y="48"
                 z="100"
               />
             </feSpecularLighting>
@@ -189,6 +242,80 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
               k4="0"
             />
           </filter>
+          
+          {/* Glass Displacement Filter */}
+          <filter id="glass-displacement" colorInterpolationFilters="sRGB">
+            <feImage
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              result="map"
+            />
+            {/* RED channel with strongest displacement */}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="map"
+              id="redchannel"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="dispRed"
+              scale="0"
+            />
+            <feColorMatrix
+              in="dispRed"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 1 0"
+              result="red"
+            />
+            {/* GREEN channel (reference / least displaced) */}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="map"
+              id="greenchannel"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="dispGreen"
+              scale="10"
+            />
+            <feColorMatrix
+              in="dispGreen"
+              type="matrix"
+              values="0 0 0 0 0
+                      0 1 0 0 0
+                      0 0 0 0 0
+                      0 0 0 1 0"
+              result="green"
+            />
+            {/* BLUE channel with medium displacement */}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="map"
+              id="bluechannel"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="dispBlue"
+              scale="20"
+            />
+            <feColorMatrix
+              in="dispBlue"
+              type="matrix"
+              values="0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 1 0 0
+                      0 0 0 1 0"
+              result="blue"
+            />
+            {/* Blend channels back together */}
+            <feBlend in="red" in2="green" mode="screen" result="rg" />
+            <feBlend in="rg" in2="blue" mode="screen" result="output" />
+            {/* output blend */}
+            <feGaussianBlur in="output" stdDeviation="0.7" />
+          </filter>
+          
         </defs>
       </svg>
 
@@ -200,63 +327,54 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           bottom: content.trim() ? '40px' : '-100px'
         }}
       >
-        <div className="bg-white rounded-full shadow-lg border border-slate-200 p-2">
-          <div 
-            ref={sliderRef}
-            className="relative w-64 h-20 bg-slate-100 rounded-full flex items-center justify-between px-4 cursor-pointer"
+        <div 
+          ref={sliderRef}
+          className="relative w-64 h-24 rounded-full flex items-center justify-between px-6 cursor-pointer bg-white shadow-sm border border-slate-200"
+          style={{
+            '--border': '2',
+            position: 'relative'
+          } as React.CSSProperties}
+        >
+          {/* Lighting border effect */}
+          <div
+            className="absolute inset-0 rounded-full pointer-events-none"
             style={{
-              '--border': '2',
-              position: 'relative'
-            } as React.CSSProperties}
-          >
-            {/* Lighting border effect */}
-            <div
-              className="absolute inset-0 rounded-full pointer-events-none"
-              style={{
-                border: `calc(var(--border) * 1px) solid transparent`,
-                background: 'transparent',
-                mask: 'linear-gradient(transparent 0 100%) padding-box, linear-gradient(#fff 0 100%) border-box',
-                maskComposite: 'intersect',
-                filter: 'url(#lighting)'
-              }}
-            />
-            {/* Left label (Contract) */}
-            <CircleMinus className="w-10 h-10 text-slate-500 stroke-[1.5px]" />
-            
-            {/* Center indicator */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-8 bg-slate-300 rounded-full"></div>
-            
-            {/* Right label (Expand) */}
-            <CirclePlus className="w-10 h-10 text-slate-500 stroke-[1.5px]" />
-            
-            {/* Draggable handle */}
-            <motion.div
-              className="absolute top-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-md border border-slate-300 cursor-grab active:cursor-grabbing flex items-center justify-center"
-              style={{ 
-                left: `calc(50% + ${sliderPosition}px - 32px)`,
-                backgroundColor: sliderPosition < -50 ? '#ef4444' : sliderPosition > 50 ? '#3b82f6' : '#ffffff',
-                boxShadow: `0 0 15px ${sliderPosition < -50 ? 'rgba(59, 130, 246, 0.5)' : sliderPosition > 50 ? 'rgba(59, 130, 246, 0.5)' : 'rgba(0, 0, 0, 0)'}`,
-                zIndex: 10
-              }}
-              animate={{ 
-                scale: isDragging ? 1.1 : 1,
-                x: isDragging ? 0 : 0
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              onMouseDown={handleSliderStart}
-              onTouchStart={handleSliderStart}
-              whileTap={{ scale: 1.1 }}
-            >
-              {/* Handle icon with glow effect */}
-              <div 
-                className="w-3 h-3 rounded-full"
-                style={{
-                  backgroundColor: sliderPosition < -50 ? '#ffffff' : sliderPosition > 50 ? '#ffffff' : '#64748b',
-                  boxShadow: `0 0 8px ${sliderPosition < -50 ? 'rgba(255, 255, 255, 0.8)' : sliderPosition > 50 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(100, 116, 139, 0.5)'}`
-                }}
-              ></div>
-            </motion.div>
-          </div>
+              border: `calc(var(--border) * 1px) solid transparent`,
+              background: 'transparent',
+              mask: 'linear-gradient(transparent 0 100%) padding-box, linear-gradient(#fff 0 100%) border-box',
+              maskComposite: 'intersect',
+              filter: 'url(#lighting)'
+            }}
+          />
+          
+          {/* Left label (Contract) */}
+          <CircleMinus className="w-10 h-10 text-slate-500" strokeWidth={1.25} />
+          
+          {/* Center indicator */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-8 bg-slate-300 rounded-full"></div>
+          
+          {/* Right label (Expand) */}
+          <CirclePlus className="w-10 h-10 text-slate-500" strokeWidth={1.25} />
+          
+        {/* Glass handle with displacement effect */}
+        <div 
+          className="absolute top-1/2 -translate-y-1/2 w-16 h-16 cursor-grab active:cursor-grabbing"
+          style={{ 
+            left: `calc(50% + ${sliderPosition}px - 32px)`,
+            zIndex: 50,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'url(#glass-displacement) blur(2px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '50%',
+            boxShadow: `
+              0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+              0 4px 16px rgba(0, 0, 0, 0.1),
+              0 2px 8px rgba(0, 0, 0, 0.05)
+            `
+          }}
+          onMouseDown={handleSliderStart}
+          onTouchStart={handleSliderStart}
+        />
         </div>
       </div>
 
