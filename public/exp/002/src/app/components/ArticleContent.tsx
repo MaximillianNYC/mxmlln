@@ -57,6 +57,24 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   const handleExpand = () => handleRewrite('expand')
   const handleContract = () => handleRewrite('contract')
 
+  // Update light position based on slider position
+  React.useEffect(() => {
+    const updateLightPosition = () => {
+      const pointLight = document.getElementById('point-light')
+      const sliderLight = document.getElementById('slider-light')
+      
+      if (pointLight && sliderLight) {
+        // Calculate light position based on slider position
+        const lightX = 128 + sliderPosition * 1.5 // Adjust multiplier for sensitivity
+        
+        pointLight.setAttribute('x', lightX.toString())
+        sliderLight.setAttribute('lighting-color', '#06b6d4')
+      }
+    }
+    
+    updateLightPosition()
+  }, [sliderPosition])
+
   const handleSliderDrag = useCallback((event: MouseEvent | TouchEvent) => {
     if (!isDragging || !sliderRef.current) return
     
@@ -128,6 +146,37 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         disabled={isLoading}
       />
 
+      {/* SVG Lighting Filter Definition */}
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <filter id="lighting" x="-50%" y="-50%" width="200%" height="200%">
+            <feSpecularLighting
+              id="slider-light"
+              specularConstant="8"
+              specularExponent="120"
+              surfaceScale="2"
+              lighting-color="#06b6d4"
+            >
+              <fePointLight
+                id="point-light"
+                x="128"
+                y="40"
+                z="100"
+              />
+            </feSpecularLighting>
+            <feComposite
+              in="SourceGraphic"
+              in2="specOut"
+              operator="arithmetic"
+              k1="0"
+              k2="1"
+              k3="1"
+              k4="0"
+            />
+          </filter>
+        </defs>
+      </svg>
+
       {/* Fixed slider control at bottom */}
       <div 
         className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out" 
@@ -140,7 +189,22 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           <div 
             ref={sliderRef}
             className="relative w-64 h-20 bg-slate-100 rounded-full flex items-center justify-between px-6 cursor-pointer"
+            style={{
+              '--border': '2',
+              position: 'relative'
+            } as React.CSSProperties}
           >
+            {/* Lighting border effect */}
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{
+                border: `calc(var(--border) * 1px) solid transparent`,
+                background: 'transparent',
+                mask: 'linear-gradient(transparent 0 100%) padding-box, linear-gradient(#fff 0 100%) border-box',
+                maskComposite: 'intersect',
+                filter: 'url(#lighting)'
+              }}
+            />
             {/* Left label (Contract) */}
             <span className="text-4xl font-bold text-slate-900 select-none" style={{ fontFamily: 'Archivo, sans-serif' }}>−</span>
             
@@ -155,7 +219,9 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
               className="absolute top-1/2 -translate-y-1/2 w-16 h-14 bg-white rounded-full shadow-md border border-slate-300 cursor-grab active:cursor-grabbing flex items-center justify-center"
               style={{ 
                 left: `calc(50% + ${sliderPosition}px - 32px)`,
-                backgroundColor: sliderPosition < -50 ? '#ef4444' : sliderPosition > 50 ? '#3b82f6' : '#ffffff'
+                backgroundColor: sliderPosition < -50 ? '#ef4444' : sliderPosition > 50 ? '#3b82f6' : '#ffffff',
+                boxShadow: `0 0 15px ${sliderPosition < -50 ? 'rgba(239, 68, 68, 0.5)' : sliderPosition > 50 ? 'rgba(59, 130, 246, 0.5)' : 'rgba(0, 0, 0, 0.2)'}`,
+                zIndex: 10
               }}
               animate={{ 
                 scale: isDragging ? 1.1 : 1,
@@ -166,8 +232,14 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
               onTouchStart={handleSliderStart}
               whileTap={{ scale: 1.1 }}
             >
-              {/* Handle icon */}
-              <div className="w-3 h-3 bg-slate-400 rounded-full"></div>
+              {/* Handle icon with glow effect */}
+              <div 
+                className="w-3 h-3 rounded-full"
+                style={{
+                  backgroundColor: sliderPosition < -50 ? '#ffffff' : sliderPosition > 50 ? '#ffffff' : '#64748b',
+                  boxShadow: `0 0 8px ${sliderPosition < -50 ? 'rgba(255, 255, 255, 0.8)' : sliderPosition > 50 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(100, 116, 139, 0.5)'}`
+                }}
+              ></div>
             </motion.div>
           </div>
         </div>
