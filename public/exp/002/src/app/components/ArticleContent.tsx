@@ -57,6 +57,19 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   const handleExpand = () => handleRewrite('expand')
   const handleContract = () => handleRewrite('contract')
 
+  // Auto-resize textarea based on content
+  const autoResize = useCallback(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
+  }, [])
+
+  // Update textarea height when content changes
+  React.useEffect(() => {
+    autoResize()
+  }, [content, autoResize])
+
   // Update light position based on slider position
   React.useEffect(() => {
     const updateLightPosition = () => {
@@ -138,12 +151,13 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={`w-full h-screen resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-20 ${
+        className={`w-full min-h-[200px] resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-20 ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
-        placeholder="Type or paste your content here..."
+        placeholder="Type or paste text to apply semantic zoom..."
         autoFocus
         disabled={isLoading}
+        style={{ height: 'auto' }}
       />
 
       {/* SVG Lighting Filter Definition */}
