@@ -1,1 +1,1 @@
-Semantic Zoom — Prototype 1
+ZOOMER: a semantic zoom prototype

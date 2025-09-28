@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
+import { CircleMinus, CirclePlus } from 'lucide-react'
 
 interface ArticleContentProps {
   initialContent: string
@@ -81,7 +82,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         const lightX = 128 + sliderPosition * 1.5 // Adjust multiplier for sensitivity
         
         pointLight.setAttribute('x', lightX.toString())
-        sliderLight.setAttribute('lighting-color', '#06b6d4')
+        sliderLight.setAttribute('lightingColor', '#06b6d4')
       }
     }
     
@@ -169,7 +170,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
               specularConstant="8"
               specularExponent="120"
               surfaceScale="2"
-              lighting-color="#06b6d4"
+              lightingColor="#06b6d4"
             >
               <fePointLight
                 id="point-light"
@@ -202,7 +203,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         <div className="bg-white rounded-full shadow-lg border border-slate-200 p-2">
           <div 
             ref={sliderRef}
-            className="relative w-64 h-20 bg-slate-100 rounded-full flex items-center justify-between px-6 cursor-pointer"
+            className="relative w-64 h-20 bg-slate-100 rounded-full flex items-center justify-between px-4 cursor-pointer"
             style={{
               '--border': '2',
               position: 'relative'
@@ -220,21 +221,21 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
               }}
             />
             {/* Left label (Contract) */}
-            <span className="text-4xl font-bold text-slate-900 select-none" style={{ fontFamily: 'Archivo, sans-serif' }}>−</span>
+            <CircleMinus className="w-10 h-10 text-slate-500 stroke-[1.5px]" />
             
             {/* Center indicator */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-8 bg-slate-300 rounded-full"></div>
             
             {/* Right label (Expand) */}
-            <span className="text-4xl font-bold text-slate-900 select-none" style={{ fontFamily: 'Archivo, sans-serif' }}>+</span>
+            <CirclePlus className="w-10 h-10 text-slate-500 stroke-[1.5px]" />
             
             {/* Draggable handle */}
             <motion.div
-              className="absolute top-1/2 -translate-y-1/2 w-16 h-14 bg-white rounded-full shadow-md border border-slate-300 cursor-grab active:cursor-grabbing flex items-center justify-center"
+              className="absolute top-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-md border border-slate-300 cursor-grab active:cursor-grabbing flex items-center justify-center"
               style={{ 
                 left: `calc(50% + ${sliderPosition}px - 32px)`,
                 backgroundColor: sliderPosition < -50 ? '#ef4444' : sliderPosition > 50 ? '#3b82f6' : '#ffffff',
-                boxShadow: `0 0 15px ${sliderPosition < -50 ? 'rgba(239, 68, 68, 0.5)' : sliderPosition > 50 ? 'rgba(59, 130, 246, 0.5)' : 'rgba(0, 0, 0, 0.2)'}`,
+                boxShadow: `0 0 15px ${sliderPosition < -50 ? 'rgba(59, 130, 246, 0.5)' : sliderPosition > 50 ? 'rgba(59, 130, 246, 0.5)' : 'rgba(0, 0, 0, 0)'}`,
                 zIndex: 10
               }}
               animate={{ 
