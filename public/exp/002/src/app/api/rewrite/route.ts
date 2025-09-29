@@ -39,23 +39,39 @@ export async function POST(req: Request) {
 
     console.log('Calling Anthropic API...')
 
-    const response = await anthropic.messages.create({
-      model: 'claude-opus-4-1-20250805',
-      max_tokens: 1024,
-      temperature: 0.7,
-      messages: [{ role: 'user', content: systemPrompt }],
-    })
+        const response = await anthropic.messages.create({
+          model: 'claude-opus-4-1-20250805',
+          max_tokens: 1024,
+          temperature: 0.7,
+          messages: [{ role: 'user', content: systemPrompt }],
+          stream: true,
+        })
 
-    console.log('API call successful')
-    
-    const content = response.content[0]
-    if (content.type === 'text') {
-      return new Response(content.text, {
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-      })
-    }
+        console.log('API call successful, streaming response')
+        
+        const stream = new ReadableStream({
+          async start(controller) {
+            try {
+              for await (const chunk of response) {
+                if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+                  controller.enqueue(new TextEncoder().encode(chunk.delta.text))
+                }
+              }
+              controller.close()
+            } catch (error) {
+              console.error('Streaming error:', error)
+              controller.error(error)
+            }
+          },
+        })
+
+        return new Response(stream, {
+          headers: {
+            'Content-Type': 'text/plain',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+          },
+        })
     
     return new Response('No text content received', { status: 500 })
   } catch (error) {

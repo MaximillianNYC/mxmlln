@@ -2,8 +2,7 @@
 
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { CircleMinus, CirclePlus } from 'lucide-react'
-import html2canvas from 'html2canvas'
+import { Microscope, Telescope, MoveHorizontal } from 'lucide-react'
 
 interface ArticleContentProps {
   initialContent: string
@@ -45,8 +44,26 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      const newContent = await response.text()
-      setContent(newContent)
+      // Handle streaming response
+      const reader = response.body?.getReader()
+      if (!reader) {
+        throw new Error('No response body')
+      }
+
+      const decoder = new TextDecoder()
+      let result = ''
+      
+      // Clear content and start streaming
+      setContent('')
+      
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        
+        const chunk = decoder.decode(value, { stream: true })
+        result += chunk
+        setContent(result)
+      }
       
     } catch (error) {
       console.error(`Error ${operation}ing text:`, error)
@@ -329,7 +346,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       >
         <div 
           ref={sliderRef}
-          className="relative w-64 h-24 rounded-full flex items-center justify-between px-6 cursor-pointer bg-white shadow-sm border border-slate-200"
+          className="relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 cursor-pointer bg-white shadow-sm border border-slate-200"
           style={{
             '--border': '2',
             position: 'relative'
@@ -347,14 +364,20 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
             }}
           />
           
-          {/* Left label (Contract) */}
-          <CircleMinus className="w-10 h-10 text-slate-500" strokeWidth={1.25} />
+          {}
+          <div className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full">
+            <Microscope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
+          </div>
           
           {/* Center indicator */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-8 bg-slate-300 rounded-full"></div>
+          <div className="w-[64px] h-[64px] flex items-center justify-center">
+            <MoveHorizontal className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
+          </div>
           
-          {/* Right label (Expand) */}
-          <CirclePlus className="w-10 h-10 text-slate-500" strokeWidth={1.25} />
+          {}
+          <div className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full">
+            <Telescope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
+          </div>
           
         {/* Glass handle with displacement effect */}
         <div 
