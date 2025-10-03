@@ -78,8 +78,14 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
     }
   }
 
-  const handleExpand = () => handleRewrite('expand')
-  const handleContract = () => handleRewrite('contract')
+  const handleExpand = () => {
+    setSliderPosition(82) // Position handle over expand icon  
+    handleRewrite('expand')
+  }
+  const handleContract = () => {
+    setSliderPosition(-82) // Position handle over contract icon
+    handleRewrite('contract')
+  }
 
   // Auto-resize textarea based on content
   const autoResize = useCallback(() => {
@@ -376,9 +382,14 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           />
           
           {}
-          <div className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full">
+          <button 
+            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50"
+            onClick={() => !isLoading && !activeButton && handleContract()}
+            disabled={isLoading || !!activeButton}
+            type="button"
+          >
             <Microscope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
-          </div>
+          </button>
           
           {/* Center indicator */}
           <div className="w-[64px] h-[64px] flex items-center justify-center">
@@ -386,17 +397,24 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           </div>
           
           {}
-          <div className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full">
+          <button 
+            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50"
+            onClick={() => !isLoading && !activeButton && handleExpand()}
+            disabled={isLoading || !!activeButton}
+            type="button"
+          >
             <Telescope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
-          </div>
+          </button>
           
         {/* Glass handle with displacement effect */}
         <div 
-          className={`absolute top-1/2 -translate-y-1/2 w-16 h-16 ${
+          className={`w-16 h-16 transition-transform duration-500 ease-out absolute ${
             isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-grab active:cursor-grabbing'
           }`}
           style={{ 
-            left: `calc(50% + ${sliderPosition}px - 32px)`,
+            left: '50%',
+            top: '50%',
+            transform: `translate(calc(-50% + ${sliderPosition}px), -50%)`,
             zIndex: 50,
             backgroundColor: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'url(#glass-displacement) blur(2px)',
