@@ -79,7 +79,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   }
 
   const handleExpand = () => {
-    setSliderPosition(82) // Position handle over expand icon  
+    setSliderPosition(84) // Position handle over expand icon  
     handleRewrite('expand')
   }
   const handleContract = () => {
@@ -200,7 +200,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
         setSliderPosition(-82) // Center over contract icon (Microscope at 48px center)
       } else if (sliderPosition > threshold) {
         handleExpand()
-        setSliderPosition(82) // Center over expand icon (Telescope at 216px center)
+        setSliderPosition(84) // Center over expand icon (Telescope at 216px center)
       }
     } else {
       // If not enough distance, reset to center
@@ -383,12 +383,15 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           
           {}
           <button 
-            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 relative group"
             onClick={() => !isLoading && !activeButton && handleContract()}
             disabled={isLoading || !!activeButton}
             type="button"
           >
             <Microscope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-lg opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
+              Zoom text in
+            </div>
           </button>
           
           {/* Center indicator */}
@@ -398,12 +401,15 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           
           {}
           <button 
-            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 relative group"
             onClick={() => !isLoading && !activeButton && handleExpand()}
             disabled={isLoading || !!activeButton}
             type="button"
           >
             <Telescope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-lg opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
+              Zoom text out
+            </div>
           </button>
           
         {/* Glass handle with displacement effect */}
