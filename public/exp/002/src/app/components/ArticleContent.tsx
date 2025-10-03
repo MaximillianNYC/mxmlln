@@ -14,6 +14,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   const [error, setError] = useState<string | null>(null)
   const [sliderPosition, setSliderPosition] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
   const glassHandleRef = useRef<any>(null)
@@ -27,6 +28,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
     
     setIsLoading(true)
     setError(null)
+    setActiveButton(operation)
     
     try {
       const response = await fetch('/api/rewrite', {
@@ -71,6 +73,8 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       setTimeout(() => setError(null), 3000)
     } finally {
       setIsLoading(false)
+      setActiveButton(null)
+      setSliderPosition(0) // Snap back to center when done loading
     }
   }
 
@@ -174,26 +178,31 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   }, [isDragging])
 
   const handleSliderStart = useCallback((event: React.MouseEvent | React.TouchEvent) => {
-    if (isLoading) return
+    if (isLoading || activeButton) return
     setIsDragging(true)
     event.preventDefault()
-  }, [isLoading])
+  }, [isLoading, activeButton])
 
   const handleSliderEnd = useCallback(() => {
     if (!isDragging) return
     
     const threshold = 50 // Minimum distance to trigger action
     
-    if (Math.abs(sliderPosition) > threshold) {
+      if (Math.abs(sliderPosition) > threshold) {
       if (sliderPosition < -threshold) {
         handleContract()
+        setSliderPosition(-82) // Center over contract icon (Microscope at 48px center)
       } else if (sliderPosition > threshold) {
         handleExpand()
+        setSliderPosition(82) // Center over expand icon (Telescope at 216px center)
       }
+    } else {
+      // If not enough distance, reset to center
+      setSliderPosition(0)
     }
     
     setIsDragging(false)
-    setSliderPosition(0) // Snap back to center
+    // Don't snap back to center - stay positioned
   }, [isDragging, sliderPosition])
 
   // Add event listeners for mouse/touch move and end
@@ -346,7 +355,9 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       >
         <div 
           ref={sliderRef}
-          className="glass-container relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 cursor-pointer bg-white border border-slate-200"
+          className={`glass-container relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 bg-white border border-slate-200 ${
+            isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-pointer'
+          }`}
           style={{
             '--border': '2',
             position: 'relative'
@@ -381,7 +392,9 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           
         {/* Glass handle with displacement effect */}
         <div 
-          className="absolute top-1/2 -translate-y-1/2 w-16 h-16 cursor-grab active:cursor-grabbing"
+          className={`absolute top-1/2 -translate-y-1/2 w-16 h-16 ${
+            isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-grab active:cursor-grabbing'
+          }`}
           style={{ 
             left: `calc(50% + ${sliderPosition}px - 32px)`,
             zIndex: 50,
