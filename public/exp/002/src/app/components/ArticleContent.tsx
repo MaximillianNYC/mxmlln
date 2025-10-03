@@ -311,7 +311,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
               xChannelSelector="R"
               yChannelSelector="G"
               result="dispGreen"
-              scale="10"
+              scale="4"
             />
             <feColorMatrix
               in="dispGreen"
@@ -414,17 +414,16 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           
         {/* Glass handle with displacement effect */}
         <div 
-          className={`w-16 h-16 transition-transform duration-500 ease-out absolute ${
-            isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-grab active:cursor-grabbing'
+          className={`w-16 h-16 transition-all duration-500 ease-out absolute hover:scale-105 ${
+            isLoading || activeButton ? 'cursor-not-allowed scale-110' : 'cursor-grab active:cursor-grabbing'
           }`}
           style={{ 
             left: '50%',
             top: '50%',
             transform: `translate(calc(-50% + ${sliderPosition}px), -50%)`,
             zIndex: 50,
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'url(#glass-displacement) blur(2px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            backgroundColor: 'rgba(6, 182, 212, 0.35)',
+            backdropFilter: 'url(#glass-displacement) blur(0.5px)',
             borderRadius: '50%',
             boxShadow: `
               0 0 0 1px rgba(255, 255, 255, 0.1) inset,
