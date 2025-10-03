@@ -346,7 +346,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       >
         <div 
           ref={sliderRef}
-          className="relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 cursor-pointer bg-white shadow-sm border border-slate-200"
+          className="glass-container relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 cursor-pointer bg-white border border-slate-200"
           style={{
             '--border': '2',
             position: 'relative'
