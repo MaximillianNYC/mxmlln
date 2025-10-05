@@ -73,6 +73,16 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
       setContent(result)
     }
     
+    // Refocus the textarea after content is ready
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus()
+        // Set cursor to end of text
+        const length = result.length
+        textareaRef.current.setSelectionRange(length, length)
+      }
+    }, 100)
+    
     // After streaming is complete, notify parent with operation summary
     const afterCount = result.length
     onLoadingStateChange?.(false, operation, { beforeCount, afterCount })
@@ -199,10 +209,10 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
         className={`w-full min-h-[200px] resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-20 ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
+        style={{ caretColor: '#06b6d4', height: 'auto' }}
         placeholder="Type or paste text to apply semantic zoom..."
         autoFocus
         disabled={isLoading}
-        style={{ height: 'auto' }}
       />
 
       {/* SVG Lighting Filter Definition */}
