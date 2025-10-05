@@ -49,8 +49,8 @@ body {
   }
 }
 
-/* Liquid Glass Styles */
-.glass-container {
+/* Control Bar Styles */
+.control-container {
   position: relative;
   display: flex;
   align-items: center;
@@ -59,47 +59,4 @@ body {
   padding: 10px;
   box-sizing: border-box;
   box-shadow: 0 30px 15px 0 rgba(0, 0, 0, 0.01), 0 15px 10px 0 rgba(0, 0, 0, 0.02), 0 8px 8px 0 rgba(0, 0, 0, 0.03), 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-}
-
-.glass-container-circle {
-  aspect-ratio: 1 / 1; /* Force perfect square ratio */
-  flex-shrink: 0;
-  flex-grow: 0;
-}
-
-.glass-container-pill {
-  flex-shrink: 0;
-  flex-grow: 0;
-}
-
-/* Glass Button Styles */
-.glass-button {
-  position: relative;
-  box-shadow: 0 30px 15px 0 rgba(0, 0, 0, 0.01), 0 15px 10px 0 rgba(0, 0, 0, 0.02), 0 8px 8px 0 rgba(0, 0, 0, 0.03), 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-  cursor: pointer;
-  pointer-events: auto;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box; /* Ensure padding doesn't affect size calculations */
-}
-
-.glass-button-circle {
-  aspect-ratio: 1 / 1; /* Force perfect square ratio */
-  flex-shrink: 0;
-  flex-grow: 0;
-}
-
-.glass-button-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  pointer-events: none;
-  font-weight: normal;
-  color: white;
-  font-family: system-ui, -apple-system, sans-serif;
-  white-space: nowrap;
 }
