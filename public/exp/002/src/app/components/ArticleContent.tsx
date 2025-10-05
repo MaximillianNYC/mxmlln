@@ -99,8 +99,6 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
     autoResize()
   }, [content, autoResize])
 
-
-
   // Update light position based on slider position
   React.useEffect(() => {
     const updateLightPosition = () => {
@@ -225,7 +223,6 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
             />
           </filter>
           
-          
         </defs>
       </svg>
 
@@ -292,8 +289,8 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           
         {/* Drag handle */}
         <div 
-          className={`w-16 h-16 transition-all duration-500 ease-out absolute hover:scale-105 ${
-            isLoading || activeButton ? 'cursor-not-allowed scale-110' : 'cursor-grab active:cursor-grabbing'
+          className={`w-16 h-16 transition-transform duration-500 ease-out absolute ${
+            isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-grab active:cursor-grabbing'
           }`}
           style={{ 
             left: '50%',
@@ -301,7 +298,9 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
             transform: `translate(calc(-50% + ${sliderPosition}px), -50%)`,
             zIndex: 50,
             backgroundColor: '#06b6d4',
-            borderRadius: '50%'
+            borderRadius: '50%',
+            filter: 'brightness(1.2) contrast(1.2)',
+            mixBlendMode: 'multiply'
           }}
           onMouseDown={handleSliderStart}
           onTouchStart={handleSliderStart}
