@@ -236,7 +236,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
       >
         <div 
           ref={sliderRef}
-          className={`control-container relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 bg-white border border-slate-200 ${
+          className={`control-container relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 bg-white/50 backdrop-blur-[30px] border border-slate-200 ${
             isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-pointer'
           }`}
           style={{
