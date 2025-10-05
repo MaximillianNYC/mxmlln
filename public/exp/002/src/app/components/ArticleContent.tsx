@@ -6,7 +6,7 @@ import { Microscope, Telescope, MoveHorizontal } from 'lucide-react'
 
 interface ArticleContentProps {
   initialContent: string
-  onLoadingStateChange?: (isLoading: boolean, activeButton: 'expand' | 'contract' | null) => void
+  onLoadingStateChange?: (isLoading: boolean, activeButton: 'expand' | 'contract' | null, operationSummary?: { beforeCount: number, afterCount: number }) => void
 }
 
 export const ArticleContent = ({ initialContent, onLoadingStateChange }: ArticleContentProps) => {
@@ -31,6 +31,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
       return
     }
     
+    const beforeCount = content.length
     setIsLoading(true)
     setError(null)
     setActiveButton(operation)
@@ -67,20 +68,24 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
         const { done, value } = await reader.read()
         if (done) break
         
-        const chunk = decoder.decode(value, { stream: true })
-        result += chunk
-        setContent(result)
-      }
-      
-    } catch (error) {
-      console.error(`Error ${operation}ing text:`, error)
-      setError(`Failed to ${operation} text. Please try again.`)
-      setTimeout(() => setError(null), 3000)
-    } finally {
-      setIsLoading(false)
-      setActiveButton(null)
-      setSliderPosition(0) // Snap back to center when done loading
+      const chunk = decoder.decode(value, { stream: true })
+      result += chunk
+      setContent(result)
     }
+    
+    // After streaming is complete, notify parent with operation summary
+    const afterCount = result.length
+    onLoadingStateChange?.(false, operation, { beforeCount, afterCount })
+    
+  } catch (error) {
+    console.error(`Error ${operation}ing text:`, error)
+    setError(`Failed to ${operation} text. Please try again.`)
+    setTimeout(() => setError(null), 3000)
+  } finally {
+    setIsLoading(false)
+    setActiveButton(null)
+    setSliderPosition(0) // Snap back to center when done loading
+  }
   }
 
   const handleExpand = () => {
