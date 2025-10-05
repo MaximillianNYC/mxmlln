@@ -265,7 +265,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           >
             <Microscope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-lg opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
-              Zoom text in
+              Distill text down to core concepts
             </div>
           </button>
           
@@ -283,7 +283,7 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
           >
             <Telescope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-lg opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
-              Zoom text out
+              Expand on text in greater detail
             </div>
           </button>
           
