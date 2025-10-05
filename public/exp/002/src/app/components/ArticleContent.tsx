@@ -6,9 +6,10 @@ import { Microscope, Telescope, MoveHorizontal } from 'lucide-react'
 
 interface ArticleContentProps {
   initialContent: string
+  onLoadingStateChange?: (isLoading: boolean, activeButton: 'expand' | 'contract' | null) => void
 }
 
-export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
+export const ArticleContent = ({ initialContent, onLoadingStateChange }: ArticleContentProps) => {
   const [content, setContent] = useState(initialContent)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -17,6 +18,11 @@ export const ArticleContent = ({ initialContent }: ArticleContentProps) => {
   const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
+
+  // Notify parent component of loading state changes
+  useEffect(() => {
+    onLoadingStateChange?.(isLoading, activeButton)
+  }, [isLoading, activeButton, onLoadingStateChange])
 
   const handleRewrite = async (operation: 'expand' | 'contract') => {
     if (!content.trim()) {
