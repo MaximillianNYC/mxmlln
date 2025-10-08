@@ -320,13 +320,13 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
             zIndex: 50,
             background: 
               /* Corner highlight */
-              'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 15%), ' +
+              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, transparent 75%), ' +
               /* Corner shine spread */
-              'radial-gradient(circle at 35% 35%, rgba(200, 230, 255, 0.5) 0%, transparent 50%), ' +
+              'radial-gradient(circle at 50% 50%, rgba(200, 230, 255, 0.75) 0%, transparent 95%), ' +
               /* Center highlight - NEW */
               'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 30%), ' +
               /* Blue glow around edges */
-              'radial-gradient(circle at 50% 50%, #1a6fff 0%, #0033aa 70%, #001166 100%), ' +
+              'radial-gradient(circle at 50% 50%,rgb(59, 160, 255) 0%,rgb(83, 183, 251) 70%,rgb(0, 128, 187) 100%), ' +
               /* Outer rim glow */
               'radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 100, 255, 0.3) 100%)',
             boxShadow: 
