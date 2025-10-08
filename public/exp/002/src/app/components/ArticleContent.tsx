@@ -311,10 +311,21 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
           
           {}
           <button 
-            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 relative group"
+            className="w-[64px] h-[64px] flex items-center justify-center rounded-full hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 relative group"
             onClick={() => !isLoading && !activeButton && handleContract()}
             disabled={isLoading || !!activeButton}
             type="button"
+            style={{
+              background: 'linear-gradient(180deg, rgba(180, 195, 216, 0.75) 0%, rgba(180, 195, 216, 0.5) 50%, rgba(223, 233, 242, 0.25) 100%)',
+              boxShadow: '0 0 15px rgba(255, 255, 255, 0.4)',
+              transition: 'box-shadow 0.2s ease-in-out'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 25px rgba(255, 255, 255, 0.8)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.4)'
+            }}
           >
             <Microscope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-[10px] py-2 bg-gray-500 text-white text-xs rounded-[10px] opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
@@ -329,10 +340,21 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
           
           {}
           <button 
-            className="w-[64px] h-[64px] flex items-center justify-center bg-slate-100 rounded-full hover:bg-slate-200 hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 relative group"
+            className="w-[64px] h-[64px] flex items-center justify-center rounded-full hover:cursor-pointer transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 relative group"
             onClick={() => !isLoading && !activeButton && handleExpand()}
             disabled={isLoading || !!activeButton}
             type="button"
+            style={{
+              background: 'linear-gradient(180deg, rgba(180, 195, 216, 0.75) 0%, rgba(180, 195, 216, 0.5) 50%, rgba(223, 233, 242, 0.25) 100%)',
+              boxShadow: '0 0 15px rgba(255, 255, 255, 0.4)',
+              transition: 'box-shadow 0.2s ease-in-out'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 25px rgba(255, 255, 255, 0.8)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.4)'
+            }}
           >
             <Telescope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-[10px] py-2 bg-gray-500 text-white text-xs rounded-[10px] opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
