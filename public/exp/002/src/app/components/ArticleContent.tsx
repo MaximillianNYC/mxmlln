@@ -319,17 +319,18 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
             transform: `translate(calc(-50% + ${sliderPosition}px), -50%)`,
             zIndex: 50,
             background: 
-              /* Highlight - bright spot */
-              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 25%), ' +
-              /* Mid-tone shine */
-              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 40%), ' +
-              /* Main body - base color with depth */
-              'radial-gradient(circle at 50% 50%, #4da6ff 0%, #0052cc 100%)',
+              /* Corner highlight */
+              'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 15%), ' +
+              /* Corner shine spread */
+              'radial-gradient(circle at 35% 35%, rgba(200, 230, 255, 0.5) 0%, transparent 50%), ' +
+              /* Center highlight - NEW */
+              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 30%), ' +
+              /* Blue glow around edges */
+              'radial-gradient(circle at 50% 50%, #1a6fff 0%, #0033aa 70%, #001166 100%), ' +
+              /* Outer rim glow */
+              'radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 100, 255, 0.3) 100%)',
             boxShadow: 
-              /* Outer shadow for depth */
-              'inset -8px -8px 16px rgba(0, 0, 0, 0.3), ' +
-              /* Inner highlight */
-              'inset 3px 3px 8px rgba(255, 255, 255, 0.4)',
+              '0 294px 82px 0 rgba(0, 191, 255, 0.00), 0 188px 75px 0 rgba(0, 191, 255, 0.02), 0 106px 64px 0 rgba(0, 191, 255, 0.08), 0 47px 47px 0 rgba(0, 191, 255, 0.13), 0 12px 26px 0 rgba(0, 191, 255, 0.15)',
             borderRadius: '50%',
             filter: 'brightness(1.2) contrast(1.2)',
             mixBlendMode: 'multiply'
