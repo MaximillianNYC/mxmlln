@@ -31,7 +31,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
       return
     }
     
-    const beforeCount = content.length
+    const beforeCount = content.trim().split(/\s+/).filter(word => word.length > 0).length
     setIsLoading(true)
     setError(null)
     setActiveButton(operation)
@@ -84,7 +84,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
     }, 100)
     
     // After streaming is complete, notify parent with operation summary
-    const afterCount = result.length
+    const afterCount = result.trim().split(/\s+/).filter(word => word.length > 0).length
     onLoadingStateChange?.(false, operation, { beforeCount, afterCount })
     
   } catch (error) {
