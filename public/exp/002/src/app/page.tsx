@@ -35,9 +35,9 @@ export default function Home() {
     }
     if (lastOperation) {
       if (lastOperation.type === 'contract') {
-        return `${lastOperation.beforeCount} characters zoomed into ${lastOperation.afterCount} characters`
+        return `${lastOperation.beforeCount} words zoomed to ${lastOperation.afterCount} words`
       } else {
-        return `${lastOperation.beforeCount} characters zoomed out to ${lastOperation.afterCount} characters`
+        return `${lastOperation.beforeCount} words zoomed to ${lastOperation.afterCount} words`
       }
     }
     return 'Welcome to Zoomer'
@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <main className="min-h-screen  bg-slate-50 flex flex-col items-center justify-center">
       <div className="w-full max-w-[600px] mx-auto px-4 py-12">
-        <h1 className="text-lg font-bold text-left text-slate-500">{getTitleText()}</h1>
+        <h1 className="text-lg font-bold text-left text-[#06b6d4]">{getTitleText()}</h1>
         <ArticleContent 
           initialContent="" 
           onLoadingStateChange={handleLoadingStateChange}
