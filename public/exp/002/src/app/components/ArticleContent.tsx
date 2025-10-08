@@ -318,7 +318,18 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
             top: '50%',
             transform: `translate(calc(-50% + ${sliderPosition}px), -50%)`,
             zIndex: 50,
-            backgroundColor: '#06b6d4',
+            background: 
+              /* Highlight - bright spot */
+              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 25%), ' +
+              /* Mid-tone shine */
+              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 40%), ' +
+              /* Main body - base color with depth */
+              'radial-gradient(circle at 50% 50%, #4da6ff 0%, #0052cc 100%)',
+            boxShadow: 
+              /* Outer shadow for depth */
+              'inset -8px -8px 16px rgba(0, 0, 0, 0.3), ' +
+              /* Inner highlight */
+              'inset 3px 3px 8px rgba(255, 255, 255, 0.4)',
             borderRadius: '50%',
             filter: 'brightness(1.2) contrast(1.2)',
             mixBlendMode: 'multiply'
