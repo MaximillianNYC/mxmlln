@@ -135,7 +135,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
         const lightX = 128 + sliderPosition * 1.5 // Adjust multiplier for sensitivity
         
         pointLight.setAttribute('x', lightX.toString())
-        sliderLight.setAttribute('lightingColor', '#06b6d4')
+        sliderLight.setAttribute('lightingColor', '#00d4ff')
       }
     }
     
@@ -256,7 +256,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
               specularConstant="8"
               specularExponent="120"
               surfaceScale="2"
-              lightingColor="#22AEFF"
+              lightingColor="#00d4ff"
             >
               <fePointLight
                 id="point-light"
@@ -293,14 +293,15 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
             isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-pointer'
           }`}
           style={{
-            '--border': '2',
+            '--border': '1',
             position: 'relative'
           } as React.CSSProperties}
         >
           {/* Lighting border effect */}
           <div
-            className="absolute inset-0 rounded-full pointer-events-none"
+            className="absolute rounded-full pointer-events-none"
             style={{
+              inset: '-1px',
               border: `calc(var(--border) * 1px) solid transparent`,
               background: 'transparent',
               mask: 'linear-gradient(transparent 0 100%) padding-box, linear-gradient(#fff 0 100%) border-box',
@@ -372,13 +373,14 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
             top: '50%',
             transform: `translate(calc(-50% + ${sliderPosition}px), -50%)`,
             zIndex: 50,
-            background: 'radial-gradient(50% 50% at 50% 50%, rgba(34, 174, 255, 0.15) 50%, rgba(34, 174, 255, 0.33) 65%, rgba(34, 174, 255, 0.5) 80%, #22AEFF 100%)',
-            backdropFilter: 'blur(1px)',
-            boxShadow: 
-              '0 294px 82px 0 rgba(0, 191, 255, 0.00), 0 188px 75px 0 rgba(0, 191, 255, 0.02), 0 106px 64px 0 rgba(0, 191, 255, 0.08), 0 47px 47px 0 rgba(0, 191, 255, 0.13), 0 12px 26px 0 rgba(0, 191, 255, 0.15)',
             borderRadius: '50%',
-            filter: 'brightness(1.2) contrast(1.2)',
-            mixBlendMode: 'multiply'
+            background: 'radial-gradient(50% 50% at 50% 50%, rgba(34, 174, 255, 0.55) 50%, rgba(34, 174, 255, 0.85) 75%, rgba(34, 174, 255, 1) 85%, #22AEFF 100%)',
+            backdropFilter: 'blur(0.65px)',
+            backgroundBlendMode: 'normal', 
+            mixBlendMode: 'screen',
+            filter: 'brightness(1.15) contrast(1.5)',
+            boxShadow: 
+              '0 294px 82px 0 rgba(0, 191, 255, 0.00), 0 188px 75px 0 rgba(0, 191, 255, 0.05), 0 106px 64px 0 rgba(0, 191, 255, 0.08), 0 30px 30px 0 rgba(0, 191, 255, 0.15), 0 10px 30px 0 rgba(0, 191, 255, 0.33)'
           }}
           onMouseDown={handleSliderStart}
           onTouchStart={handleSliderStart}
