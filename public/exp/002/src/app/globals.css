@@ -58,5 +58,10 @@ body {
   gap: 20px;
   padding: 10px;
   box-sizing: border-box;
+  background: 
+    linear-gradient(180deg, 
+      rgba(223, 233, 242, 0.25) 0%, 
+      rgba(180, 195, 216, 0.5) 50%, 
+      rgba(180, 195, 216, 0.75) 100%);
   box-shadow: 0 30px 15px 0 rgba(0, 0, 0, 0.01), 0 15px 10px 0 rgba(0, 0, 0, 0.02), 0 8px 8px 0 rgba(0, 0, 0, 0.03), 0 2px 4px 0 rgba(0, 0, 0, 0.04);
 }

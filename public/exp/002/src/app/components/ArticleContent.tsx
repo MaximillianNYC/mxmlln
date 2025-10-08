@@ -200,13 +200,41 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
     }
   }, [isDragging, handleSliderDrag, handleSliderEnd])
 
+  // Add keyboard event listeners for arrow keys
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Only trigger if not loading and not dragging, and no button is active
+      if (isLoading || isDragging || activeButton) return
+      
+      // Check if user is focused on textarea
+      const isTextareaFocused = document.activeElement === textareaRef.current
+      
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault()
+          handleContract()
+          break
+        case 'ArrowRight':
+          event.preventDefault()
+          handleExpand()
+          break
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isLoading, isDragging, activeButton, handleContract, handleExpand])
+
   return (
     <div className="relative">
       <textarea
         ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={`w-full min-h-[200px] resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-20 ${
+        className={`w-full min-h-[200px] resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-[132px] ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
         style={{ caretColor: '#06b6d4', height: 'auto' }}
@@ -224,7 +252,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
               specularConstant="8"
               specularExponent="120"
               surfaceScale="2"
-              lightingColor="#06b6d4"
+              lightingColor="#22AEFF"
             >
               <fePointLight
                 id="point-light"
@@ -257,7 +285,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
       >
         <div 
           ref={sliderRef}
-          className={`control-container relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 bg-white/50 backdrop-blur-[30px] border border-slate-200 ${
+          className={`control-container relative w-[264px] h-24 rounded-full flex items-center justify-between px-4 backdrop-blur-[30px] border border-slate-200 ${
             isLoading || activeButton ? 'cursor-not-allowed' : 'cursor-pointer'
           }`}
           style={{
@@ -318,17 +346,8 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
             top: '50%',
             transform: `translate(calc(-50% + ${sliderPosition}px), -50%)`,
             zIndex: 50,
-            background: 
-              /* Corner highlight */
-              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, transparent 75%), ' +
-              /* Corner shine spread */
-              'radial-gradient(circle at 50% 50%, rgba(200, 230, 255, 0.75) 0%, transparent 95%), ' +
-              /* Center highlight - NEW */
-              'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 30%), ' +
-              /* Blue glow around edges */
-              'radial-gradient(circle at 50% 50%,rgb(59, 160, 255) 0%,rgb(83, 183, 251) 70%,rgb(0, 128, 187) 100%), ' +
-              /* Outer rim glow */
-              'radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 100, 255, 0.3) 100%)',
+            background: 'radial-gradient(50% 50% at 50% 50%, rgba(34, 174, 255, 0.15) 50%, rgba(34, 174, 255, 0.33) 65%, rgba(34, 174, 255, 0.5) 80%, #22AEFF 100%)',
+            backdropFilter: 'blur(1px)',
             boxShadow: 
               '0 294px 82px 0 rgba(0, 191, 255, 0.00), 0 188px 75px 0 rgba(0, 191, 255, 0.02), 0 106px 64px 0 rgba(0, 191, 255, 0.08), 0 47px 47px 0 rgba(0, 191, 255, 0.13), 0 12px 26px 0 rgba(0, 191, 255, 0.15)',
             borderRadius: '50%',
