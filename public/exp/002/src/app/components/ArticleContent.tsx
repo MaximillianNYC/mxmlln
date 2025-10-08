@@ -110,8 +110,12 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
   // Auto-resize textarea based on content
   const autoResize = useCallback(() => {
     if (textareaRef.current) {
+      // Reset height to auto to get the natural height
       textareaRef.current.style.height = 'auto'
+      // Set height to scrollHeight to fit all content without scrollbar
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+      // Ensure no overflow/scrollbar
+      textareaRef.current.style.overflow = 'hidden'
     }
   }, [])
 
@@ -237,7 +241,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
         className={`w-full min-h-[200px] resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-[132px] ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
-        style={{ caretColor: '#06b6d4', height: 'auto' }}
+        style={{ caretColor: '#06b6d4', height: 'auto', overflow: 'hidden' }}
         placeholder="Type or paste text to apply semantic zoom..."
         autoFocus
         disabled={isLoading}
