@@ -285,7 +285,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
           fontSize: `${getDynamicFontSize()}px`,
           lineHeight: `${getDynamicLineHeight(getDynamicFontSize())}px`
         }}
-        placeholder="Type or paste text to apply semantic zoom..."
+        placeholder="Type or paste text to apply semantic zoom"
         autoFocus
         disabled={isLoading}
       />
