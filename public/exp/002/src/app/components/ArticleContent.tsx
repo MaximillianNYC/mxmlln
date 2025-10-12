@@ -7,9 +7,10 @@ import { Microscope, Telescope, MoveHorizontal } from 'lucide-react'
 interface ArticleContentProps {
   initialContent: string
   onLoadingStateChange?: (isLoading: boolean, activeButton: 'expand' | 'contract' | null, operationSummary?: { beforeCount: number, afterCount: number }) => void
+  onWordCountChange?: (wordCount: number) => void
 }
 
-export const ArticleContent = ({ initialContent, onLoadingStateChange }: ArticleContentProps) => {
+export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange }: ArticleContentProps) => {
   const [content, setContent] = useState(initialContent)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -19,10 +20,46 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
 
+  // Calculate word count from content
+  const getWordCount = (text: string): number => {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length
+  }
+
+  // Calculate dynamic font size based on word count with three breakpoints
+  // 0-5 words: 28px (no change), 6-50 words: scale to 24px, 51-100 words: scale to 18px, 100+: 18px
+  const getDynamicFontSize = (): number => {
+    const wordCount = getWordCount(content)
+    
+    if (wordCount <= 5) {
+      // Stay at 28px for first 5 words to prevent visual shift
+      return 28
+    } else if (wordCount <= 50) {
+      // Scale from 28px at 6 words to 24px at 50 words
+      return Math.max(24, 28 - (((wordCount - 5) / 45) * 4))
+    } else if (wordCount <= 100) {
+      // Scale from 24px at 51 words to 18px at 100 words
+      return Math.max(18, 24 - (((wordCount - 50) / 50) * 6))
+    } else {
+      // 100+ words: stay at 18px
+      return 18
+    }
+  }
+
+  // Calculate proportional line-height (matches Tailwind's leading-relaxed ratio of 1.625)
+  const getDynamicLineHeight = (fontSize: number): number => {
+    return fontSize * 1.625
+  }
+
   // Notify parent component of loading state changes
   useEffect(() => {
     onLoadingStateChange?.(isLoading, activeButton)
   }, [isLoading, activeButton, onLoadingStateChange])
+
+  // Notify parent component of word count changes
+  useEffect(() => {
+    const wordCount = getWordCount(content)
+    onWordCountChange?.(wordCount)
+  }, [content, onWordCountChange])
 
   const handleRewrite = async (operation: 'expand' | 'contract') => {
     if (!content.trim()) {
@@ -238,10 +275,16 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange }: Article
         ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={`w-full min-h-[200px] resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-[132px] ${
+        className={`w-full min-h-[200px] resize-none bg-transparent border-none outline-none pb-[132px] ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
-        style={{ caretColor: '#06b6d4', height: 'auto', overflow: 'hidden' }}
+        style={{ 
+          caretColor: '#06b6d4', 
+          height: 'auto', 
+          overflow: 'hidden',
+          fontSize: `${getDynamicFontSize()}px`,
+          lineHeight: `${getDynamicLineHeight(getDynamicFontSize())}px`
+        }}
         placeholder="Type or paste text to apply semantic zoom..."
         autoFocus
         disabled={isLoading}
