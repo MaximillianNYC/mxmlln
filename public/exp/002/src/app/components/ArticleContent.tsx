@@ -272,9 +272,10 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
       {/* Old content overlay for morphing effect */}
       {oldContent && isLoading && (
         <div
-          className="absolute inset-0 pointer-events-none text-slate-900 text-lg leading-relaxed whitespace-pre-wrap pb-[132px] transition-opacity duration-500 ease-out"
+          className="absolute inset-0 pointer-events-none text-slate-900 text-xl leading-relaxed whitespace-pre-wrap pb-[132px] transition-opacity duration-500 ease-out"
           style={{
             opacity: 0.4,
+            letterSpacing: '-0.01em',
             zIndex: 1
           }}
         >
@@ -286,13 +287,14 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={`w-full min-h-[200px] resize-none text-lg leading-relaxed bg-transparent border-none outline-none pb-[132px] relative ${
+        className={`w-full min-h-[200px] resize-none text-xl leading-relaxed bg-transparent border-none outline-none pb-[132px] relative ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
         style={{ 
           caretColor: '#06b6d4', 
           height: hasText ? '100%' : 'auto',
           overflow: 'hidden',
+          letterSpacing: '-0.01em',
           zIndex: 2
         }}
         placeholder="Type or paste text to apply semantic zoom"
