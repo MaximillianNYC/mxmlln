@@ -44,23 +44,9 @@ export default function Home() {
     return 'Welcome to Zoomer'
   }
 
-  // Calculate dynamic font size for header (same logic as textarea)
-  // 0-5 words: 28px (no change), 6-50 words: scale to 24px, 51-100 words: scale to 18px, 100+: 18px
-  const getHeaderFontSize = (): number => {
-    if (wordCount <= 5) {
-      // Stay at 28px for first 5 words to prevent visual shift
-      return 28
-    } else if (wordCount <= 50) {
-      // Scale from 28px at 6 words to 24px at 50 words
-      return Math.max(24, 28 - (((wordCount - 5) / 45) * 4))
-    } else if (wordCount <= 100) {
-      // Scale from 24px at 51 words to 18px at 100 words
-      return Math.max(18, 24 - (((wordCount - 50) / 50) * 6))
-    } else {
-      // 100+ words: stay at 18px
-      return 18
-    }
-  }
+  // Fixed font size for header
+  const FIXED_HEADER_FONT_SIZE = 18
+  const FIXED_HEADER_LINE_HEIGHT = FIXED_HEADER_FONT_SIZE * 1.625
 
   return (
     <main className="min-h-screen  bg-slate-50 flex flex-col items-center justify-center">
@@ -68,8 +54,8 @@ export default function Home() {
         <h1 
           className="font-bold text-left text-[#06b6d4]"
           style={{ 
-            fontSize: `${getHeaderFontSize()}px`,
-            lineHeight: `${getHeaderFontSize() * 1.625}px`,
+            fontSize: `${FIXED_HEADER_FONT_SIZE}px`,
+            lineHeight: `${FIXED_HEADER_LINE_HEIGHT}px`,
             letterSpacing: '0px'
           }}
         >
