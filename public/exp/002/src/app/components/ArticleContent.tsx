@@ -8,9 +8,10 @@ interface ArticleContentProps {
   initialContent: string
   onLoadingStateChange?: (isLoading: boolean, activeButton: 'expand' | 'contract' | null, operationSummary?: { beforeCount: number, afterCount: number }) => void
   onWordCountChange?: (wordCount: number) => void
+  onHasTextChange?: (hasText: boolean) => void
 }
 
-export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange }: ArticleContentProps) => {
+export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange, onHasTextChange }: ArticleContentProps) => {
   const [content, setContent] = useState(initialContent)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -44,8 +45,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     const hasContent = content.trim().length > 0
     if (hasContent !== hasText) {
       setHasText(hasContent)
+      onHasTextChange?.(hasContent)
     }
-  }, [content, hasText])
+  }, [content, hasText, onHasTextChange])
 
   const handleRewrite = async (operation: 'expand' | 'contract') => {
     if (!content.trim()) {
@@ -272,7 +274,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
       {/* Old content overlay for morphing effect */}
       {oldContent && isLoading && (
         <div
-          className="absolute inset-0 pointer-events-none text-slate-900 text-xl leading-relaxed whitespace-pre-wrap pb-[132px] transition-opacity duration-500 ease-out"
+          className="absolute inset-0 pointer-events-none text-slate-900 text-[20px] leading-relaxed whitespace-pre-wrap pb-[132px] transition-opacity duration-500 ease-out"
           style={{
             opacity: 0.4,
             letterSpacing: '-0.01em',
@@ -287,7 +289,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={`w-full min-h-[200px] resize-none text-xl leading-relaxed bg-transparent border-none outline-none pb-[132px] relative ${
+        className={`w-full min-h-[200px] resize-none text-[20px] leading-relaxed bg-transparent border-none outline-none pb-[132px] relative ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
         style={{ 
