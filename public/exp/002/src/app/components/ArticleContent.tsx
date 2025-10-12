@@ -414,7 +414,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
           >
             <Telescope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-[10px] py-2 bg-gray-500 text-white text-xs rounded-[10px] opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
-              Expand in more detail
+              Extrapolate more details
             </div>
           </button>
           
