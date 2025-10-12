@@ -44,21 +44,10 @@ export default function Home() {
     return 'Welcome to Zoomer'
   }
 
-  // Fixed font size for header
-  const FIXED_HEADER_FONT_SIZE = 18
-  const FIXED_HEADER_LINE_HEIGHT = FIXED_HEADER_FONT_SIZE * 1.625
-
   return (
     <main className="min-h-screen  bg-slate-50 flex flex-col items-center justify-center">
       <div className="w-full max-w-[600px] mx-auto px-4 py-12">
-        <h1 
-          className="font-bold text-left text-[#06b6d4]"
-          style={{ 
-            fontSize: `${FIXED_HEADER_FONT_SIZE}px`,
-            lineHeight: `${FIXED_HEADER_LINE_HEIGHT}px`,
-            letterSpacing: '0px'
-          }}
-        >
+        <h1 className="text-lg leading-relaxed font-bold text-left text-[#06b6d4]">
           {getTitleText()}
         </h1>
         <ArticleContent 
