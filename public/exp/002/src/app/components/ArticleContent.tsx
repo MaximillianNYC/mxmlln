@@ -44,8 +44,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
 
   // Track when user has entered text to trigger full-height mode
   useEffect(() => {
-    if (content.trim().length > 0 && !hasText) {
-      setHasText(true)
+    const hasContent = content.trim().length > 0
+    if (hasContent !== hasText) {
+      setHasText(hasContent)
     }
   }, [content, hasText])
 
@@ -265,9 +266,10 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
 
   return (
     <div 
-      className="relative transition-all duration-700 ease-in-out"
+      className="relative"
       style={{
-        height: hasText ? '100dvh' : 'auto'
+        height: hasText ? '100dvh' : '200px',
+        transition: 'height 1000ms cubic-bezier(0.4, 0, 0.2, 1)'
       }}
     >
       {/* Old content overlay for morphing effect */}
@@ -344,7 +346,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out" 
         style={{ 
           zIndex: 9999,
-          bottom: content.trim() ? '40px' : '-100px'
+          bottom: hasText ? '40px' : '-100px'
         }}
       >
         <div 
