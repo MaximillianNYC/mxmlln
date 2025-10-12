@@ -17,6 +17,8 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
   const [sliderPosition, setSliderPosition] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
+  const [oldContent, setOldContent] = useState('') // Store previous content for morphing effect
+  const [hasText, setHasText] = useState(false) // Track if user has entered text to trigger full-height mode
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
 
@@ -25,30 +27,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     return text.trim().split(/\s+/).filter(word => word.length > 0).length
   }
 
-  // Calculate dynamic font size based on word count with three breakpoints
-  // 0-5 words: 28px (no change), 6-50 words: scale to 24px, 51-100 words: scale to 18px, 100+: 18px
-  const getDynamicFontSize = (): number => {
-    const wordCount = getWordCount(content)
-    
-    if (wordCount <= 5) {
-      // Stay at 28px for first 5 words to prevent visual shift
-      return 28
-    } else if (wordCount <= 50) {
-      // Scale from 28px at 6 words to 24px at 50 words
-      return Math.max(24, 28 - (((wordCount - 5) / 45) * 4))
-    } else if (wordCount <= 100) {
-      // Scale from 24px at 51 words to 18px at 100 words
-      return Math.max(18, 24 - (((wordCount - 50) / 50) * 6))
-    } else {
-      // 100+ words: stay at 18px
-      return 18
-    }
-  }
-
-  // Calculate proportional line-height (matches Tailwind's leading-relaxed ratio of 1.625)
-  const getDynamicLineHeight = (fontSize: number): number => {
-    return fontSize * 1.625
-  }
+  // Fixed font size
+  const FIXED_FONT_SIZE = 18
+  const FIXED_LINE_HEIGHT = FIXED_FONT_SIZE * 1.625
 
   // Notify parent component of loading state changes
   useEffect(() => {
@@ -60,6 +41,13 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     const wordCount = getWordCount(content)
     onWordCountChange?.(wordCount)
   }, [content, onWordCountChange])
+
+  // Track when user has entered text to trigger full-height mode
+  useEffect(() => {
+    if (content.trim().length > 0 && !hasText) {
+      setHasText(true)
+    }
+  }, [content, hasText])
 
   const handleRewrite = async (operation: 'expand' | 'contract') => {
     if (!content.trim()) {
@@ -98,7 +86,8 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
       const decoder = new TextDecoder()
       let result = ''
       
-      // Clear content and start streaming
+      // Save old content for morphing effect, then clear
+      setOldContent(content)
       setContent('')
       
       while (true) {
@@ -123,6 +112,11 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     // After streaming is complete, notify parent with operation summary
     const afterCount = result.trim().split(/\s+/).filter(word => word.length > 0).length
     onLoadingStateChange?.(false, operation, { beforeCount, afterCount })
+    
+    // Clear old content after transition completes
+    setTimeout(() => {
+      setOldContent('')
+    }, 500)
     
   } catch (error) {
     console.error(`Error ${operation}ing text:`, error)
@@ -270,7 +264,28 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
   }, [isLoading, isDragging, activeButton, handleContract, handleExpand])
 
   return (
-    <div className="relative">
+    <div 
+      className="relative transition-all duration-700 ease-in-out"
+      style={{
+        height: hasText ? '100dvh' : 'auto'
+      }}
+    >
+      {/* Old content overlay for morphing effect */}
+      {oldContent && isLoading && (
+        <div
+          className="absolute inset-0 pointer-events-none text-slate-900 whitespace-pre-wrap pb-[132px]"
+          style={{
+            fontSize: `${FIXED_FONT_SIZE}px`,
+            lineHeight: `${FIXED_LINE_HEIGHT}px`,
+            opacity: 0.4,
+            transition: 'opacity 0.5s ease-out',
+            zIndex: 1
+          }}
+        >
+          {oldContent}
+        </div>
+      )}
+      
       <textarea
         ref={textareaRef}
         value={content}
@@ -280,10 +295,12 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         }`}
         style={{ 
           caretColor: '#06b6d4', 
-          height: 'auto', 
+          height: hasText ? '100%' : 'auto',
           overflow: 'hidden',
-          fontSize: `${getDynamicFontSize()}px`,
-          lineHeight: `${getDynamicLineHeight(getDynamicFontSize())}px`
+          fontSize: `${FIXED_FONT_SIZE}px`,
+          lineHeight: `${FIXED_LINE_HEIGHT}px`,
+          position: 'relative',
+          zIndex: 2
         }}
         placeholder="Type or paste text to apply semantic zoom"
         autoFocus
