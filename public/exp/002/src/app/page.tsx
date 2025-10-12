@@ -7,6 +7,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
   const [wordCount, setWordCount] = useState(0)
+  const [hasPerformedZoom, setHasPerformedZoom] = useState(false)
   const [lastOperation, setLastOperation] = useState<{
     type: 'expand' | 'contract'
     beforeCount: number
@@ -19,6 +20,7 @@ export default function Home() {
     
     // If operation completed and we have summary data, store it
     if (!loading && button && operationSummary) {
+      setHasPerformedZoom(true)
       setLastOperation({
         type: button,
         beforeCount: operationSummary.beforeCount,
@@ -40,6 +42,10 @@ export default function Home() {
       } else {
         return `${lastOperation.beforeCount} ➾ ${lastOperation.afterCount} words`
       }
+    }
+    // Show this when text is entered but no zoom has been performed yet
+    if (wordCount > 0 && !hasPerformedZoom) {
+      return 'Select a zoom direction below'
     }
     return 'Welcome to Zoomer'
   }
