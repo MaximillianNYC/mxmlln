@@ -11,7 +11,7 @@ html, body {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-fraunces), serif;
 }
 
 .loading-text {
