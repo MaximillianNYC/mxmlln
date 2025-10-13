@@ -37,7 +37,7 @@ export default function Home() {
     }
   }
 
-  const getTitleText = () => {
+  const getTitleContent = () => {
     if (isLoading && activeButton === 'contract') {
       return 'Zooming in...'
     }
@@ -45,7 +45,11 @@ export default function Home() {
       return 'Zooming out...'
     }
     if (lastOperation) {
-      return `${lastOperation.beforeCount} ⇒ ${lastOperation.afterCount} words`
+      return (
+        <>
+          <span className="line-through font-normal">{lastOperation.beforeCount} words</span> {lastOperation.afterCount} words
+        </>
+      )
     }
     if (hasText && !hasPerformedZoom) {
       return 'Select a zoom direction below'
@@ -57,7 +61,7 @@ export default function Home() {
     <main className="min-h-screen  bg-slate-50 flex flex-col items-center justify-center">
       <div id="top" className="w-full max-w-[650px] mx-auto px-4 py-12">
         <h1 className="text-[20px] leading-relaxed font-bold text-left text-[#06b6d4]" style={{ letterSpacing: '-0.01em' }}>
-          {getTitleText()}
+          {getTitleContent()}
         </h1>
         <ArticleContent 
           initialContent="" 

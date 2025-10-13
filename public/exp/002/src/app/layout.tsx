@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
+import { Fraunces } from "next/font/google";
 import "./globals.css";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
 });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${archivo.variable} antialiased`}
+        className={`${fraunces.variable} antialiased`}
       >
         {children}
       </body>
