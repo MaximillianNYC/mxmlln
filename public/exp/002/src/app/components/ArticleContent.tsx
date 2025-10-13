@@ -21,6 +21,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
   const [oldContent, setOldContent] = useState('') // Store previous content for morphing effect
   const [hasText, setHasText] = useState(false) // Track if user has entered text to trigger full-height mode
   const [hasPerformedFirstZoom, setHasPerformedFirstZoom] = useState(false) // Track if first zoom happened to disable autofocus
+  const [showDragTooltip, setShowDragTooltip] = useState<'contract' | 'expand' | null>(null) // Track which tooltip to show during drag
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
 
@@ -195,6 +196,16 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     const position = Math.max(-sliderWidth / 2, Math.min(sliderWidth / 2, x - sliderWidth / 2))
     
     setSliderPosition(position)
+    
+    // Show appropriate tooltip based on drag direction
+    const threshold = 20 // Minimum distance to show tooltip
+    if (position < -threshold) {
+      setShowDragTooltip('contract')
+    } else if (position > threshold) {
+      setShowDragTooltip('expand')
+    } else {
+      setShowDragTooltip(null)
+    }
   }, [isDragging])
 
   const handleSliderStart = useCallback((event: React.MouseEvent | React.TouchEvent) => {
@@ -222,6 +233,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     }
     
     setIsDragging(false)
+    setShowDragTooltip(null) // Hide tooltip when drag ends
     // Don't snap back to center - stay positioned
   }, [isDragging, sliderPosition])
 
@@ -400,7 +412,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
             }}
           >
             <Microscope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-[10px] py-2 bg-gray-500 text-white text-xs rounded-[10px] opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
+            <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-[10px] py-2 bg-gray-500 text-white text-xs rounded-[10px] translate-y-1 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold ${
+              showDragTooltip === 'contract' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0'
+            }`}>
               Distill
             </div>
           </button>
@@ -429,7 +443,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
             }}
           >
             <Telescope className="w-[24px] h-[24px] text-slate-800" strokeWidth={2} />
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-[10px] py-2 bg-gray-500 text-white text-xs rounded-[10px] opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold">
+            <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-[10px] py-2 bg-gray-500 text-white text-xs rounded-[10px] translate-y-1 transition-all duration-200 whitespace-nowrap pointer-events-none z-50 font-bold ${
+              showDragTooltip === 'expand' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0'
+            }`}>
               Extrapolate
             </div>
           </button>
