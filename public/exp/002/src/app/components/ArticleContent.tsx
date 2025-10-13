@@ -141,11 +141,11 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
   }
 
   const handleExpand = () => {
-    setSliderPosition(84) // Position handle over expand icon  
+    setSliderPosition(84)
     handleRewrite('expand')
   }
   const handleContract = () => {
-    setSliderPosition(-82) // Position handle over contract icon
+    setSliderPosition(-84)
     handleRewrite('contract')
   }
 
@@ -219,13 +219,11 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     
     const threshold = 50 // Minimum distance to trigger action
     
-      if (Math.abs(sliderPosition) > threshold) {
+    if (Math.abs(sliderPosition) > threshold) {
       if (sliderPosition < -threshold) {
         handleContract()
-        setSliderPosition(-82) // Center over contract icon (Microscope at 48px center)
       } else if (sliderPosition > threshold) {
-        handleExpand()
-        setSliderPosition(84) // Center over expand icon (Telescope at 216px center)
+        handleExpand() 
       }
     } else {
       // If not enough distance, reset to center
@@ -234,7 +232,6 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     
     setIsDragging(false)
     setShowDragTooltip(null) // Hide tooltip when drag ends
-    // Don't snap back to center - stay positioned
   }, [isDragging, sliderPosition])
 
   // Add event listeners for mouse/touch move and end
