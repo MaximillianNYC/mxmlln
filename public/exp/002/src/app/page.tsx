@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ArticleContent } from './components/ArticleContent'
+import { MorphingText } from '@/registry/magicui/morphing-text'
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
@@ -61,7 +62,9 @@ export default function Home() {
     <main className="min-h-screen  bg-slate-50 flex flex-col items-center justify-center">
       <div id="top" className="w-full max-w-[650px] mx-auto px-4 py-12">
         <h1 className="text-[20px] leading-relaxed font-bold text-left text-[#06b6d4]" style={{ letterSpacing: '-0.01em' }}>
-          {getTitleContent()}
+          <MorphingText>
+            {getTitleContent()}
+          </MorphingText>
         </h1>
         <ArticleContent 
           initialContent="" 
