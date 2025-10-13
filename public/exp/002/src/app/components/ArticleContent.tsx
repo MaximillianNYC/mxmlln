@@ -284,12 +284,13 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
       {/* Old content overlay for morphing effect */}
       {oldContent && (
         <div
-          className="absolute inset-0 pointer-events-none text-slate-900 text-[20px] leading-relaxed whitespace-pre-wrap pb-[132px] transition-all duration-500 ease-out"
+          className="absolute inset-0 pointer-events-none text-slate-900 text-[20px] leading-relaxed whitespace-pre-wrap pb-[132px]"
           style={{
             opacity: isLoading ? 0.4 : 0,
-            filter: isLoading ? 'blur(2px)' : 'blur(0px)',
+            filter: isLoading ? 'blur(3px)' : 'blur(0px)',
             letterSpacing: '-0.01em',
-            zIndex: 1
+            zIndex: 1,
+            transition: 'opacity 150ms ease-out, filter 250ms ease-out'
           }}
         >
           {oldContent}
@@ -300,7 +301,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={`w-full min-h-[200px] resize-none text-[20px] leading-relaxed bg-transparent border-none outline-none pb-[132px] relative transition-all duration-500 ease-out ${
+        className={`w-full min-h-[200px] resize-none text-[20px] leading-relaxed bg-transparent border-none outline-none pb-[132px] relative ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
         style={{ 
@@ -308,8 +309,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
           height: hasText ? '100%' : 'auto',
           overflow: 'hidden',
           letterSpacing: '-0.01em',
-          filter: isLoading ? 'blur(2px)' : 'blur(0px)',
-          zIndex: 2
+          filter: isLoading ? 'blur(3px)' : 'blur(0px)',
+          zIndex: 2,
+          transition: 'filter 1000ms ease-out'
         }}
         placeholder="Type or paste text to apply semantic zoom"
         autoFocus={!hasPerformedFirstZoom}
