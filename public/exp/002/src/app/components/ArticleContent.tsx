@@ -353,7 +353,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out" 
         style={{ 
           zIndex: 9999,
-          bottom: hasText ? '40px' : '-100px'
+          bottom: hasText ? '24px' : '-100px'
         }}
       >
         <div 

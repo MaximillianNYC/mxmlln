@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArticleContent } from './components/ArticleContent'
 
 export default function Home() {
@@ -13,6 +13,14 @@ export default function Home() {
     beforeCount: number
     afterCount: number
   } | null>(null)
+
+  // Reset zoom state when user deletes all text
+  useEffect(() => {
+    if (!hasText) {
+      setHasPerformedZoom(false)
+      setLastOperation(null)
+    }
+  }, [hasText])
 
   const handleLoadingStateChange = (loading: boolean, button: 'expand' | 'contract' | null, operationSummary?: { beforeCount: number, afterCount: number }) => {
     setIsLoading(loading)
