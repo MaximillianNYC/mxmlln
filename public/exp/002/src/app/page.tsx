@@ -38,6 +38,11 @@ export default function Home() {
     }
   }
 
+  const handleContentManuallyEdited = () => {
+    // Reset to the "select zoom direction" state when user edits generated content
+    setLastOperation(null)
+  }
+
   const getTitleContent = () => {
     if (isLoading && activeButton === 'contract') {
       return 'Zooming in...'
@@ -52,7 +57,8 @@ export default function Home() {
         </>
       )
     }
-    if (hasText && !hasPerformedZoom) {
+    // Show instruction if user has text but either hasn't zoomed yet OR has edited after zooming
+    if (hasText && (hasPerformedZoom === false || lastOperation === null)) {
       return 'Select a zoom direction below'
     }
     return 'Welcome to Zoomer'
@@ -70,6 +76,7 @@ export default function Home() {
           initialContent="" 
           onLoadingStateChange={handleLoadingStateChange}
           onHasTextChange={setHasText}
+          onContentManuallyEdited={handleContentManuallyEdited}
         />
       </div>
     </main>

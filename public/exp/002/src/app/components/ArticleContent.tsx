@@ -9,9 +9,10 @@ interface ArticleContentProps {
   onLoadingStateChange?: (isLoading: boolean, activeButton: 'expand' | 'contract' | null, operationSummary?: { beforeCount: number, afterCount: number }) => void
   onWordCountChange?: (wordCount: number) => void
   onHasTextChange?: (hasText: boolean) => void
+  onContentManuallyEdited?: () => void
 }
 
-export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange, onHasTextChange }: ArticleContentProps) => {
+export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange, onHasTextChange, onContentManuallyEdited }: ArticleContentProps) => {
   const [content, setContent] = useState(initialContent)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -22,6 +23,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
   const [hasText, setHasText] = useState(false) // Track if user has entered text to trigger full-height mode
   const [hasPerformedFirstZoom, setHasPerformedFirstZoom] = useState(false) // Track if first zoom happened to disable autofocus
   const [showDragTooltip, setShowDragTooltip] = useState<'contract' | 'expand' | null>(null) // Track which tooltip to show during drag
+  const [lastGeneratedContent, setLastGeneratedContent] = useState('') // Track the last generated content to detect user edits
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
 
@@ -62,6 +64,17 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
       onHasTextChange?.(hasContent)
     }
   }, [content, hasText, onHasTextChange])
+
+  // Detect if user manually edited the generated content
+  useEffect(() => {
+    // Only check if we have generated content and we're not currently loading
+    if (!isLoading && lastGeneratedContent && content !== lastGeneratedContent && content.trim().length > 0) {
+      // User has manually edited the content
+      onContentManuallyEdited?.()
+      // Clear the last generated content so we don't trigger this again
+      setLastGeneratedContent('')
+    }
+  }, [content, lastGeneratedContent, isLoading, onContentManuallyEdited])
 
   const handleRewrite = async (operation: 'expand' | 'contract') => {
     if (!content.trim()) {
@@ -123,6 +136,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     // After streaming is complete, notify parent with operation summary
     const afterCount = result.trim().split(/\s+/).filter(word => word.length > 0).length
     onLoadingStateChange?.(false, operation, { beforeCount, afterCount })
+    
+    // Store the generated content to detect future manual edits
+    setLastGeneratedContent(result)
     
     // Clear old content after transition completes
     setTimeout(() => {
