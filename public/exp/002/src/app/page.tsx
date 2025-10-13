@@ -6,7 +6,6 @@ import { ArticleContent } from './components/ArticleContent'
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
-  const [wordCount, setWordCount] = useState(0)
   const [hasText, setHasText] = useState(false)
   const [hasPerformedZoom, setHasPerformedZoom] = useState(false)
   const [lastOperation, setLastOperation] = useState<{
@@ -48,14 +47,13 @@ export default function Home() {
 
   return (
     <main className="min-h-screen  bg-slate-50 flex flex-col items-center justify-center">
-      <div className="w-full max-w-[650px] mx-auto px-4 py-12">
+      <div id="top" className="w-full max-w-[650px] mx-auto px-4 py-12">
         <h1 className="text-[20px] leading-relaxed font-bold text-left text-[#06b6d4]" style={{ letterSpacing: '-0.01em' }}>
           {getTitleText()}
         </h1>
         <ArticleContent 
           initialContent="" 
           onLoadingStateChange={handleLoadingStateChange}
-          onWordCountChange={setWordCount}
           onHasTextChange={setHasText}
         />
       </div>
