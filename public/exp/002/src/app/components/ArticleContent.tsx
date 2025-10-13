@@ -20,12 +20,25 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
   const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
   const [oldContent, setOldContent] = useState('') // Store previous content for morphing effect
   const [hasText, setHasText] = useState(false) // Track if user has entered text to trigger full-height mode
+  const [hasPerformedFirstZoom, setHasPerformedFirstZoom] = useState(false) // Track if first zoom happened to disable autofocus
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
 
   // Calculate word count from content
   const getWordCount = (text: string): number => {
     return text.trim().split(/\s+/).filter(word => word.length > 0).length
+  }
+
+  // Smooth scroll to top anchor when zoom operation starts
+  const scrollToTop = () => {
+    // Small delay to ensure DOM is ready, then scroll
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }, 50)
   }
 
 
@@ -60,6 +73,12 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     setIsLoading(true)
     setError(null)
     setActiveButton(operation)
+    
+    // Scroll to top for better UX
+    scrollToTop()
+    
+    // Mark that first zoom has been performed (to disable autofocus after this)
+    setHasPerformedFirstZoom(true)
     
     try {
       const response = await fetch('/api/rewrite', {
@@ -99,15 +118,6 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
       setContent(result)
     }
     
-    // Refocus the textarea after content is ready
-    setTimeout(() => {
-      if (textareaRef.current) {
-        textareaRef.current.focus()
-        // Set cursor to end of text
-        const length = result.length
-        textareaRef.current.setSelectionRange(length, length)
-      }
-    }, 100)
     
     // After streaming is complete, notify parent with operation summary
     const afterCount = result.trim().split(/\s+/).filter(word => word.length > 0).length
@@ -267,16 +277,17 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     <div 
       className="relative"
       style={{
-        height: hasText ? '100dvh' : '200px',
+        height: hasText ? 'calc(100dvh - 96px - 32px)' : '200px', // 96px for py-12, 32px for header approx
         transition: 'height 1000ms cubic-bezier(0.4, 0, 0.2, 1)'
       }}
     >
       {/* Old content overlay for morphing effect */}
-      {oldContent && isLoading && (
+      {oldContent && (
         <div
-          className="absolute inset-0 pointer-events-none text-slate-900 text-[20px] leading-relaxed whitespace-pre-wrap pb-[132px] transition-opacity duration-500 ease-out"
+          className="absolute inset-0 pointer-events-none text-slate-900 text-[20px] leading-relaxed whitespace-pre-wrap pb-[132px] transition-all duration-500 ease-out"
           style={{
-            opacity: 0.4,
+            opacity: isLoading ? 0.4 : 0,
+            filter: isLoading ? 'blur(2px)' : 'blur(0px)',
             letterSpacing: '-0.01em',
             zIndex: 1
           }}
@@ -289,7 +300,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={`w-full min-h-[200px] resize-none text-[20px] leading-relaxed bg-transparent border-none outline-none pb-[132px] relative ${
+        className={`w-full min-h-[200px] resize-none text-[20px] leading-relaxed bg-transparent border-none outline-none pb-[132px] relative transition-all duration-500 ease-out ${
           isLoading ? 'loading-text' : 'text-slate-900'
         }`}
         style={{ 
@@ -297,10 +308,11 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
           height: hasText ? '100%' : 'auto',
           overflow: 'hidden',
           letterSpacing: '-0.01em',
+          filter: isLoading ? 'blur(2px)' : 'blur(0px)',
           zIndex: 2
         }}
         placeholder="Type or paste text to apply semantic zoom"
-        autoFocus
+        autoFocus={!hasPerformedFirstZoom}
         disabled={isLoading}
       />
 
