@@ -39,30 +39,87 @@
         }
 
         .loader-showcase {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 25;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 24px;
+            background: #1a1a1a;
+            border-radius: 24px;
+            border: 1px solid #333;
+        }
+
+        .loader-showcase.open {
+            pointer-events: all;
+            opacity: 1;
+        }
+
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 15;
+        }
+
+        .backdrop.open {
+            opacity: 1;
+            pointer-events: all;
         }
 
         .loader-section {
             background: #252525;
-            border-radius: 16px;
-            padding: 40px;
+            border-radius: 12px;
+            padding: 8px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 24px;
-            min-height: 180px;
             justify-content: center;
+            width: 148px;
+            height: 148px;
             cursor: pointer;
             transition: all 0.2s ease;
             border: 2px solid transparent;
+            transform: scale(0);
+            opacity: 0;
+            z-index: 20;
         }
+
+        .loader-showcase.open .loader-section {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .loader-section:nth-child(1) { transition-delay: 0.05s; }
+        .loader-section:nth-child(2) { transition-delay: 0.1s; }
+        .loader-section:nth-child(3) { transition-delay: 0.15s; }
+        .loader-section:nth-child(4) { transition-delay: 0.2s; }
+        .loader-section:nth-child(5) { transition-delay: 0.25s; }
+        .loader-section:nth-child(6) { transition-delay: 0.3s; }
+        .loader-section:nth-child(7) { transition-delay: 0.35s; }
+        .loader-section:nth-child(8) { transition-delay: 0.4s; }
+        .loader-section:nth-child(9) { transition-delay: 0.45s; }
+        .loader-section:nth-child(10) { transition-delay: 0.5s; }
+        .loader-section:nth-child(11) { transition-delay: 0.55s; }
+        .loader-section:nth-child(12) { transition-delay: 0.6s; }
+        .loader-section:nth-child(13) { transition-delay: 0.65s; }
 
         .loader-section:hover {
             background: #2a2a2a;
             border-color: #3a3a3a;
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
 
         .loader-section.active {
@@ -70,16 +127,8 @@
             background: #2d2d2d;
         }
 
-        .loader-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: #b0b0b0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         .text-loader {
-            font-size: 48px;
+            font-size: 24px;
             font-weight: 400;
             color: #ff6b35;
             font-family: monospace;
@@ -99,6 +148,7 @@
             transition: all 0.2s ease;
             border: 2px solid transparent;
             position: relative;
+            z-index: 1;
         }
 
         .main-loader-display:hover {
@@ -109,9 +159,21 @@
         .main-loader-display input[type="color"] {
             position: absolute;
             opacity: 0;
-            width: 100%;
+            width: 50%;
             height: 100%;
             cursor: pointer;
+            right: 0;
+            z-index: 2;
+        }
+
+        .loader-trigger {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 2;
         }
 
         .loading-text {
@@ -166,19 +228,22 @@
     </style>
 </head>
 <body>
+    <div class="backdrop" id="backdrop"></div>
+
     <div class="container">
         <!-- Main Loader Display -->
         <div class="main-loader-display">
+            <div class="loader-trigger" id="loaderTrigger"></div>
             <input type="color" id="colorPicker" value="#ff6b35">
             <div class="loading-text">
-                <span class="char" id="mainLoader">⠋</span>
+                <span class="char" id="mainLoader">✽</span>
                 <span id="loadingTextWrapper"></span>
             </div>
         </div>
 
-        <div class="loader-showcase">
+        <div class="loader-showcase" id="loaderShowcase">
             <!-- Spinner Characters -->
-            <div class="loader-section active" data-loader="spinner">
+            <div class="loader-section" data-loader="spinner">
                 <div class="text-loader" id="loader1">⠋</div>
             </div>
 
@@ -219,21 +284,16 @@
 
             <!-- Bouncing Ball -->
             <div class="loader-section" data-loader="bounce">
-                <div class="text-loader" id="loader9">( ●    )</div>
+                <div class="text-loader" id="loader9">(●····)</div>
             </div>
 
             <!-- Progress Bar ASCII -->
             <div class="loader-section" data-loader="progress">
-                <div class="text-loader" style="font-size: 20px;" id="loader10">[          ]</div>
-            </div>
-
-            <!-- Star -->
-            <div class="loader-section" data-loader="star">
-                <div class="text-loader" id="loader12">✶</div>
+                <div class="text-loader" style="font-size: 16px;" id="loader10">[··········]</div>
             </div>
 
             <!-- Shrinking Asterisk -->
-            <div class="loader-section" data-loader="shrink">
+            <div class="loader-section active" data-loader="shrink">
                 <div class="text-loader" id="loader13">✽</div>
             </div>
         </div>
@@ -251,31 +311,30 @@
             moon: ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'],
             clock: ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛'],
             bounce: [
-                '(●    )',
-                '( ●   )',
-                '(  ●  )',
-                '(   ● )',
-                '(    ●)',
-                '(   ● )',
-                '(  ●  )',
-                '( ●   )'
+                '(●····)',
+                '(·●···)',
+                '(··●··)',
+                '(···●·)',
+                '(····●)',
+                '(···●·)',
+                '(··●··)',
+                '(·●···)'
             ],
             progress: [
-                '[          ]',
-                '[=         ]',
-                '[==        ]',
-                '[===       ]',
-                '[====      ]',
-                '[=====     ]',
-                '[======    ]',
-                '[=======   ]',
-                '[========  ]',
-                '[========= ]',
+                '[··········]',
+                '[=·········]',
+                '[==········]',
+                '[===·······]',
+                '[====······]',
+                '[=====·····]',
+                '[======····]',
+                '[=======···]',
+                '[========··]',
+                '[=========·]',
                 '[==========]'
             ],
             binary: ['0', '1'],
-            star: ['✶', '✸', '✹', '✺', '✹', '✸'],
-            shrink: ['✽', '✼', '✻', '✺', '✹', '✸', '✷', '✶', '*', '·', '˙', '·', '*', '✶', '✷', '✸', '✹', '✺', '✻', '✼']
+            shrink: ['✽', '✻', '✷', '✶', '*', '+', '·', '·', '+', '*', '✶', '✷', '✻', '✽']
         };
 
         // Assign each loader its character set
@@ -291,14 +350,13 @@
             { id: 'loader9', set: 'bounce' },
             { id: 'loader10', set: 'progress' },
             { id: 'loader11', set: 'binary' },
-            { id: 'loader12', set: 'star' },
             { id: 'loader13', set: 'shrink' },
-            { id: 'mainLoader', set: 'spinner' }
+            { id: 'mainLoader', set: 'shrink' }
         ];
 
         let animationSpeed = 100;
         let intervals = [];
-        let currentMainLoader = 'spinner';
+        let currentMainLoader = 'shrink';
 
         function startLoader(elementId, charSet) {
             const element = document.getElementById(elementId);
@@ -403,12 +461,42 @@
             `;
         }
 
+        // Toggle flower menu
+        let isMenuOpen = false;
+        const loaderTrigger = document.getElementById('loaderTrigger');
+        const loaderShowcase = document.getElementById('loaderShowcase');
+        const backdrop = document.getElementById('backdrop');
+
+        loaderTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMenuOpen = !isMenuOpen;
+
+            if (isMenuOpen) {
+                loaderShowcase.classList.add('open');
+                backdrop.classList.add('open');
+            } else {
+                loaderShowcase.classList.remove('open');
+                backdrop.classList.remove('open');
+            }
+        });
+
+        backdrop.addEventListener('click', () => {
+            isMenuOpen = false;
+            loaderShowcase.classList.remove('open');
+            backdrop.classList.remove('open');
+        });
+
         // Add click handlers to loader sections
         document.querySelectorAll('.loader-section').forEach(section => {
             section.addEventListener('click', () => {
                 const loaderType = section.getAttribute('data-loader');
                 if (loaderType) {
                     updateMainLoader(loaderType);
+
+                    // Close menu after selection
+                    isMenuOpen = false;
+                    loaderShowcase.classList.remove('open');
+                    backdrop.classList.remove('open');
                 }
             });
         });
