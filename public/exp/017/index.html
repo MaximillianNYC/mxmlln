@@ -30,14 +30,6 @@
             width: 100%;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 60px;
-            font-size: 32px;
-            font-weight: 600;
-            color: #fff;
-        }
-
         .loader-showcase {
             position: fixed;
             top: 50%;
@@ -118,12 +110,11 @@
 
         .loader-section:hover {
             background: #2a2a2a;
-            border-color: #3a3a3a;
             transform: scale(1.05);
         }
 
         .loader-section.active {
-            border-color: #ff6b35;
+            border-color: var(--loader-color, #ff6b35);
             background: #2d2d2d;
         }
 
@@ -199,7 +190,7 @@
             align-items: center;
             gap: 0px;
             font-size: 32px;
-            font-weight: 500;
+            font-weight: 100;
             pointer-events: none;
             position: relative;
             z-index: 1;
@@ -472,6 +463,9 @@
                 loader.style.color = color;
             });
 
+            // Update CSS custom property for active border
+            document.documentElement.style.setProperty('--loader-color', color);
+
             // Update shimmer animation colors
             updateShimmerColors(color);
         });
@@ -572,7 +566,7 @@
         }
 
         // Initialize
-        createShimmerText('Loading', 'loadingTextWrapper');
+        createShimmerText('Loading...', 'loadingTextWrapper');
         startAllLoaders();
         
         // Initialize loader zone width for default loader
