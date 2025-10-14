@@ -134,43 +134,61 @@
             font-family: monospace;
             line-height: 1;
             user-select: none;
+            white-space: pre !important;
         }
 
         .main-loader-display {
-            background: #252525;
             border-radius: 16px;
             padding: 60px 40px;
             margin-bottom: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            gap: 0px;
             border: 2px solid transparent;
             position: relative;
             z-index: 1;
         }
 
-        .main-loader-display:hover {
-            background: #2a2a2a;
-            border-color: #3a3a3a;
+        .loader-zone {
+            border-radius: 12px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            white-space: pre;
         }
 
-        .main-loader-display input[type="color"] {
+        .loader-zone:hover {
+            background: #1f1f1f;
+        }
+
+        .text-zone {
+            border-radius: 12px;
+            margin-left: -12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            white-space: pre;
+        }
+
+        .text-zone:hover {
+            background: #1f1f1f;
+        }
+
+        .text-zone input[type="color"] {
             position: absolute;
             opacity: 0;
-            width: 50%;
-            height: 100%;
-            cursor: pointer;
-            right: 0;
-            z-index: 2;
-        }
-
-        .loader-trigger {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 50%;
+            width: 100%;
             height: 100%;
             cursor: pointer;
             z-index: 2;
@@ -179,7 +197,7 @@
         .loading-text {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 0px;
             font-size: 32px;
             font-weight: 500;
             pointer-events: none;
@@ -188,9 +206,15 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .loading-text .char {
+        .loading-text .char, .char {
             font-size: 36px;
             color: #ff6b35;
+            white-space: pre !important;
+        }
+
+        #mainLoader {
+            white-space: pre !important;
+            font-family: monospace !important;
         }
 
         .loading-text .text-char {
@@ -233,11 +257,17 @@
     <div class="container">
         <!-- Main Loader Display -->
         <div class="main-loader-display">
-            <div class="loader-trigger" id="loaderTrigger"></div>
-            <input type="color" id="colorPicker" value="#ff6b35">
-            <div class="loading-text">
+            <!-- Loader Zone (triggers loader menu) -->
+            <div class="loader-zone" id="loaderTrigger">
                 <span class="char" id="mainLoader">✽</span>
-                <span id="loadingTextWrapper"></span>
+            </div>
+            
+            <!-- Text Zone (triggers color picker) -->
+            <div class="text-zone">
+                <input type="color" id="colorPicker" value="#ff6b35">
+                <div class="loading-text">
+                    <span id="loadingTextWrapper"></span>
+                </div>
             </div>
         </div>
 
@@ -284,12 +314,12 @@
 
             <!-- Bouncing Ball -->
             <div class="loader-section" data-loader="bounce">
-                <div class="text-loader" id="loader9">(●····)</div>
+                <div class="text-loader" id="loader9">(●    )</div>
             </div>
 
             <!-- Progress Bar ASCII -->
             <div class="loader-section" data-loader="progress">
-                <div class="text-loader" style="font-size: 16px;" id="loader10">[··········]</div>
+                <div class="text-loader" style="font-size: 16px;" id="loader10">[          ]</div>
             </div>
 
             <!-- Shrinking Asterisk -->
@@ -311,26 +341,26 @@
             moon: ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'],
             clock: ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛'],
             bounce: [
-                '(●····)',
-                '(·●···)',
-                '(··●··)',
-                '(···●·)',
-                '(····●)',
-                '(···●·)',
-                '(··●··)',
-                '(·●···)'
+                '(●    )',
+                '( ●   )',
+                '(  ●  )',
+                '(   ● )',
+                '(    ●)',
+                '(   ● )',
+                '(  ●  )',
+                '( ●   )'
             ],
             progress: [
-                '[··········]',
-                '[=·········]',
-                '[==········]',
-                '[===·······]',
-                '[====······]',
-                '[=====·····]',
-                '[======····]',
-                '[=======···]',
-                '[========··]',
-                '[=========·]',
+                '[          ]',
+                '[=         ]',
+                '[==        ]',
+                '[===       ]',
+                '[====      ]',
+                '[=====     ]',
+                '[======    ]',
+                '[=======   ]',
+                '[========  ]',
+                '[========= ]',
                 '[==========]'
             ],
             binary: ['0', '1'],
@@ -394,6 +424,32 @@
                 mainConfig.set = loaderType;
             }
 
+            // Update loader zone width based on loader type
+            const loaderZone = document.getElementById('loaderTrigger');
+            const chars = loaderSets[loaderType];
+            if (chars && chars.length > 0) {
+                // Create a temporary element to measure the widest character
+                const temp = document.createElement('span');
+                temp.style.fontSize = '36px';
+                temp.style.fontFamily = 'monospace';
+                temp.style.visibility = 'hidden';
+                temp.style.position = 'absolute';
+                temp.style.whiteSpace = 'pre';
+                document.body.appendChild(temp);
+                
+                let maxWidth = 0;
+                chars.forEach(char => {
+                    temp.textContent = char;
+                    maxWidth = Math.max(maxWidth, temp.offsetWidth);
+                });
+                
+                document.body.removeChild(temp);
+                
+                // Set the loader zone width with some padding
+                loaderZone.style.width = (maxWidth + 40) + 'px';
+                loaderZone.style.minWidth = (maxWidth + 40) + 'px';
+            }
+
             // Restart all loaders with new config
             startAllLoaders();
 
@@ -412,7 +468,7 @@
 
         colorPicker.addEventListener('input', (e) => {
             const color = e.target.value;
-            document.querySelectorAll('.text-loader, .loading-text .char').forEach(loader => {
+            document.querySelectorAll('.text-loader, .char').forEach(loader => {
                 loader.style.color = color;
             });
 
@@ -518,6 +574,9 @@
         // Initialize
         createShimmerText('Loading', 'loadingTextWrapper');
         startAllLoaders();
+        
+        // Initialize loader zone width for default loader
+        updateMainLoader(currentMainLoader);
     </script>
 </body>
 </html>
