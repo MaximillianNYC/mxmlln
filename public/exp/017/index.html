@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Loaders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 32px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .loader-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .loader-section {
+            background: #252525;
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            min-height: 180px;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .loader-section:hover {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+            transform: translateY(-2px);
+        }
+
+        .loader-section.active {
+            border-color: #ff6b35;
+            background: #2d2d2d;
+        }
+
+        .loader-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #b0b0b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .text-loader {
+            font-size: 48px;
+            font-weight: 400;
+            color: #ff6b35;
+            font-family: monospace;
+            line-height: 1;
+            user-select: none;
+        }
+
+        .main-loader-display {
+            background: #252525;
+            border-radius: 16px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .main-loader-display:hover {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+        }
+
+        .main-loader-display input[type="color"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .loading-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 32px;
+            color: #e0e0e0;
+            font-weight: 500;
+            pointer-events: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .loading-text .char {
+            font-size: 36px;
+            color: #ff6b35;
+            font-family: monospace;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Loader Display -->
+        <div class="main-loader-display">
+            <input type="color" id="colorPicker" value="#ff6b35">
+            <div class="loading-text">
+                <span class="char" id="mainLoader">⠋</span>
+                <span>Loading</span>
+            </div>
+        </div>
+
+        <div class="loader-showcase">
+            <!-- Spinner Characters -->
+            <div class="loader-section active" data-loader="spinner">
+                <div class="text-loader" id="loader1">⠋</div>
+            </div>
+
+            <!-- Line Spinner -->
+            <div class="loader-section" data-loader="line">
+                <div class="text-loader" id="loader2">—</div>
+            </div>
+
+            <!-- Box Spinner -->
+            <div class="loader-section" data-loader="box">
+                <div class="text-loader" id="loader3">◰</div>
+            </div>
+
+            <!-- Circle Quarters -->
+            <div class="loader-section" data-loader="circle">
+                <div class="text-loader" id="loader4">◜</div>
+            </div>
+
+            <!-- Arrows -->
+            <div class="loader-section" data-loader="arrow">
+                <div class="text-loader" id="loader5">←</div>
+            </div>
+
+            <!-- Dots -->
+            <div class="loader-section" data-loader="dots">
+                <div class="text-loader" id="loader6">⣾</div>
+            </div>
+
+            <!-- Moon Phases -->
+            <div class="loader-section" data-loader="moon">
+                <div class="text-loader" id="loader7">🌑</div>
+            </div>
+
+            <!-- Clock -->
+            <div class="loader-section" data-loader="clock">
+                <div class="text-loader" id="loader8">🕐</div>
+            </div>
+
+            <!-- Bouncing Ball -->
+            <div class="loader-section" data-loader="bounce">
+                <div class="text-loader" id="loader9">( ●    )</div>
+            </div>
+
+            <!-- Progress Bar ASCII -->
+            <div class="loader-section" data-loader="progress">
+                <div class="text-loader" style="font-size: 20px;" id="loader10">[          ]</div>
+            </div>
+
+            <!-- Star -->
+            <div class="loader-section" data-loader="star">
+                <div class="text-loader" id="loader12">✶</div>
+            </div>
+
+            <!-- Shrinking Asterisk -->
+            <div class="loader-section" data-loader="shrink">
+                <div class="text-loader" id="loader13">✽</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Character sets for different loader styles
+        const loaderSets = {
+            spinner: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+            line: ['—', '\\', '|', '/'],
+            box: ['◰', '◳', '◲', '◱'],
+            circle: ['◜', '◝', '◞', '◟'],
+            arrow: ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙'],
+            dots: ['⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'],
+            moon: ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'],
+            clock: ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛'],
+            bounce: [
+                '(●    )',
+                '( ●   )',
+                '(  ●  )',
+                '(   ● )',
+                '(    ●)',
+                '(   ● )',
+                '(  ●  )',
+                '( ●   )'
+            ],
+            progress: [
+                '[          ]',
+                '[=         ]',
+                '[==        ]',
+                '[===       ]',
+                '[====      ]',
+                '[=====     ]',
+                '[======    ]',
+                '[=======   ]',
+                '[========  ]',
+                '[========= ]',
+                '[==========]'
+            ],
+            binary: ['0', '1'],
+            star: ['✶', '✸', '✹', '✺', '✹', '✸'],
+            shrink: ['✽', '✼', '✻', '✺', '✹', '✸', '✷', '✶', '*', '·', '˙', '·', '*', '✶', '✷', '✸', '✹', '✺', '✻', '✼']
+        };
+
+        // Assign each loader its character set
+        const loaderConfigs = [
+            { id: 'loader1', set: 'spinner' },
+            { id: 'loader2', set: 'line' },
+            { id: 'loader3', set: 'box' },
+            { id: 'loader4', set: 'circle' },
+            { id: 'loader5', set: 'arrow' },
+            { id: 'loader6', set: 'dots' },
+            { id: 'loader7', set: 'moon' },
+            { id: 'loader8', set: 'clock' },
+            { id: 'loader9', set: 'bounce' },
+            { id: 'loader10', set: 'progress' },
+            { id: 'loader11', set: 'binary' },
+            { id: 'loader12', set: 'star' },
+            { id: 'loader13', set: 'shrink' },
+            { id: 'mainLoader', set: 'spinner' }
+        ];
+
+        let animationSpeed = 100;
+        let intervals = [];
+        let currentMainLoader = 'spinner';
+
+        function startLoader(elementId, charSet) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+
+            let index = 0;
+            const chars = loaderSets[charSet];
+
+            const intervalId = setInterval(() => {
+                element.textContent = chars[index];
+                index = (index + 1) % chars.length;
+            }, animationSpeed);
+
+            return intervalId;
+        }
+
+        function startAllLoaders() {
+            // Clear existing intervals
+            intervals.forEach(id => clearInterval(id));
+            intervals = [];
+
+            // Start all loaders
+            loaderConfigs.forEach(config => {
+                const intervalId = startLoader(config.id, config.set);
+                intervals.push(intervalId);
+            });
+        }
+
+        function updateMainLoader(loaderType) {
+            currentMainLoader = loaderType;
+
+            // Update the config for main loader
+            const mainConfig = loaderConfigs.find(c => c.id === 'mainLoader');
+            if (mainConfig) {
+                mainConfig.set = loaderType;
+            }
+
+            // Restart all loaders with new config
+            startAllLoaders();
+
+            // Update active state
+            document.querySelectorAll('.loader-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            const activeSection = document.querySelector(`[data-loader="${loaderType}"]`);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+        }
+
+        // Color picker
+        const colorPicker = document.getElementById('colorPicker');
+
+        colorPicker.addEventListener('input', (e) => {
+            const color = e.target.value;
+            document.querySelectorAll('.text-loader, .loading-text .char').forEach(loader => {
+                loader.style.color = color;
+            });
+
+        });
+
+        // Add click handlers to loader sections
+        document.querySelectorAll('.loader-section').forEach(section => {
+            section.addEventListener('click', () => {
+                const loaderType = section.getAttribute('data-loader');
+                if (loaderType) {
+                    updateMainLoader(loaderType);
+                }
+            });
+        });
+
+        // Initialize
+        startAllLoaders();
+    </script>
+</body>
+</html>
