@@ -312,6 +312,11 @@
                 <div class="text-loader" style="font-size: 16px;" id="loader10">[          ]</div>
             </div>
 
+            <!-- Face Animation -->
+            <div class="loader-section" data-loader="face">
+                <div class="text-loader" id="loader12">{ • • }</div>
+            </div>
+
             <!-- Shrinking Asterisk -->
             <div class="loader-section active" data-loader="shrink">
                 <div class="text-loader" id="loader13">✽</div>
@@ -331,14 +336,14 @@
             moon: ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'],
             clock: ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛'],
             bounce: [
-                '(●    )',
-                '( ●   )',
-                '(  ●  )',
-                '(   ● )',
-                '(    ●)',
-                '(   ● )',
-                '(  ●  )',
-                '( ●   )'
+                '(•    )',
+                '( •   )',
+                '(  •  )',
+                '(   • )',
+                '(    •)',
+                '(   • )',
+                '(  •  )',
+                '( •   )'
             ],
             progress: [
                 '[          ]',
@@ -354,7 +359,26 @@
                 '[==========]'
             ],
             binary: ['0', '1'],
-            shrink: ['✽', '✻', '✷', '✶', '*', '+', '·', '·', '+', '*', '✶', '✷', '✻', '✽']
+            shrink: ['✽', '✻', '✷', '✶', '*', '+', '·', '·', '+', '*', '✶', '✷', '✻', '✽'],
+            face: [
+                '{ • • }',
+                '{ • • }',
+                '{• •  }',
+                '{- -  }',
+                '{• •  }',
+                '{ • • }',
+                '{ • • }',
+                '{ • • }',
+                '{  • •}',
+                '{  - -}',
+                '{  • •}',
+                '{ • • }',
+                '{ • • }',
+                '{ • • }',
+                '{ - • }',
+                '{ - • }',
+                '{ • • }'
+            ]
         };
 
         // Assign each loader its character set
@@ -370,6 +394,7 @@
             { id: 'loader9', set: 'bounce' },
             { id: 'loader10', set: 'progress' },
             { id: 'loader11', set: 'binary' },
+            { id: 'loader12', set: 'face' },
             { id: 'loader13', set: 'shrink' },
             { id: 'mainLoader', set: 'shrink' }
         ];
