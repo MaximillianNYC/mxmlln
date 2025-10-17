@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Expand</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #F8FAFC;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fff;
+            color: #333;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #E2E8F0;
+            border-radius: 8px;
+        }
+
+        .search-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(241, 245, 249, 0);
+            border: 1px solid rgba(224, 224, 224, 0);
+            border-radius: 20px;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 0px 0px rgba(0,0,0,0);
+        }
+
+        .search-modal.active {
+            opacity: 1;
+            visibility: visible;
+            width: 400px;
+            left: -50px;
+            top: -100px;
+            background: rgba(241, 245, 249, 1);
+            border: 2px solid #E2E8F0;
+            box-shadow: 0 308px 123px 0 rgba(0, 0, 0, 0.01), 0 173px 104px 0 rgba(0, 0, 0, 0.05), 0 77px 77px 0 rgba(0, 0, 0, 0.09), 0 19px 42px 0 rgba(0, 0, 0, 0.10);
+        }
+
+        .settings {
+            margin-top: 30px;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.2s;
+        }
+
+        .search-modal.active .settings {
+            opacity: 1;
+        }
+
+        .setting-group {
+            margin: 15px 0;
+        }
+
+        .setting-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff6b35;
+        }
+
+        .setting-group select,
+        .setting-group input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        .setting-group input[type="range"] {
+            height: 2px;
+            padding: 0;
+        }
+
+        .setting-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #ff6b35;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Start typing to search..." autofocus>
+        <div class="search-modal">
+            <input type="text" class="search-input" placeholder="Search...">
+            <div class="settings">
+                <div class="setting-group">
+                    <label>Search Type</label>
+                    <select>
+                        <option>Exact Match</option>
+                        <option>Contains</option>
+                        <option>Starts With</option>
+                        <option>Ends With</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>Match Sensitivity</label>
+                    <input type="range" min="0" max="100" value="50">
+                </div>
+                <div class="setting-group">
+                    <label>Search Scope</label>
+                    <select>
+                        <option>All Fields</option>
+                        <option>Title Only</option>
+                        <option>Description Only</option>
+                        <option>Tags Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.querySelector('.search-input');
+        const searchModal = document.querySelector('.search-modal');
+        const modalInput = searchModal.querySelector('.search-input');
+
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.length >= 2) {
+                searchModal.classList.add('active');
+                modalInput.value = searchInput.value;
+                setTimeout(() => {
+                    modalInput.focus();
+                }, 400);
+            } else {
+                searchModal.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchModal.contains(e.target) && e.target !== searchInput) {
+                searchModal.classList.remove('active');
+            }
+        });
+
+        modalInput.addEventListener('input', (e) => {
+            searchInput.value = e.target.value;
+        });
+
+        modalInput.addEventListener('focus', () => {
+            searchModal.classList.add('active');
+        });
+    </script>
+</body>
+</html>
