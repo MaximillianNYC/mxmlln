@@ -56,6 +56,18 @@
           -moz-osx-font-smoothing: grayscale;
         }
 
+        .loupe-container {
+          position: fixed;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 10;
+          top: 0px;
+          left: 0px;
+          height: 200px;
+          width: 100%;
+        }
+
         /* ========== LOUPE ========== */
 
         /* Loupe Wrap Container */
@@ -311,11 +323,14 @@
 
 </head>
 <body>
-  <div class="loupe-wrap">
-    <div class="loupe">
-      <span></span>
+  
+  <div class="loupe-container">
+    <div class="loupe-wrap">
+        <div class="loupe">
+        <span></span>
+        </div>
+        <div class="loupe-shadow"></div>
     </div>
-    <div class="loupe-shadow"></div>
   </div>
 
   <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
