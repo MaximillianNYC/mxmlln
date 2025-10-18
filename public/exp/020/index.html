@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loupe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+  <style>
+        p {
+          font-size: 16px;
+          max-width: 600px;
+          line-height: 1.5;
+          font-family: "Inter", sans-serif;
+          font-weight: 500;
+          color: rgba(50, 50, 50, 1);
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Defs */
+        @property --angle-1 {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: -75deg;
+        }
+
+        @property --angle-2 {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: -45deg;
+        }
+
+        :root {
+        --global--size: clamp(2rem, 4vw, 5rem);
+        --anim--hover-time: 400ms;
+        --anim--hover-ease: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Base Styles */
+        body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--global--size);
+        background-color: rgba(215, 215, 215, 1);
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow: hidden;
+        }
+
+        /* ========== LOUPE ========== */
+
+        /* Loupe Wrap Container */
+        .loupe-wrap {
+        position: relative;
+        z-index: 2;
+        border-radius: 999vw;
+        background: transparent;
+        pointer-events: none;
+        transition: all var(--anim--hover-time) var(--anim--hover-ease);
+        }
+
+        /* Loupe Shadow Container */
+        .loupe-shadow {
+        --shadow-cuttoff-fix: 2em;
+        position: absolute;
+        width: calc(100% + var(--shadow-cuttoff-fix));
+        height: calc(100% + var(--shadow-cuttoff-fix));
+        top: calc(0% - var(--shadow-cuttoff-fix) / 2);
+        left: calc(0% - var(--shadow-cuttoff-fix) / 2);
+        filter: blur(clamp(2px, 0.125em, 12px));
+        -webkit-filter: blur(clamp(2px, 0.125em, 12px));
+        -moz-filter: blur(clamp(2px, 0.125em, 12px));
+        -ms-filter: blur(clamp(2px, 0.125em, 12px));
+        overflow: visible;
+        pointer-events: none;
+        }
+
+        /* Shadow */
+        .loupe-shadow::after {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        border-radius: 999vw;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+        width: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
+        height: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
+        top: calc(var(--shadow-cuttoff-fix) - 0.5em);
+        left: calc(var(--shadow-cuttoff-fix) - 0.875em);
+        padding: 0.125em;
+        box-sizing: border-box;
+        mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        mask-composite: exclude;
+        transition: all var(--anim--hover-time) var(--anim--hover-ease);
+        overflow: visible;
+        opacity: 1;
+        }
+
+        /* ========== LOUPE BASE STYLES ========== */
+
+        .loupe {
+        /* Basic Styling */
+        --border-width: clamp(1px, 0.0625em, 4px);
+        all: unset;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        pointer-events: auto;
+        z-index: 3;
+        box-sizing: border-box;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+        background: linear-gradient(
+            -75deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.05)
+        );
+        border-radius: 999vw;
+        box-shadow: inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+            inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+            0 0.25em 0.125em -0.125em rgba(0, 0, 0, 0.2),
+            0 0 0.1em 0.25em inset rgba(255, 255, 255, 0.2),
+            0 0 0 0 rgba(255, 255, 255, 1);
+        backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+        -webkit-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+        -moz-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+        -ms-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+        transition: all var(--anim--hover-time) var(--anim--hover-ease);
+        }
+
+        .loupe:hover {
+        transform: scale(0.975);
+        backdrop-filter: blur(0.01em);
+        -webkit-backdrop-filter: blur(0.01em);
+        -moz-backdrop-filter: blur(0.01em);
+        -ms-backdrop-filter: blur(0.01em);
+        box-shadow: inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+            inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+            0 0.15em 0.05em -0.1em rgba(0, 0, 0, 0.25),
+            0 0 0.05em 0.1em inset rgba(255, 255, 255, 0.5),
+            0 0 0 0 rgba(255, 255, 255, 1);
+        }
+
+        .loupe:focus {
+        outline: none;
+        }
+
+        .loupe:focus-visible {
+        outline: 2px solid rgba(0, 123, 255, 0.5);
+        outline-offset: 2px;
+        }
+
+        /* Loupe Text */
+        .loupe span {
+        position: relative;
+        display: block;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        font-family: "Inter", sans-serif;
+        letter-spacing: -0.05em;
+        font-weight: 500;
+        font-size: 1em;
+        color: rgba(50, 50, 50, 1);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-shadow: 0em 0.25em 0.05em rgba(0, 0, 0, 0.1);
+        transition: all var(--anim--hover-time) var(--anim--hover-ease);
+        padding-inline: 1.5em;
+        padding-block: 0.875em;
+        }
+
+        .loupe:hover span {
+        text-shadow: 0.025em 0.025em 0.025em rgba(0, 0, 0, 0.12);
+        }
+
+        /* Text */
+        .loupe span::after {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 1;
+        width: calc(100% - var(--border-width)); /* Prevent overlapping border */
+        height: calc(100% - var(--border-width));
+        top: calc(0% + var(--border-width) / 2);
+        left: calc(0% + var(--border-width) / 2);
+        box-sizing: border-box;
+        border-radius: 999vw;
+        overflow: clip;
+        background: linear-gradient(
+            var(--angle-2),
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.5) 40% 50%,
+            rgba(255, 255, 255, 0) 55%
+        );
+        z-index: 3;
+        mix-blend-mode: screen;
+        pointer-events: none;
+        background-size: 200% 200%;
+        background-position: 0% 50%;
+        background-repeat: no-repeat;
+        transition: background-position calc(var(--anim--hover-time) * 1.25)
+            var(--anim--hover-ease),
+            --angle-2 calc(var(--anim--hover-time) * 1.25) var(--anim--hover-ease);
+        }
+
+        .loupe:hover span::after {
+        background-position: 25% 50%;
+        }
+
+        .loupe:active span::after {
+        background-position: 50% 15%;
+        --angle-2: -15deg;
+        }
+
+        /* Touch Devices */
+        @media (hover: none) and (pointer: coarse) {
+        .loupe span::after,
+        .loupe:active span::after {
+            --angle-2: -45deg;
+        }
+        }
+
+        /* ========== LOUPE OUTLINE ========== */
+
+        /* Outline */
+        .loupe::after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        border-radius: 999vw;
+        width: calc(100% + var(--border-width));
+        height: calc(100% + var(--border-width));
+        top: calc(0% - var(--border-width) / 2);
+        left: calc(0% - var(--border-width) / 2);
+        padding: var(--border-width);
+        box-sizing: border-box;
+        background: conic-gradient(
+            from var(--angle-1) at 50% 50%,
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0) 5% 40%,
+            rgba(0, 0, 0, 0.5) 50%,
+            rgba(0, 0, 0, 0) 60% 95%,
+            rgba(0, 0, 0, 0.5)
+            ),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+        mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        mask-composite: exclude;
+        transition: all var(--anim--hover-time) var(--anim--hover-ease),
+            --angle-1 500ms ease;
+        box-shadow: inset 0 0 0 calc(var(--border-width) / 2) rgba(255, 255, 255, 0.5);
+        }
+
+        .loupe:hover::after {
+        --angle-1: -125deg;
+        }
+
+        button:active::after {
+        --angle-1: -75deg;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+        .loupe::after,
+        .loupe:hover::after,
+        .loupe:active::after {
+            --angle-1: -75deg;
+        }
+        }
+
+        /* Shadow Hover */
+        .loupe-wrap:has(.loupe:hover) .loupe-shadow {
+        filter: blur(clamp(2px, 0.0625em, 6px));
+        -webkit-filter: blur(clamp(2px, 0.0625em, 6px));
+        -moz-filter: blur(clamp(2px, 0.0625em, 6px));
+        -ms-filter: blur(clamp(2px, 0.0625em, 6px));
+        transition: filter var(--anim--hover-time) var(--anim--hover-ease);
+        }
+
+        .loupe-wrap:has(.loupe:hover) .loupe-shadow::after {
+        top: calc(var(--shadow-cuttoff-fix) - 0.875em);
+        opacity: 1;
+        }
+
+        /* Rotation */
+        .loupe-wrap:has(.loupe:active) {
+        transform: rotate3d(1, 0, 0, 25deg);
+        }
+
+        .loupe-wrap:has(.loupe:active) .loupe {
+        box-shadow: inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+            inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+            0 0.125em 0.125em -0.125em rgba(0, 0, 0, 0.2),
+            0 0 0.1em 0.25em inset rgba(255, 255, 255, 0.2),
+            0 0.225em 0.05em 0 rgba(0, 0, 0, 0.05),
+            0 0.25em 0 0 rgba(255, 255, 255, 0.75),
+            inset 0 0.25em 0.05em 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .loupe-wrap:has(.loupe:active) .loupe-shadow {
+        filter: blur(clamp(2px, 0.125em, 12px));
+        -webkit-filter: blur(clamp(2px, 0.125em, 12px));
+        -moz-filter: blur(clamp(2px, 0.125em, 12px));
+        -ms-filter: blur(clamp(2px, 0.125em, 12px));
+        }
+
+        .loupe-wrap:has(.loupe:active) .loupe-shadow::after {
+        top: calc(var(--shadow-cuttoff-fix) - 0.5em);
+        opacity: 0.75;
+        }
+
+        .loupe-wrap:has(.loupe:active) span {
+        text-shadow: 0.025em 0.25em 0.05em rgba(0, 0, 0, 0.12);
+        }
+
+  </style>
+
+</head>
+<body>
+  <div class="loupe-wrap">
+    <div class="loupe">
+      <span></span>
+    </div>
+    <div class="loupe-shadow"></div>
+  </div>
+
+  <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="dottedGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.15)" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#dottedGrid)" />
+  </svg>
+
+    <p>
+        A loupe is a small, simple magnification device used to see small details more clearly. Unlike a standard magnifying glass, it usually offers higher magnification and is designed to be held or worn close to the eye without a handle. Loupes typically come in three types—simple lenses for low magnification, compound lenses for higher magnification with reduced distortion, and prismatic lenses with multiple elements for even clearer views.
+
+        Loupes are widely used in professions requiring precision and detailed inspection such as jewelry appraisal, watchmaking, surgery, dentistry, gemology, and geology. For example, jewelers commonly use a 10× magnification loupe to inspect gemstones and details like hallmarks or inclusions. Surgeons use customized loupes mounted on glasses to enhance visibility during delicate operations. Collectors like numismatists also rely on loupes to evaluate coin quality and authenticity. The loupe originated from ancient lens technology and has evolved into a vital tool for many detailed visual tasks.​
+
+        To use a loupe, it is held close to the eye, and the object is brought into focus at the optimal distance. This setup allows for a magnified and detailed view of tiny features that are otherwise difficult to see with the naked eye. The standard magnification for many applications, especially in jewelry and gemology, is 10×, as it balances magnification with field of view and depth of focus.​
+
+        In summary, a loupe is a compact, high-magnification optical tool essential for close-up examination in many fields involving small objects or fine details.
+    </p>
+
+</body>
+</html>
