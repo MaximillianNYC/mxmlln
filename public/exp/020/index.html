@@ -6,17 +6,6 @@
   <title>Loupe</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
   <style>
-        p {
-          font-size: 16px;
-          max-width: 600px;
-          line-height: 1.5;
-          font-family: "Inter", sans-serif;
-          font-weight: 500;
-          color: rgba(50, 50, 50, 1);
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-
         /* Defs */
         @property --angle-1 {
         syntax: "<angle>";
@@ -50,7 +39,19 @@
         font-family: "Inter", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
+        }
+
+        p {
+          font-size: 16px;
+          max-width: 600px;
+          line-height: 1.5;
+          font-family: "Inter", sans-serif;
+          font-weight: 500;
+          color: rgba(50, 50, 50, 1);
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
         /* ========== LOUPE ========== */
@@ -118,6 +119,8 @@
         text-align: center;
         vertical-align: middle;
         white-space: nowrap;
+        padding-inline: 1.5em;
+        padding-block: 0.875em;
         background: linear-gradient(
             -75deg,
             rgba(255, 255, 255, 0.05),
@@ -157,27 +160,6 @@
         .loupe:focus-visible {
         outline: 2px solid rgba(0, 123, 255, 0.5);
         outline-offset: 2px;
-        }
-
-        /* Loupe Text */
-        .loupe span {
-        position: relative;
-        display: block;
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        font-family: "Inter", sans-serif;
-        letter-spacing: -0.05em;
-        font-weight: 500;
-        font-size: 1em;
-        color: rgba(50, 50, 50, 1);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-shadow: 0em 0.25em 0.05em rgba(0, 0, 0, 0.1);
-        transition: all var(--anim--hover-time) var(--anim--hover-ease);
-        padding-inline: 1.5em;
-        padding-block: 0.875em;
         }
 
         .loupe:hover span {
@@ -345,13 +327,78 @@
 
     <p>
         A loupe is a small, simple magnification device used to see small details more clearly. Unlike a standard magnifying glass, it usually offers higher magnification and is designed to be held or worn close to the eye without a handle. Loupes typically come in three types—simple lenses for low magnification, compound lenses for higher magnification with reduced distortion, and prismatic lenses with multiple elements for even clearer views.
-
+        <br/><br/>
         Loupes are widely used in professions requiring precision and detailed inspection such as jewelry appraisal, watchmaking, surgery, dentistry, gemology, and geology. For example, jewelers commonly use a 10× magnification loupe to inspect gemstones and details like hallmarks or inclusions. Surgeons use customized loupes mounted on glasses to enhance visibility during delicate operations. Collectors like numismatists also rely on loupes to evaluate coin quality and authenticity. The loupe originated from ancient lens technology and has evolved into a vital tool for many detailed visual tasks.​
-
+        <br/><br/>
         To use a loupe, it is held close to the eye, and the object is brought into focus at the optimal distance. This setup allows for a magnified and detailed view of tiny features that are otherwise difficult to see with the naked eye. The standard magnification for many applications, especially in jewelry and gemology, is 10×, as it balances magnification with field of view and depth of focus.​
-
+        <br/><br/>
         In summary, a loupe is a compact, high-magnification optical tool essential for close-up examination in many fields involving small objects or fine details.
     </p>
+
+  <script>
+    const loupeWrap = document.querySelector('.loupe-wrap');
+    let isFollowing = false;
+    let isCursorHidden = false;
+    let currentMouseX = 0;
+    let currentMouseY = 0;
+
+    // Function 1: Toggle cursor visibility
+    function toggleCursorVisibility() {
+      isCursorHidden = !isCursorHidden;
+      if (isCursorHidden) {
+        document.documentElement.style.cursor = 'none';
+        document.body.style.cursor = 'none';
+        loupeWrap.style.cursor = 'none';
+      } else {
+        document.documentElement.style.cursor = 'default';
+        document.body.style.cursor = 'default';
+        loupeWrap.style.cursor = 'pointer';
+      }
+    }
+
+    // Function 2: Toggle loupe following
+    function toggleLoupeFollowing() {
+      isFollowing = !isFollowing;
+      if (isFollowing) {
+        loupeWrap.style.position = 'fixed';
+        loupeWrap.style.left = currentMouseX + 'px';
+        loupeWrap.style.top = currentMouseY + 'px';
+        loupeWrap.style.transform = 'translate(-50%, -50%)';
+      } else {
+        loupeWrap.style.position = 'relative';
+        loupeWrap.style.left = '';
+        loupeWrap.style.top = '';
+        loupeWrap.style.transform = '';
+      }
+    }
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+      currentMouseX = e.clientX;
+      currentMouseY = e.clientY;
+      
+      if (isFollowing) {
+        loupeWrap.style.position = 'fixed';
+        loupeWrap.style.left = currentMouseX + 'px';
+        loupeWrap.style.top = currentMouseY + 'px';
+        loupeWrap.style.transform = 'translate(-50%, -50%)';
+      }
+      
+      // Continuously hide cursor when attached
+      if (isCursorHidden) {
+        document.documentElement.style.cursor = 'none';
+        document.body.style.cursor = 'none';
+        loupeWrap.style.cursor = 'none';
+      }
+    });
+
+    // Click handler - calls both functions
+    loupeWrap.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleCursorVisibility();
+      toggleLoupeFollowing();
+    });
+  </script>
 
 </body>
 </html>
