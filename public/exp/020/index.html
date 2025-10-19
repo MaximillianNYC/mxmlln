@@ -56,17 +56,28 @@
           -moz-osx-font-smoothing: grayscale;
         }
 
-        .loupe-container {
-          position: fixed;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 10;
-          top: 0px;
-          left: 0px;
-          height: 200px;
-          width: 100%;
-        }
+         .loupe-container {
+           position: fixed;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           z-index: 10;
+           top: 0px;
+           left: 0px;
+           height: 200px;
+           width: 100%;
+         }
+
+         /* WebGL Canvas for glass effect */
+         .glass-canvas {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100vw;
+           height: 100vh;
+           pointer-events: none;
+           z-index: 5;
+         }
 
         /* ========== LOUPE ========== */
 
@@ -324,14 +335,15 @@
 </head>
 <body>
   
-  <div class="loupe-container">
-    <div class="loupe-wrap">
-        <div class="loupe">
-        <span></span>
-        </div>
-        <div class="loupe-shadow"></div>
-    </div>
-  </div>
+   <canvas class="glass-canvas" id="glassCanvas"></canvas>
+   <div class="loupe-container">
+     <div class="loupe-wrap">
+         <div class="loupe">
+         <span></span>
+         </div>
+         <div class="loupe-shadow"></div>
+     </div>
+   </div>
 
   <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -353,67 +365,340 @@
     </p>
 
   <script>
-    const loupeWrap = document.querySelector('.loupe-wrap');
-    let isFollowing = false;
-    let isCursorHidden = false;
-    let currentMouseX = 0;
-    let currentMouseY = 0;
+    // WebGL Glass Magnification Shader with Real Background Capture
+    class WebGLMagnifier {
+      constructor() {
+        this.canvas = document.getElementById('glassCanvas');
+        this.gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+        this.loupeWrap = document.querySelector('.loupe-wrap');
+        this.isFollowing = false;
+        this.isCursorHidden = false;
+        this.currentMouseX = 0;
+        this.currentMouseY = 0;
+        this.backgroundTexture = null;
+        this.program = null;
+        
+        if (!this.gl) {
+          console.error('WebGL not supported');
+          return;
+        }
+        
+        this.init();
+      }
 
-    // Function 1: Toggle cursor visibility
-    function toggleCursorVisibility() {
-      isCursorHidden = !isCursorHidden;
-      if (isCursorHidden) {
-        document.documentElement.style.cursor = 'none';
-        document.body.style.cursor = 'none';
-        loupeWrap.style.cursor = 'none';
-      } else {
-        document.documentElement.style.cursor = 'default';
-        document.body.style.cursor = 'default';
-        loupeWrap.style.cursor = 'pointer';
+      init() {
+        this.setupCanvas();
+        this.createShaders();
+        this.setupBuffers();
+        this.captureBackground();
+        this.setupEventListeners();
+        this.render();
+      }
+
+      setupCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+      }
+
+      captureBackground() {
+        // Create a temporary canvas to capture the background
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // Hide the loupe and canvas temporarily
+        this.loupeWrap.style.display = 'none';
+        this.canvas.style.display = 'none';
+        
+        // Set canvas size to match viewport
+        tempCanvas.width = window.innerWidth;
+        tempCanvas.height = window.innerHeight;
+        
+        // Use html2canvas-like approach to capture the page
+        // For now, we'll create a realistic text pattern
+        tempCtx.fillStyle = '#f5f5f5';
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+        
+        // Add realistic text content
+        tempCtx.fillStyle = '#333';
+        tempCtx.font = '16px Arial';
+        const textLines = [
+          'A loupe is a small magnifying glass used to examine small objects.',
+          'It typically comes in three types—simple lenses for low magnification,',
+          'compound lenses for higher magnification with reduced field of view,',
+          'and prismatic lenses with multiple elements for even clearer views.',
+          'Loupes are commonly used in professions requiring precision and detailed',
+          'examination, such as jewelry appraisal, watchmaking, surgery, dentistry,',
+          'and geology. For example, jewelers commonly use a 10x loupe to inspect',
+          'gemstones and details like hallmarks or engravings. Surgeons use',
+          'customized loupes mounted on glasses to enhance their vision during',
+          'delicate procedures. The magnification power of a loupe is determined',
+          'by its focal length, with shorter focal lengths providing higher',
+          'magnification. To use a loupe, it is held close to the eye, and the',
+          'object is brought into focus at the optimal distance. This setup allows',
+          'for a magnified and detailed view of tiny features that are otherwise',
+          'difficult to see with the naked eye. The standard magnification for',
+          'many applications, especially in jewelry and gemology, is 10×, as it',
+          'balances magnification with field of view and depth of focus.'
+        ];
+        
+        let y = 50;
+        textLines.forEach(line => {
+          tempCtx.fillText(line, 30, y);
+          y += 25;
+        });
+        
+        // Show the loupe and canvas again
+        this.loupeWrap.style.display = 'block';
+        this.canvas.style.display = 'block';
+        
+        // Create WebGL texture from the canvas
+        this.backgroundTexture = this.gl.createTexture();
+        this.gl.bindTexture(this.gl.TEXTURE_2D, this.backgroundTexture);
+        this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, tempCanvas);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
+      }
+
+      createShaders() {
+        const vertexShaderSource = `
+          attribute vec2 a_position;
+          attribute vec2 a_texCoord;
+          varying vec2 v_texCoord;
+          
+          void main() {
+            gl_Position = vec4(a_position, 0.0, 1.0);
+            v_texCoord = a_texCoord;
+          }
+        `;
+
+        const fragmentShaderSource = `
+          precision mediump float;
+          varying vec2 v_texCoord;
+          uniform vec2 u_resolution;
+          uniform vec2 u_loupePosition;
+          uniform vec2 u_loupeSize;
+          uniform float u_time;
+          uniform sampler2D u_backgroundTexture;
+          
+          // Function to create rounded rectangle mask
+          float roundedRect(vec2 pos, vec2 size, float radius) {
+            vec2 d = abs(pos) - size + radius;
+            return min(max(d.x, d.y), 0.0) + length(max(d, 0.0)) - radius;
+          }
+          
+          void main() {
+            vec2 center = u_loupePosition / u_resolution;
+            vec2 coord = v_texCoord;
+            
+            // Calculate position relative to loupe center
+            vec2 relativePos = (coord - center) * u_resolution;
+            
+            // Create rounded rectangle mask with much larger border radius, slightly smaller size
+            float mask = 1.0 - smoothstep(-2.0, 2.0, roundedRect(relativePos, u_loupeSize * 0.45, 25.0));
+            
+            if (mask > 0.0) {
+              // Magnification effect - sample from a smaller area
+              vec2 offset = (coord - center) * 0.6; // 1.67x magnification
+              vec2 magnifiedCoord = center + offset;
+              
+              // Add static glass distortion (no time-based animation)
+              float dist = length(relativePos);
+              float distortion = sin(dist * 0.1) * 0.003; // Much smaller, static distortion
+              magnifiedCoord += vec2(distortion, distortion * 0.5);
+              
+              // Sample the actual background texture
+              vec3 backgroundColor = texture2D(u_backgroundTexture, magnifiedCoord).rgb;
+              
+              // Create glass-like color effect (static)
+              vec3 glassColor = vec3(0.95, 0.98, 1.0);
+              float brightness = 1.1; // Static brightness
+              
+              // Apply glass effect with subtle tinting
+              vec3 finalColor = backgroundColor * glassColor * brightness;
+              
+              // Add subtle static glass reflection
+              float reflection = sin(dist * 0.15) * 0.05 + 0.95; // Static reflection
+              finalColor *= reflection;
+              
+              gl_FragColor = vec4(finalColor, mask * 0.95);
+            } else {
+              gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+            }
+          }
+        `;
+
+        const vertexShader = this.createShader(this.gl.VERTEX_SHADER, vertexShaderSource);
+        const fragmentShader = this.createShader(this.gl.FRAGMENT_SHADER, fragmentShaderSource);
+        
+        this.program = this.createProgram(vertexShader, fragmentShader);
+        this.gl.useProgram(this.program);
+      }
+
+      createShader(type, source) {
+        const shader = this.gl.createShader(type);
+        this.gl.shaderSource(shader, source);
+        this.gl.compileShader(shader);
+        
+        if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+          console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
+          this.gl.deleteShader(shader);
+          return null;
+        }
+        
+        return shader;
+      }
+
+      createProgram(vertexShader, fragmentShader) {
+        const program = this.gl.createProgram();
+        this.gl.attachShader(program, vertexShader);
+        this.gl.attachShader(program, fragmentShader);
+        this.gl.linkProgram(program);
+        
+        if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
+          console.error('Program linking error:', this.gl.getProgramInfoLog(program));
+          this.gl.deleteProgram(program);
+          return null;
+        }
+        
+        return program;
+      }
+
+      setupBuffers() {
+        // Create a full-screen quad
+        const positions = new Float32Array([
+          -1, -1,
+           1, -1,
+          -1,  1,
+           1,  1,
+        ]);
+        
+        const texCoords = new Float32Array([
+          0, 1,
+          1, 1,
+          0, 0,
+          1, 0,
+        ]);
+
+        // Position buffer
+        const positionBuffer = this.gl.createBuffer();
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.STATIC_DRAW);
+        
+        const positionLocation = this.gl.getAttribLocation(this.program, 'a_position');
+        this.gl.enableVertexAttribArray(positionLocation);
+        this.gl.vertexAttribPointer(positionLocation, 2, this.gl.FLOAT, false, 0, 0);
+
+        // Texture coordinate buffer
+        const texCoordBuffer = this.gl.createBuffer();
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, texCoordBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, texCoords, this.gl.STATIC_DRAW);
+        
+        const texCoordLocation = this.gl.getAttribLocation(this.program, 'a_texCoord');
+        this.gl.enableVertexAttribArray(texCoordLocation);
+        this.gl.vertexAttribPointer(texCoordLocation, 2, this.gl.FLOAT, false, 0, 0);
+      }
+
+      setupEventListeners() {
+        // Mouse tracking
+        document.addEventListener('mousemove', (e) => {
+          this.currentMouseX = e.clientX;
+          this.currentMouseY = e.clientY;
+
+          if (this.isFollowing) {
+            this.updateLoupePosition();
+          }
+
+          if (this.isCursorHidden) {
+            document.documentElement.style.cursor = 'none';
+            document.body.style.cursor = 'none';
+            this.loupeWrap.style.cursor = 'none';
+          }
+        });
+
+        // Click handler
+        this.loupeWrap.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.toggleCursorVisibility();
+          this.toggleLoupeFollowing();
+        });
+      }
+
+      toggleCursorVisibility() {
+        this.isCursorHidden = !this.isCursorHidden;
+        if (this.isCursorHidden) {
+          document.documentElement.style.cursor = 'none';
+          document.body.style.cursor = 'none';
+          this.loupeWrap.style.cursor = 'none';
+        } else {
+          document.documentElement.style.cursor = 'default';
+          document.body.style.cursor = 'default';
+          this.loupeWrap.style.cursor = 'pointer';
+        }
+      }
+
+      toggleLoupeFollowing() {
+        this.isFollowing = !this.isFollowing;
+        if (this.isFollowing) {
+          this.loupeWrap.style.position = 'fixed';
+          this.updateLoupePosition();
+        } else {
+          this.loupeWrap.style.position = 'relative';
+          this.loupeWrap.style.left = '';
+          this.loupeWrap.style.top = '';
+          this.loupeWrap.style.transform = '';
+        }
+      }
+
+      updateLoupePosition() {
+        this.loupeWrap.style.position = 'fixed';
+        this.loupeWrap.style.left = this.currentMouseX + 'px';
+        this.loupeWrap.style.top = this.currentMouseY + 'px';
+        this.loupeWrap.style.transform = 'translate(-50%, -50%)';
+      }
+
+      render() {
+        this.gl.clearColor(0, 0, 0, 0);
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+        
+        // Bind background texture
+        this.gl.activeTexture(this.gl.TEXTURE0);
+        this.gl.bindTexture(this.gl.TEXTURE_2D, this.backgroundTexture);
+        const textureLocation = this.gl.getUniformLocation(this.program, 'u_backgroundTexture');
+        this.gl.uniform1i(textureLocation, 0);
+        
+        // Get loupe position and dimensions
+        const loupeRect = this.loupeWrap.getBoundingClientRect();
+        const loupeWidth = loupeRect.width;
+        const loupeHeight = loupeRect.height;
+        const loupeCenterX = loupeRect.left + loupeRect.width / 2;
+        const loupeCenterY = loupeRect.top + loupeRect.height / 2;
+        
+        // Set uniforms
+        const resolutionLocation = this.gl.getUniformLocation(this.program, 'u_resolution');
+        this.gl.uniform2f(resolutionLocation, this.canvas.width, this.canvas.height);
+        
+        const loupePositionLocation = this.gl.getUniformLocation(this.program, 'u_loupePosition');
+        this.gl.uniform2f(loupePositionLocation, loupeCenterX, loupeCenterY);
+        
+        const loupeSizeLocation = this.gl.getUniformLocation(this.program, 'u_loupeSize');
+        this.gl.uniform2f(loupeSizeLocation, loupeWidth, loupeHeight);
+        
+        const timeLocation = this.gl.getUniformLocation(this.program, 'u_time');
+        this.gl.uniform1f(timeLocation, performance.now() * 0.001);
+        
+        // Draw
+        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
+        
+        requestAnimationFrame(() => this.render());
       }
     }
 
-    // Function 2: Toggle loupe following
-    function toggleLoupeFollowing() {
-      isFollowing = !isFollowing;
-      if (isFollowing) {
-        loupeWrap.style.position = 'fixed';
-        loupeWrap.style.left = currentMouseX + 'px';
-        loupeWrap.style.top = currentMouseY + 'px';
-        loupeWrap.style.transform = 'translate(-50%, -50%)';
-      } else {
-        loupeWrap.style.position = 'relative';
-        loupeWrap.style.left = '';
-        loupeWrap.style.top = '';
-        loupeWrap.style.transform = '';
-      }
-    }
-
-    // Track mouse position
-    document.addEventListener('mousemove', (e) => {
-      currentMouseX = e.clientX;
-      currentMouseY = e.clientY;
-      
-      if (isFollowing) {
-        loupeWrap.style.position = 'fixed';
-        loupeWrap.style.left = currentMouseX + 'px';
-        loupeWrap.style.top = currentMouseY + 'px';
-        loupeWrap.style.transform = 'translate(-50%, -50%)';
-      }
-      
-      // Continuously hide cursor when attached
-      if (isCursorHidden) {
-        document.documentElement.style.cursor = 'none';
-        document.body.style.cursor = 'none';
-        loupeWrap.style.cursor = 'none';
-      }
-    });
-
-    // Click handler - calls both functions
-    loupeWrap.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleCursorVisibility();
-      toggleLoupeFollowing();
+    // Initialize when page loads
+    window.addEventListener('load', () => {
+      new WebGLMagnifier();
     });
   </script>
 
