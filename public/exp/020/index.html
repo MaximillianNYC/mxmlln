@@ -555,10 +555,15 @@
               vec2 offset = (coord - center) * 0.6; // 1.67x magnification
               vec2 magnifiedCoord = center + offset;
               
-              // Add static glass distortion (no time-based animation)
+              // Calculate distance from center for realistic refraction
               float dist = length(relativePos);
-              float distortion = sin(dist * 0.1) * 0.003; // Much smaller, static distortion
-              magnifiedCoord += vec2(distortion, distortion * 0.5);
+              float maxDist = length(u_loupeSize * 0.45); // Maximum distance to edge
+              float normalizedDist = dist / maxDist; // 0 at center, 1 at edge
+              
+              // Apply distortion only at edges, minimal at center (realistic lens behavior)
+              float edgeFactor = smoothstep(0.0, 1.0, normalizedDist); // 0 at center, 1 at edge
+              float distortion = sin(dist * 0.15) * 0.002 * edgeFactor; // Distortion increases toward edges
+              magnifiedCoord += vec2(distortion, distortion * 0.3);
               
               // Sample the actual background texture
               vec3 backgroundColor = texture2D(u_backgroundTexture, magnifiedCoord).rgb;
