@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading List Proto</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        a {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s ease;
+        }
+        
+        a:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .favicon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            border-radius: 3px;
+        }
+        
+        .link-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .link-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #1a1a1a;
+            word-wrap: break-word;
+        }
+        
+        .link-url {
+            font-size: 0.85em;
+            color: #666;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .loading {
+            opacity: 0.6;
+        }
+        
+        .error {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reading List Prototype</h1>
+    <ul>
+        <li><a href="https://www.shloked.com/writing/claude-memory-tool">Claude Memory Tool</a></li>
+        <li><a href="https://www.shloked.com/writing/openpoke">OpenPoke</a></li>
+        <li><a href="https://www.shloked.com/writing/claude-memory">Claude Memory</a></li>
+        <li><a href="https://pub.sakana.ai/ctm/">CTM</a></li>
+        <li><a href="https://developers.openai.com/apps-sdk/concepts/design-guidelines">OpenAI Apps Design Guidelines</a></li>
+        <li><a href="https://thinkingmachines.ai/blog/modular-manifolds/">Modular Manifolds</a></li>
+        <li><a href="https://www.julian.ac/blog/2025/09/27/failing-to-understand-the-exponential-again/">Failing to Understand the Exponential Again</a></li>
+        <li><a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf">GPT OSS Model Card</a></li>
+        <li><a href="https://pubs.acs.org/doi/abs/10.1021/acs.nanolett.5c03126">Nano Letters Paper</a></li>
+        <li><a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=ubAcojQAAAAJ&citation_for_view=ubAcojQAAAAJ:zYLM7Y9cAGgC">Google Scholar Citation</a></li>
+        <li><a href="https://awards.acm.org/about/2024-turing">2024 Turing Award</a></li>
+        <li><a href="https://archive.org/details/isbn_9780062515872/page/n1/mode/2up">Internet Archive Book</a></li>
+        <li><a href="https://arxiv.org/pdf/2507.19849">arXiv Paper</a></li>
+        <li><a href="https://www.quantamagazine.org/complexity-theorys-50-year-journey-to-the-limits-of-knowledge-20230817/">Complexity Theory's 50-Year Journey</a></li>
+        <li><a href="https://resources.nvidia.com/en-us-blackwell-architecture/blackwell-architecture-technical-brief?ncid=no-ncid">NVIDIA Blackwell Architecture</a></li>
+        <li><a href="https://www.semanticscholar.org/paper/Cognitive-artifacts-Norman/243e050cabd7bcddc9b39396b5da371eefe7e2df">Cognitive Artifacts - Norman</a></li>
+        <li><a href="https://nautil.us/will-ai-harm-us-better-to-ask-how-well-reckon-with-our-hybrid-nature-236098/">Will AI Harm Us? Better to Ask How We'll Reckon With Our Hybrid Nature</a></li>
+        <li><a href="https://worrydream.com/refs/Engelbart_1962_-_Augmenting_Human_Intellect.pdf">Augmenting Human Intellect - Engelbart</a></li>
+        <li><a href="https://cognition.ai/blog/swe-grep">SWE Grep</a></li>
+        <li><a href="https://docs.google.com/document/u/1/d/1rsaK53T3Lg5KoGwvf8ukOUvbELRtH-V0LnOIFDxBryE/edit?tab=t.0#heading=h.pxcur8v2qagu">Google Doc</a></li>
+        <li><a href="https://goombalab.github.io/blog/2025/tradeoffs/">Tradeoffs</a></li>
+        <li><a href="https://arxiv.org/abs/1704.06960">arXiv Paper</a></li>
+        <li><a href="https://hkunlp.github.io/blog/2025/Polaris/">Polaris</a></li>
+        <li><a href="https://arxiv.org/abs/2507.02259">arXiv Paper</a></li>
+        <li><a href="https://www.lennysnewsletter.com/p/beyond-vibe-checks-a-pms-complete">Beyond Vibe Checks: A PM's Complete Guide to User Research</a></li>
+        <li><a href="https://hpbn.co/">High Performance Browser Networking</a></li>
+        <li><a href="https://jagilley.github.io/linear-aesthetics">Linear Aesthetics</a></li>
+        <li><a href="https://udara.io/memory-for-ai">Memory for AI</a></li>
+        <li><a href="https://www.moderndescartes.com/essays/gnugo_to_agz/">From GNU Go to AlphaGo Zero</a></li>
+        <li><a href="https://wijmans.xyz/publication/eom/">End-of-Mission</a></li>
+        <li><a href="https://goombalab.github.io/blog/2025/tradeoffs/">Tradeoffs</a></li>
+        <li><a href="https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=high-level_overview">Ultrascale Playbook</a></li>
+        <li><a href="https://noneelse.com/museum"></a></li>
+        <li><a href="https://filiph.github.io/unsure"></a></li>
+    </ul>
+    
+    <script>
+        // Function to get favicon URL
+        function getFaviconUrl(url) {
+            try {
+                const domain = new URL(url).origin;
+                return `${domain}/favicon.ico`;
+            } catch (e) {
+                return null;
+            }
+        }
+        
+        // Function to fetch page title
+        async function fetchPageTitle(url) {
+            try {
+                // Use a CORS proxy or alternative method
+                // For now, we'll extract domain name as fallback
+                const domain = new URL(url).hostname;
+                return domain.replace('www.', '');
+            } catch (e) {
+                return 'Unknown';
+            }
+        }
+        
+        // Function to enhance a single link
+        async function enhanceLink(link) {
+            const url = link.href;
+            const faviconUrl = getFaviconUrl(url);
+            
+            // Add loading class
+            link.classList.add('loading');
+            
+            // Create favicon element
+            const favicon = document.createElement('img');
+            favicon.className = 'favicon';
+            favicon.src = faviconUrl;
+            favicon.alt = '';
+            favicon.onerror = function() {
+                // Fallback to a default icon or hide
+                this.style.display = 'none';
+            };
+            
+            // Create content wrapper
+            const content = document.createElement('div');
+            content.className = 'link-content';
+            
+            // Create title element
+            const title = document.createElement('div');
+            title.className = 'link-title';
+            title.textContent = link.textContent;
+            
+            // Create URL element
+            const urlElement = document.createElement('div');
+            urlElement.className = 'link-url';
+            urlElement.textContent = url;
+            
+            // Assemble the new structure
+            content.appendChild(title);
+            content.appendChild(urlElement);
+            
+            // Clear the link content and add new elements
+            link.innerHTML = '';
+            link.appendChild(favicon);
+            link.appendChild(content);
+            
+            // Remove loading class
+            link.classList.remove('loading');
+        }
+        
+        // Function to enhance all links
+        async function enhanceAllLinks() {
+            const links = document.querySelectorAll('ul li a');
+            
+            // Process links in batches to avoid overwhelming the browser
+            const batchSize = 5;
+            for (let i = 0; i < links.length; i += batchSize) {
+                const batch = Array.from(links).slice(i, i + batchSize);
+                await Promise.all(batch.map(link => enhanceLink(link)));
+                
+                // Small delay between batches
+                if (i + batchSize < links.length) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', enhanceAllLinks);
+    </script>
+    
+</body>
+</html>
