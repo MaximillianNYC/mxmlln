@@ -64,7 +64,7 @@
            z-index: 10;
            top: 0px;
            left: 0px;
-           height: 200px;
+           height: 220px;
            width: 100%;
          }
 
@@ -689,13 +689,31 @@
       toggleLoupeFollowing() {
         this.isFollowing = !this.isFollowing;
         if (this.isFollowing) {
+          // Store the original position before switching to fixed
+          const rect = this.loupeWrap.getBoundingClientRect();
+          this.originalPosition = {
+            left: rect.left,
+            top: rect.top
+          };
           this.loupeWrap.style.position = 'fixed';
+          this.loupeWrap.style.transition = 'none'; // Disable transition for immediate positioning
           this.updateLoupePosition();
         } else {
-          this.loupeWrap.style.position = 'relative';
-          this.loupeWrap.style.left = '';
-          this.loupeWrap.style.top = '';
-          this.loupeWrap.style.transform = '';
+          // Smoothly transition back to original position
+          this.loupeWrap.style.transition = 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
+          this.loupeWrap.style.position = 'fixed';
+          this.loupeWrap.style.left = this.originalPosition.left + 'px';
+          this.loupeWrap.style.top = this.originalPosition.top + 'px';
+          this.loupeWrap.style.transform = 'translate(-50%, -50%)';
+          
+          // After transition completes, switch back to relative positioning
+          setTimeout(() => {
+            this.loupeWrap.style.position = 'relative';
+            this.loupeWrap.style.left = '';
+            this.loupeWrap.style.top = '';
+            this.loupeWrap.style.transform = '';
+            this.loupeWrap.style.transition = '';
+          }, 300);
         }
       }
 
