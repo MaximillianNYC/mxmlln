@@ -99,10 +99,10 @@
         height: calc(100% + var(--shadow-cuttoff-fix));
         top: calc(0% - var(--shadow-cuttoff-fix) / 2);
         left: calc(0% - var(--shadow-cuttoff-fix) / 2);
-        filter: blur(2px); /* Fixed blur */
-        -webkit-filter: blur(2px);
-        -moz-filter: blur(2px);
-        -ms-filter: blur(2px);
+        filter: blur(clamp(2px, 0.125em, 12px));
+        -webkit-filter: blur(clamp(2px, 0.125em, 12px));
+        -moz-filter: blur(clamp(2px, 0.125em, 12px));
+        -ms-filter: blur(clamp(2px, 0.125em, 12px));
         overflow: visible;
         pointer-events: none;
         }
@@ -436,12 +436,12 @@
         tempCtx.fillStyle = computedStyle.color;
         tempCtx.font = `${fontSize} ${fontFamily}`;
         
-        // Get the actual text content and split into lines
-        const textContent = paragraph.textContent;
-        const words = textContent.split(' ');
+        // Get the actual text content and handle paragraph breaks properly
+        const textContent = paragraph.innerHTML;
+        // Split by <br/> tags to get paragraphs
+        const paragraphs = textContent.split(/<br\s*\/?>/i);
         // Use the actual content width (paragraph width minus padding)
         const maxWidth = paragraphRect.width - paddingLeft - paddingRight;
-        let currentLine = '';
         // Start at the actual text baseline position
         let y = paragraphRect.top + paddingTop + parseFloat(fontSize);
         
@@ -453,27 +453,45 @@
           paddingTop,
           fontSize,
           maxWidth,
-          startY: y
+          startY: y,
+          paragraphCount: paragraphs.length
         });
         
-        words.forEach(word => {
-          const testLine = currentLine + word + ' ';
-          const metrics = tempCtx.measureText(testLine);
+        paragraphs.forEach((paragraphText, paragraphIndex) => {
+          // Clean up the paragraph text (remove any remaining HTML tags)
+          const cleanText = paragraphText.replace(/<[^>]*>/g, '').trim();
+          if (!cleanText) return; // Skip empty paragraphs
           
-          if (metrics.width > maxWidth && currentLine !== '') {
-            // Draw the current line at the correct left position
+          const words = cleanText.split(' ');
+          let currentLine = '';
+          let isFirstLine = true;
+          
+          words.forEach(word => {
+            const testLine = currentLine + word + ' ';
+            const metrics = tempCtx.measureText(testLine);
+            
+            if (metrics.width > maxWidth && currentLine !== '') {
+              // Draw the current line without indentation
+              tempCtx.fillText(currentLine, paragraphRect.left + paddingLeft, y);
+              currentLine = word + ' ';
+              y += lineHeight;
+              isFirstLine = false;
+            } else {
+              currentLine = testLine;
+            }
+          });
+          
+          // Draw the last line of the paragraph
+          if (currentLine) {
             tempCtx.fillText(currentLine, paragraphRect.left + paddingLeft, y);
-            currentLine = word + ' ';
             y += lineHeight;
-          } else {
-            currentLine = testLine;
+          }
+          
+          // Add extra space between paragraphs (except after the last one)
+          if (paragraphIndex < paragraphs.length - 1) {
+            y += lineHeight * 0.5; // Half line height between paragraphs
           }
         });
-        
-        // Draw the last line
-        if (currentLine) {
-          tempCtx.fillText(currentLine, paragraphRect.left + paddingLeft, y);
-        }
         
         // Store the paragraph position for use in shader
         this.paragraphOffset = {
