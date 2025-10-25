@@ -381,7 +381,7 @@
                 loadingIndicator.style.display = 'block';
                 errorMessage.style.display = 'none';
                 
-                const response = await fetch('/api/reading-list');
+                const response = await fetch('http://localhost:3001/api/reading-list');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
