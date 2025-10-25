@@ -22,12 +22,21 @@ app.use(express.json())
 app.use(express.static('public'));
 //app.listen(8080, () => console.log('listening for requests on port 8080'))
 
-// OpenAI endpoints - only register if functions are available
+// OpenAI endpoints - register with fallbacks if API key is missing
 if (generateMeta) {
   app.post('/api/openai/meta', generateMeta)
+} else {
+  app.post('/api/openai/meta', (req, res) => {
+    res.status(503).json({ error: 'OpenAI API key not configured' });
+  });
 }
+
 if (folioKnowledge) {
   app.post('/api/openai/folio', folioKnowledge)
+} else {
+  app.post('/api/openai/folio', (req, res) => {
+    res.status(503).json({ error: 'OpenAI API key not configured' });
+  });
 }
 
 // Reading List API endpoints
