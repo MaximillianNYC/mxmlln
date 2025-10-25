@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3001; // Different port to avoid conflicts
+const PORT = 3002; // Different port to avoid conflicts
 
 // Middleware
 app.use(cors());
