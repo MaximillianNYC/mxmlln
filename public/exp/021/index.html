@@ -175,6 +175,23 @@
             height: 100%;
             border: none;
         }
+        
+        .loading-indicator {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #dc3545;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -199,49 +216,17 @@
         </div>
     </div>
     
-    <ul>
-        <li><a href="https://www.shloked.com/writing/claude-memory-tool">Claude Memory Tool</a></li>
-        <li><a href="https://www.shloked.com/writing/openpoke">OpenPoke</a></li>
-        <li><a href="https://www.shloked.com/writing/claude-memory">Claude Memory</a></li>
-        <li><a href="https://pub.sakana.ai/ctm/">CTM</a></li>
-        <li><a href="https://developers.openai.com/apps-sdk/concepts/design-guidelines">OpenAI Apps Design Guidelines</a></li>
-        <li><a href="https://thinkingmachines.ai/blog/modular-manifolds/">Modular Manifolds</a></li>
-        <li><a href="https://www.julian.ac/blog/2025/09/27/failing-to-understand-the-exponential-again/">Failing to Understand the Exponential Again</a></li>
-        <li><a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf">GPT OSS Model Card</a></li>
-        <li><a href="https://pubs.acs.org/doi/abs/10.1021/acs.nanolett.5c03126">Nano Letters Paper</a></li>
-        <li><a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=ubAcojQAAAAJ&citation_for_view=ubAcojQAAAAJ:zYLM7Y9cAGgC">Google Scholar Citation</a></li>
-        <li><a href="https://awards.acm.org/about/2024-turing">2024 Turing Award</a></li>
-        <li><a href="https://archive.org/details/isbn_9780062515872/page/n1/mode/2up">Internet Archive Book</a></li>
-        <li><a href="https://arxiv.org/pdf/2507.19849">arXiv Paper</a></li>
-        <li><a href="https://www.quantamagazine.org/complexity-theorys-50-year-journey-to-the-limits-of-knowledge-20230817/">Complexity Theory's 50-Year Journey</a></li>
-        <li><a href="https://resources.nvidia.com/en-us-blackwell-architecture/blackwell-architecture-technical-brief?ncid=no-ncid">NVIDIA Blackwell Architecture</a></li>
-        <li><a href="https://www.semanticscholar.org/paper/Cognitive-artifacts-Norman/243e050cabd7bcddc9b39396b5da371eefe7e2df">Cognitive Artifacts - Norman</a></li>
-        <li><a href="https://nautil.us/will-ai-harm-us-better-to-ask-how-well-reckon-with-our-hybrid-nature-236098/">Will AI Harm Us? Better to Ask How We'll Reckon With Our Hybrid Nature</a></li>
-        <li><a href="https://worrydream.com/refs/Engelbart_1962_-_Augmenting_Human_Intellect.pdf">Augmenting Human Intellect - Engelbart</a></li>
-        <li><a href="https://cognition.ai/blog/swe-grep">SWE Grep</a></li>
-        <li><a href="https://docs.google.com/document/u/1/d/1rsaK53T3Lg5KoGwvf8ukOUvbELRtH-V0LnOIFDxBryE/edit?tab=t.0#heading=h.pxcur8v2qagu">Google Doc</a></li>
-        <li><a href="https://goombalab.github.io/blog/2025/tradeoffs/">Tradeoffs</a></li>
-        <li><a href="https://arxiv.org/abs/1704.06960">arXiv Paper</a></li>
-        <li><a href="https://hkunlp.github.io/blog/2025/Polaris/">Polaris</a></li>
-        <li><a href="https://arxiv.org/abs/2507.02259">arXiv Paper</a></li>
-        <li><a href="https://www.lennysnewsletter.com/p/beyond-vibe-checks-a-pms-complete">Beyond Vibe Checks: A PM's Complete Guide to User Research</a></li>
-        <li><a href="https://hpbn.co/">High Performance Browser Networking</a></li>
-        <li><a href="https://jagilley.github.io/linear-aesthetics">Linear Aesthetics</a></li>
-        <li><a href="https://udara.io/memory-for-ai">Memory for AI</a></li>
-        <li><a href="https://www.moderndescartes.com/essays/gnugo_to_agz/">From GNU Go to AlphaGo Zero</a></li>
-        <li><a href="https://wijmans.xyz/publication/eom/">End-of-Mission</a></li>
-        <li><a href="https://goombalab.github.io/blog/2025/tradeoffs/">Tradeoffs</a></li>
-        <li><a href="https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=high-level_overview">Ultrascale Playbook</a></li>
-        <li><a href="https://noneelse.com/museum"></a></li>
-        <li><a href="https://filiph.github.io/unsure"></a></li>
-        <li><a href="https://readsomethingwonderful.com/p/124/letter-from-utopia">Letter from Utopia</a></li>
-        <li><a href="https://www.usenix.org/conference/osdi22/presentation/yu">Orca: A Distributed Serving System for Transformer-Based Generative Models</a></li>
-        <li><a href="https://arxiv.org/abs/2510.15061">Antislop: A Comprehensive Framework for Identifying and Eliminating Repetitive Patterns in Language Models</a></li>
-        <li><a href="https://huggingface.co/hexgrad/Kokoro-82M">kokoro</a></li>
-        <li><a href="https://huggingface.co/datasets/data-for-agents/insta-150k-v1">data for agents</a></li>
-        <li><a href="https://jessylin.com/2025/10/20/continual-learning/">Continual learning</a></li>
-        <li><a href="https://x.com/eschadiol/status/1943743241154965601">LORAs</a></li>
+    <ul id="readingList">
+        <!-- Links will be loaded dynamically -->
     </ul>
+    
+    <div id="loadingIndicator" class="loading-indicator">
+        Loading reading list...
+    </div>
+    
+    <div id="errorMessage" class="error-message" style="display: none;">
+        Failed to load reading list. Please try again.
+    </div>
     
     <script>
         // Function to get favicon URL
@@ -386,6 +371,48 @@
             link.classList.remove('loading');
         }
         
+        // Function to load reading list from API
+        async function loadReadingList() {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorMessage = document.getElementById('errorMessage');
+            const readingList = document.getElementById('readingList');
+            
+            try {
+                loadingIndicator.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                const response = await fetch('/api/reading-list');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                loadingIndicator.style.display = 'none';
+                
+                // Clear existing content
+                readingList.innerHTML = '';
+                
+                // Create list items for each link
+                data.links.forEach(linkData => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = linkData.url;
+                    a.textContent = linkData.title;
+                    
+                    li.appendChild(a);
+                    readingList.appendChild(li);
+                });
+                
+                // Enhance all links after they're created
+                await enhanceAllLinks();
+                
+            } catch (error) {
+                console.error('Error loading reading list:', error);
+                loadingIndicator.style.display = 'none';
+                errorMessage.style.display = 'block';
+            }
+        }
+        
         // Function to enhance all links
         async function enhanceAllLinks() {
             const links = document.querySelectorAll('ul li a');
@@ -421,7 +448,7 @@
         });
         
         // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', enhanceAllLinks);
+        document.addEventListener('DOMContentLoaded', loadReadingList);
     </script>
     
 </body>
