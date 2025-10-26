@@ -207,9 +207,15 @@
             margin: 20px 0;
         }
         
-        .add-article-section {
-            margin: 20px 0;
-            text-align: center;
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-row h1 {
+            margin: 0;
         }
         
         .add-article-btn {
@@ -335,10 +341,8 @@
     </style>
 </head>
 <body>
-    <h1>Reading List Prototype</h1>
-    
-    <!-- Add Article Button -->
-    <div class="add-article-section">
+    <div class="header-row">
+        <h1>Reading List Prototype</h1>
         <button id="addArticleBtn" class="add-article-btn">+ Add Article</button>
     </div>
     
