@@ -142,6 +142,17 @@
             cursor: not-allowed;
         }
         
+        #openInNewTabBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+        }
+        
+        #openInNewTabBtn svg {
+            display: block;
+        }
+        
         #closeBtn {
             background-color: #dc3545;
             color: white;
@@ -359,7 +370,13 @@
             <div class="iframe-controls">
                 <button id="backBtn" onclick="goBack()" disabled>← Back</button>
                 <button id="forwardBtn" onclick="goForward()" disabled>Forward →</button>
-                <button id="refreshBtn" onclick="refreshFrame()">Refresh</button>
+                <button id="openInNewTabBtn" onclick="openInNewTab()" title="Open in new tab">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </button>
                 <button id="closeBtn" onclick="closeModal()">✕ Close</button>
                 <span id="currentUrl" class="current-url"></span>
             </div>
@@ -470,9 +487,11 @@
             }
         }
         
-        function refreshFrame() {
-            const frame = document.getElementById('contentFrame');
-            frame.src = frame.src;
+        function openInNewTab() {
+            const url = historyStack[historyIndex];
+            if (url) {
+                window.open(url, '_blank');
+            }
         }
         
         // Function to enhance a single link
