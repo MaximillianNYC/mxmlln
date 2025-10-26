@@ -153,18 +153,6 @@
             display: block;
         }
         
-        #closeBtn {
-            background-color: #dc3545;
-            color: white;
-            border-color: #dc3545;
-            margin-left: auto;
-        }
-        
-        #closeBtn:hover {
-            background-color: #c82333;
-            border-color: #bd2130;
-        }
-        
         .current-url {
             flex: 1;
             font-size: 12px;
@@ -368,8 +356,8 @@
         <div class="modal-content">
             <!-- Navigation controls for iframe -->
             <div class="iframe-controls">
-                <button id="backBtn" onclick="goBack()" disabled>← Back</button>
-                <button id="forwardBtn" onclick="goForward()" disabled>Forward →</button>
+                <button id="backBtn" onclick="goBack()" disabled>←</button>
+                <button id="forwardBtn" onclick="goForward()" disabled>→</button>
                 <button id="openInNewTabBtn" onclick="openInNewTab()" title="Open in new tab">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -377,7 +365,7 @@
                         <line x1="10" y1="14" x2="21" y2="3"></line>
                     </svg>
                 </button>
-                <button id="closeBtn" onclick="closeModal()">✕ Close</button>
+                <button id="closeBtn" onclick="closeModal()">✕</button>
                 <span id="currentUrl" class="current-url"></span>
             </div>
             
@@ -423,13 +411,19 @@
             }
         }
         
-        // Global variables for iframe navigation
-        let currentUrl = '';
-        let historyStack = [];
-        let historyIndex = -1;
+        // Global variables for article navigation
+        let allArticles = [];
+        let currentArticleIndex = -1;
         
         // Function to load URL in iframe
         function loadInFrame(url) {
+            // Find the article index in the list
+            const index = allArticles.findIndex(article => article.url === url);
+            
+            if (index !== -1) {
+                currentArticleIndex = index;
+            }
+            
             const frame = document.getElementById('contentFrame');
             const urlDisplay = document.getElementById('currentUrl');
             const modal = document.getElementById('modalOverlay');
@@ -438,13 +432,7 @@
             modal.style.display = 'flex';
             
             frame.src = url;
-            currentUrl = url;
             urlDisplay.textContent = url;
-            
-            // Add to history
-            historyStack = historyStack.slice(0, historyIndex + 1);
-            historyStack.push(url);
-            historyIndex = historyStack.length - 1;
             
             // Update navigation buttons
             updateNavigationButtons();
@@ -462,35 +450,46 @@
         
         // Function to update navigation button states
         function updateNavigationButtons() {
-            document.getElementById('backBtn').disabled = historyIndex <= 0;
-            document.getElementById('forwardBtn').disabled = historyIndex >= historyStack.length - 1;
+            // Buttons are never disabled since we loop around
+            document.getElementById('backBtn').disabled = false;
+            document.getElementById('forwardBtn').disabled = false;
         }
         
-        // Navigation functions
+        // Navigation functions with looping
         function goBack() {
-            if (historyIndex > 0) {
-                historyIndex--;
-                const url = historyStack[historyIndex];
-                document.getElementById('contentFrame').src = url;
-                document.getElementById('currentUrl').textContent = url;
-                updateNavigationButtons();
+            if (currentArticleIndex > 0) {
+                currentArticleIndex--;
+            } else {
+                // Loop to the end
+                currentArticleIndex = allArticles.length - 1;
+            }
+            
+            const article = allArticles[currentArticleIndex];
+            if (article) {
+                document.getElementById('contentFrame').src = article.url;
+                document.getElementById('currentUrl').textContent = article.url;
             }
         }
         
         function goForward() {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                const url = historyStack[historyIndex];
-                document.getElementById('contentFrame').src = url;
-                document.getElementById('currentUrl').textContent = url;
-                updateNavigationButtons();
+            if (currentArticleIndex < allArticles.length - 1) {
+                currentArticleIndex++;
+            } else {
+                // Loop to the beginning
+                currentArticleIndex = 0;
+            }
+            
+            const article = allArticles[currentArticleIndex];
+            if (article) {
+                document.getElementById('contentFrame').src = article.url;
+                document.getElementById('currentUrl').textContent = article.url;
             }
         }
         
         function openInNewTab() {
-            const url = historyStack[historyIndex];
-            if (url) {
-                window.open(url, '_blank');
+            const article = allArticles[currentArticleIndex];
+            if (article) {
+                window.open(article.url, '_blank');
             }
         }
         
@@ -562,6 +561,9 @@
                 
                 const data = await response.json();
                 loadingIndicator.style.display = 'none';
+                
+                // Store articles globally for navigation
+                allArticles = data.links;
                 
                 // Clear existing content
                 readingList.innerHTML = '';
