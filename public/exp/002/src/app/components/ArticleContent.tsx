@@ -477,7 +477,13 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
           <div 
             className="drag-handle"
             style={{
-              cursor: isLoading || activeButton ? 'not-allowed' : 'grab'
+              cursor: isLoading || activeButton ? 'not-allowed' : 'grab',
+              background: 'radial-gradient(50% 50% at 50% 50%, rgba(34, 174, 255, 0.55) 50%, rgba(34, 174, 255, 0.85) 75%, rgba(34, 174, 255, 1) 85%, #22AEFF 100%)',
+              backdropFilter: 'blur(0.65px)',
+              backgroundBlendMode: 'normal',
+              mixBlendMode: 'screen',
+              filter: 'brightness(1.15) contrast(1.5)',
+              boxShadow: '0 294px 82px 0 rgba(0, 191, 255, 0.00), 0 188px 75px 0 rgba(0, 191, 255, 0.05), 0 106px 64px 0 rgba(0, 191, 255, 0.08), 0 30px 30px 0 rgba(0, 191, 255, 0.15), 0 10px 30px 0 rgba(0, 191, 255, 0.33)'
             }}
             onMouseDown={handleSliderStart}
             onTouchStart={handleSliderStart}
