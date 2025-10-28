@@ -413,7 +413,9 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
           }`}
           style={{
             '--border': '1',
-            position: 'relative'
+            position: 'relative',
+            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(196, 196, 196, 0.5) 100%)',
+            boxShadow: '0 0 40px 0 rgba(179, 179, 179, 0.15), 0 8px 32px 0 rgba(31, 38, 135, 0.2)'
           } as React.CSSProperties}
         >
           {/* Lighting border effect */}
