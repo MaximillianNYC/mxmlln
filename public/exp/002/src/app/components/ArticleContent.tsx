@@ -10,9 +10,10 @@ interface ArticleContentProps {
   onWordCountChange?: (wordCount: number) => void
   onHasTextChange?: (hasText: boolean) => void
   onContentManuallyEdited?: () => void
+  onExpansionChange?: (isExpanded: boolean) => void
 }
 
-export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange, onHasTextChange, onContentManuallyEdited }: ArticleContentProps) => {
+export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange, onHasTextChange, onContentManuallyEdited, onExpansionChange }: ArticleContentProps) => {
   const [content, setContent] = useState(initialContent)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -21,6 +22,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
   const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
   const [oldContent, setOldContent] = useState('') // Store previous content for morphing effect
   const [hasText, setHasText] = useState(false) // Track if user has entered text to trigger full-height mode
+  const [shouldExpand, setShouldExpand] = useState(false) // Controls when to actually show the expanded height (debounced)
   const [hasPerformedFirstZoom, setHasPerformedFirstZoom] = useState(false) // Track if first zoom happened to disable autofocus
   const [showDragTooltip, setShowDragTooltip] = useState<'contract' | 'expand' | null>(null) // Track which tooltip to show during drag
   const [lastGeneratedContent, setLastGeneratedContent] = useState('') // Track the last generated content to detect user edits
@@ -64,6 +66,27 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
       onHasTextChange?.(hasContent)
     }
   }, [content, hasText, onHasTextChange])
+
+  // Debounce the expansion to happen 500ms after user stops typing
+  useEffect(() => {
+    if (!hasText) {
+      setShouldExpand(false)
+      return
+    }
+
+    const timeoutId = setTimeout(() => {
+      setShouldExpand(true)
+    }, 500)
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [content, hasText])
+
+  // Notify parent when expansion state changes
+  useEffect(() => {
+    onExpansionChange?.(shouldExpand)
+  }, [shouldExpand, onExpansionChange])
 
   // Detect if user manually edited the generated content
   useEffect(() => {
@@ -302,7 +325,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     <div 
       className="relative"
       style={{
-        height: hasText ? 'calc(100dvh - 96px - 32px)' : '200px', // 96px for py-12, 32px for header approx
+        height: shouldExpand ? 'calc(100dvh - 96px - 32px)' : '200px', // 96px for py-12, 32px for header approx
         transition: 'height 1000ms cubic-bezier(0.4, 0, 0.2, 1)'
       }}
     >
@@ -331,7 +354,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         }`}
         style={{ 
           caretColor: '#06b6d4', 
-          height: hasText ? '100%' : 'auto',
+          height: shouldExpand ? '100%' : 'auto',
           overflow: 'hidden',
           letterSpacing: '-0.01em',
           filter: isLoading ? 'blur(3px)' : 'blur(0px)',
@@ -380,7 +403,7 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
         className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out" 
         style={{ 
           zIndex: 9999,
-          bottom: hasText ? '24px' : '-100px'
+          bottom: shouldExpand ? '24px' : '-100px'
         }}
       >
         <div 
