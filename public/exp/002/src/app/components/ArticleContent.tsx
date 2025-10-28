@@ -10,10 +10,10 @@ interface ArticleContentProps {
   onWordCountChange?: (wordCount: number) => void
   onHasTextChange?: (hasText: boolean) => void
   onContentManuallyEdited?: () => void
-  onExpansionChange?: (isExpanded: boolean) => void
+  onEngagementChange?: (isEngaged: boolean) => void
 }
 
-export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange, onHasTextChange, onContentManuallyEdited, onExpansionChange }: ArticleContentProps) => {
+export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCountChange, onHasTextChange, onContentManuallyEdited, onEngagementChange }: ArticleContentProps) => {
   const [content, setContent] = useState(initialContent)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -83,10 +83,10 @@ export const ArticleContent = ({ initialContent, onLoadingStateChange, onWordCou
     }
   }, [content, hasText])
 
-  // Notify parent when expansion state changes
+  // Notify parent when engagement state changes
   useEffect(() => {
-    onExpansionChange?.(shouldExpand)
-  }, [shouldExpand, onExpansionChange])
+    onEngagementChange?.(shouldExpand)
+  }, [shouldExpand, onEngagementChange])
 
   // Detect if user manually edited the generated content
   useEffect(() => {
