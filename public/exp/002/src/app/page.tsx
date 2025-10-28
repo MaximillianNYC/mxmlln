@@ -8,7 +8,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [activeButton, setActiveButton] = useState<'expand' | 'contract' | null>(null)
   const [hasText, setHasText] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false) // Track expansion state (debounced)
+  const [isEngaged, setIsEngaged] = useState(false) // Track if user has exited welcome state
   const [hasPerformedZoom, setHasPerformedZoom] = useState(false)
   const [lastOperation, setLastOperation] = useState<{
     type: 'expand' | 'contract'
@@ -21,7 +21,7 @@ export default function Home() {
     if (!hasText) {
       setHasPerformedZoom(false)
       setLastOperation(null)
-      setIsExpanded(false)
+      setIsEngaged(false)
     }
   }, [hasText])
 
@@ -60,7 +60,7 @@ export default function Home() {
       )
     }
     // Show instruction if user has text but either hasn't zoomed yet OR has edited after zooming
-    if (isExpanded && (hasPerformedZoom === false || lastOperation === null)) {
+    if (isEngaged && (hasPerformedZoom === false || lastOperation === null)) {
       return 'Select a zoom direction below'
     }
     return 'Welcome to Zoomer'
@@ -79,7 +79,7 @@ export default function Home() {
           onLoadingStateChange={handleLoadingStateChange}
           onHasTextChange={setHasText}
           onContentManuallyEdited={handleContentManuallyEdited}
-          onExpansionChange={setIsExpanded}
+          onExpansionChange={setIsEngaged}
         />
       </div>
     </main>
