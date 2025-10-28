@@ -79,7 +79,7 @@ export default function Home() {
           onLoadingStateChange={handleLoadingStateChange}
           onHasTextChange={setHasText}
           onContentManuallyEdited={handleContentManuallyEdited}
-          onExpansionChange={setIsEngaged}
+          onEngagementChange={setIsEngaged}
         />
       </div>
     </main>
