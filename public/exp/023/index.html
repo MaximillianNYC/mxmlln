@@ -20,6 +20,7 @@
     .blur-wrap {
       padding: 40px;
       will-change: filter;
+      position: relative;
       animation: pulseBlur 5s infinite;
     }
     @keyframes pulseBlur {
@@ -31,7 +32,19 @@
 <body>
   <div class="blur-wrap">
     <svg width="200" height="200">
+      <defs>
+        <!-- Shimmer gradient adapted from .loading-text colors -->
+        <linearGradient id="shimmer" x1="-200" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#dddddd"/>
+          <stop offset="50%" stop-color="#b2bac8"/>
+          <stop offset="100%" stop-color="#dddddd"/>
+          <animateTransform attributeName="gradientTransform" type="translate" from="-200 0" to="200 0" dur="4s" repeatCount="indefinite" />
+        </linearGradient>
+      </defs>
+      <!-- Base circle color -->
       <circle cx="100" cy="100" r="80" fill="#4F8EF7" />
+      <!-- Shimmer overlay -->
+      <circle cx="100" cy="100" r="80" fill="url(#shimmer)" style="mix-blend-mode: screen; opacity: 0.7;" />
     </svg>
   </div>
 </body>
