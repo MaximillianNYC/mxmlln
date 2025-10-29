@@ -24,14 +24,14 @@
       animation: pulseBlur 5s infinite;
     }
     @keyframes pulseBlur {
-      0%, 100% { filter: blur(30px); }
+      0%, 100% { filter: blur(25px); }
       50%      { filter: blur(15px); }
     }
   </style>
 </head>
 <body>
   <div class="blur-wrap">
-    <svg width="200" height="200">
+    <svg width="300" height="300" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
       <defs>
         <!-- Shimmer gradient adapted from .loading-text colors -->
         <linearGradient id="shimmer" x1="-200" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
@@ -44,7 +44,7 @@
       <!-- Base circle color -->
       <circle cx="100" cy="100" r="80" fill="#4F8EF7" />
       <!-- Shimmer overlay -->
-      <circle cx="100" cy="100" r="80" fill="url(#shimmer)" style="mix-blend-mode: screen; opacity: 0.7;" />
+      <circle cx="100" cy="100" r="80" fill="url(#shimmer)" style="mix-blend-mode: screen; opacity: 0.5;" />
     </svg>
   </div>
 </body>
