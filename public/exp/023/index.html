@@ -17,18 +17,22 @@
       justify-content: center;
       background: #fff;
     }
+    .blur-wrap {
+      padding: 40px;
+      will-change: filter;
+      animation: pulseBlur 5s infinite;
+    }
+    @keyframes pulseBlur {
+      0%, 100% { filter: blur(30px); }
+      50%      { filter: blur(15px); }
+    }
   </style>
 </head>
 <body>
-  <svg width="200" height="200">
-    <defs>
-      <filter id="pulse-blur">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="0">
-          <animate attributeName="stdDeviation" values="10;5;10" dur="5s" repeatCount="indefinite" />
-        </feGaussianBlur>
-      </filter>
-    </defs>
-    <circle cx="100" cy="100" r="80" fill="#4F8EF7" filter="url(#pulse-blur)" />
-  </svg>
+  <div class="blur-wrap">
+    <svg width="200" height="200">
+      <circle cx="100" cy="100" r="80" fill="#4F8EF7" />
+    </svg>
+  </div>
 </body>
 </html>
