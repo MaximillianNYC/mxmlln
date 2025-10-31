@@ -33,12 +33,12 @@
   <div class="blur-wrap">
     <svg width="300" height="300" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <linearGradient id="shimmer" x1="-200" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="shimmer" x1="-400" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
           <stop offset="15%" stop-color="rgba(29, 205, 152, 0.35)"/>
           <stop offset="50%" stop-color="rgba(29, 205, 152, 0.75)"/>
           <stop offset="85%" stop-color="rgba(29, 205, 152, 0.35)"/>
-          <animate attributeName="x1" values="-200;200;-200" dur="5s" repeatCount="indefinite" />
-          <animate attributeName="x2" values="200;600;200" dur="5s" repeatCount="indefinite" />
+          <animate attributeName="x1" values="-400;0" dur="5s" repeatCount="indefinite" calcMode="linear" />
+          <animate attributeName="x2" values="0;400" dur="5s" repeatCount="indefinite" calcMode="linear" />
         </linearGradient>
       </defs>
       <!-- Shimmer only - transparent base -->
