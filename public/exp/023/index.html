@@ -23,11 +23,11 @@
       position: relative;
       filter: blur(0px);
       opacity: 1;
-      transition: all 0.6s ease;
+      transition: filter 0.6s ease, opacity 0.4s ease;
     }
     .blur-wrap:hover {
       filter: blur(100px);
-      opacity: 0.75;
+      opacity: 0.85;
     }
     .blur-wrap svg {
       animation: pulseBlur 3s infinite;
@@ -43,9 +43,9 @@
     <svg width="300" height="300" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
       <defs>
         <linearGradient id="shimmer" x1="-400" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
-          <stop offset="15%" stop-color="rgba(29, 205, 152, 0.3)"/>
+          <stop offset="15%" stop-color="rgba(29, 205, 152, 0.25)"/>
           <stop offset="50%" stop-color="rgba(29, 205, 152, 0.95)"/>
-          <stop offset="85%" stop-color="rgba(29, 205, 152, 0.3)"/>
+          <stop offset="85%" stop-color="rgba(29, 205, 152, 0.25)"/>
           <animate attributeName="x1" values="-400;0" dur="3s" repeatCount="indefinite" calcMode="linear" />
           <animate attributeName="x2" values="0;400" dur="3s" repeatCount="indefinite" calcMode="linear" />
         </linearGradient>
