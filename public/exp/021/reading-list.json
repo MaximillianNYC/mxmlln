@@ -87,7 +87,7 @@
     {
       "id": "13",
       "url": "https://arxiv.org/pdf/2507.19849",
-      "title": "arXiv Paper",
+      "title": "AGENTIC REINFORCED POLICY OPTIMIZATION",
       "createdAt": "2025-10-25T00:12:00Z",
       "metadata": {}
     },
@@ -150,7 +150,7 @@
     {
       "id": "22",
       "url": "https://arxiv.org/abs/1704.06960",
-      "title": "arXiv Paper",
+      "title": "Translating Neuralese",
       "createdAt": "2025-10-25T00:21:00Z",
       "metadata": {}
     },
@@ -164,7 +164,7 @@
     {
       "id": "24",
       "url": "https://arxiv.org/abs/2507.02259",
-      "title": "arXiv Paper",
+      "title": "MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent",
       "createdAt": "2025-10-25T00:23:00Z",
       "metadata": {}
     },
