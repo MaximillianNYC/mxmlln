@@ -60,7 +60,8 @@ app.post('/api/reading-list', (req, res) => {
       url,
       title,
       createdAt: new Date().toISOString(),
-      metadata: {}
+      metadata: {},
+      read: false
     };
 
     data.links.push(newLink);
@@ -79,7 +80,7 @@ app.post('/api/reading-list', (req, res) => {
 app.put('/api/reading-list/:id', (req, res) => {
   try {
     const { id } = req.params;
-    const { url, title, metadata } = req.body;
+    const { url, title, metadata, read } = req.body;
     
     const data = readData();
     const linkIndex = data.links.findIndex(link => link.id === id);
@@ -91,6 +92,7 @@ app.put('/api/reading-list/:id', (req, res) => {
     if (url) data.links[linkIndex].url = url;
     if (title) data.links[linkIndex].title = title;
     if (metadata) data.links[linkIndex].metadata = { ...data.links[linkIndex].metadata, ...metadata };
+    if (typeof read === 'boolean') data.links[linkIndex].read = read;
 
     if (writeData(data)) {
       res.json(data.links[linkIndex]);

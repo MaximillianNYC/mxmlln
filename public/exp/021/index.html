@@ -31,6 +31,8 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             overflow: hidden;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         li:hover {
@@ -48,6 +50,8 @@
             color: #333;
             height: 100%;
             transition: background-color 0.2s ease;
+            width: 100%;
+            flex: 1 1 auto;
         }
         
         a:hover {
@@ -220,6 +224,12 @@
             z-index: 100;
         }
         
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
         .header-row h1 {
             margin: 0;
         }
@@ -239,6 +249,32 @@
         .add-article-btn:hover {
             background: #0056b3;
             transform: translateY(-1px);
+        }
+        
+        .filter-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .filter-controls label {
+            font-weight: 500;
+        }
+        
+        .filter-controls select {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: #212529;
+            outline: none;
+            padding-right: 4px;
+            cursor: pointer;
         }
         
         .add-article-modal {
@@ -344,12 +380,86 @@
         .btn-secondary:hover {
             background: #545b62;
         }
+        
+        .link-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .status-pill {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #e2e8f0;
+            color: #475569;
+        }
+        
+        li.read .status-pill {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+        
+        .mark-read-btn {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            background: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .mark-read-btn:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+        
+        li.read {
+            opacity: 0.65;
+        }
+        
+        li.read .link-title {
+            text-decoration: line-through;
+        }
+        
+        li.empty-state {
+            aspect-ratio: unset;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            color: #6c757d;
+            background: transparent;
+            box-shadow: none;
+            border: 1px dashed #ced4da;
+        }
     </style>
 </head>
 <body>
     <div class="header-row">
         <h1>Reading List Prototype</h1>
-        <button id="addArticleBtn" class="add-article-btn">+ Add Article</button>
+        <div class="header-actions">
+            <div class="filter-controls">
+                <label for="statusFilter">Show</label>
+                <select id="statusFilter">
+                    <option value="all">All</option>
+                    <option value="unread">Unread</option>
+                    <option value="read">Read</option>
+                </select>
+            </div>
+            <button id="addArticleBtn" class="add-article-btn">+ Add Article</button>
+        </div>
     </div>
     
     <!-- Add Article Modal -->
@@ -439,6 +549,7 @@
         // Global variables for article navigation
         let allArticles = [];
         let currentArticleIndex = -1;
+        let currentFilter = 'all';
         
         // Function to load URL in iframe
         function loadInFrame(url) {
@@ -518,6 +629,122 @@
             }
         }
         
+        function normalizeArticle(article) {
+            return {
+                ...article,
+                read: Boolean(article.read)
+            };
+        }
+        
+        function getFilteredArticles() {
+            return allArticles.filter(article => {
+                if (currentFilter === 'read') {
+                    return Boolean(article.read);
+                }
+                if (currentFilter === 'unread') {
+                    return !Boolean(article.read);
+                }
+                return true;
+            });
+        }
+        
+        async function toggleReadStatus(id, nextValue) {
+            try {
+                const response = await fetch(`http://localhost:3002/api/reading-list/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ read: nextValue })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const updatedArticle = normalizeArticle(await response.json());
+                allArticles = allArticles.map(article => 
+                    article.id === id ? updatedArticle : article
+                );
+                
+                // Preserve current index if we're looking at this article
+                if (currentArticleIndex !== -1 && allArticles[currentArticleIndex]?.id === id) {
+                    currentArticleIndex = allArticles.findIndex(article => article.id === id);
+                }
+                
+                await renderReadingList();
+            } catch (error) {
+                console.error('Error updating read status:', error);
+                alert('Failed to update read status. Please try again.');
+            }
+        }
+        
+        async function renderReadingList() {
+            const readingList = document.getElementById('readingList');
+            readingList.innerHTML = '';
+            
+            if (allArticles.length === 0) {
+                currentArticleIndex = -1;
+            } else if (currentArticleIndex >= allArticles.length) {
+                currentArticleIndex = allArticles.length - 1;
+            }
+            
+            const articlesToRender = getFilteredArticles();
+            
+            if (articlesToRender.length === 0) {
+                const emptyState = document.createElement('li');
+                emptyState.className = 'empty-state';
+                
+                if (currentFilter === 'read') {
+                    emptyState.textContent = 'No articles marked as read yet.';
+                } else if (currentFilter === 'unread') {
+                    emptyState.textContent = 'All caught up! Everything here is read.';
+                } else {
+                    emptyState.textContent = 'No articles in the reading list yet.';
+                }
+                
+                readingList.appendChild(emptyState);
+                return;
+            }
+            
+            articlesToRender.forEach(article => {
+                const listItem = document.createElement('li');
+                if (article.read) {
+                    listItem.classList.add('read');
+                }
+                
+                const link = document.createElement('a');
+                link.href = article.url;
+                link.textContent = article.title;
+                
+                const actions = document.createElement('div');
+                actions.className = 'link-actions';
+                
+                const status = document.createElement('span');
+                status.className = 'status-pill';
+                status.textContent = article.read ? 'Read' : 'Unread';
+                
+                const toggleButton = document.createElement('button');
+                toggleButton.type = 'button';
+                toggleButton.className = 'mark-read-btn';
+                toggleButton.textContent = article.read ? 'Mark Unread' : 'Mark Read';
+                toggleButton.addEventListener('click', async (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    await toggleReadStatus(article.id, !article.read);
+                });
+                
+                actions.appendChild(status);
+                actions.appendChild(toggleButton);
+                
+                listItem.appendChild(link);
+                listItem.appendChild(actions);
+                readingList.appendChild(listItem);
+            });
+            
+            await enhanceAllLinks();
+        }
+        
         // Function to enhance a single link
         async function enhanceLink(link) {
             const url = link.href;
@@ -573,7 +800,6 @@
         async function loadReadingList() {
             const loadingIndicator = document.getElementById('loadingIndicator');
             const errorMessage = document.getElementById('errorMessage');
-            const readingList = document.getElementById('readingList');
             
             try {
                 loadingIndicator.style.display = 'block';
@@ -588,24 +814,9 @@
                 loadingIndicator.style.display = 'none';
                 
                 // Store articles globally for navigation
-                allArticles = data.links;
+                allArticles = Array.isArray(data.links) ? data.links.map(normalizeArticle) : [];
                 
-                // Clear existing content
-                readingList.innerHTML = '';
-                
-                // Create list items for each link
-                data.links.forEach(linkData => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = linkData.url;
-                    a.textContent = linkData.title;
-                    
-                    li.appendChild(a);
-                    readingList.appendChild(li);
-                });
-                
-                // Enhance all links after they're created
-                await enhanceAllLinks();
+                await renderReadingList();
                 
             } catch (error) {
                 console.error('Error loading reading list:', error);
@@ -696,6 +907,13 @@
             document.getElementById('addArticleBtn').addEventListener('click', openAddModal);
             document.getElementById('closeAddModal').addEventListener('click', closeAddModal);
             document.getElementById('cancelAdd').addEventListener('click', closeAddModal);
+            
+            const statusFilter = document.getElementById('statusFilter');
+            statusFilter.value = currentFilter;
+            statusFilter.addEventListener('change', async function(e) {
+                currentFilter = e.target.value;
+                await renderReadingList();
+            });
             
             // Form submission
             document.getElementById('addArticleForm').addEventListener('submit', function(e) {
