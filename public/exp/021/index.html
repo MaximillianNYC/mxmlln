@@ -78,6 +78,18 @@
             flex: 1;
             min-width: 0;
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .link-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
         
         .link-url {
@@ -87,6 +99,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            flex: 1;
+            min-width: 0;
         }
         
         .loading {
@@ -375,48 +389,32 @@
             background: #545b62;
         }
         
-        .link-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 12px;
-            padding: 16px 20px;
-            background: #f8f9fa;
-            border-left: 1px solid #e9ecef;
-            min-width: 220px;
-        }
-        
         .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 999px;
             background: #e2e8f0;
             color: #475569;
+            border: 1px solid #cbd5f5;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
         
         li.read .status-pill {
             background: #d1e7dd;
             color: #0f5132;
+            border-color: #badbcc;
+        }
+        .status-pill:hover {
+            background: #dfe7fb;
         }
         
-        .mark-read-btn {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #ced4da;
-            background: white;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .mark-read-btn:hover {
-            background: #e9ecef;
-            border-color: #adb5bd;
-        }
         
         li.read {
             opacity: 0.65;
@@ -710,29 +708,10 @@
                 const link = document.createElement('a');
                 link.href = article.url;
                 link.textContent = article.title;
-                
-                const actions = document.createElement('div');
-                actions.className = 'link-actions';
-                
-                const status = document.createElement('span');
-                status.className = 'status-pill';
-                status.textContent = article.read ? 'Read' : 'Unread';
-                
-                const toggleButton = document.createElement('button');
-                toggleButton.type = 'button';
-                toggleButton.className = 'mark-read-btn';
-                toggleButton.textContent = article.read ? 'Mark Unread' : 'Mark Read';
-                toggleButton.addEventListener('click', async (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    await toggleReadStatus(article.id, !article.read);
-                });
-                
-                actions.appendChild(status);
-                actions.appendChild(toggleButton);
+                link.dataset.articleId = article.id;
+                link.dataset.read = article.read ? 'true' : 'false';
                 
                 listItem.appendChild(link);
-                listItem.appendChild(actions);
                 readingList.appendChild(listItem);
             });
             
@@ -743,6 +722,11 @@
         async function enhanceLink(link) {
             const url = link.href;
             const faviconUrl = getFaviconUrl(url);
+            const articleId = link.dataset.articleId;
+            const matchedArticle = articleId 
+                ? allArticles.find(article => article.id === articleId) 
+                : allArticles.find(article => article.url === url);
+            const isRead = matchedArticle ? Boolean(matchedArticle.read) : link.dataset.read === 'true';
             
             // Add click handler to load in iframe
             link.addEventListener('click', function(e) {
@@ -772,14 +756,41 @@
             title.className = 'link-title';
             title.textContent = link.textContent;
             
+            const meta = document.createElement('div');
+            meta.className = 'link-meta';
+            
             // Create URL element
             const urlElement = document.createElement('div');
             urlElement.className = 'link-url';
             urlElement.textContent = url;
             
+            const statusButton = document.createElement('button');
+            statusButton.type = 'button';
+            statusButton.className = 'status-pill';
+            statusButton.textContent = isRead ? 'Read' : 'Unread';
+            statusButton.setAttribute('aria-pressed', isRead ? 'true' : 'false');
+            statusButton.addEventListener('click', async (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                const currentArticle = articleId 
+                    ? allArticles.find(article => article.id === articleId) 
+                    : allArticles.find(article => article.url === url);
+                
+                if (!currentArticle || !currentArticle.id) {
+                    console.warn('Unable to toggle read state: missing article ID');
+                    return;
+                }
+                
+                await toggleReadStatus(currentArticle.id, !Boolean(currentArticle.read));
+            });
+            
+            meta.appendChild(urlElement);
+            meta.appendChild(statusButton);
+            
             // Assemble the new structure
             content.appendChild(title);
-            content.appendChild(urlElement);
+            content.appendChild(meta);
             
             // Clear the link content and add new elements
             link.innerHTML = '';
