@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shader Starter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #18181b;
+      color: #ececec;
+      font-family: system-ui, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      margin-top: 36px;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .instructions {
+      max-width: 520px;
+      background: #232334;
+      color: #b8b7ce;
+      border-radius: 14px;
+      padding: 18px 20px;
+      font-size: 1.1rem;
+      margin: 28px 0 24px 0;
+      line-height: 1.6;
+    }
+    canvas {
+      display: block;
+      border-radius: 12px;
+      margin: 0 auto;
+      background: #262639;
+      box-shadow: 0 4px 40px #0005;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="glcanvas" width="480" height="360"></canvas>
+
+  <script>
+  // STEP 1: Set up WebGL context (to talk to your GPU)
+  const canvas = document.getElementById('glcanvas');
+  const gl = canvas.getContext('webgl');
+  if (!gl) {
+    alert('WebGL not supported by your browser!');
+    throw new Error('WebGL not supported');
+  }
+
+  // STEP 2: Write shaders as strings (GLSL language)
+  // Vertex shader: just passes on position
+  const vertexShaderSource = `
+    attribute vec2 a_position;
+    void main() {
+      // Convert from [0,1] to [-1,1] clipspace
+      gl_Position = vec4(a_position, 0.0, 1.0);
+    }
+  `;
+
+  // Fragment shader: called for each pixel!
+  // Let's output a plain color for now.
+  const fragmentShaderSource = `
+    precision mediump float;
+    void main() {
+      // gl_FragColor sets the RGBA color of each pixel
+      gl_FragColor = vec4(0.2, 0.8, 0.6, 1.0); // aqua/teal
+    }
+  `;
+
+  // STEP 3: Helper function to compile shaders
+  function createShader(gl, type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      const error = gl.getShaderInfoLog(shader);
+      gl.deleteShader(shader);
+      throw new Error('Shader compile failed: ' + error);
+    }
+    return shader;
+  }
+
+  // STEP 4: Create and link the shader program
+  function createProgram(gl, vShaderSource, fShaderSource) {
+    const vertShader = createShader(gl, gl.VERTEX_SHADER, vShaderSource);
+    const fragShader = createShader(gl, gl.FRAGMENT_SHADER, fShaderSource);
+    const program = gl.createProgram();
+    gl.attachShader(program, vertShader);
+    gl.attachShader(program, fragShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      throw new Error('Program link failed: ' + gl.getProgramInfoLog(program));
+    }
+    return program;
+  }
+
+  // STEP 5: Set up geometry (a full screen triangle)
+  // Clip space (-1 to 1) X/Y, covers the entire canvas
+  const positions = new Float32Array([
+    -1, -1,
+     3, -1,
+    -1,  3
+  ]);
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+  // STEP 6: Use our shaders!
+  const program = createProgram(gl, vertexShaderSource, fragmentShaderSource);
+  gl.useProgram(program);
+
+  // Locate the a_position attribute and enable it
+  const posAttrib = gl.getAttribLocation(program, 'a_position');
+  gl.enableVertexAttribArray(posAttrib);
+  gl.vertexAttribPointer(posAttrib, 2, gl.FLOAT, false, 0, 0);
+
+  // STEP 7: Draw!
+  gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+  gl.clearColor(0.12, 0.08, 0.17, 1.0); // dark background
+  gl.clear(gl.COLOR_BUFFER_BIT);
+
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+  // ========== EXPLORE ==========
+  // Try changing the values in gl_FragColor in the fragmentShaderSource:
+  // (R, G, B, A) each between 0.0 and 1.0
+  // For example, try: gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // red!
+  </script>
+</body>
+</html>
