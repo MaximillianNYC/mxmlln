@@ -38,16 +38,18 @@
     }
     canvas {
       display: block;
-      border-radius: 12px;
+      min-height: 100vh;
+      min-width: 100vw;
       margin: 0 auto;
       background: #262639;
+      opacity: 0.25;
       box-shadow: 0 4px 40px #0005;
     }
   </style>
 </head>
 <body>
 
-  <canvas id="glcanvas" width="480" height="360"></canvas>
+  <canvas id="glcanvas" width="100%" height="100%"></canvas>
 
   <script>
   const canvas = document.getElementById('glcanvas');
@@ -69,8 +71,16 @@
   // Fragment shader
   const fragmentShaderSource = `
     precision mediump float;
+
+    uniform vec2 u_mouse;
+
     void main() {
-      gl_FragColor = vec4(0.2, 0.8, 0.6, 1.0);
+      // u_mouse arrives normalized (0.0 - 1.0)
+      float r = u_mouse.x;
+      float g = u_mouse.y;
+      float b = 1.0 - 0.5 * (u_mouse.x + u_mouse.y);
+      vec3 color = vec3(r, g, b);
+      gl_FragColor = vec4(color, 1.0);
     }
   `;
 
@@ -119,11 +129,30 @@
   gl.enableVertexAttribArray(posAttrib);
   gl.vertexAttribPointer(posAttrib, 2, gl.FLOAT, false, 0, 0);
 
-  gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-  gl.clearColor(0.12, 0.08, 0.17, 1.0); // dark background
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  const mouseUniform = gl.getUniformLocation(program, 'u_mouse');
 
-  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  let mouse = { x: 0.5, y: 0.5 };
+
+  function render() {
+    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+    gl.clearColor(0.12, 0.08, 0.17, 1.0); // dark background
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.uniform2f(mouseUniform, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    requestAnimationFrame(render);
+  }
+
+  canvas.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = (event.clientX - rect.left) / rect.width;
+    mouse.y = 1.0 - (event.clientY - rect.top) / rect.height;
+    mouse.x = Math.min(Math.max(mouse.x, 0.0), 1.0);
+    mouse.y = Math.min(Math.max(mouse.y, 0.0), 1.0);
+  });
+
+  render();
 
   </script>
 </body>
