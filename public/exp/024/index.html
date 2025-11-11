@@ -77,24 +77,27 @@
     uniform float u_time;
 
     void main() {
-      vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-      vec2 diff = uv - u_mouse;
+      vec2 center = u_resolution * 0.5;
+      vec2 diff = (gl_FragCoord.xy - center) / u_resolution.y;
       float dist = length(diff);
 
-      float angle = atan(diff.y, diff.x);
-      float ripple = sin(40.0 * dist - u_time * 5.0);
-      float falloff = exp(-dist * 10.0);
-      float ring = ripple * falloff * (0.7 + 0.3 * cos(angle * 5.0));
+      vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+      float rippleScale = mix(8.0, 30.0, u_mouse.x);
+      float ripple = sin(rippleScale * dist - u_time * 4.5);
+      float falloff = exp(-dist * mix(5.0, 14.0, u_mouse.x));
+      float ring = ripple * falloff;
       ring = ring * 0.5 + 0.5;
 
+      float colorShift = u_mouse.y;
       vec3 background = vec3(0.094, 0.047, 0.09);
-      vec3 mouseColor = background + vec3(u_mouse.x, u_mouse.y, 0.6);
-      vec3 highlight = mouseColor + vec3(0.25, 0.2, 0.35);
+      vec3 mouseTint = vec3(0.35 * colorShift, 0.25 * colorShift, 0.5 * colorShift);
+      vec3 baseColor = background + mouseTint;
+      vec3 highlight = baseColor + vec3(0.2, 0.18, 0.25);
 
-      vec3 color = mix(mouseColor, highlight, ring);
+      vec3 color = mix(baseColor, highlight, ring);
 
-      float glow = smoothstep(0.3, 0.0, dist);
-      color += glow * 0.12;
+      float glow = smoothstep(0.32, 0.0, dist);
+      color += glow * 0.08;
 
       gl_FragColor = vec4(color, 1.0);
     }
