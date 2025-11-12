@@ -85,7 +85,8 @@
       float angle = atan(diff.y, diff.x);
       float petalCount = 11.0;
       float baseRadius = 0.28 + 0.03 * sin(u_time * 0.6);
-      float petalWave = 0.08 * sin(petalCount * angle + u_time * 1.5);
+      float angularSpeed = mix(0.5, 3.0, u_mouse.x);
+      float petalWave = 0.08 * sin(petalCount * angle + u_time * angularSpeed);
       float radius = baseRadius + petalWave;
       float edgeSoftness = 0.12;
       float ring = smoothstep(radius + edgeSoftness, radius - edgeSoftness, dist);
