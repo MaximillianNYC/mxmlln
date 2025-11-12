@@ -42,7 +42,7 @@
       min-width: 100vw;
       margin: 0 auto;
       background: #262639;
-      opacity: 0.25;
+      opacity: 1;
       box-shadow: 0 4px 40px #0005;
     }
   </style>
@@ -83,11 +83,11 @@
 
       vec2 uv = gl_FragCoord.xy / u_resolution.xy;
       float angle = atan(diff.y, diff.x);
-      float petalCount = mix(5.0, 11.0, u_mouse.x);
-      float baseRadius = 0.25 + 0.03 * sin(u_time * 0.6);
+      float petalCount = 11.0;
+      float baseRadius = 0.28 + 0.03 * sin(u_time * 0.6);
       float petalWave = 0.08 * sin(petalCount * angle + u_time * 1.5);
       float radius = baseRadius + petalWave;
-      float edgeSoftness = mix(0.01, 0.12, u_mouse.y);
+      float edgeSoftness = 0.12;
       float ring = smoothstep(radius + edgeSoftness, radius - edgeSoftness, dist);
 
       float colorShift = u_mouse.y;
