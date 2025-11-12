@@ -82,11 +82,13 @@
       float dist = length(diff);
 
       vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-      float rippleScale = mix(8.0, 30.0, u_mouse.x);
-      float ripple = sin(rippleScale * dist - u_time * 4.5);
-      float falloff = exp(-dist * mix(5.0, 14.0, u_mouse.x));
-      float ring = ripple * falloff;
-      ring = ring * 0.5 + 0.5;
+      float angle = atan(diff.y, diff.x);
+      float petalCount = mix(5.0, 11.0, u_mouse.x);
+      float baseRadius = 0.25 + 0.03 * sin(u_time * 0.6);
+      float petalWave = 0.08 * sin(petalCount * angle + u_time * 1.5);
+      float radius = baseRadius + petalWave;
+      float edgeSoftness = mix(0.01, 0.12, u_mouse.y);
+      float ring = smoothstep(radius + edgeSoftness, radius - edgeSoftness, dist);
 
       float colorShift = u_mouse.y;
       vec3 background = vec3(0.094, 0.047, 0.09);
