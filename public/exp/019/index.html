@@ -129,6 +129,41 @@
             transform: translate(-50%, -50%);
             width: 120px;
             height: 60px;
+            filter: hue-rotate(180deg) saturate(2) brightness(1.2);
+            transition: filter 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lottie-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 255, 255, 0.4),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .lottie-container:hover {
+            filter: blur(0px);
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
         }
 
         @keyframes loaderSequence {
@@ -197,6 +232,28 @@
             visibility: visible;
             transition: all 0.5s ease 0.3s;
         }
+
+        .blur-wrap {
+            padding: 40px;
+            will-change: filter;
+            position: relative;
+            filter: blur(0px);
+            opacity: 1;
+            transition: filter 0.6s ease, opacity 1s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .blur-wrap svg {
+            animation: pulseBlur 3s infinite;
+        }
+
+        @keyframes pulseBlur {
+            0%, 100% { filter: blur(30px); }
+            50%      { filter: blur(15px); }
+        }
     </style>
 </head>
 <body>
@@ -204,6 +261,32 @@
     <div class="search-container">
         <div style="display: flex; width: 100%;justify-content: center; align-items: center;">
             <h1>Search the horizon</h1>
+        </div>
+        <div class="blur-wrap">
+            <svg width="300" height="300" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+            <defs>
+                <linearGradient id="shimmer" x1="-350" y1="0" x2="50" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
+                    <stop offset="0%" stop-color="rgba(29, 205, 152, 0.25)"/>
+                    <stop offset="15%" stop-color="rgba(29, 205, 152, 0.25)"/>
+                    <stop offset="50%" stop-color="rgba(29, 205, 152, 0.75)"/>
+                    <stop offset="85%" stop-color="rgba(29, 205, 152, 0.25)"/>
+                    <stop offset="100%" stop-color="rgba(29, 205, 152, 0.25)"/>
+                    <animate attributeName="x1" values="-350;50" dur="3s" repeatCount="indefinite" calcMode="linear" />
+                    <animate attributeName="x2" values="50;450" dur="3s" repeatCount="indefinite" calcMode="linear" />
+                </linearGradient>
+                <radialGradient id="sphereLight" cx="-100" cy="100" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="rgba(29, 205, 152, 0.5)"/>
+                    <stop offset="30%" stop-color="rgba(29, 205, 152, 0.4)"/>
+                    <stop offset="50%" stop-color="rgba(29, 205, 152, 0.3)"/>
+                    <stop offset="70%" stop-color="rgba(29, 205, 152, 0)"/>
+                    <animate attributeName="cx" values="-100;300" dur="3s" repeatCount="indefinite" calcMode="linear" />
+                </radialGradient>
+            </defs>
+            <!-- Shimmer base -->
+            <circle cx="100" cy="100" r="80" fill="url(#shimmer)" />
+            <!-- Spherical depth overlay -->
+            <circle cx="100" cy="100" r="80" fill="url(#sphereLight)" />
+            </svg>
         </div>
         <input type="text" class="search-input" placeholder="What does your heart desire..." autofocus>
         <div class="search-modal">
