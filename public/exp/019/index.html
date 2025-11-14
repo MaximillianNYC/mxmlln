@@ -6,8 +6,7 @@
     <title>Input Expand</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -33,16 +32,7 @@
             font-weight: 200;
             line-height: 110%;
             letter-spacing: -1.44px;
-            margin-bottom: 16px;
-        }
-
-        h2 {
-            font-size: 20px;
-            font-weight: 100;
-            letter-spacing: 0px;
-            color: #4e4e4e;
-            margin-bottom: 16px;
-            font-family: "Georgia Pro Condensed", Georgia, serif;
+            margin-bottom: 24px;
         }
 
         .search-container {
@@ -109,175 +99,6 @@
             border-radius: 12px;
         }
 
-        .search-modal {
-            position: absolute;
-            top: -103px;
-            left: -16px;
-            width: 600px;
-            background-color: #F8FAFC;
-            border: 0px solid #E2E8F0;
-            border-radius: 24px;
-            padding: 16px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(150px);
-            box-shadow: 0 0px 0px rgba(0,0,0,0);
-            z-index: 2;
-            /* Fast transition for closing */
-            transition: opacity 0.3s ease 0.6s, visibility 0.3s ease 0.6s, background-color 0.3s ease, border 0.3s ease, transform 0.6s ease, box-shadow 0.4s ease;
-        }
-
-        .search-modal.active {
-            opacity: 1;
-            visibility: visible;
-            width: 600px;
-            background-color: rgba(241, 245, 249, 1);
-            border: 1px solid #E2E8F0;
-            transform: translateY(0px);
-            box-shadow: 0 308px 123px 0 rgba(0, 0, 0, 0.01), 0 173px 104px 0 rgba(0, 0, 0, 0.05), 0 77px 77px 0 rgba(0, 0, 0, 0.09), 0 19px 42px 0 rgba(0, 0, 0, 0.10);
-            /* Slower transition for opening with delayed shadow */
-            transition: opacity 0.1s ease, visibility 0.01s ease, background-color 0.3s ease 0.1s, border 0.3s ease 0.1s, transform 0.6s ease 0.1s, box-shadow 0.6s ease 0.1s;
-        }
-
-        .settings {
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .search-modal.active .settings {
-            opacity: 1;
-            margin: 16px 0 0 0;
-            border-radius: 12px;
-        }
-
-        .loader-container {
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .animated-loader {
-            position: relative;
-            width: 20px;
-            height: 20px;
-            animation: loaderSequence 4s infinite ease-in-out;
-        }
-
-        .lottie-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 60px;
-            filter: hue-rotate(180deg) saturate(2) brightness(1.2);
-            transition: filter 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lottie-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(0, 255, 255, 0.4),
-                transparent
-            );
-            animation: shimmer 2s infinite;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .lottie-container:hover {
-            filter: blur(0px);
-        }
-
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
-        @keyframes loaderSequence {
-            0% {
-                width: 20px;
-                height: 20px;
-            }
-            25% {
-                width: 20px;
-                height: 20px;
-            }
-            50% {
-                width: 40px;
-                height: 40px;
-            }
-            75% {
-                width: 40px;
-                height: 40px;
-            }
-            100% {
-                width: 40px;
-                height: 20px;
-            }
-        }
-
-
-        @keyframes svgMorph {
-            0% {
-                transform: translate(-50%, -50%) scale(0.2);
-                opacity: 1;
-            }
-            25% {
-                transform: translate(-50%, -50%) scale(0.2);
-                opacity: 1;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(0.9);
-                opacity: 1;
-            }
-            75% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            z-index: 1;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-            transition: all 0.5s ease 0.3s;
-        }
-
         .blur-wrap {
             padding: 40px;
             will-change: filter;
@@ -302,7 +123,6 @@
     </style>
 </head>
 <body>
-    <div class="modal-overlay" id="modalOverlay"></div>
     <div class="search-container">
         <div class="blur-wrap">
             <svg width="300" height="300" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
@@ -333,118 +153,5 @@
         </div>
         <input type="text" class="search-input" placeholder="Ask anything" autofocus>
     </div>
-
-    <script>
-        const searchInput = document.querySelector('.search-input');
-        const searchModal = document.querySelector('.search-modal');
-        const modalInput = searchModal.querySelector('.search-input');
-        const modalOverlay = document.getElementById('modalOverlay');
-
-
-        document.addEventListener('click', (e) => {
-            if (!searchModal.contains(e.target) && e.target !== searchInput) {
-                searchModal.classList.remove('active');
-                modalOverlay.classList.remove('active');
-                searchInput.focus();
-            }
-        });
-
-        modalInput.addEventListener('input', (e) => {
-            searchInput.value = e.target.value;
-            // Check if modal should close when typing in modal
-            if (e.target.value.length < 2) {
-                searchModal.classList.remove('active');
-                modalOverlay.classList.remove('active');
-                searchInput.focus();
-            }
-        });
-
-        modalInput.addEventListener('focus', () => {
-            searchModal.classList.add('active');
-            modalOverlay.classList.add('active');
-        });
-
-        // Lottie animation setup
-        let binocularsAnimation;
-        
-        function initLottieAnimation() {
-            try {
-                // Animation data embedded directly
-                const animationData = {"nm":"newScene","ddd":0,"h":60,"w":120,"meta":{"g":"SVG to Lottie"},"layers":[{"ty":4,"nm":"","sr":1,"st":0,"op":50,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0]},"s":{"a":0,"k":[100,100]},"sk":{"a":0,"k":0},"p":{"a":0,"k":[0,0]},"r":{"a":0,"k":0},"sa":{"a":0,"k":0},"o":{"a":0,"k":100}},"ef":[],"shapes":[{"ty":"gr","bm":0,"hd":false,"nm":"","it":[{"ty":"sh","bm":0,"hd":false,"nm":"","d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[-16.5685,0],[-5.173899999999996,-3.7248900000000003],[0,0],[-6.171700000000001,4.22261],[0,0],[-6.0291,0],[0,-16.5229],[16.523299999999992,0],[4.975899999999996,3.404500000000006],[0,0],[6.068799999999996,-4.369200000000006],[0,0],[6.375199999999996,0],[0,16.5685]],"o":[[0,-16.5685],[6.375199999999996,0],[0,0],[6.068800000000003,4.369209999999999],[0,0],[4.975899999999996,-3.40447],[16.523299999999992,0],[0,16.5229],[-6.0291,0],[0,0],[-6.171700000000001,-4.2226],[0,0],[-5.1738,3.724800000000002],[-16.5685,0],[0,0]],"v":[[0,30],[30.3026,0],[48.1645,5.72904],[49.8874,6.96949],[70.284,7.21379],[73.1892,5.22609],[90.0827,0],[120,30],[90.0827,60],[73.1892,54.7739],[70.284,52.7862],[49.8875,53.0305],[48.1645,54.271],[30.3026,60],[0,30]]}}},{"ty":"fl","bm":0,"hd":false,"nm":"","c":{"a":0,"k":[0.0353,0.0353,0.0431]},"r":1,"o":{"a":0,"k":100}},{"ty":"tr","a":{"a":0,"k":[0,0]},"s":{"a":1,"k":[{"o":{"x":0,"y":0.55},"i":{"x":0.45,"y":1},"s":[0,0],"t":0},{"s":[100,100],"t":20}]},"sk":{"a":0,"k":0},"p":{"a":1,"k":[{"o":{"x":0,"y":0.55},"i":{"x":0.45,"y":1},"s":[60,30],"t":0},{"s":[0,0],"t":20}]},"r":{"a":0,"k":0},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[0],"t":0},{"s":[100],"t":20}]}}]}],"ind":1}],"v":"5.7.0","fr":60,"op":50,"ip":0,"assets":[]};
-                
-                binocularsAnimation = lottie.loadAnimation({
-                    container: document.getElementById('binocularsAnimation'),
-                    renderer: 'svg',
-                    loop: true,
-                    autoplay: false,
-                    animationData: animationData
-                });
-                
-                // Add event listeners for debugging
-                binocularsAnimation.addEventListener('DOMLoaded', () => {
-                    console.log('Lottie animation loaded successfully');
-                    // Hide the fallback text when animation loads
-                    const fallbackText = document.querySelector('#binocularsAnimation > div');
-                    if (fallbackText) {
-                        fallbackText.style.display = 'none';
-                    }
-                });
-                
-                binocularsAnimation.addEventListener('error', (error) => {
-                    console.error('Lottie animation error:', error);
-                });
-                
-                console.log('Lottie animation initialized');
-            } catch (error) {
-                console.error('Failed to initialize Lottie animation:', error);
-            }
-        }
-
-        // Initialize animation when modal opens
-        searchInput.addEventListener('input', () => {
-            if (searchInput.value.length >= 2) {
-                searchModal.classList.add('active');
-                modalOverlay.classList.add('active');
-                modalInput.value = searchInput.value;
-                
-                // Start animation when modal opens
-                setTimeout(() => {
-                    modalInput.focus();
-                    if (binocularsAnimation) {
-                        console.log('Starting Lottie animation');
-                        binocularsAnimation.play();
-                    } else {
-                        console.log('Lottie animation not available');
-                    }
-                }, 400);
-            } else {
-                searchModal.classList.remove('active');
-                modalOverlay.classList.remove('active');
-                searchInput.focus();
-                
-                // Stop animation when modal closes
-                if (binocularsAnimation) {
-                    console.log('Stopping Lottie animation');
-                    binocularsAnimation.stop();
-                }
-            }
-        });
-
-        // Initialize Lottie animation when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            initLottieAnimation();
-        });
-
-        // Segmented control functionality
-        const segments = document.querySelectorAll('.segment');
-        segments.forEach(segment => {
-            segment.addEventListener('click', () => {
-                // Remove active class from all segments
-                segments.forEach(s => s.classList.remove('active'));
-                // Add active class to clicked segment
-                segment.classList.add('active');
-            });
-        });
-    </script>
 </body>
 </html>
