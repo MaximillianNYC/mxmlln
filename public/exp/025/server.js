@@ -46,9 +46,9 @@ app.post('/api/chat', async (req, res) => {
     console.log('API Key check:', process.env.OPENAI_API_KEY ? 'Set (length: ' + process.env.OPENAI_API_KEY.length + ')' : 'NOT SET');
     
     const result = streamText({
-      model: openai('gpt-4o-mini-2024-07-18'),
+      model: openai('gpt-5-nano-2025-08-07'),
       system: `
-        You are an assistant who speaks like Truman Capote.    
+        You are an assistant who speaks like Truman Capote. Your main objective is to inspire the user with creative ideas.    
     
         Tone of Voice Guidelines:
         **Pillars**  
@@ -59,7 +59,7 @@ app.post('/api/chat', async (req, res) => {
         5. **Optimistic**: Champion a future where technology amplifies human capabilities to enrich our lives.
 
         **Grammar & Style**  
-        - Limit responses to only a few sentences.
+        - Limit responses to one sentence, just a few words.
         - Use first-person perspective (\`I\`, \`me\`) in short, active sentences.  
         - Limit to one exclamation mark per JSON value.  
         - Use em-dashes sparingly — and surround them with spaces.  

@@ -104,6 +104,36 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message-pill {
+            background: #fff;
+            color: #334155;
+            padding: 15px 20px;
+            border-radius: 16px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+            filter: blur(0px);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(0);
+            transition: opacity 1.5s ease, filter 1.5s ease, transform 1s ease, width 1.5s ease;
+            pointer-events: none;
+            text-align: left;
+            word-wrap: break-word;
+            white-space: nowrap;
+            width: 700px;
+        }
+
+        .message-pill.animating {
+            opacity: 0;
+            filter: blur(125px);
+            width: 300px;
+            transform: translateX(-50%) translateY(var(--translate-y, -50%));
         }
 
         .search-input {
@@ -368,6 +398,53 @@
                 console.log('Sending message:', userMessage);
                 input.value = '';
                 input.disabled = true;
+
+                // Create and animate message pill
+                const pill = document.createElement('div');
+                pill.className = 'message-pill';
+                pill.textContent = userMessage;
+                const inputWrapper = document.querySelector('.input-wrapper');
+                
+                if (inputWrapper && input) {
+                    // Get input's computed styles to match initial appearance
+                    const inputStyles = window.getComputedStyle(input);
+                    const inputRect = input.getBoundingClientRect();
+                    const wrapperRect = inputWrapper.getBoundingClientRect();
+                    
+                    // Set pill to match input's font size initially (width is set in CSS)
+                    pill.style.fontSize = inputStyles.fontSize;
+                    pill.style.fontWeight = inputStyles.fontWeight;
+                    
+                    // Position pill initially at input field's vertical center
+                    // Calculate bottom offset from wrapper's bottom to input's center
+                    const inputCenterY = inputRect.top + (inputRect.height / 2);
+                    const wrapperBottom = wrapperRect.bottom;
+                    const bottomOffset = wrapperBottom - inputCenterY;
+                    
+                    pill.style.bottom = `${bottomOffset}px`;
+                    inputWrapper.appendChild(pill);
+                    
+                    // Force a reflow to ensure initial position is set
+                    pill.offsetHeight;
+                    
+                    // Calculate distance to center of viewport
+                    // We want to move from input center to viewport center
+                    const centerY = window.innerHeight / 2;
+                    const distanceToCenter = centerY - inputCenterY;
+                    
+                    // Set custom property for animation distance (negative because we're moving up)
+                    pill.style.setProperty('--translate-y', `${distanceToCenter}px`);
+                    
+                    // Trigger animation after a brief delay
+                    setTimeout(() => {
+                        pill.classList.add('animating');
+                        
+                        // Remove pill after animation completes
+                        setTimeout(() => {
+                            pill.remove();
+                        }, 1500);
+                    }, 50);
+                }
 
                 // Reset h1 text
                 if (h1) {
