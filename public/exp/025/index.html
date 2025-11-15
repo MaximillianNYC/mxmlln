@@ -128,6 +128,7 @@
     <script>
         const input = document.getElementById('chat-input');
         const h1 = document.querySelector('h1');
+        console.log('h1 element found:', h1);
         let messages = [];
 
         // Handle form submission
@@ -140,7 +141,12 @@
                 input.disabled = true;
 
                 // Reset h1 text
-                h1.textContent = '';
+                if (h1) {
+                    h1.textContent = '';
+                    console.log('Reset h1 text');
+                } else {
+                    console.error('h1 element not found when trying to reset!');
+                }
 
                 // Add user message to messages array
                 messages.push({ role: 'user', content: userMessage });
@@ -192,45 +198,62 @@
                         for (const line of lines) {
                             if (line.trim() === '') continue;
                             
-                            console.log('Raw line:', line);
-                            
                             // Parse AI SDK data stream format
-                            // Format: 0:{"type":"text-delta","textDelta":"..."}
+                            // Format can be: 0:{"type":"text-delta","textDelta":"..."}
+                            // or: 0:"Hello" (plain string chunks)
                             const colonIndex = line.indexOf(':');
                             if (colonIndex === -1) {
-                                console.log('Line without colon:', line);
                                 continue;
                             }
                             
                             const data = line.slice(colonIndex + 1);
                             try {
                                 const parsed = JSON.parse(data);
-                                console.log('Parsed chunk:', JSON.stringify(parsed, null, 2));
                                 
+                                // Handle text-delta chunks (streaming) - JSON format
                                 if (parsed.type === 'text-delta' && parsed.textDelta) {
                                     assistantMessage += parsed.textDelta;
-                                    // Update h1 with streaming response
-                                    h1.textContent = assistantMessage;
-                                    console.log('Updated h1, length:', assistantMessage.length);
-                                } else if (parsed.type === 'error') {
-                                    // Handle error response from AI SDK
+                                    if (h1) {
+                                        h1.textContent = assistantMessage;
+                                    }
+                                }
+                                // Handle text chunks (complete text)
+                                else if (parsed.type === 'text' && parsed.text) {
+                                    assistantMessage = parsed.text;
+                                    if (h1) {
+                                        h1.textContent = assistantMessage;
+                                    }
+                                }
+                                // Handle plain string chunks (direct text deltas)
+                                else if (typeof parsed === 'string') {
+                                    assistantMessage += parsed;
+                                    if (h1) {
+                                        h1.textContent = assistantMessage;
+                                    }
+                                }
+                                // Handle error chunks
+                                else if (parsed.type === 'error') {
                                     console.error('Error in stream:', parsed);
-                                    h1.textContent = 'Error: ' + (parsed.message || parsed.error || 'Unknown error');
-                                } else if (parsed.error) {
-                                    // Handle error response
-                                    console.error('Error in stream:', parsed.error, parsed.details);
-                                    h1.textContent = 'Error: ' + (parsed.error || 'Unknown error');
-                                } else if (parsed.type) {
-                                    console.log('Other chunk type:', parsed.type, parsed);
-                                } else {
-                                    // Check if it's a plain error message
-                                    console.log('Unknown chunk format:', parsed);
+                                    if (h1) {
+                                        h1.textContent = 'Error: ' + (parsed.message || parsed.error || 'Unknown error');
+                                    }
+                                }
+                                // Skip metadata chunks (messageId, finishReason, usage, etc.)
+                                else if (parsed.messageId || parsed.finishReason || parsed.usage) {
+                                    // These are metadata chunks, skip them
+                                }
+                                // Handle other types
+                                else if (parsed.type) {
+                                    console.log('Unhandled chunk type:', parsed.type);
                                 }
                             } catch (e) {
-                                console.log('Failed to parse JSON:', data, 'Error:', e);
-                                // If the data itself is an error message, show it
-                                if (data.toLowerCase().includes('error')) {
-                                    h1.textContent = 'Error: ' + data;
+                                // If JSON parsing fails, it might be a plain string without quotes
+                                // Try to use it as-is if it looks like text
+                                if (data && typeof data === 'string' && data.length > 0) {
+                                    assistantMessage += data;
+                                    if (h1) {
+                                        h1.textContent = assistantMessage;
+                                    }
                                 }
                             }
                         }

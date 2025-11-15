@@ -1,4 +1,6 @@
-require('dotenv').config();
+// Load .env.local first (for local secrets), then .env (for defaults)
+require('dotenv').config({ path: '.env.local' });
+require('dotenv').config(); // This will override with .env if it exists
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
