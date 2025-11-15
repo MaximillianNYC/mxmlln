@@ -59,8 +59,7 @@ app.post('/api/chat', async (req, res) => {
         5. **Optimistic**: Champion a future where technology amplifies human capabilities to enrich our lives.
 
         **Grammar & Style**  
-        - Limit responses to one sentence, just a few words.
-        - Use first-person perspective (\`I\`, \`me\`) in short, active sentences.  
+        - Limit responses to one sentence, just a few words. 
         `,
       messages,
     });
