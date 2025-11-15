@@ -19,7 +19,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #F8FAFC;
+            background: #E2E8F0;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             padding-bottom: 100px;
         }
@@ -34,18 +34,69 @@
             line-height: 110%;
             letter-spacing: -1.44px;
             margin-bottom: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        h1 .word {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        h1 .char {
+            transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            filter: blur(8px);
+            transform: translateY(15px);
+            display: inline;
+        }
+
+        /* Punctuation marks - less movement, faster animation */
+        h1 .char:not(.space) {
+            /* Check if it's punctuation using a data attribute or class */
+        }
+
+        h1 .char.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        /* Special handling for punctuation - animate normally but with less movement */
+        h1 .char[data-punctuation="true"] {
+            transform: translateY(10px);
+        }
+
+        h1 .char[data-punctuation="true"].visible {
+            transform: translateY(0);
+        }
+
+        h1 .char.space {
+            width: 0.25em;
         }
 
         .search-container {
             position: relative;
-            width: 500px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .input-wrapper {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .search-input {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
             width: calc(100% - 48px);
+            max-width: 700px;
             padding: 15px 20px;
             border: 1px solid #e0e0e0;
             border-radius: 16px;
@@ -123,13 +174,145 @@
         <div style="display: flex; width: 100%;justify-content: center; align-items: center;">
             <h1>What's on your mind?</h1>
         </div>
+
     </div>
-    <input type="text" class="search-input" placeholder="Ask anything" autofocus id="chat-input">
+    <div class="input-wrapper">
+        <input type="text" class="search-input" placeholder="Ask anything" autofocus id="chat-input">
+    </div>
     <script>
         const input = document.getElementById('chat-input');
         const h1 = document.querySelector('h1');
         console.log('h1 element found:', h1);
         let messages = [];
+        let currentCharElements = [];
+        let nextStreamingDelay = 0; // Track the next delay time for streaming animations
+
+        // Function to animate text character by character, grouped by words
+        function animateText(text, element) {
+            // Clear existing content
+            element.innerHTML = '';
+            currentCharElements = [];
+
+            // Split text into words (keeping punctuation with words)
+            const words = text.split(/(\s+)/);
+            let globalIndex = 0;
+
+            words.forEach((word) => {
+                if (word.trim() === '' && word.includes(' ')) {
+                    // This is whitespace - add as space
+                    const spaceSpan = document.createElement('span');
+                    spaceSpan.className = 'char space';
+                    spaceSpan.textContent = '\u00A0';
+                    element.appendChild(spaceSpan);
+                    currentCharElements.push(spaceSpan);
+                    globalIndex++;
+                    return;
+                }
+
+                // Create word wrapper
+                const wordWrapper = document.createElement('span');
+                wordWrapper.className = 'word';
+
+                // Split word into characters
+                word.split('').forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    const isPunctuation = /[.,!?;:'"\-—–]/.test(char);
+                    
+                    span.className = 'char';
+                    span.textContent = char;
+                    if (isPunctuation) {
+                        span.setAttribute('data-punctuation', 'true');
+                    }
+                    
+                    wordWrapper.appendChild(span);
+                    currentCharElements.push(span);
+
+                    // Animate with staggered delay - punctuation animates with minimal delay
+                    const delay = isPunctuation ? Math.max(0, (globalIndex - 1) * 30) : globalIndex * 30;
+                    globalIndex++;
+                    
+                    setTimeout(() => {
+                        span.classList.add('visible');
+                    }, delay);
+                });
+
+                element.appendChild(wordWrapper);
+            });
+        }
+
+        // Function to update text with animation (for streaming)
+        function updateTextWithAnimation(newText, element) {
+            const currentText = currentCharElements.map(el => el.textContent).join('').replace(/\u00A0/g, ' ');
+            
+            // If text is longer, add new characters with animation
+            if (newText.length > currentText.length) {
+                const newChars = newText.slice(currentText.length);
+                
+                // Find the last word wrapper, or create a new one
+                let currentWordWrapper = element.querySelector('.word:last-child');
+                if (!currentWordWrapper || currentText.slice(-1) === ' ') {
+                    // Start a new word (either no word exists, or previous char was a space)
+                    currentWordWrapper = document.createElement('span');
+                    currentWordWrapper.className = 'word';
+                    element.appendChild(currentWordWrapper);
+                }
+                
+                newChars.split('').forEach((char, index) => {
+                    const isPunctuation = /[.,!?;:'"\-—–]/.test(char);
+                    let span;
+                    
+                    // Handle spaces
+                    if (char === ' ') {
+                        // Close current word and add space
+                        span = document.createElement('span');
+                        span.className = 'char space';
+                        span.textContent = '\u00A0';
+                        element.appendChild(span);
+                        currentWordWrapper = null; // Next char will start a new word
+                    }
+                    // Handle characters
+                    else {
+                        // If we don't have a word wrapper, create one
+                        if (!currentWordWrapper) {
+                            currentWordWrapper = document.createElement('span');
+                            currentWordWrapper.className = 'word';
+                            element.appendChild(currentWordWrapper);
+                        }
+                        
+                        span = document.createElement('span');
+                        span.className = 'char';
+                        span.textContent = char;
+                        if (isPunctuation) {
+                            span.setAttribute('data-punctuation', 'true');
+                        }
+                        currentWordWrapper.appendChild(span);
+                    }
+                    
+                    currentCharElements.push(span);
+
+                    // During streaming, use sequential delays to ensure characters animate in order
+                    // Each character waits for the previous one to start animating
+                    const baseDelay = 10; // Short delay between characters (ms)
+                    const delay = isPunctuation ? nextStreamingDelay + 3 : nextStreamingDelay + baseDelay;
+                    nextStreamingDelay = delay; // Update for next character
+                    
+                    setTimeout(() => {
+                        span.classList.add('visible');
+                    }, delay);
+                });
+            }
+            // If text is shorter (shouldn't happen during streaming, but handle it)
+            else if (newText.length < currentText.length) {
+                // Re-animate from scratch
+                animateText(newText, element);
+            }
+        }
+
+        // Animate initial text on page load
+        if (h1 && h1.textContent) {
+            const initialText = h1.textContent;
+            animateText(initialText, h1);
+        }
 
         // Handle form submission
         input.addEventListener('keydown', async (e) => {
@@ -142,7 +325,9 @@
 
                 // Reset h1 text
                 if (h1) {
-                    h1.textContent = '';
+                    h1.innerHTML = '';
+                    currentCharElements = [];
+                    nextStreamingDelay = 0; // Reset streaming delay
                     console.log('Reset h1 text');
                 } else {
                     console.error('h1 element not found when trying to reset!');
@@ -214,28 +399,28 @@
                                 if (parsed.type === 'text-delta' && parsed.textDelta) {
                                     assistantMessage += parsed.textDelta;
                                     if (h1) {
-                                        h1.textContent = assistantMessage;
+                                        updateTextWithAnimation(assistantMessage, h1);
                                     }
                                 }
                                 // Handle text chunks (complete text)
                                 else if (parsed.type === 'text' && parsed.text) {
                                     assistantMessage = parsed.text;
                                     if (h1) {
-                                        h1.textContent = assistantMessage;
+                                        animateText(assistantMessage, h1);
                                     }
                                 }
                                 // Handle plain string chunks (direct text deltas)
                                 else if (typeof parsed === 'string') {
                                     assistantMessage += parsed;
                                     if (h1) {
-                                        h1.textContent = assistantMessage;
+                                        updateTextWithAnimation(assistantMessage, h1);
                                     }
                                 }
                                 // Handle error chunks
                                 else if (parsed.type === 'error') {
                                     console.error('Error in stream:', parsed);
                                     if (h1) {
-                                        h1.textContent = 'Error: ' + (parsed.message || parsed.error || 'Unknown error');
+                                        animateText('Error: ' + (parsed.message || parsed.error || 'Unknown error'), h1);
                                     }
                                 }
                                 // Skip metadata chunks (messageId, finishReason, usage, etc.)
@@ -252,7 +437,7 @@
                                 if (data && typeof data === 'string' && data.length > 0) {
                                     assistantMessage += data;
                                     if (h1) {
-                                        h1.textContent = assistantMessage;
+                                        updateTextWithAnimation(assistantMessage, h1);
                                     }
                                 }
                             }
@@ -267,12 +452,16 @@
                         messages.push({ role: 'assistant', content: assistantMessage });
                     } else {
                         console.warn('No assistant message received!');
-                        h1.textContent = 'No response received';
+                        if (h1) {
+                            animateText('No response received', h1);
+                        }
                     }
                 } catch (error) {
                     console.error('Error:', error);
                     console.error('Error stack:', error.stack);
-                    h1.textContent = 'Error: ' + error.message;
+                    if (h1) {
+                        animateText('Error: ' + error.message, h1);
+                    }
                 } finally {
                     input.disabled = false;
                     input.focus();
