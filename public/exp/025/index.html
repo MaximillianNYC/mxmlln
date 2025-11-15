@@ -124,6 +124,138 @@
             <h1>What's on your mind?</h1>
         </div>
     </div>
-    <input type="text" class="search-input" placeholder="Ask anything" autofocus>
+    <input type="text" class="search-input" placeholder="Ask anything" autofocus id="chat-input">
+    <script>
+        const input = document.getElementById('chat-input');
+        const h1 = document.querySelector('h1');
+        let messages = [];
+
+        // Handle form submission
+        input.addEventListener('keydown', async (e) => {
+            if (e.key === 'Enter' && input.value.trim()) {
+                e.preventDefault();
+                const userMessage = input.value.trim();
+                console.log('Sending message:', userMessage);
+                input.value = '';
+                input.disabled = true;
+
+                // Reset h1 text
+                h1.textContent = '';
+
+                // Add user message to messages array
+                messages.push({ role: 'user', content: userMessage });
+                console.log('Messages array:', messages);
+
+                try {
+                    console.log('Fetching /api/chat...');
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ messages }),
+                    });
+
+                    console.log('Response status:', response.status, response.statusText);
+                    console.log('Response headers:', [...response.headers.entries()]);
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Response not OK:', errorText);
+                        throw new Error(`Network response was not ok: ${response.status} ${errorText}`);
+                    }
+
+                    if (!response.body) {
+                        throw new Error('Response body is null');
+                    }
+
+                    // Handle streaming response
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    let assistantMessage = '';
+                    let buffer = '';
+                    let chunkCount = 0;
+
+                    console.log('Starting to read stream...');
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) {
+                            console.log('Stream done. Final message length:', assistantMessage.length);
+                            break;
+                        }
+
+                        chunkCount++;
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop() || '';
+
+                        for (const line of lines) {
+                            if (line.trim() === '') continue;
+                            
+                            console.log('Raw line:', line);
+                            
+                            // Parse AI SDK data stream format
+                            // Format: 0:{"type":"text-delta","textDelta":"..."}
+                            const colonIndex = line.indexOf(':');
+                            if (colonIndex === -1) {
+                                console.log('Line without colon:', line);
+                                continue;
+                            }
+                            
+                            const data = line.slice(colonIndex + 1);
+                            try {
+                                const parsed = JSON.parse(data);
+                                console.log('Parsed chunk:', JSON.stringify(parsed, null, 2));
+                                
+                                if (parsed.type === 'text-delta' && parsed.textDelta) {
+                                    assistantMessage += parsed.textDelta;
+                                    // Update h1 with streaming response
+                                    h1.textContent = assistantMessage;
+                                    console.log('Updated h1, length:', assistantMessage.length);
+                                } else if (parsed.type === 'error') {
+                                    // Handle error response from AI SDK
+                                    console.error('Error in stream:', parsed);
+                                    h1.textContent = 'Error: ' + (parsed.message || parsed.error || 'Unknown error');
+                                } else if (parsed.error) {
+                                    // Handle error response
+                                    console.error('Error in stream:', parsed.error, parsed.details);
+                                    h1.textContent = 'Error: ' + (parsed.error || 'Unknown error');
+                                } else if (parsed.type) {
+                                    console.log('Other chunk type:', parsed.type, parsed);
+                                } else {
+                                    // Check if it's a plain error message
+                                    console.log('Unknown chunk format:', parsed);
+                                }
+                            } catch (e) {
+                                console.log('Failed to parse JSON:', data, 'Error:', e);
+                                // If the data itself is an error message, show it
+                                if (data.toLowerCase().includes('error')) {
+                                    h1.textContent = 'Error: ' + data;
+                                }
+                            }
+                        }
+                    }
+
+                    console.log('Finished reading stream. Total chunks:', chunkCount);
+                    console.log('Final assistant message:', assistantMessage);
+
+                    // Add assistant message to messages array
+                    if (assistantMessage) {
+                        messages.push({ role: 'assistant', content: assistantMessage });
+                    } else {
+                        console.warn('No assistant message received!');
+                        h1.textContent = 'No response received';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    console.error('Error stack:', error.stack);
+                    h1.textContent = 'Error: ' + error.message;
+                } finally {
+                    input.disabled = false;
+                    input.focus();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
