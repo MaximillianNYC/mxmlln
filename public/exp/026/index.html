@@ -45,6 +45,12 @@
             z-index: 2;
             width: 100%;
             pointer-events: none;
+            margin-top: 24px;
+        }
+
+        /* Lighter heading text when background is dark */
+        body.dark-step h1 {
+            color: #F9FAFB;
         }
 
         h1 .word {
@@ -186,6 +192,7 @@
             z-index: 1;
             height: 200px;
             width: 300px;
+            margin-top: 24px;
         }
 
         .blur-wrap.has-text {
@@ -394,22 +401,29 @@
 
             switch (step) {
                 case 1:
-                    color = '#E2E8F0'; // soft slate (default)
+                    color = '#E2E8F0'; // lightest gray
                     break;
                 case 2:
-                    color = '#E0F2FE'; // light blue
+                    color = '#CBD5E1'; // light gray
                     break;
                 case 3:
-                    color = '#ECFEFF'; // light cyan
+                    color = '#94A3B8'; // medium gray
                     break;
                 case 4:
-                    color = '#FEF3C7'; // warm light amber
+                    color = '#475569'; // darkest gray
                     break;
                 default:
-                    color = '#E2E8F0';
+                    color = '#F1F5F9'; // fallback to extra-light gray for better dark text readability
             }
 
             bodyEl.style.backgroundColor = color;
+
+            // Toggle a "dark-step" class when on the darkest background
+            if (step === 4) {
+                bodyEl.classList.add('dark-step');
+            } else {
+                bodyEl.classList.remove('dark-step');
+            }
         }
 
         // Animate initial text on page load

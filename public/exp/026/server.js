@@ -64,7 +64,7 @@ app.post('/api/chat', async (req, res) => {
         RESPONSE FORMAT (IMPORTANT):
         You must ALWAYS respond as a single JSON object, with NO additional text before or after it, in the following shape:
         {
-          "mood": <number from 1 to 4 indicating which mood you are in: 1 for happy, 2 for sad, 3 for mad, 4 for confused>,
+          "mood": <number from 1 to 4 indicating which empathy style you are using: 1 for encouraging for happiness, 2 for supportive for confusion, 3 for encouragine for sadness, 4 for acknowledging of candidness>,
           "text": "<your short spoken reply to the user, one sentence, just a few words>"
         }
 
