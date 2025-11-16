@@ -22,6 +22,7 @@
             background: #E2E8F0;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             padding-bottom: 100px;
+            transition: background-color 0.6s ease;
         }
 
         h1 {
@@ -236,6 +237,7 @@
         const input = document.getElementById('chat-input');
         const h1 = document.querySelector('h1');
         const blurWrap = document.querySelector('.blur-wrap');
+        const bodyEl = document.body;
         console.log('h1 element found:', h1);
         let messages = [];
         let currentCharElements = [];
@@ -385,6 +387,31 @@
             }
         }
 
+        // Background color helper based on step
+        function updateBackgroundForStep(step) {
+            if (!bodyEl) return;
+            let color;
+
+            switch (step) {
+                case 1:
+                    color = '#E2E8F0'; // soft slate (default)
+                    break;
+                case 2:
+                    color = '#E0F2FE'; // light blue
+                    break;
+                case 3:
+                    color = '#ECFEFF'; // light cyan
+                    break;
+                case 4:
+                    color = '#FEF3C7'; // warm light amber
+                    break;
+                default:
+                    color = '#E2E8F0';
+            }
+
+            bodyEl.style.backgroundColor = color;
+        }
+
         // Animate initial text on page load
         if (h1 && h1.textContent) {
             const initialText = h1.textContent;
@@ -505,6 +532,9 @@
                         });
 
                         console.log('Assistant step:', assistantStep);
+
+                        // Update background color based on step
+                        updateBackgroundForStep(assistantStep);
                     } else {
                         console.warn('No assistant text received!');
                         if (h1) {
