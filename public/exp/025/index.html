@@ -467,7 +467,7 @@
                 console.log('Messages array:', messages);
 
                 try {
-                    console.log('Fetching /api/chat...');
+                    console.log('Fetching /api/chat (JSON)...');
                     const response = await fetch('/api/chat', {
                         method: 'POST',
                         headers: {
@@ -485,102 +485,28 @@
                         throw new Error(`Network response was not ok: ${response.status} ${errorText}`);
                     }
 
-                    if (!response.body) {
-                        throw new Error('Response body is null');
-                    }
+                    const data = await response.json();
+                    console.log('JSON payload from /api/chat:', data);
 
-                    // Handle streaming response
-                    const reader = response.body.getReader();
-                    const decoder = new TextDecoder();
-                    let assistantMessage = '';
-                    let buffer = '';
-                    let chunkCount = 0;
+                    const assistantStep = data.step;
+                    const assistantText = data.text;
 
-                    console.log('Starting to read stream...');
-                    while (true) {
-                        const { done, value } = await reader.read();
-                        if (done) {
-                            console.log('Stream done. Final message length:', assistantMessage.length);
-                            break;
+                    if (typeof assistantText === 'string' && assistantText.trim().length > 0) {
+                        // Animate the assistant's reply text into the h1
+                        if (h1) {
+                            animateText(assistantText, h1);
                         }
 
-                        chunkCount++;
-                        buffer += decoder.decode(value, { stream: true });
-                        const lines = buffer.split('\n');
-                        buffer = lines.pop() || '';
+                        // Store assistant message with metadata for future context
+                        messages.push({
+                            role: 'assistant',
+                            content: assistantText,
+                            step: assistantStep,
+                        });
 
-                        for (const line of lines) {
-                            if (line.trim() === '') continue;
-                            
-                            // Parse AI SDK data stream format
-                            // Format can be: 0:{"type":"text-delta","textDelta":"..."}
-                            // or: 0:"Hello" (plain string chunks)
-                            const colonIndex = line.indexOf(':');
-                            if (colonIndex === -1) {
-                                continue;
-                            }
-                            
-                            const data = line.slice(colonIndex + 1);
-                            try {
-                                const parsed = JSON.parse(data);
-                                
-                                // Handle text-delta chunks (streaming) - JSON format
-                                if (parsed.type === 'text-delta' && parsed.textDelta) {
-                                    assistantMessage += parsed.textDelta;
-                                    if (h1) {
-                                        updateTextWithAnimation(assistantMessage, h1);
-                                    }
-                                }
-                                // Handle text chunks (complete text)
-                                else if (parsed.type === 'text' && parsed.text) {
-                                    assistantMessage = parsed.text;
-                                    if (h1) {
-                                        animateText(assistantMessage, h1);
-                                    }
-                                }
-                                // Handle plain string chunks (direct text deltas)
-                                else if (typeof parsed === 'string') {
-                                    assistantMessage += parsed;
-                                    if (h1) {
-                                        updateTextWithAnimation(assistantMessage, h1);
-                                    }
-                                }
-                                // Handle error chunks
-                                else if (parsed.type === 'error') {
-                                    console.error('Error in stream:', parsed);
-                                    if (h1) {
-                                        animateText('Error: ' + (parsed.message || parsed.error || 'Unknown error'), h1);
-                                    }
-                                }
-                                // Skip metadata chunks (messageId, finishReason, usage, etc.)
-                                else if (parsed.messageId || parsed.finishReason || parsed.usage) {
-                                    // These are metadata chunks, skip them
-                                }
-                                // Handle other types
-                                else if (parsed.type) {
-                                    console.log('Unhandled chunk type:', parsed.type);
-                                }
-                            } catch (e) {
-                                // If JSON parsing fails, it might be a plain string without quotes
-                                // Try to use it as-is if it looks like text
-                                if (data && typeof data === 'string' && data.length > 0) {
-                                    assistantMessage += data;
-                                    if (h1) {
-                                        updateTextWithAnimation(assistantMessage, h1);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    console.log('Finished reading stream. Total chunks:', chunkCount);
-                    console.log('Final assistant message:', assistantMessage);
-
-                    // Add assistant message to messages array
-                    if (assistantMessage) {
-                        messages.push({ role: 'assistant', content: assistantMessage });
+                        console.log('Assistant step:', assistantStep);
                     } else {
-                        console.warn('No assistant message received!');
+                        console.warn('No assistant text received!');
                         if (h1) {
                             animateText('No response received', h1);
                         }

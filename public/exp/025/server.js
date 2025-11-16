@@ -35,17 +35,17 @@ app.options('/api/chat', (req, res) => {
   res.sendStatus(200);
 });
 
-// Chat endpoint similar to exp/012
+// Chat endpoint – returns a single JSON object: { step: number, text: string }
 app.post('/api/chat', async (req, res) => {
   try {
     console.log('Received chat request');
     const { messages } = req.body;
     console.log('Messages:', JSON.stringify(messages, null, 2));
 
-    console.log('Calling streamText...');
+    console.log('Calling streamText for JSON reply...');
     console.log('API Key check:', process.env.OPENAI_API_KEY ? 'Set (length: ' + process.env.OPENAI_API_KEY.length + ')' : 'NOT SET');
     
-    const result = streamText({
+    const result = await streamText({
       model: openai('gpt-5-nano-2025-08-07'),
       system: `
         You are an assistant named Truman, who speaks like Truman Capote. Your main objective is to inspire the user with creative ideas, you are their muse.    
@@ -59,7 +59,7 @@ app.post('/api/chat', async (req, res) => {
         Ensure each question is sufficiently answered before moving on to the next question. If a follow up is needed, politely inform them you need this additional information before you can continue. If they respond with something that is unclear, ask them to clarify while responding with the closest answer to their response as a confirmation that you have understood their response.
 
         Once these questions are answered, you must then use the information to suggest a fun activity for today.
-    
+
         Tone of Voice Guidelines:
         **Pillars**  
         1. **Intuitive**: Simplify complexity into clean, concise steps to eliminate the superfluous.  
@@ -70,57 +70,48 @@ app.post('/api/chat', async (req, res) => {
 
         **Grammar & Style**  
         - Limit responses to one sentence, just a few words. 
+
+        RESPONSE FORMAT (IMPORTANT):
+        You must ALWAYS respond as a single JSON object, with NO additional text before or after it, in the following shape:
+        {
+          "step": <number from 1 to 4 indicating which question you are currently asking or following up on>,
+          "text": "<your short spoken reply to the user, one sentence, just a few words>"
+        }
+
+        Do NOT include any explanations, markdown, comments, or additional keys. Only return valid JSON.
         `,
       messages,
     });
 
-    // Convert the AI SDK stream to Express response
-    console.log('Converting to data stream response...');
-    const aiResponse = result.toDataStreamResponse();
-    console.log('AI Response headers:', [...aiResponse.headers.entries()]);
-    
-    // Copy headers from AI SDK response (headers is a Headers object)
-    for (const [key, value] of aiResponse.headers.entries()) {
-      res.setHeader(key, value);
+    // Collect the full JSON text from the stream
+    let fullText = '';
+    for await (const delta of result.textStream) {
+      // Depending on AI SDK version, delta may be a string or an object
+      if (typeof delta === 'string') {
+        fullText += delta;
+      } else if (delta && delta.type === 'text-delta' && delta.textDelta) {
+        fullText += delta.textDelta;
+      }
     }
-    
-    // Set CORS headers (override if needed)
+
+    console.log('Full JSON text from model:', fullText);
+
+    let payload;
+    try {
+      payload = JSON.parse(fullText);
+    } catch (e) {
+      console.error('Failed to parse JSON from model:', e);
+      return res.status(500).json({
+        error: 'Invalid JSON from model',
+        raw: fullText,
+      });
+    }
+
+    res.setHeader('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
-    // Pipe the stream to Express response
-    const reader = aiResponse.body.getReader();
-    const decoder = new TextDecoder();
-
-    const pump = async () => {
-      try {
-        let chunkCount = 0;
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            console.log('Stream finished. Total chunks sent:', chunkCount);
-            res.end();
-            break;
-          }
-          chunkCount++;
-          const chunk = decoder.decode(value, { stream: true });
-          console.log(`Sending chunk ${chunkCount}, length: ${chunk.length}, preview: ${chunk.substring(0, 100)}`);
-          res.write(chunk);
-        }
-      } catch (error) {
-        console.error('Streaming error:', error);
-        console.error('Streaming error stack:', error.stack);
-        if (!res.headersSent) {
-          res.status(500).json({ error: 'Streaming error', details: error.message });
-        } else {
-          res.end();
-        }
-      }
-    };
-
-    console.log('Starting to pump stream...');
-    pump();
+    res.json(payload);
   } catch (error) {
     console.error('Chat endpoint error:', error);
     console.error('Error stack:', error.stack);
