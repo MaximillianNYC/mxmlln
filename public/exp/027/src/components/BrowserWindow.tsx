@@ -1,31 +1,19 @@
- "use client";
+"use client";
 
-import { useState } from "react";
-
-type BrowserWindowProps = {
-  initialRotation?: number;
-};
-
-export default function BrowserWindow({ initialRotation = 0 }: BrowserWindowProps) {
-  const [spin, setSpin] = useState(0);
+export default function BrowserWindow() {
   const trafficLightColors = ["#FF5F56", "#FFBD2E", "#27C93F"];
   const dropShadow =
-    "0 481px 135px 0 rgba(0, 0, 0, 0.00), 0 308px 123px 0 rgba(0, 0, 0, 0.01), 0 173px 104px 0 rgba(0, 0, 0, 0.05), 0 77px 77px 0 rgba(0, 0, 0, 0.09), 0 19px 42px 0 rgba(0, 0, 0, 0.10)";
-
-  const handleSpin = () => {
-    setSpin((prev) => prev + 360);
-  };
-
-  const totalRotation = initialRotation + spin;
+    "0 50px 80px rgba(12, 16, 28, 0.18), 0 18px 40px rgba(15, 17, 23, 0.12)";
+  const transform3D =
+    "perspective(1000px) rotateX(0deg) rotateY(-24deg) skewY(16deg) rotateZ(0deg)";
 
   return (
     <div
-      className="h-full w-full cursor-pointer rounded-[20px] border border-[var(--n4)] bg-[var(--n2)]"
-      onClick={handleSpin}
+      className="h-full w-full rounded-[20px] border border-[var(--n4)] bg-[var(--n2)]"
       style={{
         boxShadow: dropShadow,
-        transition: "transform 1s cubic-bezier(0.25, 0.8, 0.25, 1)",
-        transform: `perspective(1400px) rotateY(${totalRotation}deg)`,
+        transform: transform3D,
+        transformOrigin: "center",
         transformStyle: "preserve-3d",
       }}
     >
