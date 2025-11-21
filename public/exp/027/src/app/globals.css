@@ -5,7 +5,7 @@
   --n2: #F1F5F9;
   --n3: #E2E8F0;
   --n4: #CBD5E1;
-  --foreground: #e2e8f0;
+  --foreground: #0f172a;
 }
 
 body {
@@ -15,4 +15,3 @@ body {
   color: var(--foreground);
   font-family: system-ui, -apple-system, sans-serif;
 }
-
