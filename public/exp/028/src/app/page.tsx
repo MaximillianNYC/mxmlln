@@ -24,44 +24,43 @@ export default function Page() {
   const windowIdRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
 
-  // Generate a random point beyond the edge of the viewport to ensure windows fully escape
-  const getRandomEdgePoint = useCallback((): { x: number; y: number } => {
-    const viewportWidth = window.innerWidth || 1920;
-    const viewportHeight = window.innerHeight || 1080;
-    
-    // Window dimensions (accounting for max scale ~1.5)
-    const maxWindowWidth = 380 * 1.5; // 570px
-    const maxWindowHeight = 260 * 1.5; // 390px
-    
-    // Offset to ensure windows fully exit (half window size + padding)
-    const offsetX = maxWindowWidth / 2 + 500;
-    const offsetY = maxWindowHeight / 2 + 500;
-    
-    // Randomly choose which edge (0: top, 1: right, 2: bottom, 3: left)
-    const edge = Math.floor(Math.random() * 4);
-    
-    switch (edge) {
-      case 0: // Top edge - exit above
-        return { x: Math.random() * viewportWidth, y: -offsetY };
-      case 1: // Right edge - exit to the right
-        return { x: viewportWidth + offsetX, y: Math.random() * viewportHeight };
-      case 2: // Bottom edge - exit below
-        return { x: Math.random() * viewportWidth, y: viewportHeight + offsetY };
-      case 3: // Left edge - exit to the left
-        return { x: -offsetX, y: Math.random() * viewportHeight };
-      default:
-        return { x: viewportWidth / 2, y: viewportHeight / 2 };
-    }
-  }, []);
-
-  // Create a new window at the center
-  const createWindow = useCallback(() => {
+  // Generate evenly distributed points around the viewport perimeter for optimal spacing
+  const getDistributedEdgePoint = useCallback((index: number, totalWindows: number): { x: number; y: number } => {
     const viewportWidth = window.innerWidth || 1920;
     const viewportHeight = window.innerHeight || 1080;
     const centerX = viewportWidth / 2;
     const centerY = viewportHeight / 2;
     
-    const edgePoint = getRandomEdgePoint();
+    // Window dimensions (accounting for max scale)
+    const maxWindowWidth = 380 * 5.1; // Account for max scale ~5.1
+    const maxWindowHeight = 260 * 5.1;
+    
+    // Calculate the minimum distance needed to ensure windows fully exit
+    const minDistance = Math.sqrt(
+      Math.pow(viewportWidth / 2, 2) + Math.pow(viewportHeight / 2, 2)
+    ) + Math.max(maxWindowWidth / 2, maxWindowHeight / 2) + 500;
+    
+    // Distribute windows evenly around 360 degrees
+    // Start at 0 degrees (top) and distribute clockwise
+    const angleStep = (2 * Math.PI) / totalWindows;
+    const angle = index * angleStep;
+    
+    // Calculate point at this angle, far beyond the viewport
+    const distance = minDistance + 300; // Add extra padding
+    const targetX = centerX + Math.cos(angle) * distance;
+    const targetY = centerY + Math.sin(angle) * distance;
+    
+    return { x: targetX, y: targetY };
+  }, []);
+
+  // Create a new window at the center
+  const createWindow = useCallback((index: number, totalWindows: number) => {
+    const viewportWidth = window.innerWidth || 1920;
+    const viewportHeight = window.innerHeight || 1080;
+    const centerX = viewportWidth / 2;
+    const centerY = viewportHeight / 2;
+    
+    const edgePoint = getDistributedEdgePoint(index, totalWindows);
     
     // Calculate distance from center to edge for scale factor
     const distance = Math.sqrt(
@@ -71,11 +70,11 @@ export default function Page() {
       Math.pow(viewportWidth / 2, 2) + Math.pow(viewportHeight / 2, 2)
     ) || 1; // Prevent division by zero
     
-    // Scale from 0.3 at center to 1.5+ at edges
-    const targetScale = 0.3 + (distance / maxDistance) * 1.2;
+    // Scale from 0.3 at center to much larger at edges (4x more growth)
+    const targetScale = 0.3 + (distance / maxDistance) * 4.8;
     
-    // Consistent duration for all windows to prevent z-index shifting
-    const duration = 280000; // 280 seconds (~4.7 minutes) - same for all windows
+    // Consistent duration for all windows to prevent z-index shifting (5x faster)
+    const duration = 56000; // 56 seconds (~1 minute) - same for all windows, 5x faster
     
     const newWindow: WindowState = {
       id: windowIdRef.current++,
@@ -94,7 +93,7 @@ export default function Page() {
     };
     
     return newWindow;
-  }, [getRandomEdgePoint]);
+  }, [getDistributedEdgePoint]);
 
   // Animation loop
   useEffect(() => {
@@ -158,11 +157,11 @@ export default function Page() {
     const totalWindows = 10; // Total number of windows to create
     const initialWindows: WindowState[] = [];
     
-    // Stagger windows slightly for better visual distribution (spread over 2 seconds)
-    const staggerDuration = 1000; // 2 seconds total spread
+    // Stagger windows slightly for better visual distribution (spread over 50ms)
+    const staggerDuration = 50; // 50ms total spread - windows start almost simultaneously
     
     for (let i = 0; i < totalWindows; i++) {
-      const window = createWindow();
+      const window = createWindow(i, totalWindows);
       // Distribute start times evenly over the stagger duration
       const staggerProgress = i / (totalWindows - 1); // 0 to 1
       window.startTime = now + staggerProgress * staggerDuration;
