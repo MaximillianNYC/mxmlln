@@ -24,8 +24,8 @@ export default function Page() {
 
   // Generate a random point beyond the edge of the viewport to ensure windows fully escape
   const getRandomEdgePoint = useCallback((): { x: number; y: number } => {
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth || 1920;
+    const viewportHeight = window.innerHeight || 1080;
     
     // Window dimensions (accounting for max scale ~1.5)
     const maxWindowWidth = 380 * 1.5; // 570px
@@ -54,8 +54,8 @@ export default function Page() {
 
   // Create a new window at the center
   const createWindow = useCallback(() => {
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth || 1920;
+    const viewportHeight = window.innerHeight || 1080;
     const centerX = viewportWidth / 2;
     const centerY = viewportHeight / 2;
     
@@ -67,13 +67,13 @@ export default function Page() {
     );
     const maxDistance = Math.sqrt(
       Math.pow(viewportWidth / 2, 2) + Math.pow(viewportHeight / 2, 2)
-    );
+    ) || 1; // Prevent division by zero
     
     // Scale from 0.3 at center to 1.5+ at edges
     const targetScale = 0.3 + (distance / maxDistance) * 1.2;
     
-    // Slower duration - slightly randomized for natural feel
-    const duration = 6000 + Math.random() * 2000; // 6-8 seconds
+    // 100x slower duration (10x * 10x) - slightly randomized for natural feel
+    const duration = 1200000 + Math.random() * 400000; // 1200-1600 seconds (20-26.7 minutes)
     
     const newWindow: WindowState = {
       id: windowIdRef.current++,
@@ -115,6 +115,11 @@ export default function Page() {
               return null;
             }
             
+            // Safety check: filter out invalid positions
+            if (!isFinite(newX) || !isFinite(newY) || !isFinite(newScale)) {
+              return null;
+            }
+            
             return {
               ...win,
               x: newX,
@@ -140,36 +145,24 @@ export default function Page() {
     };
   }, []);
 
-  // Spawn windows at regular intervals for steady stream
+  // Create all windows immediately on load
   useEffect(() => {
-    // Spawn interval - create a new window more frequently for more windows
-    const spawnInterval = 200 + Math.random() * 100; // 200-300ms
-    
-    // Create initial windows to start the stream
+    const now = Date.now();
+    const totalWindows = 50; // Total number of windows to create
     const initialWindows: WindowState[] = [];
-    const initialCount = 20; // Increased initial count
-    for (let i = 0; i < initialCount; i++) {
+    
+    // Stagger windows slightly for better visual distribution (spread over 2 seconds)
+    const staggerDuration = 2000; // 2 seconds total spread
+    
+    for (let i = 0; i < totalWindows; i++) {
       const window = createWindow();
-      // Stagger initial windows evenly
-      window.startTime = Date.now() - (initialCount - i) * spawnInterval;
+      // Distribute start times evenly over the stagger duration
+      const staggerProgress = i / (totalWindows - 1); // 0 to 1
+      window.startTime = now + staggerProgress * staggerDuration;
       initialWindows.push(window);
     }
+    
     setWindows(initialWindows);
-    
-    // Continue spawning new windows at regular intervals
-    const spawnTimer = setInterval(() => {
-      setWindows((prevWindows) => {
-        // Increased max windows limit
-        if (prevWindows.length < 50) {
-          return [...prevWindows, createWindow()];
-        }
-        return prevWindows;
-      });
-    }, spawnInterval);
-    
-    return () => {
-      clearInterval(spawnTimer);
-    };
   }, [createWindow]);
 
   return (
@@ -178,23 +171,25 @@ export default function Page() {
       className="w-full h-full overflow-hidden bg-[var(--n3)]"
       style={{ minHeight: "100dvh", position: "relative" }}
     >
-      {windows.map((win) => (
-        <div
-          key={win.id}
-          className="absolute"
-          style={{
-            left: win.x,
-            top: win.y,
-            transform: `translate(-50%, -50%) scale(${win.scale})`,
-            width: "380px",
-            height: "260px",
-            pointerEvents: "none",
-            zIndex: Math.floor(win.scale * 10),
-          }}
-        >
-          <BrowserWindow />
-        </div>
-      ))}
+      {windows
+        .filter((win) => isFinite(win.x) && isFinite(win.y) && isFinite(win.scale))
+        .map((win) => (
+          <div
+            key={win.id}
+            className="absolute"
+            style={{
+              left: win.x,
+              top: win.y,
+              transform: `translate(-50%, -50%) scale(${win.scale})`,
+              width: "380px",
+              height: "260px",
+              pointerEvents: "none",
+              zIndex: Math.floor(win.scale * 10),
+            }}
+          >
+            <BrowserWindow />
+          </div>
+        ))}
     </div>
   );
 }
