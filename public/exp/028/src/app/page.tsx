@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import BrowserWindow from "@/components/BrowserWindow";
 
 interface WindowState {
   id: number;
   x: number;
   y: number;
   scale: number;
+  initialX: number; // Always the center X
+  initialY: number; // Always the center Y
+  initialScale: number; // Always the starting scale (0.3)
   targetX: number;
   targetY: number;
   targetScale: number;
@@ -72,14 +74,17 @@ export default function Page() {
     // Scale from 0.3 at center to 1.5+ at edges
     const targetScale = 0.3 + (distance / maxDistance) * 1.2;
     
-    // 100x slower duration (10x * 10x) - slightly randomized for natural feel
-    const duration = 1200000 + Math.random() * 400000; // 1200-1600 seconds (20-26.7 minutes)
+    // 5x faster duration - slightly randomized for natural feel
+    const duration = 240000 + Math.random() * 80000; // 240-320 seconds (4-5.3 minutes)
     
     const newWindow: WindowState = {
       id: windowIdRef.current++,
-      x: centerX,
-      y: centerY,
-      scale: 0.3,
+      x: centerX, // Current position (starts at center)
+      y: centerY, // Current position (starts at center)
+      scale: 0.3, // Current scale (starts small)
+      initialX: centerX, // Store the center - never changes
+      initialY: centerY, // Store the center - never changes
+      initialScale: 0.3, // Store starting scale - never changes
       targetX: edgePoint.x,
       targetY: edgePoint.y,
       targetScale,
@@ -106,9 +111,11 @@ export default function Page() {
             // Easing function (ease-out)
             const eased = 1 - Math.pow(1 - newProgress, 3);
             
-            const newX = win.x + (win.targetX - win.x) * eased;
-            const newY = win.y + (win.targetY - win.y) * eased;
-            const newScale = win.scale + (win.targetScale - win.scale) * eased;
+            // Always interpolate from the initial center position, not from current position
+            const newX = win.initialX + (win.targetX - win.initialX) * eased;
+            const newY = win.initialY + (win.targetY - win.initialY) * eased;
+            // Always interpolate from initial scale, not from current scale
+            const newScale = win.initialScale + (win.targetScale - win.initialScale) * eased;
             
             // If window reached its target, mark it for removal
             if (newProgress >= 1) {
@@ -148,11 +155,11 @@ export default function Page() {
   // Create all windows immediately on load
   useEffect(() => {
     const now = Date.now();
-    const totalWindows = 50; // Total number of windows to create
+    const totalWindows = 10; // Total number of windows to create
     const initialWindows: WindowState[] = [];
     
     // Stagger windows slightly for better visual distribution (spread over 2 seconds)
-    const staggerDuration = 2000; // 2 seconds total spread
+    const staggerDuration = 1000; // 2 seconds total spread
     
     for (let i = 0; i < totalWindows; i++) {
       const window = createWindow();
@@ -187,7 +194,15 @@ export default function Page() {
               zIndex: Math.floor(win.scale * 10),
             }}
           >
-            <BrowserWindow />
+            <img
+              src="/Browser%20Window.png"
+              alt="Browser Window"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+              }}
+            />
           </div>
         ))}
     </div>
