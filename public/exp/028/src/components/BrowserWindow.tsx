@@ -1,25 +1,15 @@
 "use client";
 
-type BrowserWindowProps = {
-  isHovered?: boolean;
-};
-
-export default function BrowserWindow({ isHovered = false }: BrowserWindowProps) {
+export default function BrowserWindow() {
   const trafficLightColors = ["#FF5F56", "#FFBD2E", "#27C93F"];
   const dropShadow =
     "0 50px 80px rgba(12, 16, 28, 0.18), 0 18px 40px rgba(15, 17, 23, 0.12)";
-  const baseTransform =
-    "perspective(1000px) rotateX(0deg) rotateY(-20deg) skewY(16deg) rotateZ(0deg)";
 
   return (
     <div
       className="h-full w-full rounded-[20px] border border-[var(--n4)] bg-[var(--n2)]"
       style={{
         boxShadow: dropShadow,
-        transform: isHovered ? "perspective(1000px)" : baseTransform,
-        transition: "transform 300ms ease",
-        transformOrigin: "center",
-        transformStyle: "preserve-3d",
       }}
     >
       <div className="flex h-full flex-col rounded-[20px] p-1">
