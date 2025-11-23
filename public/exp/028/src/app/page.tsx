@@ -74,8 +74,8 @@ export default function Page() {
     // Scale from 0.3 at center to 1.5+ at edges
     const targetScale = 0.3 + (distance / maxDistance) * 1.2;
     
-    // 5x faster duration - slightly randomized for natural feel
-    const duration = 240000 + Math.random() * 80000; // 240-320 seconds (4-5.3 minutes)
+    // Consistent duration for all windows to prevent z-index shifting
+    const duration = 280000; // 280 seconds (~4.7 minutes) - same for all windows
     
     const newWindow: WindowState = {
       id: windowIdRef.current++,
@@ -191,7 +191,7 @@ export default function Page() {
               width: "380px",
               height: "260px",
               pointerEvents: "none",
-              zIndex: Math.floor(win.scale * 10),
+              zIndex: win.id, // Use window ID as consistent z-index
             }}
           >
             <img
