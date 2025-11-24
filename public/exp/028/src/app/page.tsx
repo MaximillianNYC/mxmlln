@@ -21,7 +21,6 @@ interface WindowState {
 
 export default function Page() {
   const [windows, setWindows] = useState<WindowState[]>([]);
-  const [containerOpacity, setContainerOpacity] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   const windowIdRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
@@ -108,21 +107,6 @@ export default function Page() {
     const animate = () => {
       const now = Date.now();
       
-      // Calculate overall animation fade-out after 3 seconds
-      if (animationStartTimeRef.current !== null) {
-        const timeSinceAnimationStart = now - animationStartTimeRef.current;
-        const fadeOutStartTime = 3000; // Start fade out after 3 seconds
-        const fadeOutDuration = 1000; // Fade out over 1 second
-        
-        if (timeSinceAnimationStart > fadeOutStartTime) {
-          const fadeOutProgress = Math.min((timeSinceAnimationStart - fadeOutStartTime) / fadeOutDuration, 1);
-          const newContainerOpacity = 1 - fadeOutProgress; // Fade out from 1 to 0
-          setContainerOpacity(newContainerOpacity);
-        } else {
-          setContainerOpacity(1);
-        }
-      }
-      
       setWindows((prevWindows) => {
         // Update existing windows and remove completed ones
         const updatedWindows = prevWindows
@@ -144,9 +128,29 @@ export default function Page() {
             const newScale = win.initialScale + (safeTargetScale - win.initialScale) * eased;
             
             // Fade in opacity from 0% to 100% in 0.25s once animation begins
-            const fadeDuration = 250; // 0.25 seconds
-            const fadeProgress = elapsed <= 0 ? 0 : Math.min(elapsed / fadeDuration, 1);
-            const newOpacity = fadeProgress;
+            const fadeInDuration = 250; // 0.25 seconds
+            const fadeInProgress = elapsed <= 0 ? 0 : Math.min(elapsed / fadeInDuration, 1);
+            
+            // Fade out opacity from 100% to 0% over 3s with 1s delay
+            const fadeOutDelay = 1000; // 1 second delay after fade-in
+            const fadeOutDuration = 3000; // 3 seconds for fade-out transition
+            const fadeOutStartTime = fadeInDuration + fadeOutDelay; // Start fade-out after delay
+            const fadeOutElapsed = Math.max(0, elapsed - fadeOutStartTime);
+            const fadeOutProgress = Math.min(fadeOutElapsed / fadeOutDuration, 1);
+            const fadeOutOpacity = 1 - fadeOutProgress; // Fade from 1 to 0
+            
+            // Combine: fade in quickly, wait 1s, then fade out over 3s
+            let newOpacity;
+            if (fadeInProgress < 1) {
+              // Still fading in
+              newOpacity = fadeInProgress;
+            } else if (elapsed < fadeOutStartTime) {
+              // Fade in complete, waiting during delay period
+              newOpacity = 1;
+            } else {
+              // Delay complete, now fading out over 3s
+              newOpacity = fadeOutOpacity;
+            }
             
             // If window reached its target, mark it for removal
             if (newProgress >= 1) {
@@ -239,7 +243,7 @@ export default function Page() {
               transform: `translate(-50%, -50%) scale(${win.scale})`,
               width: "380px",
               height: "260px",
-              opacity: win.opacity * containerOpacity, // Apply fade-out only to windows
+              opacity: win.opacity,
               filter: `blur(${blurAmount}px)`,
               pointerEvents: "none",
               zIndex: win.id, // Use window ID as consistent z-index
