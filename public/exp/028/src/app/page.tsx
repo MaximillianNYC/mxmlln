@@ -25,6 +25,8 @@ export default function Page() {
   const windowIdRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
   const animationStartTimeRef = useRef<number | null>(null);
+  const nextCycleTriggeredRef = useRef(false);
+  const lastCycleStartTimeRef = useRef<number | null>(null);
 
   // Generate spiral distribution - windows arranged in a spiral pattern
   const getSpiralEdgePoint = useCallback((spiralIndex: number, totalWindows: number): { x: number; y: number; angle: number } => {
@@ -102,6 +104,28 @@ export default function Page() {
     return newWindow;
   }, [getSpiralEdgePoint]);
 
+  // Function to create a new cycle of windows
+  const createNewCycle = useCallback(() => {
+    const now = Date.now();
+    const totalWindows = 20;
+    const staggerDuration = 2000; // 2 seconds total spread
+    const newWindows: WindowState[] = [];
+    
+    for (let i = 0; i < totalWindows; i++) {
+      const window = createWindow(i, totalWindows);
+      const staggerProgress = i / (totalWindows - 1);
+      window.startTime = now + staggerProgress * staggerDuration;
+      window.id = windowIdRef.current++; // Assign unique sequential ID
+      newWindows.push(window);
+    }
+    setWindows((prevWindows) => [...prevWindows, ...newWindows]);
+    if (animationStartTimeRef.current === null) {
+      animationStartTimeRef.current = now; // Only set initial start time once
+    }
+    lastCycleStartTimeRef.current = now; // Track when this cycle started
+    nextCycleTriggeredRef.current = false; // Reset trigger flag for next cycle
+  }, [createWindow]);
+
   // Animation loop
   useEffect(() => {
     const animate = () => {
@@ -173,6 +197,20 @@ export default function Page() {
           })
           .filter((win): win is WindowState => win !== null);
         
+        // Check if we should trigger the next cycle
+        // Only trigger based on the most recent cycle, not all windows
+        if (lastCycleStartTimeRef.current !== null && !nextCycleTriggeredRef.current) {
+          const timeSinceLastCycle = now - lastCycleStartTimeRef.current;
+          const cycleDuration = 2000 + 4000; // staggerDuration + duration
+          const triggerTime = cycleDuration * 0.35; // Trigger at 35% completion for more overlap
+          
+          if (timeSinceLastCycle >= triggerTime) {
+            nextCycleTriggeredRef.current = true;
+            // Trigger next cycle after state update
+            setTimeout(() => createNewCycle(), 0);
+          }
+        }
+        
         return updatedWindows;
       });
       
@@ -186,34 +224,12 @@ export default function Page() {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, []);
+  }, [createNewCycle]);
 
-  // Create all windows immediately on load
+  // Create initial cycle of windows on load
   useEffect(() => {
-    const now = Date.now();
-    animationStartTimeRef.current = now; // Store animation start time for fade out
-    const totalWindows = 20; // Total number of windows to create (doubled)
-    const initialWindows: WindowState[] = [];
-    
-    // Spiral arrangement: windows further along the spiral start later and have lower z-index
-    const staggerDuration = 2000; // 2 seconds total spread - noticeable spiral effect
-    
-    for (let i = 0; i < totalWindows; i++) {
-      const window = createWindow(i, totalWindows);
-      // Spiral delay: windows further in spiral (higher index) start later
-      // This creates the visual effect of the spiral unwinding from center outward
-      const staggerProgress = i / (totalWindows - 1); // 0 to 1, increases with spiral position
-      window.startTime = now + staggerProgress * staggerDuration;
-      
-      // Z-index: earlier windows in spiral (lower index) appear on top
-      // This makes the spiral appear to unwind from center, with earlier windows above
-      window.id = totalWindows - i; // Higher z-index for earlier windows
-      
-      initialWindows.push(window);
-    }
-    
-    setWindows(initialWindows);
-  }, [createWindow]);
+    createNewCycle();
+  }, [createNewCycle]);
 
   return (
     <div
@@ -246,7 +262,7 @@ export default function Page() {
               opacity: win.opacity,
               filter: `blur(${blurAmount}px)`,
               pointerEvents: "none",
-              zIndex: win.id, // Use window ID as consistent z-index
+              zIndex: Math.round(win.scale * 1000), // Larger windows (closer) have higher z-index
             }}
           >
             <img
