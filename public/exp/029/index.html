@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Full Bleed Background Image</title>
+    <title>SVG Transition Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       html, body {
@@ -31,6 +31,7 @@
       #maskCircle {
         transform-origin: center;
         animation: shrinkCircle 1s ease-in-out forwards;
+        filter: blur(10px);
       }
       
       @keyframes shrinkCircle {
