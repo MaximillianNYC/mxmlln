@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Block</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 670px;
+      margin: 80px auto;
+      padding: 32px 24px;
+      background: rgba(15,23,42,0.89);
+      border-radius: 20px;
+      box-shadow: 0px 6px 48px 0px rgba(0,0,0,0.17);
+      text-align: center;
+    }
+    .headline {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+    .subtext {
+      font-size: 1.12rem;
+      color: #a3bffa;
+      margin-bottom: 30px;
+    }
+    pre {
+      text-align: left;
+      background: #0f172a;
+      border-radius: 14px;
+      padding: 20px 0 20px 0;
+      overflow-x: auto;
+      font-size: 1rem;
+      margin: 0 auto 24px auto;
+      line-height: 1.6;
+      box-shadow: 0 4px 20px 0 rgba(30,41,59,0.13);
+      display: flex;
+    }
+    .code-lines {
+      background: none;
+      user-select: none;
+      color: #64748b;
+      text-align: right;
+      min-width: 2.5em;
+      padding: 0 12px 0 18px;
+      font-family: inherit;
+      font-size: inherit;
+      border-right: 1.5px solid #253050;
+      opacity: 0.61;
+      letter-spacing: 0.01em;
+    }
+    .code-content {
+      padding: 0 16px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .copy-btn {
+      background: transparent;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 8px;
+      font-size: 0.97rem;
+      cursor: pointer;
+      position: absolute;
+      top: 17px;
+      right: 28px;
+      opacity: 0.89;
+      transition: opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+    }
+    .copy-btn:active, .copy-btn:focus {
+      opacity: 1;
+    }
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .clipboard-icon {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .copied-label {
+      margin-left: 0.45em;
+      font-size: 0.96em;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    @media (max-width: 700px) {
+      .container {
+        margin: 32px 0;
+        padding: 18px 4vw;
+      }
+      .code-lines {
+        padding-left: 7px;
+        padding-right: 7px;
+        min-width: 1.6em;
+        font-size: 0.98em;
+      }
+      .code-content {
+        padding: 0 7px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="code-block-wrapper">
+      <button class="copy-btn" id="copyBtn" title="Copy code">
+        <svg class="clipboard-icon" id="clipboard-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:1px;">
+          <rect x="9" y="9" width="13" height="13" rx="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+      </button>
+      <pre>
+        <code class="code-lines" aria-hidden="true" id="apiCodeLines">
+        </code><code class="language-javascript code-content" id="apiCode">
+// Fetch user profile data from the API
+import { getUserProfile } from '@yourapi/client';
+
+async function showUserProfile(userId) {
+  const profile = await getUserProfile(userId);
+  console.log('Name:', profile.name);
+  // ➜ Use the profile object to render UI
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>
+    // Fill in the code lines for line numbers
+    document.addEventListener('DOMContentLoaded', function() {
+      const code = document.getElementById('apiCode');
+      const codeLines = document.getElementById('apiCodeLines');
+      // Get the code as plain text, normalize for cross-browser issues
+      let raw = code.textContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      // Remove trailing newlines for accurate line count
+      raw = raw.replace(/^\s*\n/, '').replace(/\s+$/, '');
+      const lines = raw.split('\n');
+      // Fill the line numbers
+      codeLines.innerHTML = lines.map((_, i) => (i + 1)).join('<br>');
+      // Highlight.js needs to work on the code block after DOM update
+      hljs.highlightElement(code);
+    });
+
+    // Copy code to clipboard handler
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      // Copy without line numbers or formatting (just the raw code)
+      var code = document.getElementById('apiCode').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('copyBtn');
+        // Show Copied! label next to icon
+        let label = document.querySelector('.copied-label');
+        if (!label) {
+          label = document.createElement('span');
+          label.className = 'copied-label';
+          btn.appendChild(label);
+        }
+        label.textContent = "Copied!";
+        // Hide label after delay
+        setTimeout(() => {
+          if (btn.contains(label)) btn.removeChild(label);
+        }, 1400);
+      });
+    });
+  </script>
+</body>
+</html>
