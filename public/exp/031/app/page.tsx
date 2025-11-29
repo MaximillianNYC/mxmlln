@@ -7,7 +7,6 @@ export default function Home() {
       alignItems: 'center',
       justifyContent: 'center',
       minHeight: '100vh',
-      backgroundColor: '#0a0a0a'
     }}>
       <div style={{
         display: 'flex',
@@ -20,6 +19,7 @@ export default function Home() {
           height: '400px',
           borderRadius: '12px',
           overflow: 'hidden',
+          pointerEvents: 'none'
         }}>
           <Spline
             scene="https://prod.spline.design/CevtQn0pvzPcYRxu/scene.splinecode" 
