@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
   <style>
     body {
       margin: 0;
@@ -40,22 +39,27 @@
       display: flex;
       align-items: flex-start;
       overflow-x: scroll;
-      padding: 8px;
+      padding: 8px 0 8px 8px;
       border-radius: 20px;
       border: 1px solid #2A2C2F;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 14px;
-      line-height: 1.6;
-      text-align: left;
+      background: rgba(26, 27, 31, 0.5);
     }
     pre code {
       margin: 0;
       padding: 0;
     }
-    .hljs {
-      margin: 0;
-      padding: 0;
-      background: transparent !important;
+    /* Default: less important code */
+    .code-content {
+      color: #64748B;
+    }
+    /* Important code - marked with .important class */
+    .code-content .important,
+    .code-content span.important {
+      color: #1DCD98;
+    }
+    /* HTTP methods */
+    .code-content .method {
+      color: #35A4B9;
     }
     .code-lines {
       vertical-align: top;
@@ -63,10 +67,11 @@
       background: none;
       padding: 16px 8px 16px 16px;
       font-family: 'IBM Plex Mono', monospace;
-      color: #2A2C2F;
+      color: #334155;
       text-align: right;
       font-size: 14px;
-      line-height: 1.6;
+      font-weight: 400;
+      line-height: 170%;
     }
     .code-content {
       width: 100%;
@@ -78,7 +83,8 @@
       background: transparent !important;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 14px;
-      line-height: 1.6;
+      font-weight: 400;
+      line-height: 170%;
     }
     .copy-btn {
       position: absolute;
@@ -120,17 +126,16 @@
         </button>
         <code class="code-lines" aria-hidden="true" id="apiCodeLines">
         </code>
-        <code class="language-javascript code-content" id="apiCode">curl --request POST \
-  --url https://api.yutori.com/v1/browsing/tasks \
-  --header 'X-API-Key: YOUR_API_KEY' \
+        <code class="code-content" id="apiCode">curl --request <span class="method">POST</span> \
+  --url <span class="important">https://api.yutori.com/v1/browsing/tasks</span> \
+  --header 'X-API-Key: <span class="important">YOUR_API_KEY</span>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "task": "Give me a list of all employees (names and titles) of Yutori.",
-    "start_url": "https://yutori.com"
+    "task": <span class="important">"Give me a list of all employees (names and titles) of Yutori."</span>,
+    "start_url": <span class="important">"https://yutori.com"</span>
   }'</code>
       </pre>
     </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
   <script>
     // Fill in the code lines for line numbers
     document.addEventListener('DOMContentLoaded', function() {
@@ -143,8 +148,7 @@
       const lines = raw.split('\n');
       // Fill the line numbers
       codeLines.innerHTML = lines.map((_, i) => (i + 1)).join('<br>');
-      // Highlight.js needs to work on the code block after DOM update
-      hljs.highlightElement(code);
+      // No highlight.js needed - we're styling manually with spans
     });
 
     // Copy code to clipboard handler
