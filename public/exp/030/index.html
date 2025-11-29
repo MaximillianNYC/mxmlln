@@ -89,7 +89,7 @@
     .code-content .important,
     .code-content span.important {
       color: #64748B;
-      transition: color 0.3s ease-in;
+      transition: color 0.2s ease-in;
     }
     .code-content .important.fade-in,
     .code-content span.important.fade-in {
@@ -98,7 +98,7 @@
     /* HTTP methods */
     .code-content .method {
       color: #64748B;
-      transition: color 0.3s ease-in;
+      transition: color 0.2s ease-in;
     }
     .code-content .method.fade-in {
       color: #35A4B9;
@@ -161,9 +161,9 @@
   <body>
     <div class="code-block-wrapper">
       <div class="code-tabs">
-        <button class="code-tab active" data-tab="0">One</button>
-        <button class="code-tab" data-tab="1">Two</button>
-        <button class="code-tab" data-tab="2">Three</button>
+        <button class="code-tab active" data-tab="0">Example One</button>
+        <button class="code-tab" data-tab="1">Example Two</button>
+        <button class="code-tab" data-tab="2">Example Three</button>
       </div>
       <div class="code-example active" data-example="0">
         <pre>
@@ -317,7 +317,7 @@ data = response.json()</code>
       let wavePosition = 0;
       let frameCount = 0;
       const minScrambles = 3; // Minimum number of character changes before resolving
-      const scrambleInterval = 3; // Change scramble character every N frames
+      const scrambleInterval = 6; // Change scramble character every N frames
       
       const interval = setInterval(() => {
         frameCount++;
